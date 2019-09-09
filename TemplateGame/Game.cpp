@@ -65,7 +65,20 @@ int Game::run()
 
 void Game::render()
 {
-	
+
+	if (_deviceManager->getDevice()->BeginScene())
+	{
+		// Clear back buffer with a color
+		_deviceManager->clearScreen();
+
+		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
+
+		_deviceManager->getSpriteHandler()->End();
+		_deviceManager->getDevice()->EndScene();
+	}
+
+	// Display back buffer content to the screen
+	_deviceManager->present();
 }
 
 void Game::loadResource()

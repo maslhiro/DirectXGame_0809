@@ -10,9 +10,7 @@ public:
 	int initWindow();
 
 	int isFullScreen();
-	int getWidth();
-	int getHeight();
-	int getFrameRate();
+
 	HWND getWnd();
 	HINSTANCE gethInstance();
 protected:
@@ -21,12 +19,7 @@ protected:
 	HWND			_hWnd;
 	int _nCmdShow;
 
-	LPCWSTR			_wcName;
 	int				_isFullScreen;
-
-	int				_width;
-	int				_height;
-	int				_fps;
 
 	static HRESULT CALLBACK winProc(HWND, UINT, WPARAM, LPARAM);
 private:

@@ -18,7 +18,7 @@ int DeviceManager::init(pGraphic _window)
 	ZeroMemory(&l_preParameter, sizeof(l_preParameter));
 
 	l_preParameter.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	l_preParameter.Windowed = IS_FULL_SCREEN;
+	l_preParameter.Windowed = true;
 	l_preParameter.hDeviceWindow = _window->getWnd();
 	l_preParameter.BackBufferFormat = D3DFMT_A8R8G8B8;
 	l_preParameter.BackBufferCount = 1;
