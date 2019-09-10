@@ -9,4 +9,6 @@
 ---- DeviceManager.h : tạo các đối tượng directX như LPD3DXSPRITE, LPDIRECT3DDEVICE9, LPDIRECT3DSURFACE9 . 
 
 ---- Graphic.h : tạo window cho game.
+
+---- Gametime.h : quản lí FPS (Frame per Second) trong game
 ```
