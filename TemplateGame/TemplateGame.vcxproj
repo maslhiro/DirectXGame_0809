@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
@@ -131,6 +132,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="DeviceManager.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Graphic.h" />
   </ItemGroup>

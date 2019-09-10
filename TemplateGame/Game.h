@@ -4,12 +4,14 @@
 #include "DeviceManager.h"
 #include "Graphic.h"
 #include "GameTime.h"
+#include "GameObject.h"
 
 class Game {
-private :
+private:
 	static int isExit;
 	pDeviceManager _deviceManager;
 	pGameTime _gameTime;
+	pTank _tank;
 
 public:
 	static pGraphic _hWindow;
@@ -22,7 +24,7 @@ public:
 	int init();
 	void loadResource();
 	int run();
-	void render();
+	int render();
 	void release();
 	static void exit();
 

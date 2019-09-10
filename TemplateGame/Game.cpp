@@ -1,4 +1,4 @@
-#include "Game.h"
+﻿#include "Game.h"
 
 int Game::isExit = 0;
 pGraphic Game::_hWindow = NULL;
@@ -22,6 +22,7 @@ Game::Game(HINSTANCE hInstance, int nCmdShow)
 	_gameTime = GameTime::getInstance();
 	_deviceManager = DeviceManager::getInstance();
 
+	_tank = new Tank();
 }
 
 int Game::init()
@@ -29,6 +30,7 @@ int Game::init()
 	_hWindow->initWindow();
 	_deviceManager->init(_hWindow);
 	_gameTime->init();
+	_tank->init(_deviceManager);
 
 	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
@@ -39,6 +41,11 @@ int Game::run()
 	MSG msg;
 
 	float tickPerFrame = 1.0f / MAX_FRAME_RATE, delta = 0;
+
+	float fps = 0;
+
+	std::ostringstream _osFPS;
+	_osFPS << "FPS : ";
 
 	while (!isExit)
 	{
@@ -54,15 +61,25 @@ int Game::run()
 
 		delta += _gameTime->getElapsedGameTime();
 
-
-
 		if (delta >= tickPerFrame)
 		{
-			_RPT1(0, "[INFO] Elapsed Time : %f \n", delta);
-			_RPT1(0, "[INFO] Total Time : %f \n", _gameTime->getTotalGameTime());
-			_RPT1(0, "[INFO] FPS : %f \n", 1.0f / delta);
+			fps = 1.0f / delta;
+
+			_osFPS << fps;
+
+			//_RPT1(0, "[INFO] Elapsed Time : %f \n", delta);
+			//_RPT1(0, "[INFO] Total Time : %f \n", _gameTime->getTotalGameTime());		
+			_RPT1(0, "[INFO] FPS : %f \n", fps);
+			SetWindowTextA(_hWindow->getWnd(), _osFPS.str().c_str());
+
+			_tank->update();
+
 			delta = 0;
 			this->render();
+
+			_osFPS.str("");
+			_osFPS.clear();
+			_osFPS << "FPS : ";
 		}
 		else
 		{
@@ -74,8 +91,12 @@ int Game::run()
 	return 1;
 }
 
-void Game::render()
+int Game::render()
 {
+
+	// kiểm tra nếu cửa sổ lost focus thì game không cập nhật
+	if (GetActiveWindow() != _hWindow->getWnd())
+		return 0;
 
 	if (_deviceManager->getDevice()->BeginScene())
 	{
@@ -84,12 +105,16 @@ void Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
+		_tank->draw();
+
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
 	}
 
 	// Display back buffer content to the screen
 	_deviceManager->present();
+
+	return 1;
 }
 
 void Game::loadResource()

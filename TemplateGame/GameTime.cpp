@@ -34,7 +34,7 @@ void GameTime::init()
 	QueryPerformanceCounter(&_timer);
 
 	_lastTicks = _timer.QuadPart;
-	
+
 	_totalGameTime = 0;
 }
 
@@ -42,8 +42,8 @@ void GameTime::updateGameTime()
 {
 	QueryPerformanceCounter(&_timer);
 	_curTicks = _timer.QuadPart;
-	
-	this ->_elapsedGameTime = ((float)(_curTicks - _lastTicks)) / _frequency.QuadPart;
+
+	this->_elapsedGameTime = ((float)(_curTicks - _lastTicks)) / _frequency.QuadPart;
 
 	this->setTotalGameTime(_totalGameTime + _elapsedGameTime);
 

@@ -9,7 +9,7 @@ Graphic::~Graphic()
 }
 
 
-Graphic::Graphic(HINSTANCE hInstance, int nCmdShow,int isFullScreen )
+Graphic::Graphic(HINSTANCE hInstance, int nCmdShow, int isFullScreen)
 {
 
 	this->_hInstance = hInstance;
@@ -58,7 +58,7 @@ int Graphic::initWindow()
 
 	if (this->_hWnd == NULL)
 	{
-		MessageBox(NULL,L"Error", L"Can't not create a Window", NULL);
+		MessageBox(NULL, L"Error", L"Can't not create a Window", NULL);
 		return 0;
 	}
 
@@ -90,7 +90,7 @@ int Graphic::isFullScreen() {
 
 HWND Graphic::getWnd()
 {
-	return _hWnd;
+	return this->_hWnd;
 }
 
 HINSTANCE Graphic::gethInstance()

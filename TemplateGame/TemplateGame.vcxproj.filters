@@ -36,6 +36,9 @@
     <ClCompile Include="GameTime.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -51,7 +54,10 @@
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
     <ClInclude Include="GameTime.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
