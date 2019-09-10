@@ -8,6 +8,10 @@ pGraphic Game::getWindow()
 	return _hWindow;
 }
 
+pGameTime Game::getGameTime() {
+	return _gameTime->getInstance();
+}
+
 Game::Game()
 {
 }
@@ -15,49 +19,56 @@ Game::Game()
 Game::Game(HINSTANCE hInstance, int nCmdShow)
 {
 	_hWindow = new Graphic(hInstance, nCmdShow, 0);
-	_deviceManager = new DeviceManager();
+	_gameTime = GameTime::getInstance();
+	_deviceManager = DeviceManager::getInstance();
+
 }
 
 int Game::init()
 {
 	_hWindow->initWindow();
 	_deviceManager->init(_hWindow);
+	_gameTime->init();
+
+	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
 }
 
-/*
-	Utility function to wrap LPD3DXSPRITE::Draw
-*/
 int Game::run()
 {
 	MSG msg;
-	int done = 0;
-	DWORD frameStart = GetTickCount();
-	DWORD tickPerFrame = 1000 / MAX_FRAME_RATE;
+
+	float tickPerFrame = 1.0f / MAX_FRAME_RATE, delta = 0;
 
 	while (!isExit)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
-			if (msg.message == WM_QUIT) done = 1;
+			if (msg.message == WM_QUIT) isExit = 1;
 
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
 
-		DWORD now = GetTickCount();
+		_gameTime->updateGameTime();
 
-		// dt: the time between (beginning of last frame) and now
-		// this frame: the frame we are about to render
-		DWORD dt = now - frameStart;
+		delta += _gameTime->getElapsedGameTime();
 
-		if (dt >= tickPerFrame)
+
+
+		if (delta >= tickPerFrame)
 		{
-			frameStart = now;
+			_RPT1(0, "[INFO] Elapsed Time : %f \n", delta);
+			_RPT1(0, "[INFO] Total Time : %f \n", _gameTime->getTotalGameTime());
+			_RPT1(0, "[INFO] FPS : %f \n", 1.0f / delta);
+			delta = 0;
 			this->render();
 		}
 		else
-			Sleep(tickPerFrame - dt);
+		{
+			Sleep(tickPerFrame - delta);
+
+		}
 	}
 
 	return 1;
@@ -92,7 +103,7 @@ void Game::exit()
 
 void Game::release()
 {
-	if(_deviceManager!=nullptr) _deviceManager->release();
+	if (_deviceManager != nullptr) _deviceManager->release();
 }
 
 Game::~Game()

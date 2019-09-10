@@ -4,6 +4,11 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
+#include <stdio.h>
+#include <string.h>
+#include <malloc.h>
+#include <crtdbg.h>
+
 #define WINDOW_CLASS_NAME L"Template Game 0809"
 #define MAIN_WINDOW_TITLE L"Template Game"
 
@@ -12,4 +17,4 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
 
-#define MAX_FRAME_RATE 10
+#define MAX_FRAME_RATE 60

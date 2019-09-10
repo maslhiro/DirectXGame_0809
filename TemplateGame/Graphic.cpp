@@ -58,7 +58,7 @@ int Graphic::initWindow()
 
 	if (this->_hWnd == NULL)
 	{
-		MessageBox(NULL,L"Can't not create a Window",L"Error", NULL);
+		MessageBox(NULL,L"Error", L"Can't not create a Window", NULL);
 		return 0;
 	}
 
@@ -80,6 +80,7 @@ HRESULT CALLBACK Graphic::winProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPa
 	default:
 		return DefWindowProc(hWnd, msg, wParam, lParam);
 	}
+	return 0;
 }
 
 
