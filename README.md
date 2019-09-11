@@ -10,5 +10,8 @@
 
 ---- Graphic.h : tạo window cho game.
 
----- Gametime.h : quản lí FPS (Frame per Second) trong game
+---- Gametime.h : quản lí FPS (Frame per Second) trong game.
+
+---- GameObject.h : abstract class  quản lí LPDIRECT3DTEXTURE9, pos của mỗi object trong game.
+
 ```
