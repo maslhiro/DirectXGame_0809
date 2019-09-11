@@ -135,6 +135,14 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Graphic.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="logo.ico" />
+    <Image Include="logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TemplateGame.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

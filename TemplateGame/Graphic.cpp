@@ -29,12 +29,12 @@ int Graphic::initWindow()
 	wc.lpfnWndProc = Graphic::winProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.hIcon = NULL;
+	wc.hIcon = LoadIcon(this->_hInstance, MAKEINTRESOURCE(IDI_ICON1));
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wc.lpszMenuName = NULL;
 	wc.lpszClassName = MAIN_WINDOW_TITLE;
-	wc.hIconSm = NULL;
+	wc.hIconSm = LoadIcon(this->_hInstance, MAKEINTRESOURCE(IDI_ICON1));
 
 	RegisterClassEx(&wc);
 

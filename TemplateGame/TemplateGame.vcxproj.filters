@@ -59,5 +59,21 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="logo.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="logo.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TemplateGame.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
