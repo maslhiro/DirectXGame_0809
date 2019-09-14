@@ -84,7 +84,7 @@ DeviceManager::~DeviceManager(void)
 void DeviceManager::release()
 {
 	delete _instance;
-	_instance = NULL;
+	_instance = nullptr;
 }
 
 void DeviceManager::present()
@@ -95,20 +95,20 @@ void DeviceManager::present()
 
 void DeviceManager::clearScreen()
 {
-	this->_pDevice->ColorFill(_backBuffer, NULL, D3DCOLOR_XRGB(0, 0, 0));
+	this->_pDevice->ColorFill(_backBuffer, NULL, BACKGROUND_COLOR);
 }
 
-LPDIRECT3DDEVICE9 DeviceManager::getDevice()
+DirectDevice DeviceManager::getDevice()
 {
 	return _pDevice;
 }
 
-LPDIRECT3DSURFACE9 DeviceManager::getSurface()
+DirectSurface DeviceManager::getSurface()
 {
 	return _backBuffer;
 }
 
-LPDIRECT3DSURFACE9 DeviceManager::getBackBuffer()
+DirectSurface DeviceManager::getBackBuffer()
 {
 	return _backBuffer;
 }

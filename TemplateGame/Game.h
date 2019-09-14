@@ -5,17 +5,24 @@
 #include "Graphic.h"
 #include "GameTime.h"
 #include "GameObject.h"
+#include "Texture.h"
 
 class Game {
 private:
 	static int isExit;
+
 	pDeviceManager _deviceManager;
 	pGameTime _gameTime;
+	pTexture _texture;
+
 	pTank _tank;
+
 
 public:
 	static pGraphic _hWindow;
 	static pGraphic getWindow();
+
+	pGameTime getGameTime();
 
 	Game();
 	Game(HINSTANCE, int);
@@ -28,7 +35,7 @@ public:
 	void release();
 	static void exit();
 
-	pGameTime getGameTime();
+
 
 };
 

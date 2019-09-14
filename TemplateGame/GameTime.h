@@ -1,12 +1,9 @@
-﻿#ifndef __GAMETIME_H__
-#define __GAMETIME_H__
-
-#include "define.h"
+﻿#include "define.h"
 
 class GameTime
 {
 public:
-	~GameTime(void);
+	~GameTime();
 
 	static void release();
 
@@ -37,9 +34,7 @@ private:
 	float _elapsedGameTime;
 	// Khoảng thời gian giữa 2 lần gọi hàm updateGameTime
 
-	GameTime(void);
+	GameTime();
 
 };
 typedef GameTime* pGameTime;
-
-#endif 

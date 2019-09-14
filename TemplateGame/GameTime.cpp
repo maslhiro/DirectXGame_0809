@@ -20,7 +20,7 @@ GameTime* GameTime::getInstance()
 void GameTime::release()
 {
 	delete _instance;
-	_instance = NULL;
+	_instance = nullptr;
 }
 
 void GameTime::init()

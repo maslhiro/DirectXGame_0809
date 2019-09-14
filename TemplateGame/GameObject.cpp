@@ -9,6 +9,14 @@ GameObject::~GameObject()
 {
 }
 
+int GameObject::getId() {
+	return this->_id;
+}
+
+void GameObject::setId(int id) {
+	this->_id = id;
+}
+
 void GameObject::setPosition(Vec3 pos) {
 	this->_pos = pos;
 }
@@ -33,20 +41,20 @@ int Tank::init(pDeviceManager device) {
 	this->_device = device;
 
 	D3DXIMAGE_INFO _info;
-	HRESULT result = D3DXGetImageInfoFromFile(L"logo.png", &_info);
+	HRESULT result = D3DXGetImageInfoFromFile(L"Resource//logo.png", &_info);
 
 	result = D3DXCreateTextureFromFileEx(
 		this->_device->getDevice(),								// Pointer to Direct3D device object
-		L"logo.png",					// Path to the image to load
-		_info.Width,							// Texture width
-		_info.Height,						// Texture height
+		L"Resource//logo.png",									// Path to the image to load
+		_info.Width,											// Texture width
+		_info.Height,											// Texture height
 		1,
 		D3DUSAGE_DYNAMIC,
 		D3DFMT_UNKNOWN,
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(0, 0, 0),			// Transparent color
+		D3DCOLOR_XRGB(0, 0, 0),									// Transparent color
 		&_info,
 		NULL,
 		&_texture);

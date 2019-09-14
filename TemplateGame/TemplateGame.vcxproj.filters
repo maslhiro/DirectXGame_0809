@@ -19,6 +19,9 @@
     <Filter Include="Source Files\BaseClass">
       <UniqueIdentifier>{d65b3c64-d0fa-4681-bdd0-650ca8aae9c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\BaseClass\Enum">
+      <UniqueIdentifier>{f7b9f85f-071c-4ffc-adf7-38530f74e1a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +42,12 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="IdAnimation.h">
+      <Filter>Header Files\BaseClass\Enum</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -56,20 +65,15 @@
     <ClInclude Include="GameTime.h">
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files\BaseClass</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="logo.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="logo.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TemplateGame.rc">

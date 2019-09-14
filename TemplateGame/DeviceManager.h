@@ -7,9 +7,9 @@ class DeviceManager {
 private:
 	static DeviceManager* _instance;
 	LPDIRECT3D9			_pD3d;
-	LPDIRECT3DDEVICE9	_pDevice;
-	LPDIRECT3DSURFACE9	_backBuffer;
-	LPD3DXSPRITE _spriteHandler;
+	DirectDevice	_pDevice;
+	DirectSurface	_backBuffer;
+	DirectSprite _spriteHandler;
 public:
 	DeviceManager(void);
 	~DeviceManager(void);
@@ -21,10 +21,10 @@ public:
 
 	int init(pGraphic);
 
-	LPD3DXSPRITE getSpriteHandler();
-	LPDIRECT3DDEVICE9 getDevice();
-	LPDIRECT3DSURFACE9 getSurface();
-	LPDIRECT3DSURFACE9	getBackBuffer();
+	DirectSprite getSpriteHandler();
+	DirectDevice getDevice();
+	DirectSurface getSurface();
+	DirectSurface	getBackBuffer();
 };
 
 typedef DeviceManager *pDeviceManager;

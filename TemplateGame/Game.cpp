@@ -16,20 +16,28 @@ Game::Game()
 {
 }
 
+void Game::loadResource()
+{
+	_texture->add(1, L"Resource//Object//STAND_0.png", D3DCOLOR_XRGB(255, 255, 255));
+}
+
 Game::Game(HINSTANCE hInstance, int nCmdShow)
 {
 	_hWindow = new Graphic(hInstance, nCmdShow, 0);
 	_gameTime = GameTime::getInstance();
 	_deviceManager = DeviceManager::getInstance();
+	_texture = Texture::getInstance();
 
 	_tank = new Tank();
 }
 
 int Game::init()
 {
+	_gameTime->init();
 	_hWindow->initWindow();
 	_deviceManager->init(_hWindow);
-	_gameTime->init();
+	_texture->init(_deviceManager);
+
 	_tank->init(_deviceManager);
 
 	_RPT0(0, "[INFO] Init Game done;\n");
@@ -117,10 +125,6 @@ int Game::render()
 	return 1;
 }
 
-void Game::loadResource()
-{
-}
-
 void Game::exit()
 {
 	isExit = 1;
@@ -129,6 +133,8 @@ void Game::exit()
 void Game::release()
 {
 	if (_deviceManager != nullptr) _deviceManager->release();
+	if (_texture != nullptr) _texture->release();
+	if (_gameTime != nullptr) _gameTime->release();
 }
 
 Game::~Game()

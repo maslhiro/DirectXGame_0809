@@ -29,12 +29,12 @@ int Graphic::initWindow()
 	wc.lpfnWndProc = Graphic::winProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.hIcon = LoadIcon(this->_hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	wc.hIcon = LoadIcon(this->_hInstance, MAKEINTRESOURCE(IDI_ICON));
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wc.lpszMenuName = NULL;
 	wc.lpszClassName = MAIN_WINDOW_TITLE;
-	wc.hIconSm = LoadIcon(this->_hInstance, MAKEINTRESOURCE(IDI_ICON1));
+	wc.hIconSm = LoadIcon(this->_hInstance, MAKEINTRESOURCE(IDI_ICON));
 
 	RegisterClassEx(&wc);
 
@@ -43,8 +43,9 @@ int Graphic::initWindow()
 		style = WS_EX_TOPMOST | WS_POPUP;
 	else
 		style = WS_OVERLAPPEDWINDOW;
+
 	this->_hWnd = CreateWindow(
-		MAIN_WINDOW_TITLE,
+		WINDOW_CLASS_NAME,
 		MAIN_WINDOW_TITLE,
 		style,
 		this->_isFullScreen ? 0 : CW_USEDEFAULT,

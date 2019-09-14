@@ -5,10 +5,14 @@
 class GameObject
 {
 protected:
+	int _id;
 	Vec3 _pos;
 	pDeviceManager _device;
-	LPDIRECT3DTEXTURE9 _texture;
+	DirectTexture _texture;
 public:
+
+	int getId();
+	void setId(int);
 
 	void setPosition(Vec3);
 	void setPosition(Vec2);
