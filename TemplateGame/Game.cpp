@@ -91,7 +91,7 @@ int Game::run()
 		}
 		else
 		{
-			Sleep(tickPerFrame - delta);
+			Sleep(int(tickPerFrame - delta));
 
 		}
 	}
