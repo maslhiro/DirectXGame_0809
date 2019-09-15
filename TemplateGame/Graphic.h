@@ -17,9 +17,7 @@ protected:
 
 	HINSTANCE		_hInstance;
 	HWND			_hWnd;
-	int _nCmdShow;
-
-	int				_isFullScreen;
+	int _nCmdShow, _isFullScreen;
 
 	static HRESULT CALLBACK winProc(HWND, UINT, WPARAM, LPARAM);
 private:

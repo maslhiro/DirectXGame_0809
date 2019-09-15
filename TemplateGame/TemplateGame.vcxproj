@@ -125,9 +125,11 @@
     <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTime.cpp" />
-    <ClCompile Include="IdAnimation.h" />
+    <ClCompile Include="EnumID.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
+    <ClCompile Include="RectSprite.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,7 +139,9 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Graphic.h" />
+    <ClInclude Include="RectSprite.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>

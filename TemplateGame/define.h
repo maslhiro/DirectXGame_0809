@@ -12,13 +12,16 @@
 #include <malloc.h>
 #include <crtdbg.h>
 
+#include "RectSprite.h"
+#include "EnumID.h"
+
 #define WINDOW_CLASS_NAME L"Template Game"
 #define MAIN_WINDOW_TITLE L"Template Game"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 255)
 
-#define SCREEN_WIDTH 720	
-#define SCREEN_HEIGHT 576 
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
 
 #define MAX_FRAME_RATE 60
 

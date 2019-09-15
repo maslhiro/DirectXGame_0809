@@ -8,6 +8,7 @@ private:
 	pDeviceManager _device;
 
 	static Texture * _instance;
+
 	std::unordered_map<int, DirectTexture> _listTexture;
 
 public:
@@ -17,7 +18,7 @@ public:
 
 	void release();
 
-	void add(int, LPCWSTR, D3DCOLOR);
+	void add(eIdTexture, LPCWSTR, D3DCOLOR);
 
 	DirectTexture get(unsigned int);
 

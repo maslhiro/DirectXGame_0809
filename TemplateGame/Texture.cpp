@@ -17,7 +17,7 @@ void Texture::init(pDeviceManager device) {
 	this->_device = device;
 }
 
-void Texture::add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
+void Texture::add(eIdTexture eId, LPCWSTR filePath, D3DCOLOR transparentColor)
 {
 	D3DXIMAGE_INFO info;
 	HRESULT result = D3DXGetImageInfoFromFile(filePath, &info);
@@ -42,10 +42,10 @@ void Texture::add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		transparentColor,                  // màu nền của ảnh
+		transparentColor,					// màu nền của ảnh
 		&info,
 		NULL,
-		&texture);								// Created texture pointer
+		&texture);							// Created texture pointer
 
 	if (result != D3D_OK)
 	{
@@ -53,13 +53,13 @@ void Texture::add(int id, LPCWSTR filePath, D3DCOLOR transparentColor)
 		return;
 	}
 
-	_listTexture[id] = texture;
-	_RPT1(0, "[INFO] Texture loaded Ok : id = %d, %s \n", id, filePath);
+	_listTexture[eId] = texture;
+	_RPT1(0, "[INFO] Texture loaded Ok : id = %d \n", eId);
 }
 
-LPDIRECT3DTEXTURE9 Texture::get(unsigned int i)
+LPDIRECT3DTEXTURE9 Texture::get(unsigned int eId)
 {
-	return _listTexture[i];
+	return _listTexture[eId];
 }
 
 void Texture::release()

@@ -18,7 +18,9 @@ Game::Game()
 
 void Game::loadResource()
 {
-	_texture->add(1, L"Resource//Object//STAND_0.png", D3DCOLOR_XRGB(255, 255, 255));
+	//_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(16, 216, 128));
+	_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(255, 255, 255));
+	_sprite->add(eIdTexture::TANK, "Resource//Object//Tank_Animation.txt");
 }
 
 Game::Game(HINSTANCE hInstance, int nCmdShow)
@@ -27,8 +29,8 @@ Game::Game(HINSTANCE hInstance, int nCmdShow)
 	_gameTime = GameTime::getInstance();
 	_deviceManager = DeviceManager::getInstance();
 	_texture = Texture::getInstance();
+	_sprite = Sprite::getInstance();
 
-	_tank = new Tank();
 }
 
 int Game::init()
@@ -37,8 +39,6 @@ int Game::init()
 	_hWindow->initWindow();
 	_deviceManager->init(_hWindow);
 	_texture->init(_deviceManager);
-
-	_tank->init(_deviceManager);
 
 	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
@@ -77,14 +77,14 @@ int Game::run()
 
 			//_RPT1(0, "[INFO] Elapsed Time : %f \n", delta);
 			//_RPT1(0, "[INFO] Total Time : %f \n", _gameTime->getTotalGameTime());		
-			_RPT1(0, "[INFO] FPS : %f \n", fps);
+			//_RPT1(0, "[INFO] FPS : %f \n", fps);
 			SetWindowTextA(_hWindow->getWnd(), _osFPS.str().c_str());
 
-			_tank->update();
+			this->update(delta);
 
-			delta = 0;
 			this->render();
 
+			delta = 0;
 			_osFPS.str("");
 			_osFPS.clear();
 			_osFPS << "FPS : ";
@@ -101,7 +101,6 @@ int Game::run()
 
 int Game::render()
 {
-
 	// kiểm tra nếu cửa sổ lost focus thì game không cập nhật
 	if (GetActiveWindow() != _hWindow->getWnd())
 		return 0;
@@ -113,7 +112,27 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
-		_tank->draw();
+		RECT r1 = _sprite->get(eIdSprite::TANK_EXPLODING_01).getRECT();
+		RECT r2 = _sprite->get(eIdSprite::TANK_EXPLODING_02).getRECT();
+		RECT r3 = _sprite->get(eIdSprite::TANK_EXPLODING_03).getRECT();
+
+		_deviceManager->getSpriteHandler()->Draw(
+			_texture->get(_sprite->get(eIdSprite::TANK_EXPLODING_01).getIdTexture()),
+			&r1, NULL,
+			new Vec3(100, 100, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+
+		_deviceManager->getSpriteHandler()->Draw(
+			_texture->get(_sprite->get(eIdSprite::TANK_EXPLODING_02).getIdTexture()),
+			&r2, NULL,
+			new Vec3(200, 100, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
+
+		_deviceManager->getSpriteHandler()->Draw(
+			_texture->get(_sprite->get(eIdSprite::TANK_EXPLODING_03).getIdTexture()),
+			&r3, NULL,
+			new Vec3(300, 100, 0),
+			D3DCOLOR_XRGB(255, 255, 255));
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -122,6 +141,12 @@ int Game::render()
 	// Display back buffer content to the screen
 	_deviceManager->present();
 
+	return 1;
+}
+
+int Game::update(float) {
+
+	//_tank->update();
 	return 1;
 }
 

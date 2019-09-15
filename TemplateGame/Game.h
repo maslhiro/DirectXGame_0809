@@ -6,6 +6,7 @@
 #include "GameTime.h"
 #include "GameObject.h"
 #include "Texture.h"
+#include "Sprite.h"
 
 class Game {
 private:
@@ -14,9 +15,7 @@ private:
 	pDeviceManager _deviceManager;
 	pGameTime _gameTime;
 	pTexture _texture;
-
-	pTank _tank;
-
+	pSprite _sprite;
 
 public:
 	static pGraphic _hWindow;
@@ -30,8 +29,11 @@ public:
 
 	int init();
 	void loadResource();
+
 	int run();
 	int render();
+	int update(float);
+
 	void release();
 	static void exit();
 

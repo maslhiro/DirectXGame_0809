@@ -6,14 +6,20 @@
 
 ---- Game.h : init , tạo vòng lặp cho game
 
----- DeviceManager.h : (Singleton) tạo các đối tượng directX như LPD3DXSPRITE, LPDIRECT3DDEVICE9, LPDIRECT3DSURFACE9 . 
+---- DeviceManager.h : (Singleton) tạo các đối tượng directX như DXSPRITE, DEVICE9, SURFACE9.
 
 ---- Graphic.h : tạo window cho game.
 
 ---- Gametime.h : (Singleton) quản lí FPS (Frame per Second), tính tổng thời gian trong game.
 
----- GameObject.h : abstract class  quản lí LPDIRECT3DTEXTURE9, pos của mỗi object trong game.
+---- Texture.h : (Singleton) load các ảnh resource chuyển thành các texture directx
 
----- Texture.h : (Singleton) load list resource sprite ( image ) chuyển thành DirectXTexture để các ObjGame cắt texture này làm sprite, không phải load nhiều ảnh để tạo texture cho từng ObjGame riêng.
+để các sprite cắt texture này làm sprite,không phải load nhiều ảnh.
+
+---- Sprite.h: (Singleton) load các file txt tọa độ sprite đi kèm với các ảnh resource sau đó
+
+ map thành 1 hash, riêng tọa độ các ảnh sẽ được lưu thành 1 RectSprite chưa thêm thông tin 
+
+về base texture nó được cắt.
 
 ```

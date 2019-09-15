@@ -2,11 +2,11 @@
 
 GameTime* GameTime::_instance = nullptr;
 
-GameTime::GameTime(void)
+GameTime::GameTime()
 {
 }
 
-GameTime::~GameTime(void)
+GameTime::~GameTime()
 {
 }
 

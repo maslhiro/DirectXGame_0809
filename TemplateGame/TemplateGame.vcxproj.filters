@@ -45,8 +45,14 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
-    <ClCompile Include="IdAnimation.h">
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="EnumID.h">
       <Filter>Header Files\BaseClass\Enum</Filter>
+    </ClCompile>
+    <ClCompile Include="RectSprite.cpp">
+      <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +78,12 @@
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
+      <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="RectSprite.h">
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
   </ItemGroup>
