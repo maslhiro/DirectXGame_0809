@@ -11,8 +11,8 @@ private:
 	DirectSurface	_backBuffer;
 	DirectSprite _spriteHandler;
 public:
-	DeviceManager(void);
-	~DeviceManager(void);
+	DeviceManager();
+	~DeviceManager();
 
 	static DeviceManager* getInstance();
 	static void release();

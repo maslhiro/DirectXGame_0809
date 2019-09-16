@@ -13,11 +13,9 @@ public:
 
 	Sprite();
 
-	void init();
-
 	int add(eIdTexture, const char*);
 
-	RectSprite get(eIdSprite);
+	RectSprite get(int);
 
 	static Sprite * getInstance();
 };

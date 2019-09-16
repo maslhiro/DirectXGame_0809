@@ -1,5 +1,4 @@
 
-
 enum eIdTexture
 {
 	TANK = 1,

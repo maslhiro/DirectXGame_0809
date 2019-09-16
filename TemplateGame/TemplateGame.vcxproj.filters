@@ -19,7 +19,7 @@
     <Filter Include="Source Files\BaseClass">
       <UniqueIdentifier>{d65b3c64-d0fa-4681-bdd0-650ca8aae9c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\BaseClass\Enum">
+    <Filter Include="Header Files\Enum">
       <UniqueIdentifier>{f7b9f85f-071c-4ffc-adf7-38530f74e1a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -49,9 +49,15 @@
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
     <ClCompile Include="EnumID.h">
-      <Filter>Header Files\BaseClass\Enum</Filter>
+      <Filter>Header Files\Enum</Filter>
     </ClCompile>
     <ClCompile Include="RectSprite.cpp">
+      <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationManager.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
   </ItemGroup>
@@ -84,6 +90,12 @@
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
     <ClInclude Include="RectSprite.h">
+      <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationManager.h">
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
   </ItemGroup>

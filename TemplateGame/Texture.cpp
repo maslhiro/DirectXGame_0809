@@ -13,8 +13,8 @@ Texture *Texture::getInstance()
 	return _instance;
 }
 
-void Texture::init(pDeviceManager device) {
-	this->_device = device;
+void Texture::init() {
+	this->_device = DeviceManager::getInstance();
 }
 
 void Texture::add(eIdTexture eId, LPCWSTR filePath, D3DCOLOR transparentColor)

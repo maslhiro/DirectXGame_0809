@@ -6,9 +6,6 @@ Sprite::Sprite()
 {
 }
 
-void Sprite::init() {
-
-}
 
 Sprite* Sprite::getInstance()
 {
@@ -26,6 +23,7 @@ int Sprite::add(eIdTexture idTexture, const char* fileInfoPath) {
 
 	RectSprite rect;
 	int idSprite;
+
 	while (!feof(file))
 	{
 		fscanf_s(file, "%d %d %d %d %d", &idSprite, &rect.left, &rect.top, &rect.right, &rect.bottom);
@@ -38,11 +36,11 @@ int Sprite::add(eIdTexture idTexture, const char* fileInfoPath) {
 	}
 	fclose(file);
 
-	_RPT0(0, "[INFO] Load List Rect Done\n");
+	//_RPT0(0, "[INFO] Load List Rect Done\n");
 	return 1;
 }
 
-RectSprite Sprite::get(eIdSprite idSprite)
+RectSprite Sprite::get(int idSprite)
 {
 	return _listSprite[idSprite];
 }

@@ -21,6 +21,12 @@ void Game::loadResource()
 	//_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(16, 216, 128));
 	_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(255, 255, 255));
 	_sprite->add(eIdTexture::TANK, "Resource//Object//Tank_Animation.txt");
+
+	_animation.setTimePerFrame(0.5f);
+	_animation.addSprite(eIdSprite::TANK_EXPLODING_01);
+	_animation.addSprite(eIdSprite::TANK_EXPLODING_02);
+	_animation.addSprite(eIdSprite::TANK_EXPLODING_03);
+
 }
 
 Game::Game(HINSTANCE hInstance, int nCmdShow)
@@ -38,7 +44,7 @@ int Game::init()
 	_gameTime->init();
 	_hWindow->initWindow();
 	_deviceManager->init(_hWindow);
-	_texture->init(_deviceManager);
+	_texture->init();
 
 	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
@@ -112,27 +118,33 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
-		RECT r1 = _sprite->get(eIdSprite::TANK_EXPLODING_01).getRECT();
-		RECT r2 = _sprite->get(eIdSprite::TANK_EXPLODING_02).getRECT();
-		RECT r3 = _sprite->get(eIdSprite::TANK_EXPLODING_03).getRECT();
+		_animation.render(_deviceManager, _texture, _sprite);
 
-		_deviceManager->getSpriteHandler()->Draw(
-			_texture->get(_sprite->get(eIdSprite::TANK_EXPLODING_01).getIdTexture()),
-			&r1, NULL,
-			new Vec3(100, 100, 0),
-			D3DCOLOR_XRGB(255, 255, 255));
+		//int id1 = _animation.getSprite(0);
+		//int id2 = _animation.getSprite(1);
+		//int id3 = _animation.getSprite(2);
 
-		_deviceManager->getSpriteHandler()->Draw(
-			_texture->get(_sprite->get(eIdSprite::TANK_EXPLODING_02).getIdTexture()),
-			&r2, NULL,
-			new Vec3(200, 100, 0),
-			D3DCOLOR_XRGB(255, 255, 255));
+		//RECT r1 = _sprite->get(id1).getRECT();
+		//RECT r2 = _sprite->get(id2).getRECT();
+		//RECT r3 = _sprite->get(id3).getRECT();
 
-		_deviceManager->getSpriteHandler()->Draw(
-			_texture->get(_sprite->get(eIdSprite::TANK_EXPLODING_03).getIdTexture()),
-			&r3, NULL,
-			new Vec3(300, 100, 0),
-			D3DCOLOR_XRGB(255, 255, 255));
+		//_deviceManager->getSpriteHandler()->Draw(
+		//	_texture->get(_sprite->get(id1).getIdTexture()),
+		//	&r1, NULL,
+		//	new Vec3(100, 100, 0),
+		//	D3DCOLOR_XRGB(255, 255, 255));
+
+		//_deviceManager->getSpriteHandler()->Draw(
+		//	_texture->get(_sprite->get(id2).getIdTexture()),
+		//	&r2, NULL,
+		//	new Vec3(200, 100, 0),
+		//	D3DCOLOR_XRGB(255, 255, 255));
+
+		//_deviceManager->getSpriteHandler()->Draw(
+		//	_texture->get(_sprite->get(id3).getIdTexture()),
+		//	&r3, NULL,
+		//	new Vec3(300, 100, 0),
+		//	D3DCOLOR_XRGB(255, 255, 255));
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -144,9 +156,9 @@ int Game::render()
 	return 1;
 }
 
-int Game::update(float) {
+int Game::update(float dt) {
 
-	//_tank->update();
+	_animation.update(dt);
 	return 1;
 }
 

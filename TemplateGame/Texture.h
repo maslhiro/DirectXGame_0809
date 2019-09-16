@@ -14,7 +14,7 @@ private:
 public:
 	Texture();
 
-	void init(pDeviceManager);
+	void init();
 
 	void release();
 
