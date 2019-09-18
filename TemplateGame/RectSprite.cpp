@@ -73,5 +73,10 @@ D3DXVECTOR3 RectSprite::fixPosRECT(RectSprite nextRect)
 
 int RectSprite::getHeight()
 {
-	return bottom - top;
+	return(int)abs(bottom - top);
+}
+
+int RectSprite::getWidth()
+{
+	return (int)abs(right - left);
 }

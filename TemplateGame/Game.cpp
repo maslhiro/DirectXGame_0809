@@ -5,6 +5,8 @@ pGraphic Game::_hWindow = NULL;
 
 Animation tankAnimation;
 
+Animation tankAnimation2;
+
 pGraphic Game::getWindow()
 {
 	return _hWindow;
@@ -26,7 +28,11 @@ void Game::loadResource()
 
 	_animationManager->loadAnimation();
 
-	tankAnimation = _animationManager->get(eIdAnimation::TANK_EXPLODING);
+	tankAnimation = _animationManager->get(eIdAnimation::TANK_RUNNING);
+	tankAnimation.setPosition(Vec3(0, 0, 0));
+
+	tankAnimation2 = _animationManager->get(eIdAnimation::TANK_EXPLODING);
+	//tankAnimation2.setPosition(Vec3(0, 100, 0));
 }
 
 Game::Game(HINSTANCE hInstance, int nCmdShow)
@@ -120,6 +126,7 @@ int Game::render()
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
 		tankAnimation.render(_deviceManager, _texture);
+		tankAnimation2.render(_deviceManager, _texture);
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -134,6 +141,7 @@ int Game::render()
 int Game::update(float dt) {
 
 	tankAnimation.update(dt);
+	tankAnimation2.update(dt);
 	return 1;
 }
 

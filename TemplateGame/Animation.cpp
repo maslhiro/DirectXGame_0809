@@ -6,6 +6,7 @@ Animation::Animation()
 	this->_currentFrame = 0;
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
+	this->_scale = 1;
 }
 
 Animation::Animation(float timePerFrame)
@@ -14,6 +15,7 @@ Animation::Animation(float timePerFrame)
 	this->_currentFrame = 0;
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
+	this->_scale = 1;
 }
 
 Animation::~Animation()
@@ -30,6 +32,10 @@ void Animation::setPosition(Vec3 pos)
 	this->_position = pos;
 }
 
+void Animation::setScale(float scale)
+{
+	this->_scale = scale;
+}
 
 void Animation::init(float timePerFrame)
 {
@@ -37,11 +43,18 @@ void Animation::init(float timePerFrame)
 	this->_timePerFrame = timePerFrame;
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
+	this->_scale = 1;
 }
 
 void Animation::addSprite(eIdSprite id) {
 
 	_listSpriteId.push_back(id);
+
+	RectSprite currentRect = _sprite->get(id);
+	Vec3 _origin = Vec3(currentRect.getWidth() / 2, currentRect.getHeight() / 2, 0);
+
+	_listOrigin.push_back(_origin);
+
 
 	// Check co phai sprite dau tien ko ?
 	// Neu dung thi fixPosVec = (0,0,0)
@@ -49,7 +62,6 @@ void Animation::addSprite(eIdSprite id) {
 
 		// Check sprite hien tai voi sprite dau tien
 		RectSprite firstRect = _sprite->get(_listSpriteId[0]);
-		RectSprite currentRect = _sprite->get(id);
 
 		// Check height cua sprite co thay doi ko ?
 		// Tra ve Vector3(0,0,0) nếu ko cần fix
@@ -101,13 +113,36 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	RectSprite rect = _sprite->get(eIdSprite);
 	RECT r = rect.getRECT();
 
+	// Fix pos
 	Vec3 _newPos = _position;
 	_newPos += _fixPosVec[_currentFrame];
+
+	//Scale Sprite
+	if (_scale > 1) {
+
+		D3DXMATRIX matFinal;
+		D3DXMATRIX matTransformed;
+		D3DXMATRIX matOld;
+		Vec2 _pos2D = Vec2(_newPos.x, _newPos.y);
+		//// get matrix texture
+		//device->getSpriteHandler()->GetTransform(&matOld);
+
+		//D3DXMatrixTransformation2D(
+		//	&matTransformed,						// ma tran ket qua sau transform
+		//	&_pos2D,								// goc toa do / diem neo
+		//	0.0f,
+		//	_scale,									// ti le scale
+		//	&_pos2D,									// goc toa do / diem neo
+		//	D3DXToRadian(rotate),					// góc xoay theo radian
+		//	0										// vi trí
+		//);
+
+	}
 
 	device->getSpriteHandler()->Draw(
 		texture->get(rect.getIdTexture()),
 		&r,
-		NULL,
+		&_listOrigin[_currentFrame],
 		&_newPos,
 		D3DCOLOR_XRGB(255, 255, 255));
 

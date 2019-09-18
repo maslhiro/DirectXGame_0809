@@ -17,6 +17,7 @@ public:
 	void release();
 
 	int getHeight();
+	int getWidth();
 
 	RectSprite(int, int, int, int);
 	RectSprite(RECT);

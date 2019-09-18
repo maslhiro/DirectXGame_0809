@@ -23,7 +23,9 @@
 về base texture nó được cắt.
 
 ---- Animation.h : lưu lại vector<idSprite> và timePerFrame của animation, RectSprite sẽ được
-chuyển thành texture được render và update theo timePerFrame. 
+chuyển thành texture được render và update theo timePerFrame. Đã update anchor ( điểm neo )
+để render vị trí giữa sprite , nếu để NULL => mặc định anchor tọa độ là  top, left :(
+
 
 ---- AnimationManager.h : (Singleton) quản lí tất cả các animation, tương tự như Sprite 
 có thể get và add Animation theo Id

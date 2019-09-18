@@ -18,9 +18,14 @@ private:
 	// Vi tri vẽ sprite lên màn hình
 	Vec3 _position;
 
+	// scale sprite
+	float _scale;
+
 	std::vector<int> _listSpriteId;
 	// Fix pos cho từng frame , khi add 1 sprite mới sẽ tự fix pos frame đó với 
 	std::vector<Vec3> _fixPosVec;
+
+	std::vector<Vec3> _listOrigin;
 
 public:
 	Animation();
@@ -30,6 +35,7 @@ public:
 	void setTimePerFrame(float);
 
 	void setPosition(Vec3);
+	void setScale(float);
 
 	void init(float);
 
