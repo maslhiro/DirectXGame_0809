@@ -29,3 +29,4 @@ chuyển thành texture được render và update theo timePerFrame.
 có thể get và add Animation theo Id
 
 ```
+![giphy](https://user-images.githubusercontent.com/26876671/65139897-a0f55580-da37-11e9-991b-45f955eb8be2.gif)
