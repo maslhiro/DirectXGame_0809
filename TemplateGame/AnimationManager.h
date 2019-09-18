@@ -8,21 +8,15 @@ class AnimationManager
 public:
 	AnimationManager();
 
-	void init();
+	void loadAnimation();
+
 	static AnimationManager* getInstance();
 
 	void add(eIdAnimation, Animation);
 	Animation get(int);
 
-	int draw(int);
-
 private:
 	static AnimationManager* _instance;
-
-	pTexture _texture;
-	pSprite _sprite;
-	pDeviceManager _device;
-
 
 	std::unordered_map<int, Animation> _listAnimation;
 };

@@ -59,7 +59,7 @@ void Animation::addSprite(eIdSprite id) {
 		int heigthCurrent = currentRect.getHeight();
 
 		if (heigthFirst != heigthCurrent) {
-			float posY = heigthFirst - heigthCurrent;
+			float posY = (float)(heigthFirst - heigthCurrent);
 			_fixPosVec.push_back(Vec3(0, posY, 0));
 		}
 		else
@@ -92,13 +92,13 @@ std::vector<int> Animation::getListSprite() {
 	return this->_listSpriteId;
 }
 
-int Animation::render(pDeviceManager device, pTexture texture, pSprite sprite) {
+int Animation::render(pDeviceManager device, pTexture texture) {
 
 	if (_timePerFrame <= 0) return 0;
 
 	int eIdSprite = _listSpriteId[_currentFrame];
 
-	RectSprite rect = sprite->get(eIdSprite);
+	RectSprite rect = _sprite->get(eIdSprite);
 	RECT r = rect.getRECT();
 
 	Vec3 _newPos = _position;

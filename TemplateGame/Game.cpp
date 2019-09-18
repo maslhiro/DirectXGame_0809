@@ -3,6 +3,8 @@
 int Game::isExit = 0;
 pGraphic Game::_hWindow = NULL;
 
+Animation tankAnimation;
+
 pGraphic Game::getWindow()
 {
 	return _hWindow;
@@ -18,15 +20,13 @@ Game::Game()
 
 void Game::loadResource()
 {
-	_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(16, 216, 128));
-	//_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(255, 255, 255));
+	//_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(16, 216, 128));
+	_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(255, 255, 255));
 	_sprite->add(eIdTexture::TANK, "Resource//Object//Tank_Animation.txt");
 
-	_animation.setTimePerFrame(1.0f);
-	_animation.addSprite(eIdSprite::TANK_EXPLODING_01);
-	_animation.addSprite(eIdSprite::TANK_EXPLODING_02);
-	_animation.addSprite(eIdSprite::TANK_EXPLODING_03);
+	_animationManager->loadAnimation();
 
+	tankAnimation = _animationManager->get(eIdAnimation::TANK_EXPLODING);
 }
 
 Game::Game(HINSTANCE hInstance, int nCmdShow)
@@ -36,6 +36,7 @@ Game::Game(HINSTANCE hInstance, int nCmdShow)
 	_deviceManager = DeviceManager::getInstance();
 	_texture = Texture::getInstance();
 	_sprite = Sprite::getInstance();
+	_animationManager = AnimationManager::getInstance();
 
 }
 
@@ -118,7 +119,7 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
-		_animation.render(_deviceManager, _texture, _sprite);
+		tankAnimation.render(_deviceManager, _texture);
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -132,7 +133,7 @@ int Game::render()
 
 int Game::update(float dt) {
 
-	_animation.update(dt);
+	tankAnimation.update(dt);
 	return 1;
 }
 
@@ -144,8 +145,10 @@ void Game::exit()
 void Game::release()
 {
 	if (_deviceManager != nullptr) _deviceManager->release();
+	if (_gameTime != nullptr) _gameTime->release();
 	if (_texture != nullptr) _texture->release();
 	if (_gameTime != nullptr) _gameTime->release();
+
 }
 
 Game::~Game()

@@ -6,10 +6,15 @@ AnimationManager::AnimationManager()
 {
 }
 
-void AnimationManager::init() {
-	this->_texture = Texture::getInstance();
-	this->_sprite = Sprite::getInstance();
-	this->_device = DeviceManager::getInstance();
+void AnimationManager::loadAnimation() {
+	Animation _tank;
+	_tank.setTimePerFrame(1.0f);
+	_tank.addSprite(eIdSprite::TANK_EXPLODING_01);
+	_tank.addSprite(eIdSprite::TANK_EXPLODING_02);
+	_tank.addSprite(eIdSprite::TANK_EXPLODING_03);
+
+	_listAnimation[eIdAnimation::TANK_EXPLODING] = _tank;
+
 }
 
 pAnimationManager AnimationManager::getInstance() {
@@ -27,19 +32,4 @@ void AnimationManager::add(eIdAnimation id, Animation animation)
 Animation AnimationManager::get(int id)
 {
 	return this->_listAnimation[id];
-}
-
-int AnimationManager::draw(int id)
-{
-	//int idAnimation = id;
-
-	//Animation _animation = this->get(id);
-
-	//_animation.getListSprite();
-
-	//_device->getSpriteHandler()->Draw(
-
-	//)
-
-	return 1;
 }

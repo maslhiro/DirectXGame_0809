@@ -7,7 +7,7 @@
 #include "GameObject.h"
 #include "Texture.h"
 #include "Sprite.h"
-#include "Animation.h"
+#include "AnimationManager.h"
 
 class Game {
 private:
@@ -17,7 +17,7 @@ private:
 	pGameTime _gameTime;
 	pTexture _texture;
 	pSprite _sprite;
-	Animation _animation;
+	pAnimationManager _animationManager;
 
 public:
 	static pGraphic _hWindow;

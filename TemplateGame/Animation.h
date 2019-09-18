@@ -37,7 +37,7 @@ public:
 
 	int getSprite(int);
 	void addSprite(eIdSprite);
-	int render(pDeviceManager, pTexture, pSprite);
+	int render(pDeviceManager, pTexture);
 	int update(float);
 
 	std::vector<int> getListSprite();
