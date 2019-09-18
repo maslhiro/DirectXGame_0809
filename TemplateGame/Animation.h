@@ -19,7 +19,7 @@ private:
 	Vec3 _position;
 
 	// scale sprite
-	float _scale;
+	Vec2 _scale;
 
 	std::vector<int> _listSpriteId;
 	// Fix pos cho từng frame , khi add 1 sprite mới sẽ tự fix pos frame đó với 
@@ -35,7 +35,7 @@ public:
 	void setTimePerFrame(float);
 
 	void setPosition(Vec3);
-	void setScale(float);
+	void setScale(Vec2);
 
 	void init(float);
 

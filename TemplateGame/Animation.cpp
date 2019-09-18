@@ -6,7 +6,7 @@ Animation::Animation()
 	this->_currentFrame = 0;
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
-	this->_scale = 1;
+	this->_scale = Vec2(1, 1);
 }
 
 Animation::Animation(float timePerFrame)
@@ -15,7 +15,7 @@ Animation::Animation(float timePerFrame)
 	this->_currentFrame = 0;
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
-	this->_scale = 1;
+	this->_scale = Vec2(1, 1);
 }
 
 Animation::~Animation()
@@ -32,7 +32,7 @@ void Animation::setPosition(Vec3 pos)
 	this->_position = pos;
 }
 
-void Animation::setScale(float scale)
+void Animation::setScale(Vec2 scale)
 {
 	this->_scale = scale;
 }
@@ -43,7 +43,7 @@ void Animation::init(float timePerFrame)
 	this->_timePerFrame = timePerFrame;
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
-	this->_scale = 1;
+	this->_scale = Vec2(1, 1);
 }
 
 void Animation::addSprite(eIdSprite id) {
@@ -67,8 +67,8 @@ void Animation::addSprite(eIdSprite id) {
 		// Tra ve Vector3(0,0,0) nếu ko cần fix
 		// Nguoc lại se tra ve Vector3(0,Y,0) , Y de + pos hien tai
 
-		int heigthFirst = firstRect.getHeight();
-		int heigthCurrent = currentRect.getHeight();
+		int heigthFirst = (int)firstRect.getHeight();
+		int heigthCurrent = (int)currentRect.getHeight();
 
 		if (heigthFirst != heigthCurrent) {
 			float posY = (float)(heigthFirst - heigthCurrent);
@@ -118,26 +118,29 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	_newPos += _fixPosVec[_currentFrame];
 
 	//Scale Sprite
-	if (_scale > 1) {
+	D3DXMATRIX matFinal;
+	D3DXMATRIX matTransformed;
+	D3DXMATRIX matOld;
+	Vec2 _pos2D = Vec2(_newPos.x, _newPos.y);
 
-		D3DXMATRIX matFinal;
-		D3DXMATRIX matTransformed;
-		D3DXMATRIX matOld;
-		Vec2 _pos2D = Vec2(_newPos.x, _newPos.y);
-		//// get matrix texture
-		//device->getSpriteHandler()->GetTransform(&matOld);
+	// get matrix texture
+	device->getSpriteHandler()->GetTransform(&matOld);
 
-		//D3DXMatrixTransformation2D(
-		//	&matTransformed,						// ma tran ket qua sau transform
-		//	&_pos2D,								// goc toa do / diem neo
-		//	0.0f,
-		//	_scale,									// ti le scale
-		//	&_pos2D,									// goc toa do / diem neo
-		//	D3DXToRadian(rotate),					// góc xoay theo radian
-		//	0										// vi trí
-		//);
+	D3DXMatrixTransformation2D(
+		&matTransformed,						// ma tran ket qua sau transform
+		&_pos2D,								// goc toa do / diem neo
+		0.0f,
+		&_scale,									// ti le scale
+		&_pos2D,									// goc toa do / diem neo
+		0,					// góc xoay theo radian
+		0										// vi trí
+	);
 
-	}
+	matFinal = matTransformed * matOld;
+
+	//set matrix transformed
+	device->getSpriteHandler()->SetTransform(&matFinal);
+
 
 	device->getSpriteHandler()->Draw(
 		texture->get(rect.getIdTexture()),
@@ -145,6 +148,9 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		&_listOrigin[_currentFrame],
 		&_newPos,
 		D3DCOLOR_XRGB(255, 255, 255));
+
+	// Set lại old matrix texture
+	device->getSpriteHandler()->SetTransform(&matOld);
 
 	return 1;
 }

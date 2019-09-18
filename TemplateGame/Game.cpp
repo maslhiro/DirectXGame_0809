@@ -29,10 +29,12 @@ void Game::loadResource()
 	_animationManager->loadAnimation();
 
 	tankAnimation = _animationManager->get(eIdAnimation::TANK_RUNNING);
-	tankAnimation.setPosition(Vec3(0, 0, 0));
+	tankAnimation.setPosition(Vec3(100, 100, 0));
+	tankAnimation.setScale(Vec2(-1, 1));
 
-	tankAnimation2 = _animationManager->get(eIdAnimation::TANK_EXPLODING);
-	//tankAnimation2.setPosition(Vec3(0, 100, 0));
+	tankAnimation2 = _animationManager->get(eIdAnimation::TANK_RUNNING);
+	tankAnimation2.setPosition(Vec3(300, 300, 0));
+	tankAnimation2.setScale(Vec2(2, 2));
 }
 
 Game::Game(HINSTANCE hInstance, int nCmdShow)

@@ -71,12 +71,12 @@ D3DXVECTOR3 RectSprite::fixPosRECT(RectSprite nextRect)
 	return _newPos;
 }
 
-int RectSprite::getHeight()
+float RectSprite::getHeight()
 {
-	return(int)abs(bottom - top);
+	return (float)abs(bottom - top);
 }
 
-int RectSprite::getWidth()
+float RectSprite::getWidth()
 {
-	return (int)abs(right - left);
+	return (float)abs(right - left);
 }
