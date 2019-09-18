@@ -1,13 +1,19 @@
-#include "Animation.h"
+﻿#include "Animation.h"
 
 Animation::Animation()
 {
+	this->_timePerFrame = 0;
+	this->_currentFrame = 0;
+	this->_sprite = Sprite::getInstance();
+	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
 }
 
 Animation::Animation(float timePerFrame)
 {
 	this->_timePerFrame = timePerFrame;
 	this->_currentFrame = 0;
+	this->_sprite = Sprite::getInstance();
+	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
 }
 
 Animation::~Animation()
@@ -19,15 +25,54 @@ void Animation::setTimePerFrame(float timePerFrame)
 	this->_timePerFrame = timePerFrame;
 }
 
-void Animation::init(float timePerFrame, std::vector<int> listSpriteId)
+void Animation::setPosition(Vec3 pos)
 {
-	this->_timePerFrame = timePerFrame;
+	this->_position = pos;
+}
+
+
+void Animation::init(float timePerFrame)
+{
 	this->_currentFrame = 0;
-	this->_listSpriteId = listSpriteId;
+	this->_timePerFrame = timePerFrame;
+	this->_sprite = Sprite::getInstance();
+	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
 }
 
 void Animation::addSprite(eIdSprite id) {
+
 	_listSpriteId.push_back(id);
+
+	// Check co phai sprite dau tien ko ?
+	// Neu dung thi fixPosVec = (0,0,0)
+	if (_listSpriteId.size() > 1) {
+
+		// Check sprite hien tai voi sprite dau tien
+		RectSprite firstRect = _sprite->get(_listSpriteId[0]);
+		RectSprite currentRect = _sprite->get(id);
+
+		// Check height cua sprite co thay doi ko ?
+		// Tra ve Vector3(0,0,0) nếu ko cần fix
+		// Nguoc lại se tra ve Vector3(0,Y,0) , Y de + pos hien tai
+
+		int heigthFirst = firstRect.getHeight();
+		int heigthCurrent = currentRect.getHeight();
+
+		if (heigthFirst != heigthCurrent) {
+			float posY = heigthFirst - heigthCurrent;
+			_fixPosVec.push_back(Vec3(0, posY, 0));
+		}
+		else
+		{
+			// 2 sprite = nhau nen tam ve ko doi
+			_fixPosVec.push_back(Vec3(0, 0, 0));
+		}
+	}
+	else {
+		// Neu la spirte dau Vec = (0,0,0 )
+		_fixPosVec.push_back(Vec3(0, 0, 0));
+	}
+
 	_RPT1(0, "[INFO] Add Sprite [%f] to Animation Done \n", id);
 }
 
@@ -56,11 +101,14 @@ int Animation::render(pDeviceManager device, pTexture texture, pSprite sprite) {
 	RectSprite rect = sprite->get(eIdSprite);
 	RECT r = rect.getRECT();
 
+	Vec3 _newPos = _position;
+	_newPos += _fixPosVec[_currentFrame];
+
 	device->getSpriteHandler()->Draw(
 		texture->get(rect.getIdTexture()),
 		&r,
 		NULL,
-		new Vec3(100, 100, 0),
+		&_newPos,
 		D3DCOLOR_XRGB(255, 255, 255));
 
 	return 1;
@@ -82,6 +130,7 @@ int Animation::update(float dt)
 		{
 			_currentFrame += 1;
 		}
+
 	}
 	else {
 		_totalTime += dt;

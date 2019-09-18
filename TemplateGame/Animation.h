@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "define.h"
 #include "Sprite.h"
 #include "Texture.h"
@@ -7,12 +7,20 @@ class Animation
 {
 private:
 
-	float _timePerFrame;
+	pSprite _sprite;
 
+	float _timePerFrame;
 	float _totalTime;
+
+	// index frame hien tai va framcuoi
 	int _currentFrame;
 
+	// Vi tri vẽ sprite lên màn hình
+	Vec3 _position;
+
 	std::vector<int> _listSpriteId;
+	// Fix pos cho từng frame , khi add 1 sprite mới sẽ tự fix pos frame đó với 
+	std::vector<Vec3> _fixPosVec;
 
 public:
 	Animation();
@@ -21,7 +29,9 @@ public:
 
 	void setTimePerFrame(float);
 
-	void init(float, std::vector<int>);
+	void setPosition(Vec3);
+
+	void init(float);
 
 	void release();
 
