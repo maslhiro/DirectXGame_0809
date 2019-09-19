@@ -33,10 +33,7 @@ có thể get và add Animation theo Id
 ```
 ---
 
-![giphy](https://user-images.githubusercontent.com/26876671/65139897-a0f55580-da37-11e9-991b-45f955eb8be2.gif)
-
----
-
-![giphy](https://user-images.githubusercontent.com/26876671/65165855-c733e900-da69-11e9-9b57-3346dda9b7c1.gif)
-
----
+|                               |ANIMATION                    |
+|-------------------------------|-----------------------------|
+|Render            |![giphy (1)](https://user-images.githubusercontent.com/26876671/65209490-82886c00-dac2-11e9-8d05-cc4414680ca7.gif)|
+|Scale , Transform |![giphy](https://user-images.githubusercontent.com/26876671/65165855-c733e900-da69-11e9-9b57-3346dda9b7c1.gif)|
