@@ -25,6 +25,8 @@
 
 #define MAX_FRAME_RATE 60
 
+#define BBOX_WIDTH 5
+
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;
 

@@ -12,6 +12,10 @@ private:
 	float _timePerFrame;
 	float _totalTime;
 
+	bool _drawingBound;
+	DWORD  _colorBound;
+	ID3DXLine *lineDraw;
+
 	// index frame hien tai va framcuoi
 	int _currentFrame;
 
@@ -29,13 +33,15 @@ private:
 
 public:
 	Animation();
-	Animation(float);
 	~Animation();
 
 	void setTimePerFrame(float);
 
 	void setPosition(Vec3);
 	void setScale(Vec2);
+
+	void setDrawingBound(bool);
+	void setColorBound(DWORD);
 
 	void init(float);
 

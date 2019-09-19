@@ -1,10 +1,12 @@
 
+// Texture < 100
 enum eIdTexture
 {
 	TANK = 1,
-	ENEMY
+	ENEMY,
 };
 
+//Sprite > 1000
 enum eIdSprite
 {
 	TANK_EXPLODING_01 = 1000,
@@ -24,6 +26,7 @@ enum eIdSprite
 	TANK_RUNNING_11,
 };
 
+// Animation 100 - 1000
 enum eIdAnimation
 {
 	TANK_EXPLODING = 100,

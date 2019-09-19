@@ -7,15 +7,11 @@ Animation::Animation()
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
 	this->_scale = Vec2(1, 1);
-}
+	this->_drawingBound = false;
+	this->_colorBound = D3DCOLOR_XRGB(255, 0, 0);
 
-Animation::Animation(float timePerFrame)
-{
-	this->_timePerFrame = timePerFrame;
-	this->_currentFrame = 0;
-	this->_sprite = Sprite::getInstance();
-	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
-	this->_scale = Vec2(1, 1);
+	D3DXCreateLine(DeviceManager::getInstance()->getDevice(), &lineDraw);
+
 }
 
 Animation::~Animation()
@@ -37,6 +33,16 @@ void Animation::setScale(Vec2 scale)
 	this->_scale = scale;
 }
 
+void Animation::setDrawingBound(bool draw)
+{
+	this->_drawingBound = draw;
+}
+
+void Animation::setColorBound(DWORD  color)
+{
+	this->_colorBound = color;
+}
+
 void Animation::init(float timePerFrame)
 {
 	this->_currentFrame = 0;
@@ -44,6 +50,7 @@ void Animation::init(float timePerFrame)
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
 	this->_scale = Vec2(1, 1);
+	this->_drawingBound = false;
 }
 
 void Animation::addSprite(eIdSprite id) {
@@ -55,17 +62,12 @@ void Animation::addSprite(eIdSprite id) {
 
 	_listOrigin.push_back(_origin);
 
-
 	// Check co phai sprite dau tien ko ?
 	// Neu dung thi fixPosVec = (0,0,0)
 	if (_listSpriteId.size() > 1) {
 
 		// Check sprite hien tai voi sprite dau tien
 		RectSprite firstRect = _sprite->get(_listSpriteId[0]);
-
-		// Check height cua sprite co thay doi ko ?
-		// Tra ve Vector3(0,0,0) nếu ko cần fix
-		// Nguoc lại se tra ve Vector3(0,Y,0) , Y de + pos hien tai
 
 		int heigthFirst = (int)firstRect.getHeight();
 		int heigthCurrent = (int)currentRect.getHeight();
@@ -95,7 +97,7 @@ int Animation::getSprite(int index)
 
 void Animation::release() {
 	this->_timePerFrame = NULL;
-
+	this->lineDraw->Release();
 	/*this->_listSpriteId.clear();
 	this->_listSpriteId.shrink_to_fit();*/
 }
@@ -130,9 +132,9 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		&matTransformed,						// ma tran ket qua sau transform
 		&_pos2D,								// goc toa do / diem neo
 		0.0f,
-		&_scale,									// ti le scale
-		&_pos2D,									// goc toa do / diem neo
-		0,					// góc xoay theo radian
+		&_scale,								// ti le scale
+		&_pos2D,								// goc toa do / diem neo
+		0,										// góc xoay theo radian
 		0										// vi trí
 	);
 
@@ -142,6 +144,31 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	device->getSpriteHandler()->SetTransform(&matFinal);
 
 
+	// ve bound
+	if (_drawingBound) {
+
+		RECT _bbox;
+		_bbox.top = _newPos.y - rect.getHeight() / 2 * _scale.y - 1;
+		_bbox.bottom = _newPos.y + rect.getHeight() / 2 * _scale.y + 1;
+		_bbox.left = _newPos.x - rect.getWidth() / 2 * _scale.x - 1;
+		_bbox.right = _newPos.x + rect.getWidth() / 2 * _scale.x + 1;
+
+		D3DXVECTOR2 line[] = {
+			D3DXVECTOR2(_bbox.left, _bbox.top),
+			D3DXVECTOR2(_bbox.right, _bbox.top),
+			D3DXVECTOR2(_bbox.right, _bbox.bottom),
+			D3DXVECTOR2(_bbox.left, _bbox.bottom),
+			D3DXVECTOR2(_bbox.left, _bbox.top)
+		};
+
+		lineDraw->SetWidth(BBOX_WIDTH);
+		lineDraw->Begin();
+		lineDraw->Draw(line, 5, _colorBound);
+		lineDraw->End();
+
+	}
+
+	// Ve sprite hien tai
 	device->getSpriteHandler()->Draw(
 		texture->get(rect.getIdTexture()),
 		&r,
@@ -149,8 +176,11 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		&_newPos,
 		D3DCOLOR_XRGB(255, 255, 255));
 
+
 	// Set lại old matrix texture
 	device->getSpriteHandler()->SetTransform(&matOld);
+
+
 
 	return 1;
 }

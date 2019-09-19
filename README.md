@@ -37,3 +37,5 @@ có thể get và add Animation theo Id
 |-------------------------------|-----------------------------|
 |Render            |![giphy (1)](https://user-images.githubusercontent.com/26876671/65209490-82886c00-dac2-11e9-8d05-cc4414680ca7.gif)|
 |Scale , Transform |![giphy](https://user-images.githubusercontent.com/26876671/65165855-c733e900-da69-11e9-9b57-3346dda9b7c1.gif)|
+|Bounding Box | ![giphy (2)](https://user-images.githubusercontent.com/26876671/65273505-7ac0da00-db4b-11e9-9eca-0e4eccdc2401.gif)
+|

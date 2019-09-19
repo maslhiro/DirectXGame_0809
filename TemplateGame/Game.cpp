@@ -24,16 +24,20 @@ void Game::loadResource()
 {
 	//_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(16, 216, 128));
 	_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(255, 255, 255));
+
 	_sprite->add(eIdTexture::TANK, "Resource//Object//Tank_Animation.txt");
 
 	_animationManager->loadAnimation();
 
 	tankAnimation = _animationManager->get(eIdAnimation::TANK_RUNNING);
-	tankAnimation.setPosition(Vec3(100, 100, 0));
-	tankAnimation.setScale(Vec2(-1, 1));
+	tankAnimation.setPosition(Vec3(200, 200, 0));
+	tankAnimation.setDrawingBound(true);
+	tankAnimation.setColorBound(D3DCOLOR_XRGB(2, 56, 60));
+	tankAnimation.setScale(Vec2(2, 2));
 
 	tankAnimation2 = _animationManager->get(eIdAnimation::TANK_RUNNING);
-	tankAnimation2.setPosition(Vec3(300, 300, 0));
+	tankAnimation2.setPosition(Vec3(400, 200, 0));
+	tankAnimation2.setDrawingBound(true);
 	tankAnimation2.setScale(Vec2(2, 2));
 }
 
