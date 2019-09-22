@@ -10,6 +10,8 @@
 
 ---- Graphic.h : tạo window cho game.
 
+---- InputHandler.h : bắt sự kiện keyboard của game , dựa trên 1 hash < int,bool >
+
 ---- Gametime.h : (Singleton) quản lí FPS (Frame per Second), tính tổng thời gian trong game.
 
 ---- Texture.h : (Singleton) load các ảnh resource chuyển thành các texture directx

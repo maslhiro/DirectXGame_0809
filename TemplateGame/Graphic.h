@@ -1,5 +1,6 @@
 #pragma once
 #include "define.h"
+#include "InputHandler.h"
 
 class Graphic
 {
@@ -18,9 +19,6 @@ protected:
 	HINSTANCE		_hInstance;
 	HWND			_hWnd;
 	int _nCmdShow, _isFullScreen;
-
-	static HRESULT CALLBACK winProc(HWND, UINT, WPARAM, LPARAM);
-private:
 
 };
 

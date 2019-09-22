@@ -8,7 +8,7 @@ class AnimationManager
 public:
 	AnimationManager();
 
-	void loadAnimation();
+	void load();
 
 	static AnimationManager* getInstance();
 

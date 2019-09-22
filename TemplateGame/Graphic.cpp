@@ -6,6 +6,7 @@ Graphic::Graphic()
 
 Graphic::~Graphic()
 {
+	InputHandler::getInstance()->release();
 }
 
 
@@ -26,7 +27,7 @@ int Graphic::initWindow()
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.hInstance = this->_hInstance;
 
-	wc.lpfnWndProc = Graphic::winProc;
+	wc.lpfnWndProc = InputHandler::getInstance()->winProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hIcon = LoadIcon(this->_hInstance, MAKEINTRESOURCE(IDI_ICON));
@@ -64,24 +65,10 @@ int Graphic::initWindow()
 	}
 
 	ShowWindow(this->_hWnd, this->_nCmdShow);
+
 	UpdateWindow(this->_hWnd);
 	return 1;
 
-}
-
-
-
-HRESULT CALLBACK Graphic::winProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	switch (msg)
-	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	default:
-		return DefWindowProc(hWnd, msg, wParam, lParam);
-	}
-	return 0;
 }
 
 

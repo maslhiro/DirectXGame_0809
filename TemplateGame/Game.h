@@ -18,6 +18,7 @@ private:
 	pTexture _texture;
 	pSprite _sprite;
 	pAnimationManager _animationManager;
+	pInputHandler _inputHandler;
 
 public:
 	static pGraphic _hWindow;
@@ -38,8 +39,6 @@ public:
 
 	void release();
 	static void exit();
-
-
 
 };
 

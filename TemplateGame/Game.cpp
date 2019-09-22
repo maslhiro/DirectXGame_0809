@@ -27,7 +27,7 @@ void Game::loadResource()
 
 	_sprite->add(eIdTexture::TANK, "Resource//Object//Tank_Animation.txt");
 
-	_animationManager->loadAnimation();
+	_animationManager->load();
 
 	tankAnimation = _animationManager->get(eIdAnimation::TANK_RUNNING);
 	tankAnimation.setPosition(Vec3(200, 200, 0));
@@ -43,13 +43,14 @@ void Game::loadResource()
 
 Game::Game(HINSTANCE hInstance, int nCmdShow)
 {
+	_inputHandler = InputHandler::getInstance();
+
 	_hWindow = new Graphic(hInstance, nCmdShow, 0);
 	_gameTime = GameTime::getInstance();
 	_deviceManager = DeviceManager::getInstance();
 	_texture = Texture::getInstance();
 	_sprite = Sprite::getInstance();
 	_animationManager = AnimationManager::getInstance();
-
 }
 
 int Game::init()
@@ -162,7 +163,6 @@ void Game::release()
 	if (_gameTime != nullptr) _gameTime->release();
 	if (_texture != nullptr) _texture->release();
 	if (_gameTime != nullptr) _gameTime->release();
-
 }
 
 Game::~Game()

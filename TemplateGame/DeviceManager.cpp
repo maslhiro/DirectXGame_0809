@@ -63,7 +63,7 @@ int DeviceManager::init(pGraphic _window)
 
 DeviceManager* DeviceManager::getInstance()
 {
-	if (_instance == NULL)
+	if (_instance == nullptr)
 		_instance = new DeviceManager();
 	return _instance;
 }

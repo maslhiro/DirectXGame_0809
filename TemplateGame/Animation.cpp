@@ -87,7 +87,7 @@ void Animation::addSprite(eIdSprite id) {
 		_fixPosVec.push_back(Vec3(0, 0, 0));
 	}
 
-	_RPT1(0, "[INFO] Add Sprite [%f] to Animation Done \n", id);
+	_RPT1(0, "[INFO] Add Sprite [%d] Done \n", id);
 }
 
 int Animation::getSprite(int index)
@@ -147,18 +147,17 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	// ve bound
 	if (_drawingBound) {
 
-		RECT _bbox;
-		_bbox.top = _newPos.y - rect.getHeight() / 2 * _scale.y - 1;
-		_bbox.bottom = _newPos.y + rect.getHeight() / 2 * _scale.y + 1;
-		_bbox.left = _newPos.x - rect.getWidth() / 2 * _scale.x - 1;
-		_bbox.right = _newPos.x + rect.getWidth() / 2 * _scale.x + 1;
+		float top = _newPos.y - rect.getHeight() / 2 * _scale.y - 1;
+		float bottom = _newPos.y + (LONG)rect.getHeight() / 2 * (LONG)_scale.y + 1;
+		float left = _newPos.x - (LONG)rect.getWidth() / 2 * (LONG)_scale.x - 1;
+		float right = _newPos.x + (LONG)rect.getWidth() / 2 * (LONG)_scale.x + 1;
 
 		D3DXVECTOR2 line[] = {
-			D3DXVECTOR2(_bbox.left, _bbox.top),
-			D3DXVECTOR2(_bbox.right, _bbox.top),
-			D3DXVECTOR2(_bbox.right, _bbox.bottom),
-			D3DXVECTOR2(_bbox.left, _bbox.bottom),
-			D3DXVECTOR2(_bbox.left, _bbox.top)
+			D3DXVECTOR2(left,top),
+			D3DXVECTOR2(right,top),
+			D3DXVECTOR2(right,bottom),
+			D3DXVECTOR2(left,bottom),
+			D3DXVECTOR2(left,top)
 		};
 
 		lineDraw->SetWidth(BBOX_WIDTH);

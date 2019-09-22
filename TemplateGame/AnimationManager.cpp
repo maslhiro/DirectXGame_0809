@@ -6,7 +6,7 @@ AnimationManager::AnimationManager()
 {
 }
 
-void AnimationManager::loadAnimation() {
+void AnimationManager::load() {
 	Animation _tank;
 	_tank.setTimePerFrame(1.0f);
 	_tank.addSprite(eIdSprite::TANK_EXPLODING_01);
