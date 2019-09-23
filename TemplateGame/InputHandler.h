@@ -7,15 +7,15 @@ public:
 	InputHandler();
 	~InputHandler();
 
-	static HRESULT CALLBACK winProc(HWND, UINT, WPARAM, LPARAM);
+	int handler(HWND, UINT, WPARAM, LPARAM);
 	static InputHandler* getInstance();
 	static InputHandler* _instance;
 
-	static std::unordered_map<int, bool> _keys;
+	std::unordered_map<int, bool> _keys;
+
+	std::unordered_map<int, bool> getMapKey();
 
 	void release();
-	void	init();
-
 
 };
 

@@ -9,6 +9,8 @@
 #include "Sprite.h"
 #include "AnimationManager.h"
 
+#include "Tank.h"
+
 class Game {
 private:
 	static int isExit;
@@ -18,7 +20,8 @@ private:
 	pTexture _texture;
 	pSprite _sprite;
 	pAnimationManager _animationManager;
-	pInputHandler _inputHandler;
+
+	Tank _tank;
 
 public:
 	static pGraphic _hWindow;

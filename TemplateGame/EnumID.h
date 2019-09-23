@@ -1,9 +1,23 @@
+// State >= 5000
+enum eIdState
+{
+	NONE = 5000,
+	STANDING,
+	RUNNING,
+
+};
+
+// Object >= 4000
+enum eIdObject
+{
+	TANK = 4000,
+};
 
 // Texture < 100
 enum eIdTexture
 {
-	TANK = 1,
-	ENEMY,
+	TANK_TEX = 1,
+	ENEMY_TEX,
 };
 
 //Sprite > 1000

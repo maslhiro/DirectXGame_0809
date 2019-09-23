@@ -5,7 +5,7 @@ Animation::Animation()
 	this->_timePerFrame = 0;
 	this->_currentFrame = 0;
 	this->_sprite = Sprite::getInstance();
-	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
+	this->_position = Vec3(0, 0, 0);
 	this->_scale = Vec2(1, 1);
 	this->_drawingBound = false;
 	this->_colorBound = D3DCOLOR_XRGB(255, 0, 0);
@@ -48,7 +48,7 @@ void Animation::init(float timePerFrame)
 	this->_currentFrame = 0;
 	this->_timePerFrame = timePerFrame;
 	this->_sprite = Sprite::getInstance();
-	this->_position = Vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
+	this->_position = Vec3(0, 0, 0);
 	this->_scale = Vec2(1, 1);
 	this->_drawingBound = false;
 }
@@ -148,9 +148,9 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	if (_drawingBound) {
 
 		float top = _newPos.y - rect.getHeight() / 2 * _scale.y - 1;
-		float bottom = _newPos.y + (LONG)rect.getHeight() / 2 * (LONG)_scale.y + 1;
-		float left = _newPos.x - (LONG)rect.getWidth() / 2 * (LONG)_scale.x - 1;
-		float right = _newPos.x + (LONG)rect.getWidth() / 2 * (LONG)_scale.x + 1;
+		float bottom = _newPos.y + rect.getHeight() / 2 * _scale.y + 1;
+		float left = _newPos.x - rect.getWidth() / 2 * _scale.x - 1;
+		float right = _newPos.x + rect.getWidth() / 2 * _scale.x + 1;
 
 		D3DXVECTOR2 line[] = {
 			D3DXVECTOR2(left,top),

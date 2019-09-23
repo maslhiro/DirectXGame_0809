@@ -2,6 +2,7 @@
 
 Graphic::Graphic()
 {
+	InputHandler::getInstance();
 }
 
 Graphic::~Graphic()
@@ -27,7 +28,7 @@ int Graphic::initWindow()
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.hInstance = this->_hInstance;
 
-	wc.lpfnWndProc = InputHandler::getInstance()->winProc;
+	wc.lpfnWndProc = Graphic::winProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hIcon = LoadIcon(this->_hInstance, MAKEINTRESOURCE(IDI_ICON));
@@ -84,4 +85,9 @@ HWND Graphic::getWnd()
 HINSTANCE Graphic::gethInstance()
 {
 	return this->_hInstance;
+}
+
+HRESULT CALLBACK Graphic::winProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	return InputHandler::getInstance()->handler(hWnd, msg, wParam, lParam);
 }

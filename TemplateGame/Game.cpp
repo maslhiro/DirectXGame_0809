@@ -1,6 +1,7 @@
 ﻿#include "Game.h"
 
 int Game::isExit = 0;
+
 pGraphic Game::_hWindow = NULL;
 
 Animation tankAnimation;
@@ -23,28 +24,30 @@ Game::Game()
 void Game::loadResource()
 {
 	//_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(16, 216, 128));
-	_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(255, 255, 255));
+	_texture->add(eIdTexture::TANK_TEX, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(255, 255, 255));
 
-	_sprite->add(eIdTexture::TANK, "Resource//Object//Tank_Animation.txt");
+	_sprite->add(eIdTexture::TANK_TEX, "Resource//Object//Tank_Animation.txt");
 
 	_animationManager->load();
 
-	tankAnimation = _animationManager->get(eIdAnimation::TANK_RUNNING);
-	tankAnimation.setPosition(Vec3(200, 200, 0));
-	tankAnimation.setDrawingBound(true);
-	tankAnimation.setColorBound(D3DCOLOR_XRGB(2, 56, 60));
-	tankAnimation.setScale(Vec2(2, 2));
+	//tankAnimation = _animationManager->get(eIdAnimation::TANK_RUNNING);
+	//tankAnimation.setPosition(Vec3(200, 200, 0));
+	//tankAnimation.setDrawingBound(true);
+	//tankAnimation.setColorBound(D3DCOLOR_XRGB(2, 56, 60));
+	//tankAnimation.setScale(Vec2(2, 2));
 
-	tankAnimation2 = _animationManager->get(eIdAnimation::TANK_RUNNING);
-	tankAnimation2.setPosition(Vec3(400, 200, 0));
-	tankAnimation2.setDrawingBound(true);
-	tankAnimation2.setScale(Vec2(2, 2));
+	//tankAnimation2 = _animationManager->get(eIdAnimation::TANK_RUNNING);
+	//tankAnimation2.setPosition(Vec3(400, 200, 0));
+	//tankAnimation2.setDrawingBound(true);
+	//tankAnimation2.setScale(Vec2(2, 2));
+
+	_tank.loadResource();
+	_tank.setPosition(300, 300);
+	_tank.setScale(2);
 }
 
 Game::Game(HINSTANCE hInstance, int nCmdShow)
 {
-	_inputHandler = InputHandler::getInstance();
-
 	_hWindow = new Graphic(hInstance, nCmdShow, 0);
 	_gameTime = GameTime::getInstance();
 	_deviceManager = DeviceManager::getInstance();
@@ -132,8 +135,9 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
-		tankAnimation.render(_deviceManager, _texture);
-		tankAnimation2.render(_deviceManager, _texture);
+		//tankAnimation.render(_deviceManager, _texture);
+		//tankAnimation2.render(_deviceManager, _texture);
+		_tank.render();
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -147,8 +151,11 @@ int Game::render()
 
 int Game::update(float dt) {
 
-	tankAnimation.update(dt);
-	tankAnimation2.update(dt);
+	//tankAnimation.update(dt);
+	//tankAnimation2.update(dt);
+	_tank.handlerInput();
+	_tank.update(dt);
+
 	return 1;
 }
 

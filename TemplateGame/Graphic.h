@@ -14,11 +14,15 @@ public:
 
 	HWND getWnd();
 	HINSTANCE gethInstance();
+
+	static HRESULT CALLBACK winProc(HWND, UINT, WPARAM, LPARAM);
 protected:
 
 	HINSTANCE		_hInstance;
 	HWND			_hWnd;
 	int _nCmdShow, _isFullScreen;
+
+	pInputHandler _input;
 
 };
 

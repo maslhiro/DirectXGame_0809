@@ -22,6 +22,12 @@
     <Filter Include="Header Files\Enum">
       <UniqueIdentifier>{f7b9f85f-071c-4ffc-adf7-38530f74e1a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object">
+      <UniqueIdentifier>{8dd621d3-5442-4146-901a-f2f4c3610e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object">
+      <UniqueIdentifier>{5b7d25b3-7315-4f4c-8a32-5a4818ce8aae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +69,9 @@
     <ClCompile Include="InputHandler.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
+    <ClCompile Include="Tank.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -103,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="InputHandler.h">
       <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank.h">
+      <Filter>Header Files\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

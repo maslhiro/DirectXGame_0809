@@ -24,12 +24,7 @@ void InputHandler::release()
 	_instance = nullptr;
 }
 
-void InputHandler::init()
-{
-
-}
-
-HRESULT CALLBACK InputHandler::winProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+int InputHandler::handler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
@@ -37,12 +32,12 @@ HRESULT CALLBACK InputHandler::winProc(HWND hWnd, UINT msg, WPARAM wParam, LPARA
 		PostQuitMessage(0);
 		break;
 	case WM_KEYDOWN:
-		_RPT1(0, "PARAM KEY DOWN : %d \n", wParam);
-		//_keys[(int)wParam] = true;
+		//_RPT1(0, "PARAM KEY DOWN : %d \n", wParam);
+		_keys[(int)wParam] = true;
 		break;
 	case WM_KEYUP:
-		_RPT1(0, "PARAM KEY UP : %d \n", wParam);
-		//_keys[(int)wParam] = false;
+		//_RPT1(0, "PARAM KEY UP : %d \n", wParam);
+		_keys[(int)wParam] = false;
 		break;
 	default:
 		return DefWindowProc(hWnd, msg, wParam, lParam);
@@ -50,3 +45,7 @@ HRESULT CALLBACK InputHandler::winProc(HWND hWnd, UINT msg, WPARAM wParam, LPARA
 	return 0;
 }
 
+std::unordered_map<int, bool> InputHandler::getMapKey()
+{
+	return _keys;
+}
