@@ -52,25 +52,6 @@ void RectSprite::release() {
 	this->idTexture = 0;
 }
 
-D3DXVECTOR3 RectSprite::fixPosRECT(RectSprite nextRect)
-{
-	D3DXVECTOR3  _newPos = D3DXVECTOR3(0, 0, 0);
-
-	int heightCurrent = this->top - this->bottom;
-	int heightNext = nextRect.top - nextRect.bottom;
-
-	_RPT1(0, "[INFO] RECT SPIRTE current height : %d \n", heightCurrent);
-	_RPT1(0, "[INFO] RECT SPRITE height height : %d \n", heightNext);
-	float _posY = (float)abs(heightCurrent - heightNext);
-
-	if (_posY != 0)
-	{
-		_newPos = D3DXVECTOR3(0, _posY, 0);
-	}
-
-	return _newPos;
-}
-
 float RectSprite::getHeight()
 {
 	return (float)abs(bottom - top);

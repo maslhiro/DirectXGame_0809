@@ -6,7 +6,7 @@ GameObject::GameObject()
 	this->_texture = Texture::getInstance();
 	_pos = Vec3(0, 0, 0);
 	_scale = Vec2(1, 1);
-	_state = _preState = 0;
+	_state = 0;
 }
 
 GameObject::~GameObject()
@@ -61,6 +61,5 @@ void GameObject::setSpeed(float speed)
 
 void GameObject::setState(int state)
 {
-	this->_preState = this->_state;
 	this->_state = state;
 }

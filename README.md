@@ -16,19 +16,13 @@ class này sẽ được init và release ở constructor và destructor của l
 
 ---- Gametime.h : (Singleton) quản lí FPS (Frame per Second), tính tổng thời gian trong game.
 
----- Texture.h : (Singleton) load các ảnh resource chuyển thành các texture directx để các Animation 
-cắt texture này làm sprite,không phải load nhiều ảnh.
+---- Texture.h : (Singleton) load các ảnh resource vào 1 map <int, TEXTURE> quản lí bằng enum id Texture , muốn lấy teture nào chỉ việc gọi ra như mảng. EX: _texture[eIdTexture::TANK]
 
----- Sprite.h: (Singleton) load các file txt tọa độ sprite đi kèm với các ảnh resource sau đó  
-map thành 1 hash, riêng tọa độ các ảnh sẽ được lưu thành 1 RectSprite chưa thêm thông tin
-về base texture nó được cắt.
+---- Sprite.h: (Singleton) doc vao 1 file txt tọa độ và tạo thành 1 map <int,RectSprite> với RectSprite là hình chữ nhật lưu 4 vị trí ( top, bottom, left, right) và idTexture để lớp Animation có thể biết được texture nào để cắt sprite ra. Id Sprite cũng được quản lí bằng enum tương tự texture.
 
----- Animation.h : lưu lại vector<idSprite> và timePerFrame của animation, RectSprite sẽ được 
-chuyển thành texture được render và update theo timePerFrame. Đã update anchor ( điểm neo ) 
-để render vị trí giữa sprite, nếu để NULL => mặc định anchor tọa độ là  top, left :(
+---- Animation.h : 1 vector<int> sẽ lưu lại các id sprite khi ta add vào Animation , đồng thời sẽ có 1 vector để xác định tâm Rect Sprite để vẽ cũng như 1 vector để fix pos vị trí bottom giữa các sprite ( do hầu hết các sprite không bằng nhau)
 
----- AnimationManager.h : (Singleton) quản lí tất cả các animation, tương tự như Sprite  
-có thể get và add Animation theo Id
+---- AnimationManager.h : (Singleton) nơi quản lí tất cả các animation từ load , setTimePerFrame, addSprite , .. đều phải khai báo ở đây. Cơ chế tương tư lớp sprite và texture . Riêng hàm render cần truyền pDeviceManager và pTeture vào 
 
 ---- GameObject.h : Lớp cha của tất cả object trong game, cho phép override 4 hàm: 
 loadResouce , render, update , handlerInput. Quản lí 1 map state (int) với animation tương ứng.

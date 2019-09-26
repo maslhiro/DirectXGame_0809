@@ -3,6 +3,7 @@ enum eIdState
 {
 	NONE = 5000,
 	STANDING,
+	PUNCHING,
 	RUNNING,
 
 };
@@ -11,6 +12,7 @@ enum eIdState
 enum eIdObject
 {
 	TANK = 4000,
+	BILLY
 };
 
 // Texture < 100
@@ -18,6 +20,8 @@ enum eIdTexture
 {
 	TANK_TEX = 1,
 	ENEMY_TEX,
+
+	BILLY_TEX
 };
 
 //Sprite > 1000
@@ -38,11 +42,23 @@ enum eIdSprite
 	TANK_RUNNING_09,
 	TANK_RUNNING_10,
 	TANK_RUNNING_11,
+
+	BILLY_STANDING_01 = 1200,
+	BILLY_STANDING_02,
+	BILLY_STANDING_03,
+
+	BILLY_PUNCHING_01 = 1300,
+	BILLY_PUNCHING_02,
+	BILLY_PUNCHING_03
+
 };
 
 // Animation 100 - 1000
 enum eIdAnimation
 {
 	TANK_EXPLODING = 100,
-	TANK_RUNNING
+	TANK_RUNNING,
+
+	BILLY_STANDING,
+	BILLY_PUNCHING
 };

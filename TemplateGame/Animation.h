@@ -16,8 +16,10 @@ private:
 	DWORD  _colorBound;
 	ID3DXLine *lineDraw;
 
-	// index frame hien tai va framcuoi
+	// index frame hien tai va frame cuoi
 	int _currentFrame;
+	int _loopCount;
+	bool _isLoop; // default : true , false => chay 1 lan va ko lap 
 
 	// Vi tri vẽ sprite lên màn hình
 	Vec3 _position;
@@ -37,13 +39,12 @@ public:
 
 	void setTimePerFrame(float);
 
+	void setIsLoop(bool);
 	void setPosition(Vec3);
 	void setScale(Vec2);
 
 	void setDrawingBound(bool);
 	void setColorBound(DWORD);
-
-	void init(float);
 
 	void release();
 
@@ -51,6 +52,17 @@ public:
 	void addSprite(eIdSprite);
 	int render(pDeviceManager, pTexture);
 	int update(float);
+
+	// Get width va heigt frame dau tien cua Animation de fix pos
+	// khi Obj chuyen doi giua cac animation
+	float getWidth();
+	float getHeight();
+
+	// Can theo bottom
+	float fixPosHeight(RectSprite);
+
+	//Can theo left
+	float fixPosWidth(RectSprite);
 
 	std::vector<int> getListSprite();
 };

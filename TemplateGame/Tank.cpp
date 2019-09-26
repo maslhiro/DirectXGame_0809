@@ -7,19 +7,15 @@ Tank::Tank()
 
 void Tank::loadResource()
 {
-	Animation animationRun = AnimationManager::getInstance()->get(eIdAnimation::TANK_RUNNING);
-
 	_listAnimation[eIdState::RUNNING] = AnimationManager::getInstance()->get(eIdAnimation::TANK_RUNNING);
+	_listAnimation[eIdState::STANDING] = AnimationManager::getInstance()->get(eIdAnimation::TANK_EXPLODING);
 
-	_curAnimation = _listAnimation[eIdState::RUNNING];
+	_state = eIdState::STANDING;
+	_curAnimation = _listAnimation[_state];
 }
 
 void Tank::render()
 {
-	// Kiem tra state co thay doi ko ? de tao _curAnimation moi
-	// de khong lost _curAnimation khi update 
-	// HAM DO CODE SAU -_-
-
 	_curAnimation.setPosition(_pos);
 	_curAnimation.setScale(_scale);
 
@@ -34,16 +30,51 @@ void Tank::update(float dt)
 
 void Tank::handlerInput()
 {
-	_keys = _input->getMapKey();
+	//switch (_state)
+	//{
+	//case eIdState::RUNNING:
 
+
+	//default:
+	//	break;
+	//}
 	//A
 	if (_input->_keys[65]) {
+		if (_state != eIdState::RUNNING) {
+			_state = eIdState::RUNNING;
+
+
+			// Fix pos animation
+			this->fixPosAnimation(_state);
+		}
 		_pos.x -= 1;
 	}
 
 	// DD
-	if (_input->_keys[68]) {
-		_pos.x += 2;
-	}
+	else if (_input->_keys[68]) {
+		if (_state != eIdState::RUNNING) {
+			_state = eIdState::RUNNING;
 
+			// Fix pos animation
+			this->fixPosAnimation(_state);
+		}
+		_pos.x += 1;
+	}
+	else {
+		if (_state != eIdState::STANDING) {
+			_state = eIdState::STANDING;
+
+			// Fix pos animation
+			this->fixPosAnimation(_state);
+
+		}
+	}
+}
+
+void Tank::fixPosAnimation(int state)
+{
+	float preHeight = _curAnimation.getHeight();
+	_curAnimation = _listAnimation[_state];
+	float curHeight = _curAnimation.getHeight();
+	this->setPosition(_pos.x, _pos.y + (preHeight - curHeight));
 }

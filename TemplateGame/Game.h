@@ -9,7 +9,7 @@
 #include "Sprite.h"
 #include "AnimationManager.h"
 
-#include "Tank.h"
+#include "Billy.h"
 
 class Game {
 private:
@@ -21,7 +21,7 @@ private:
 	pSprite _sprite;
 	pAnimationManager _animationManager;
 
-	Tank _tank;
+	Billy _billy;
 
 public:
 	static pGraphic _hWindow;

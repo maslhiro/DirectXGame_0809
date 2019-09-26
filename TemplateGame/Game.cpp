@@ -24,9 +24,11 @@ Game::Game()
 void Game::loadResource()
 {
 	//_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(16, 216, 128));
-	_texture->add(eIdTexture::TANK_TEX, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(255, 255, 255));
+	//_texture->add(eIdTexture::TANK_TEX, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(255, 255, 255));
+	_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(255, 255, 255));
 
-	_sprite->add(eIdTexture::TANK_TEX, "Resource//Object//Tank_Animation.txt");
+	//_sprite->add(eIdTexture::TANK_TEX, "Resource//Object//Tank_Animation.txt");
+	_sprite->add(eIdTexture::BILLY_TEX, "Resource//Object//Billy_Animation.txt");
 
 	_animationManager->load();
 
@@ -41,9 +43,9 @@ void Game::loadResource()
 	//tankAnimation2.setDrawingBound(true);
 	//tankAnimation2.setScale(Vec2(2, 2));
 
-	_tank.loadResource();
-	_tank.setPosition(300, 300);
-	_tank.setScale(2);
+	_billy.loadResource();
+	_billy.setPosition(300, 300);
+	_billy.setScale(2);
 }
 
 Game::Game(HINSTANCE hInstance, int nCmdShow)
@@ -137,7 +139,7 @@ int Game::render()
 
 		//tankAnimation.render(_deviceManager, _texture);
 		//tankAnimation2.render(_deviceManager, _texture);
-		_tank.render();
+		_billy.render();
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -153,8 +155,8 @@ int Game::update(float dt) {
 
 	//tankAnimation.update(dt);
 	//tankAnimation2.update(dt);
-	_tank.handlerInput();
-	_tank.update(dt);
+	_billy.handlerInput();
+	_billy.update(dt);
 
 	return 1;
 }

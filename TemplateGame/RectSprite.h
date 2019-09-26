@@ -26,5 +26,4 @@ public:
 	int getIdTexture();
 	void setIdTexture(int);
 
-	D3DXVECTOR3 fixPosRECT(RectSprite);
 };

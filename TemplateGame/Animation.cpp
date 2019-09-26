@@ -4,6 +4,8 @@ Animation::Animation()
 {
 	this->_timePerFrame = 0;
 	this->_currentFrame = 0;
+	this->_isLoop = true;
+	this->_loopCount = 0;
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(0, 0, 0);
 	this->_scale = Vec2(1, 1);
@@ -16,6 +18,11 @@ Animation::Animation()
 
 Animation::~Animation()
 {
+}
+
+void Animation::setIsLoop(bool isLoop)
+{
+	this->_isLoop = isLoop;
 }
 
 void Animation::setTimePerFrame(float timePerFrame)
@@ -43,50 +50,31 @@ void Animation::setColorBound(DWORD  color)
 	this->_colorBound = color;
 }
 
-void Animation::init(float timePerFrame)
-{
-	this->_currentFrame = 0;
-	this->_timePerFrame = timePerFrame;
-	this->_sprite = Sprite::getInstance();
-	this->_position = Vec3(0, 0, 0);
-	this->_scale = Vec2(1, 1);
-	this->_drawingBound = false;
-}
-
 void Animation::addSprite(eIdSprite id) {
 
-	_listSpriteId.push_back(id);
+
 
 	RectSprite currentRect = _sprite->get(id);
 	Vec3 _origin = Vec3(currentRect.getWidth() / 2, currentRect.getHeight() / 2, 0);
-
 	_listOrigin.push_back(_origin);
 
 	// Check co phai sprite dau tien ko ?
-	// Neu dung thi fixPosVec = (0,0,0)
-	if (_listSpriteId.size() > 1) {
+	if (_listSpriteId.size() >= 1) {
 
-		// Check sprite hien tai voi sprite dau tien
-		RectSprite firstRect = _sprite->get(_listSpriteId[0]);
+		// can bottom cac frame trung nhau
+		float fixBottom = this->fixPosHeight(currentRect);
+		float fixLeft = this->fixPosWidth(currentRect);
+		_fixPosVec.push_back(Vec3(fixLeft, fixBottom, 0));
+		_RPT1(0, "[INFO] Fix Pos Sprite [%d] || height : %f || width : %f \n", id, fixBottom, fixLeft);
 
-		int heigthFirst = (int)firstRect.getHeight();
-		int heigthCurrent = (int)currentRect.getHeight();
-
-		if (heigthFirst != heigthCurrent) {
-			float posY = (float)(heigthFirst - heigthCurrent);
-			_fixPosVec.push_back(Vec3(0, posY, 0));
-		}
-		else
-		{
-			// 2 sprite = nhau nen tam ve ko doi
-			_fixPosVec.push_back(Vec3(0, 0, 0));
-		}
 	}
 	else {
 		// Neu la spirte dau Vec = (0,0,0 )
 		_fixPosVec.push_back(Vec3(0, 0, 0));
 	}
 
+	// cuoi cung moi add sprite vao frame
+	_listSpriteId.push_back(id);
 	_RPT1(0, "[INFO] Add Sprite [%d] Done \n", id);
 }
 
@@ -179,8 +167,6 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	// Set lại old matrix texture
 	device->getSpriteHandler()->SetTransform(&matOld);
 
-
-
 	return 1;
 }
 
@@ -190,16 +176,23 @@ int Animation::update(float dt)
 	{
 		_totalTime = 0;
 
+
 		// Kiem tra phai frame cuoi ko ?
 		// Neu dung chuyen ve frame dau
 		if (_currentFrame == _listSpriteId.size() - 1)
 		{
 			_currentFrame = 0;
+			_loopCount += 1;
 		}
 		else
 		{
-			_currentFrame += 1;
+			if (!_isLoop) {
+				if (_loopCount == 1) _currentFrame = 0;
+				else _currentFrame += 1;
+			}
+			else _currentFrame += 1;
 		}
+
 
 	}
 	else {
@@ -207,4 +200,41 @@ int Animation::update(float dt)
 	}
 
 	return 1;
+}
+
+float Animation::getHeight() {
+	if (_listSpriteId.size() > 0) {
+		return _sprite->get(_listSpriteId[0]).getHeight();
+	}
+	return 0;
+}
+
+float Animation::getWidth() {
+	if (_listSpriteId.size() > 0) {
+		return _sprite->get(_listSpriteId[0]).getWidth();
+	}
+	return 0;
+}
+
+float Animation::fixPosHeight(RectSprite _nextRect)
+{
+	// get sprite dau tien cua frame
+	RectSprite firstRect = _sprite->get(_listSpriteId[0]);
+
+	int heigthFirst = (int)firstRect.getHeight();
+	int heigthCurrent = (int)_nextRect.getHeight();
+
+	return (float)(heigthFirst - heigthCurrent);
+}
+
+float Animation::fixPosWidth(RectSprite _nextRect)
+{
+	// get sprite dau tien cua frame
+	RectSprite firstRect = _sprite->get(_listSpriteId[0]);
+
+	int widthFirst = (int)firstRect.getWidth();
+	int widthCurrent = (int)_nextRect.getWidth();
+
+	return (float)(widthCurrent - widthFirst);
+
 }

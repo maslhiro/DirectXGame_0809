@@ -18,8 +18,6 @@ protected:
 
 	// Doi tuong nao dung yen thi state = NONE
 	int _state;
-	// state truoc do , kiem tra de update _curAnimation
-	int _preState;
 
 	float _speed; // vx
 
@@ -55,6 +53,9 @@ public:
 
 	// bắt sự kiện phím thay dổi, đặt trước hàm update để fix pos -> dưa theo speed :rainbow:
 	virtual void handlerInput() = 0;
+
+	// Fix pos khi chuyển animation
+	virtual void fixPosAnimation(int) = 0;
 
 	GameObject();
 	~GameObject();

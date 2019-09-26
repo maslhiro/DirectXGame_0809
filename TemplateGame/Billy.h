@@ -1,17 +1,16 @@
 #pragma once
-#include "define.h"
 #include "GameObject.h"
-#include "InputHandler.h"
-
-class Tank : public GameObject
+class Billy :
+	public GameObject
 {
+
 private:
 
 	pInputHandler _input;
 	std::unordered_map<int, bool> _keys;
 
 public:
-	Tank();
+	Billy();
 
 	void loadResource();
 
@@ -23,4 +22,3 @@ public:
 
 	void fixPosAnimation(int);
 };
-
