@@ -19,6 +19,10 @@ protected:
 	// Doi tuong nao dung yen thi state = NONE
 	int _state;
 
+	// Lat nguoc sprite 
+	bool _isReverse;
+	bool _isAnimated;
+
 	float _speed; // vx
 
 	Vec3 _pos;
@@ -43,6 +47,8 @@ public:
 	void setScale(float, float);
 	void setScale(float);
 
+	void setIsReverse(bool);
+	void setIsAnimated(bool);
 
 	// Load Animation từ Animation Manager vao map Animation
 	virtual void loadResource() = 0;

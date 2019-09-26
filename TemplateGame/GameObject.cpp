@@ -4,6 +4,10 @@ GameObject::GameObject()
 {
 	this->_device = DeviceManager::getInstance();
 	this->_texture = Texture::getInstance();
+
+	_isReverse = false;
+	_isAnimated = true;
+
 	_pos = Vec3(0, 0, 0);
 	_scale = Vec2(1, 1);
 	_state = 0;
@@ -47,6 +51,16 @@ void GameObject::setScale(Vec2 pos)
 void GameObject::setScale(float x, float y)
 {
 	this->setScale(Vec2(x, y));
+}
+
+void GameObject::setIsReverse(bool isReverse)
+{
+	this->_isReverse = isReverse;
+}
+
+void GameObject::setIsAnimated(bool isAni)
+{
+	this->_isAnimated = isAni;
 }
 
 void GameObject::setScale(float scale)

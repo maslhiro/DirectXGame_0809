@@ -17,9 +17,10 @@ void Billy::loadResource()
 
 void Billy::render()
 {
+	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setPosition(_pos);
 	_curAnimation.setScale(_scale);
-
+	_curAnimation.setIsReverse(_isReverse);
 	_curAnimation.render(_device, _texture);
 
 }
@@ -31,14 +32,33 @@ void Billy::update(float dt)
 
 void Billy::handlerInput()
 {
-	//switch (_state)
-	//{
-	//case eIdState::RUNNING:
+	switch (_state)
+	{
+	case eIdState::STANDING:
+		if (_input->_keys[65]) {
+			//_state = eIdState::PUNCHING;
+			this->setIsReverse(true);
+			this->setIsAnimated(true);
+			// Fix pos animation
+			//this->fixPosAnimation(_state);
+			_pos.x -= 1;
+		}
+		else if (_input->_keys[68])
+		{
+			//_state = eIdState::PUNCHING;
+			this->setIsReverse(false);
+			this->setIsAnimated(true);
+			// Fix pos animation
+			//this->fixPosAnimation(_state);
+			_pos.x += 1;
+		}
+		else {
+			this->setIsAnimated(false);
+		}
 
-
-	//default:
-	//	break;
-	//}
+	default:
+		break;
+	}
 	//A
 	//if (_input->_keys[65]) {
 	//	if (_state != eIdState::RUNNING) {

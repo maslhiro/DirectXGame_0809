@@ -19,7 +19,9 @@ private:
 	// index frame hien tai va frame cuoi
 	int _currentFrame;
 	int _loopCount;
-	bool _isLoop; // default : true , false => chay 1 lan va ko lap 
+	bool _isLoop;		// default : true , false => chay 1 lan va ko lap 
+	bool _isReverse;	// default false,  true => lật ảnh ngược lại
+	bool _isAnimated;   // default true, false => chi hien thi sprite dau tien
 
 	// Vi tri vẽ sprite lên màn hình
 	Vec3 _position;
@@ -40,8 +42,12 @@ public:
 	void setTimePerFrame(float);
 
 	void setIsLoop(bool);
+	void setIsReverse(bool);
+	void setIsAnimated(bool);
+
 	void setPosition(Vec3);
 	void setScale(Vec2);
+	void setScale(float, float);
 
 	void setDrawingBound(bool);
 	void setColorBound(DWORD);
@@ -61,7 +67,7 @@ public:
 	// Can theo bottom
 	float fixPosHeight(RectSprite);
 
-	//Can theo left
+	// Can theo left
 	float fixPosWidth(RectSprite);
 
 	std::vector<int> getListSprite();

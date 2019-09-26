@@ -4,12 +4,16 @@ Animation::Animation()
 {
 	this->_timePerFrame = 0;
 	this->_currentFrame = 0;
-	this->_isLoop = true;
 	this->_loopCount = 0;
+
+	this->_isLoop = true;
+	this->_isReverse = false;
+	this->_isAnimated = true;
+	this->_drawingBound = false;
+
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(0, 0, 0);
 	this->_scale = Vec2(1, 1);
-	this->_drawingBound = false;
 	this->_colorBound = D3DCOLOR_XRGB(255, 0, 0);
 
 	D3DXCreateLine(DeviceManager::getInstance()->getDevice(), &lineDraw);
@@ -25,6 +29,16 @@ void Animation::setIsLoop(bool isLoop)
 	this->_isLoop = isLoop;
 }
 
+void Animation::setIsAnimated(bool isAni)
+{
+	this->_isAnimated = isAni;
+}
+
+void Animation::setIsReverse(bool isReverse)
+{
+	this->_isReverse = isReverse;
+}
+
 void Animation::setTimePerFrame(float timePerFrame)
 {
 	this->_timePerFrame = timePerFrame;
@@ -38,6 +52,11 @@ void Animation::setPosition(Vec3 pos)
 void Animation::setScale(Vec2 scale)
 {
 	this->_scale = scale;
+}
+
+void Animation::setScale(float x, float y)
+{
+	this->setScale(Vec2(x, y));
 }
 
 void Animation::setDrawingBound(bool draw)
@@ -103,14 +122,31 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	RectSprite rect = _sprite->get(eIdSprite);
 	RECT r = rect.getRECT();
 
-	// Fix pos
-	Vec3 _newPos = _position;
-	_newPos += _fixPosVec[_currentFrame];
+
 
 	//Scale Sprite
 	D3DXMATRIX matFinal;
 	D3DXMATRIX matTransformed;
 	D3DXMATRIX matOld;
+
+	Vec2 scale = this->_scale;
+
+	// Lật ngước sprite lại 
+	if (_isReverse) scale = Vec2(_scale.x*-1, _scale.y);
+	// Fix pos
+	Vec3 _newPos = _position;
+	if (_isReverse)
+	{
+		// nếu lật sprite lại thì fix pos theo góc bottom right
+		_newPos -= _fixPosVec[_currentFrame];
+	}
+	else
+	{
+		// fix pos theo goc bottom left
+		_newPos += _fixPosVec[_currentFrame];
+	}
+
+
 	Vec2 _pos2D = Vec2(_newPos.x, _newPos.y);
 
 	// get matrix texture
@@ -120,7 +156,7 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		&matTransformed,						// ma tran ket qua sau transform
 		&_pos2D,								// goc toa do / diem neo
 		0.0f,
-		&_scale,								// ti le scale
+		&scale,								// ti le scale
 		&_pos2D,								// goc toa do / diem neo
 		0,										// góc xoay theo radian
 		0										// vi trí
@@ -176,6 +212,8 @@ int Animation::update(float dt)
 	{
 		_totalTime = 0;
 
+		// Kiem tra co animated co cho phep ve sprite tiep ko ? 
+		if (!_isAnimated) return 0;
 
 		// Kiem tra phai frame cuoi ko ?
 		// Neu dung chuyen ve frame dau
@@ -192,7 +230,6 @@ int Animation::update(float dt)
 			}
 			else _currentFrame += 1;
 		}
-
 
 	}
 	else {
