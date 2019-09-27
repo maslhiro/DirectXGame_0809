@@ -61,7 +61,13 @@ public:
 	virtual void handlerInput() = 0;
 
 	// Fix pos khi chuyển animation
-	virtual void fixPosAnimation(int) = 0;
+	void fixPosAnimation(int);
+
+	// Mac dinh fix theo bottom
+	float fixPosHeight(int);
+
+	// Mac dinh fix theo left
+	float fixPosWidth(int);
 
 	GameObject();
 	~GameObject();

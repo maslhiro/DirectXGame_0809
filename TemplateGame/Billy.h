@@ -19,6 +19,4 @@ public:
 	void update(float);
 
 	void handlerInput();
-
-	void fixPosAnimation(int);
 };

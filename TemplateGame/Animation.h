@@ -14,7 +14,7 @@ private:
 
 	bool _drawingBound;
 	DWORD  _colorBound;
-	ID3DXLine *lineDraw;
+	ID3DXLine *_lineDraw;
 
 	// index frame hien tai va frame cuoi
 	int _currentFrame;
@@ -52,6 +52,8 @@ public:
 	void setDrawingBound(bool);
 	void setColorBound(DWORD);
 
+	int getLoopCount();
+
 	void release();
 
 	int getSprite(int);
@@ -59,8 +61,8 @@ public:
 	int render(pDeviceManager, pTexture);
 	int update(float);
 
-	// Get width va heigt frame dau tien cua Animation de fix pos
-	// khi Obj chuyen doi giua cac animation
+	// Get width va heigt frame dau tien cua Animation de GameObjetc fix pos
+	// khi chuyen doi giua cac animation
 	float getWidth();
 	float getHeight();
 

@@ -10,8 +10,44 @@ GameObject::GameObject()
 
 	_pos = Vec3(0, 0, 0);
 	_scale = Vec2(1, 1);
+
 	_state = 0;
+	_speed = 1;
 }
+
+void GameObject::fixPosAnimation(int nextState)
+{
+	float fixBottom = this->fixPosHeight(nextState);
+	float fixLeft = this->fixPosWidth(nextState);
+	if (_isReverse) {
+		// Tuong tu trong animation
+		this->setPosition(_pos.x - fixLeft * _scale.x, _pos.y + fixBottom * _scale.y);
+	}
+	else this->setPosition(_pos.x + fixLeft * _scale.x, _pos.y + fixBottom * _scale.y);
+}
+
+float GameObject::fixPosHeight(int nextState)
+{
+	if (_listAnimation.size() > 1) {
+		float _nextHeight = _listAnimation[nextState].getHeight();
+		float _curtHeight = _listAnimation[_state].getHeight();
+
+		return (_curtHeight - _nextHeight) / 2;
+	}
+	return 0;
+}
+
+float GameObject::fixPosWidth(int nextState)
+{
+	if (_listAnimation.size() > 1) {
+		float _nextWidth = _listAnimation[nextState].getWidth();
+		float _curtWidth = _listAnimation[_state].getWidth();
+
+		return (_nextWidth - _curtWidth) / 2;
+	}
+	return 0;
+}
+
 
 GameObject::~GameObject()
 {
@@ -76,4 +112,5 @@ void GameObject::setSpeed(float speed)
 void GameObject::setState(int state)
 {
 	this->_state = state;
+	_curAnimation = _listAnimation[state];
 }

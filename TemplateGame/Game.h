@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "DrawDebug.h"
 #include "AnimationManager.h"
 
 #include "Billy.h"
@@ -16,7 +17,9 @@ private:
 	static int isExit;
 
 	pDeviceManager _deviceManager;
+	pDrawDebug _drawDebug;
 	pGameTime _gameTime;
+
 	pTexture _texture;
 	pSprite _sprite;
 	pAnimationManager _animationManager;

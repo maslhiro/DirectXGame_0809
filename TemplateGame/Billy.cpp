@@ -11,8 +11,7 @@ void Billy::loadResource()
 	_listAnimation[eIdState::STANDING] = AnimationManager::getInstance()->get(eIdAnimation::BILLY_STANDING);
 	_listAnimation[eIdState::PUNCHING] = AnimationManager::getInstance()->get(eIdAnimation::BILLY_PUNCHING);
 
-	_state = eIdState::STANDING;
-	_curAnimation = _listAnimation[_state];
+	this->setState(eIdState::STANDING);
 }
 
 void Billy::render()
@@ -35,67 +34,47 @@ void Billy::handlerInput()
 	switch (_state)
 	{
 	case eIdState::STANDING:
-		if (_input->_keys[65]) {
-			//_state = eIdState::PUNCHING;
+		if (_input->getMapKey()[KEY_A]) {
+			_RPT0(0, "OK A \n");
 			this->setIsReverse(true);
-			this->setIsAnimated(true);
-			// Fix pos animation
-			//this->fixPosAnimation(_state);
-			_pos.x -= 1;
+			//this->setIsAnimated(true);
+
+			//_pos.x -= _speed;
 		}
-		else if (_input->_keys[68])
+		else if (_input->getMapKey()[KEY_D])
 		{
-			//_state = eIdState::PUNCHING;
+			_RPT0(0, "OK D \n");
 			this->setIsReverse(false);
-			this->setIsAnimated(true);
-			// Fix pos animation
-			//this->fixPosAnimation(_state);
-			_pos.x += 1;
+			//this->setIsAnimated(true);
+
+			//_pos.x += _speed;
 		}
-		else {
+		else if (_input->getMapKey()[KEY_S])
+		{
+			// Fix pos truoc sau do moi set State
+			this->fixPosAnimation(eIdState::PUNCHING);
+
+			this->setState(eIdState::PUNCHING);
+
+			this->setIsAnimated(true);
+		}
+		else
+		{
 			this->setIsAnimated(false);
 		}
+		break;
 
+	case eIdState::PUNCHING:
+		if (_curAnimation.getLoopCount() == 1) {
+
+			this->fixPosAnimation(eIdState::STANDING);
+
+			this->setState(eIdState::STANDING);
+		}
+
+		break;
 	default:
 		break;
 	}
-	//A
-	//if (_input->_keys[65]) {
-	//	if (_state != eIdState::RUNNING) {
-	//		_state = eIdState::RUNNING;
 
-
-	//		// Fix pos animation
-	//		this->fixPosAnimation(_state);
-	//	}
-	//	_pos.x -= 1;
-	//}
-
-	//// DD
-	//else if (_input->_keys[68]) {
-	//	if (_state != eIdState::RUNNING) {
-	//		_state = eIdState::RUNNING;
-
-	//		// Fix pos animation
-	//		this->fixPosAnimation(_state);
-	//	}
-	//	_pos.x += 1;
-	//}
-	//else {
-	//	if (_state != eIdState::STANDING) {
-	//		_state = eIdState::STANDING;
-
-	//		// Fix pos animation
-	//		this->fixPosAnimation(_state);
-
-	//	}
-	//}
-}
-
-void Billy::fixPosAnimation(int state)
-{
-	float preHeight = _curAnimation.getHeight();
-	_curAnimation = _listAnimation[_state];
-	float curHeight = _curAnimation.getHeight();
-	this->setPosition(_pos.x, _pos.y + (preHeight - curHeight));
 }

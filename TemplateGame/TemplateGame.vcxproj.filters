@@ -75,6 +75,9 @@
     <ClCompile Include="Billy.cpp">
       <Filter>Source Files\Object</Filter>
     </ClCompile>
+    <ClCompile Include="DrawDebug.cpp">
+      <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="Billy.h">
       <Filter>Header Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawDebug.h">
+      <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

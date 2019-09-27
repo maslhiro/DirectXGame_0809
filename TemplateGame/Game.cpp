@@ -4,9 +4,9 @@ int Game::isExit = 0;
 
 pGraphic Game::_hWindow = NULL;
 
-Animation tankAnimation;
+Animation billy;
 
-Animation tankAnimation2;
+Animation billy2;
 
 pGraphic Game::getWindow()
 {
@@ -23,25 +23,24 @@ Game::Game()
 
 void Game::loadResource()
 {
-	//_texture->add(eIdTexture::TANK, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(16, 216, 128));
-	//_texture->add(eIdTexture::TANK_TEX, L"Resource//Object//Tank_Soldier.png", D3DCOLOR_XRGB(255, 255, 255));
 	_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(255, 255, 255));
+	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(0, 106, 106));
 
-	//_sprite->add(eIdTexture::TANK_TEX, "Resource//Object//Tank_Animation.txt");
 	_sprite->add(eIdTexture::BILLY_TEX, "Resource//Object//Billy_Animation.txt");
 
 	_animationManager->load();
 
-	//tankAnimation = _animationManager->get(eIdAnimation::TANK_RUNNING);
-	//tankAnimation.setPosition(Vec3(200, 200, 0));
-	//tankAnimation.setDrawingBound(true);
-	//tankAnimation.setColorBound(D3DCOLOR_XRGB(2, 56, 60));
-	//tankAnimation.setScale(Vec2(2, 2));
+	//billy = _animationManager->get(eIdAnimation::BILLY_PUNCHING);
+	//billy.setPosition(Vec3(300, 300, 0));
+	//billy.setIsReverse(true);
+	//billy.setDrawingBound(true);
+	//billy.setColorBound(D3DCOLOR_XRGB(2, 56, 60));
+	//billy.setScale(Vec2(2, 2));
 
-	//tankAnimation2 = _animationManager->get(eIdAnimation::TANK_RUNNING);
-	//tankAnimation2.setPosition(Vec3(400, 200, 0));
-	//tankAnimation2.setDrawingBound(true);
-	//tankAnimation2.setScale(Vec2(2, 2));
+	//billy2 = _animationManager->get(eIdAnimation::BILLY_PUNCHING);
+	//billy2.setPosition(Vec3(300, 300, 0));
+	//billy2.setDrawingBound(true);
+	//billy2.setScale(Vec2(2, 2));
 
 	_billy.loadResource();
 	_billy.setPosition(300, 300);
@@ -53,6 +52,7 @@ Game::Game(HINSTANCE hInstance, int nCmdShow)
 	_hWindow = new Graphic(hInstance, nCmdShow, 0);
 	_gameTime = GameTime::getInstance();
 	_deviceManager = DeviceManager::getInstance();
+	_drawDebug = DrawDebug::getInstance();
 	_texture = Texture::getInstance();
 	_sprite = Sprite::getInstance();
 	_animationManager = AnimationManager::getInstance();
@@ -63,6 +63,7 @@ int Game::init()
 	_gameTime->init();
 	_hWindow->initWindow();
 	_deviceManager->init(_hWindow);
+	_drawDebug->init();
 	_texture->init();
 
 	_RPT0(0, "[INFO] Init Game done;\n");
@@ -137,9 +138,15 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
-		//tankAnimation.render(_deviceManager, _texture);
-		//tankAnimation2.render(_deviceManager, _texture);
+		_drawDebug->drawLine(Vec2(0, 300 + 18.5), Vec2(632, 300 + 18.5));
+		_drawDebug->drawLine(Vec2(300 - 11.5, 0), Vec2(300 - 11.5, 400));
+		_drawDebug->drawLine(Vec2(0, 300), Vec2(632, 300));
+		_drawDebug->drawLine(Vec2(300, 0), Vec2(300, 400));
+
 		_billy.render();
+
+		//billy.render(_deviceManager, _texture);
+		//billy2.render(_deviceManager, _texture);
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -151,12 +158,14 @@ int Game::render()
 	return 1;
 }
 
-int Game::update(float dt) {
+int Game::update(float dt)
+{
 
-	//tankAnimation.update(dt);
-	//tankAnimation2.update(dt);
 	_billy.handlerInput();
 	_billy.update(dt);
+
+	//billy.update(dt);
+	//billy2.update(dt);
 
 	return 1;
 }
@@ -172,6 +181,7 @@ void Game::release()
 	if (_gameTime != nullptr) _gameTime->release();
 	if (_texture != nullptr) _texture->release();
 	if (_gameTime != nullptr) _gameTime->release();
+	if (_drawDebug != nullptr) _drawDebug->release();
 }
 
 Game::~Game()

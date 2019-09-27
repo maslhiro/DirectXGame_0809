@@ -16,7 +16,7 @@ Animation::Animation()
 	this->_scale = Vec2(1, 1);
 	this->_colorBound = D3DCOLOR_XRGB(255, 0, 0);
 
-	D3DXCreateLine(DeviceManager::getInstance()->getDevice(), &lineDraw);
+	D3DXCreateLine(DeviceManager::getInstance()->getDevice(), &_lineDraw);
 
 }
 
@@ -69,18 +69,21 @@ void Animation::setColorBound(DWORD  color)
 	this->_colorBound = color;
 }
 
+int Animation::getLoopCount() {
+	return _loopCount;
+}
+
 void Animation::addSprite(eIdSprite id) {
-
-
 
 	RectSprite currentRect = _sprite->get(id);
 	Vec3 _origin = Vec3(currentRect.getWidth() / 2, currentRect.getHeight() / 2, 0);
 	_listOrigin.push_back(_origin);
+	_RPT1(0, "[INFO] Origin Sprite [%d] || x : %f || y : %f \n", id, _origin.x, _origin.y);
 
 	// Check co phai sprite dau tien ko ?
 	if (_listSpriteId.size() >= 1) {
 
-		// can bottom cac frame trung nhau
+		//	// canh bottom cac frame trung nhau
 		float fixBottom = this->fixPosHeight(currentRect);
 		float fixLeft = this->fixPosWidth(currentRect);
 		_fixPosVec.push_back(Vec3(fixLeft, fixBottom, 0));
@@ -104,9 +107,8 @@ int Animation::getSprite(int index)
 
 void Animation::release() {
 	this->_timePerFrame = NULL;
-	this->lineDraw->Release();
-	/*this->_listSpriteId.clear();
-	this->_listSpriteId.shrink_to_fit();*/
+	delete this->_lineDraw;
+	_lineDraw = nullptr;
 }
 
 std::vector<int> Animation::getListSprite() {
@@ -122,8 +124,6 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	RectSprite rect = _sprite->get(eIdSprite);
 	RECT r = rect.getRECT();
 
-
-
 	//Scale Sprite
 	D3DXMATRIX matFinal;
 	D3DXMATRIX matTransformed;
@@ -135,17 +135,20 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	if (_isReverse) scale = Vec2(_scale.x*-1, _scale.y);
 	// Fix pos
 	Vec3 _newPos = _position;
+	Vec3 _fixPos = _fixPosVec[_currentFrame];
 	if (_isReverse)
 	{
 		// nếu lật sprite lại thì fix pos theo góc bottom right
-		_newPos -= _fixPosVec[_currentFrame];
+		// Khi lat sprite lai thi left bottom => right top 
+		// nhung ma hinh can right bottom => -fixPos.y 
+		_newPos -= Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
 	}
 	else
 	{
 		// fix pos theo goc bottom left
-		_newPos += _fixPosVec[_currentFrame];
+		_newPos += Vec3(_fixPos.x*_scale.x, _fixPos.y*_scale.y, 0);
 	}
-
+	_RPT1(0, "[INFO] FIX POS %d :x %f y %f \n", _currentFrame, _newPos.x, _newPos.y);
 
 	Vec2 _pos2D = Vec2(_newPos.x, _newPos.y);
 
@@ -156,11 +159,14 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		&matTransformed,						// ma tran ket qua sau transform
 		&_pos2D,								// goc toa do / diem neo
 		0.0f,
-		&scale,								// ti le scale
+		&scale,									// ti le scale
 		&_pos2D,								// goc toa do / diem neo
 		0,										// góc xoay theo radian
 		0										// vi trí
 	);
+
+	_RPT1(0, "[INFO] FIX POS AFTER SCALE %d :x %f y %f \n", _currentFrame, _pos2D.x, _pos2D.y);
+
 
 	matFinal = matTransformed * matOld;
 
@@ -176,18 +182,18 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		float left = _newPos.x - rect.getWidth() / 2 * _scale.x - 1;
 		float right = _newPos.x + rect.getWidth() / 2 * _scale.x + 1;
 
-		D3DXVECTOR2 line[] = {
-			D3DXVECTOR2(left,top),
-			D3DXVECTOR2(right,top),
-			D3DXVECTOR2(right,bottom),
-			D3DXVECTOR2(left,bottom),
-			D3DXVECTOR2(left,top)
+		Vec2 line[] = {
+			Vec2(left,top),
+			Vec2(right,top),
+			Vec2(right,bottom),
+			Vec2(left,bottom),
+			Vec2(left,top)
 		};
 
-		lineDraw->SetWidth(BBOX_WIDTH);
-		lineDraw->Begin();
-		lineDraw->Draw(line, 5, _colorBound);
-		lineDraw->End();
+		_lineDraw->SetWidth(BBOX_WIDTH);
+		_lineDraw->Begin();
+		_lineDraw->Draw(line, 5, _colorBound);
+		_lineDraw->End();
 
 	}
 
@@ -258,10 +264,10 @@ float Animation::fixPosHeight(RectSprite _nextRect)
 	// get sprite dau tien cua frame
 	RectSprite firstRect = _sprite->get(_listSpriteId[0]);
 
-	int heigthFirst = (int)firstRect.getHeight();
-	int heigthCurrent = (int)_nextRect.getHeight();
+	float heigthFirst = firstRect.getHeight();
+	float heigthCurrent = _nextRect.getHeight();
 
-	return (float)(heigthFirst - heigthCurrent);
+	return (heigthFirst - heigthCurrent) / 2;
 }
 
 float Animation::fixPosWidth(RectSprite _nextRect)
@@ -269,9 +275,9 @@ float Animation::fixPosWidth(RectSprite _nextRect)
 	// get sprite dau tien cua frame
 	RectSprite firstRect = _sprite->get(_listSpriteId[0]);
 
-	int widthFirst = (int)firstRect.getWidth();
-	int widthCurrent = (int)_nextRect.getWidth();
+	float widthFirst = firstRect.getWidth();
+	float widthCurrent = _nextRect.getWidth();
 
-	return (float)(widthCurrent - widthFirst);
+	return (widthCurrent - widthFirst) / 2;
 
 }

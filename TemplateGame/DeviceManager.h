@@ -10,6 +10,10 @@ private:
 	DirectDevice	_pDevice;
 	DirectSurface	_backBuffer;
 	DirectSprite _spriteHandler;
+
+	DWORD  _colorLine;
+	ID3DXLine *lineDraw;
+
 public:
 	DeviceManager();
 	~DeviceManager();

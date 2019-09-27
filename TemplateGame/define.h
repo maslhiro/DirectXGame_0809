@@ -25,9 +25,11 @@
 
 #define MAX_FRAME_RATE 60
 
-#define KEYBOARD_BUFFER_SIZE 1024
-
 #define BBOX_WIDTH 5
+
+#define KEY_A 0x41
+#define KEY_D 0x44
+#define KEY_S 0x53
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

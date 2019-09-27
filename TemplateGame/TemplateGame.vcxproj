@@ -124,6 +124,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Billy.cpp" />
+    <ClCompile Include="DrawDebug.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Billy.h" />
+    <ClInclude Include="DrawDebug.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="DeviceManager.h" />

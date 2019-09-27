@@ -33,7 +33,7 @@ void AnimationManager::load() {
 	_billy.setTimePerFrame(0.4f);
 	//_billy.setIsLoop(false);
 	//_billy.setIsReverse(true);
-	_billy.setDrawingBound(true);
+	//_billy.setDrawingBound(true);
 	_billy.addSprite(eIdSprite::BILLY_STANDING_01);
 	_billy.addSprite(eIdSprite::BILLY_STANDING_02);
 	_billy.addSprite(eIdSprite::BILLY_STANDING_03);
