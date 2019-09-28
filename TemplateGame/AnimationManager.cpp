@@ -41,7 +41,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::BILLY_STANDING] = _billy;
 
 	Animation _billy01;
-	_billy01.setTimePerFrame(1.0f);
+	_billy01.setTimePerFrame(0.3f);
 	_billy01.addSprite(eIdSprite::BILLY_PUNCHING_01);
 	_billy01.addSprite(eIdSprite::BILLY_PUNCHING_02);
 	_billy01.addSprite(eIdSprite::BILLY_PUNCHING_03);

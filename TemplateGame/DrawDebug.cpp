@@ -34,3 +34,34 @@ void DrawDebug::drawLine(Vec2 start, Vec2 end, DWORD color, float width)
 	_lineDraw->Draw(_line, 2, color);
 	_lineDraw->End();
 }
+
+
+void DrawDebug::drawLineHorizontal(float pos, float length, DWORD color, float width)
+{
+	Vec2 _line[] = {
+		Vec2(0,pos),
+		Vec2(length,pos)
+	};
+
+	_lineDraw->Begin();
+	_lineDraw->SetWidth(width);
+	_lineDraw->Draw(_line, 2, color);
+	_lineDraw->End();
+}
+
+
+void DrawDebug::drawLineVertical(float pos, float length, DWORD color, float width)
+{
+	Vec2 _line[] = {
+		Vec2(pos,0),
+		Vec2(pos,length),
+	};
+
+	_lineDraw->Begin();
+	_lineDraw->SetWidth(width);
+	_lineDraw->Draw(_line, 2, color);
+	_lineDraw->End();
+}
+
+
+

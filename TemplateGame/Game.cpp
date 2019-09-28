@@ -23,8 +23,8 @@ Game::Game()
 
 void Game::loadResource()
 {
-	_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(255, 255, 255));
-	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(0, 106, 106));
+	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(255, 255, 255));
+	_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(0, 106, 106));
 
 	_sprite->add(eIdTexture::BILLY_TEX, "Resource//Object//Billy_Animation.txt");
 
@@ -138,11 +138,9 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
-		_drawDebug->drawLine(Vec2(0, 300 + 18.5), Vec2(632, 300 + 18.5));
-		_drawDebug->drawLine(Vec2(300 - 11.5, 0), Vec2(300 - 11.5, 400));
-		_drawDebug->drawLine(Vec2(0, 300), Vec2(632, 300));
-		_drawDebug->drawLine(Vec2(300, 0), Vec2(300, 400));
-
+		_drawDebug->drawLineHorizontal(300 + 18.5, 600);
+		_drawDebug->drawLineHorizontal(300, 600);
+		_drawDebug->drawLineVertical(300, 500);
 		_billy.render();
 
 		//billy.render(_deviceManager, _texture);
