@@ -78,7 +78,7 @@ void Animation::addSprite(eIdSprite id) {
 	RectSprite currentRect = _sprite->get(id);
 	Vec3 _origin = Vec3(currentRect.getWidth() / 2, currentRect.getHeight() / 2, 0);
 	_listOrigin.push_back(_origin);
-	_RPT1(0, "[INFO] Origin Sprite [%d] || x : %f || y : %f \n", id, _origin.x, _origin.y);
+	//_RPT1(0, "[INFO] Origin Sprite [%d] || x : %f || y : %f \n", id, _origin.x, _origin.y);
 
 	// Check co phai sprite dau tien ko ?
 	if (_listSpriteId.size() >= 1) {
@@ -87,7 +87,7 @@ void Animation::addSprite(eIdSprite id) {
 		float fixBottom = this->fixPosHeight(currentRect);
 		float fixLeft = this->fixPosWidth(currentRect);
 		_fixPosVec.push_back(Vec3(fixLeft, fixBottom, 0));
-		_RPT1(0, "[INFO] Fix Pos Sprite [%d] || height : %f || width : %f \n", id, fixBottom, fixLeft);
+		//_RPT1(0, "[INFO] Fix Pos Sprite [%d] || height : %f || width : %f \n", id, fixBottom, fixLeft);
 
 	}
 	else {
@@ -148,7 +148,7 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		// fix pos theo goc bottom left
 		_newPos += Vec3(_fixPos.x*_scale.x, _fixPos.y*_scale.y, 0);
 	}
-	_RPT1(0, "[INFO] FIX POS %d :x %f y %f \n", _currentFrame, _newPos.x, _newPos.y);
+	//_RPT1(0, "[INFO] FIX POS %d :x %f y %f \n", _currentFrame, _newPos.x, _newPos.y);
 
 	Vec2 _pos2D = Vec2(_newPos.x, _newPos.y);
 
@@ -165,7 +165,7 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		0										// vi trí
 	);
 
-	_RPT1(0, "[INFO] FIX POS AFTER SCALE %d :x %f y %f \n", _currentFrame, _pos2D.x, _pos2D.y);
+	//_RPT1(0, "[INFO] FIX POS AFTER SCALE %d :x %f y %f \n", _currentFrame, _pos2D.x, _pos2D.y);
 
 
 	matFinal = matTransformed * matOld;

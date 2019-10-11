@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="10" height="5" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="2">
+ <tileset firstgid="1" name="70" tilewidth="32" tileheight="32" tilecount="4500" columns="60">
+  <image source="Resource/map.png" width="1947" height="2418"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="10" height="5">
+  <data encoding="csv">
+901,902,903,904,905,906,907,908,909,910,
+961,962,963,964,965,966,967,968,969,970,
+1021,1022,1023,1024,1025,1026,1027,1028,1029,1030,
+1081,1082,1083,1084,1085,1086,1087,1088,1089,1090,
+1141,1142,1143,1144,1145,1146,1147,1148,1149,1150
+</data>
+ </layer>
+ <objectgroup id="2" name="land">
+  <object id="1" x="-0.666667" y="146.667" width="319.333" height="14"/>
+ </objectgroup>
+</map>

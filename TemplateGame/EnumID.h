@@ -20,8 +20,10 @@ enum eIdTexture
 {
 	TANK_TEX = 1,
 	ENEMY_TEX,
+	BILLY_TEX,
 
-	BILLY_TEX
+	SCENE_TEX = 70,
+
 };
 
 //Sprite > 1000

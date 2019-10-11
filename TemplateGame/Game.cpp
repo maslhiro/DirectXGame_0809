@@ -23,10 +23,15 @@ Game::Game()
 
 void Game::loadResource()
 {
-	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(255, 255, 255));
-	_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(0, 106, 106));
+	_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(255, 255, 255));
+	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(0, 106, 106));
+	_texture->add(eIdTexture::SCENE_TEX, L"Resource//Map//map.png", D3DCOLOR_XRGB(255, 255, 255));
 
-	_sprite->add(eIdTexture::BILLY_TEX, "Resource//Object//Billy_Animation.txt");
+	_map.load("Resource/Map/map.tmx");
+
+	_RPT1(0, "[INFO] Map Width %d ;\n", _map.getWidth());
+
+	//_sprite->add(eIdTexture::BILLY_TEX, "Resource//Object//Billy_Animation.txt");
 
 	_animationManager->load();
 
@@ -42,9 +47,9 @@ void Game::loadResource()
 	//billy2.setDrawingBound(true);
 	//billy2.setScale(Vec2(2, 2));
 
-	_billy.loadResource();
+	/*_billy.loadResource();
 	_billy.setPosition(300, 300);
-	_billy.setScale(2);
+	_billy.setScale(2);*/
 }
 
 Game::Game(HINSTANCE hInstance, int nCmdShow)
@@ -56,6 +61,7 @@ Game::Game(HINSTANCE hInstance, int nCmdShow)
 	_texture = Texture::getInstance();
 	_sprite = Sprite::getInstance();
 	_animationManager = AnimationManager::getInstance();
+
 }
 
 int Game::init()
@@ -65,6 +71,7 @@ int Game::init()
 	_deviceManager->init(_hWindow);
 	_drawDebug->init();
 	_texture->init();
+	_map.init();
 
 	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
@@ -138,10 +145,12 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
-		_drawDebug->drawLineHorizontal(300 + 18.5, 600);
-		_drawDebug->drawLineHorizontal(300, 600);
-		_drawDebug->drawLineVertical(300, 500);
-		_billy.render();
+		_map.render();
+
+		//_drawDebug->drawLineHorizontal(300 + 18.5, 600);
+		//_drawDebug->drawLineHorizontal(300, 600);
+		//_drawDebug->drawLineVertical(300, 500);
+		//_billy.render();
 
 		//billy.render(_deviceManager, _texture);
 		//billy2.render(_deviceManager, _texture);
@@ -159,8 +168,8 @@ int Game::render()
 int Game::update(float dt)
 {
 
-	_billy.handlerInput();
-	_billy.update(dt);
+	//_billy.handlerInput();
+	//_billy.update(dt);
 
 	//billy.update(dt);
 	//billy2.update(dt);

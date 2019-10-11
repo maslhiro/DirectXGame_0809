@@ -19,6 +19,8 @@ class này sẽ được init và release ở constructor và destructor của l
 
 ---- Gametime.h : (Singleton) quản lí FPS (Frame per Second), tính tổng thời gian trong game.
 
+---- GameMap.h : Load file .tmx để hiển thị map lên , riêng name của tileset phải đặt trùng với id Texture 
+
 ---- Texture.h : (Singleton) load các ảnh resource vào 1 map <int, TEXTURE> quản lí bằng enum id Texture , 
 muốn lấy teture nào chỉ việc gọi ra như mảng. EX: _texture[eIdTexture::TANK]
 

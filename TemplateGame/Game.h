@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "DrawDebug.h"
 #include "AnimationManager.h"
+#include "GameMap.h"
 
 #include "Billy.h"
 
@@ -25,7 +26,7 @@ private:
 	pAnimationManager _animationManager;
 
 	Billy _billy;
-
+	GameMap _map;
 public:
 	static pGraphic _hWindow;
 	static pGraphic getWindow();

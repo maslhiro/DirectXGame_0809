@@ -24,7 +24,7 @@ void Texture::add(eIdTexture eId, LPCWSTR filePath, D3DCOLOR transparentColor)
 
 	if (result != D3D_OK)
 	{
-		_RPT1(0, "[ERROR] GetImageInfoFromFile failed: %s\n", filePath);
+		_RPT1(0, "[ERROR] GetImageInfoFromFile failed: %s ;\n", filePath);
 		return;
 	}
 
