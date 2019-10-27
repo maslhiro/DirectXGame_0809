@@ -23,11 +23,10 @@ int DeviceManager::init(pGraphic _window)
 	l_preParameter.BackBufferFormat = D3DFMT_A8R8G8B8;
 	l_preParameter.BackBufferCount = 1;
 
-	RECT r;
-	GetClientRect(_window->getWnd(), &r);	// retrieve Window width & height 
+	GetClientRect(_window->getWnd(), &_sizeWindow);	// retrieve Window width & height 
 
-	l_preParameter.BackBufferHeight = r.bottom + 1;
-	l_preParameter.BackBufferWidth = r.right + 1;
+	l_preParameter.BackBufferHeight = _sizeWindow.bottom + 1;
+	l_preParameter.BackBufferWidth = _sizeWindow.right + 1;
 
 	_pD3d->CreateDevice(
 		D3DADAPTER_DEFAULT,
@@ -59,6 +58,11 @@ int DeviceManager::init(pGraphic _window)
 	}
 
 	return 1;
+}
+
+RECT DeviceManager::getSizeWindow()
+{
+	return _sizeWindow;
 }
 
 DeviceManager* DeviceManager::getInstance()

@@ -13,6 +13,16 @@ void GameMap::init()
 {
 	_texture = Texture::getInstance();
 	_device = DeviceManager::getInstance();
+	_input = InputHandler::getInstance();
+
+	_camera = nullptr;
+}
+
+void GameMap::setCamera(pCamera camera)
+{
+
+	_camera = camera;
+
 }
 
 int GameMap::getWidth()
@@ -36,11 +46,13 @@ void GameMap::load(char *filePath)
 
 void GameMap::release()
 {
-	delete _map;
+	//delete _map;
+	//delete _camera;
 }
 
 void GameMap::render()
 {
+
 	for (size_t i = 0; i < _map->GetNumTileLayers(); i++)
 	{
 		// moi tile layer co 1 dong tileset =__=
@@ -71,7 +83,8 @@ void GameMap::render()
 
 					int idTexture = 0;
 					sscanf(tileSet->GetName().c_str(), "%d", &idTexture);
-					_RPT1(0, "[INFO] TEXTURE MAP %d \n", idTexture);
+					//_RPT1(0, "[INFO] TEXTURE MAP %d \n", idTexture);
+
 					//tile index
 					int tileID = _layer->GetTileId(n, m);
 
@@ -85,11 +98,90 @@ void GameMap::render()
 
 					//tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
 					//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-					D3DXVECTOR3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+					Vec3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
 
-					_device->getSpriteHandler()->Draw(_texture->get(idTexture), &sourceRECT, &D3DXVECTOR3(tileWidth / 2, tileHeight / 2, 0), &position, D3DCOLOR_XRGB(255, 255, 255));
+					// kiem tra tile do co nam ngoai map ko ?
+					if (_camera != nullptr)
+					{
+						//_RPT1(0, "[INFO] MAP RECT %d %d %d %d \n", _camera->getBounding().left, _camera->getBounding().top, _camera->getBounding().right, _camera->getBounding().bottom);
+						RECT objRECT;
+						objRECT.left = position.x - tileWidth / 2;
+						objRECT.top = position.y - tileHeight / 2;
+						objRECT.right = objRECT.left + tileWidth;
+						objRECT.bottom = objRECT.top + tileHeight;
+
+						//_RPT1(0, "[INFO] TILE RECT %d %d %d %d \n", sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom);
+						//neu nam ngoai camera thi khong render
+						//if (_camera->isContain(objRECT) == false) continue;
+					}
+
+
+					Vec2 trans(SCREEN_WIDTH / 2 - _camera->getPositionWorld().x, SCREEN_HEIGHT / 2 - _camera->getPositionWorld().y);
+
+					renderTileMap(idTexture, sourceRECT, position, trans, tileWidth, tileHeight);
+
 				}
 			}
 		}
+	}
+}
+
+void GameMap::renderTileMap(int idTexture, RECT &rect, Vec3 pos, Vec2 trans, int tileWidth, int tileHeight)
+{
+	D3DXMATRIX  mMatrix;
+	auto mSpriteHandler = _device->getSpriteHandler();
+
+	Vec2 scalingScenter = Vec2(pos.x, pos.y);
+
+
+	D3DXMatrixTransformation2D(&mMatrix, &scalingScenter, 0, &Vec2(1, 1), &Vec2(pos.x, pos.y), 0, &trans);
+
+	D3DXMATRIX oldMatrix;
+	mSpriteHandler->GetTransform(&oldMatrix);
+	mSpriteHandler->SetTransform(&mMatrix);
+
+	Vec3 center = Vec3(tileWidth / 2, tileHeight / 2, 0);
+
+	mSpriteHandler->Draw(_texture->get(idTexture),
+		&rect,
+		&center,
+		&pos,
+		D3DCOLOR_ARGB(255, 255, 255, 255)); // nhung pixel nao co mau trang se duoc to mau nay len
+
+	mSpriteHandler->SetTransform(&oldMatrix); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
+}
+
+void GameMap::update(float dt)
+{
+	handlerInput(dt);
+}
+
+#define DISTANCE_X 30
+#define DISTANCE_Y 30
+
+void GameMap::handlerInput(float)
+{
+	if (_input->getMapKey()[KEY_A]) {
+		_RPT0(0, "OK A \n");
+		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(-DISTANCE_X, 0, 0));
+	}
+	else if (_input->getMapKey()[KEY_D])
+	{
+		_RPT0(0, "OK D \n");
+		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(DISTANCE_X, 0, 0));
+
+	}
+	else if (_input->getMapKey()[KEY_W])
+	{
+		_RPT0(0, "OK W \n");
+		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(0, -DISTANCE_Y, 0));
+
+	}
+
+	else if (_input->getMapKey()[KEY_S])
+	{
+		_RPT0(0, "OK S \n");
+		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(0, DISTANCE_Y, 0));
+
 	}
 }

@@ -25,8 +25,9 @@ private:
 	pSprite _sprite;
 	pAnimationManager _animationManager;
 
-	Billy _billy;
 	GameMap _map;
+	pCamera _camera;
+
 public:
 	static pGraphic _hWindow;
 	static pGraphic getWindow();

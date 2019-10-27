@@ -34,6 +34,12 @@
     <Filter Include="Source Files\MapReader">
       <UniqueIdentifier>{3884e9c0-b27b-4eb8-a12c-3396050a992a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{df3b6444-b616-4582-9b84-81f734a6841c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{fc5e2cef-417a-4407-8288-b49030c5e53a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -146,6 +152,15 @@
     </ClCompile>
     <ClCompile Include="MapReader\TmxUtil.cpp">
       <Filter>Source Files\MapReader</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="FistScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -268,6 +283,15 @@
     </ClInclude>
     <ClInclude Include="MapReader\zlib.h">
       <Filter>Header Files\MapReader</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="FistScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

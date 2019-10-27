@@ -4,10 +4,6 @@ int Game::isExit = 0;
 
 pGraphic Game::_hWindow = NULL;
 
-Animation billy;
-
-Animation billy2;
-
 pGraphic Game::getWindow()
 {
 	return _hWindow;
@@ -23,17 +19,16 @@ Game::Game()
 
 void Game::loadResource()
 {
-	_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(255, 255, 255));
+	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(255, 255, 255));
 	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(0, 106, 106));
 	_texture->add(eIdTexture::SCENE_TEX, L"Resource//Map//map.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	_map.load("Resource/Map/map.tmx");
 
-	_RPT1(0, "[INFO] Map Width %d ;\n", _map.getWidth());
 
 	//_sprite->add(eIdTexture::BILLY_TEX, "Resource//Object//Billy_Animation.txt");
 
-	_animationManager->load();
+	//_animationManager->load();
 
 	//billy = _animationManager->get(eIdAnimation::BILLY_PUNCHING);
 	//billy.setPosition(Vec3(300, 300, 0));
@@ -50,6 +45,9 @@ void Game::loadResource()
 	/*_billy.loadResource();
 	_billy.setPosition(300, 300);
 	_billy.setScale(2);*/
+
+	_RPT0(0, "[INFO] Load Resource DONE ;\n");
+
 }
 
 Game::Game(HINSTANCE hInstance, int nCmdShow)
@@ -71,7 +69,13 @@ int Game::init()
 	_deviceManager->init(_hWindow);
 	_drawDebug->init();
 	_texture->init();
+
+	RECT sizeWindow = _deviceManager->getSizeWindow();
+	_camera = new Camera();
+	_camera->setPositisonWorld(20 * 32, 30 * 32);
+	_camera->setSizeWindow(sizeWindow.right - sizeWindow.left, sizeWindow.bottom - sizeWindow.top);
 	_map.init();
+	_map.setCamera(_camera);
 
 	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
@@ -145,15 +149,10 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
+		_drawDebug->drawLineHorizontal((_deviceManager->getSizeWindow().bottom - _deviceManager->getSizeWindow().top) / 2, 500);
+		_drawDebug->drawLineVertical((_deviceManager->getSizeWindow().right - _deviceManager->getSizeWindow().left) / 2, 500);
+
 		_map.render();
-
-		//_drawDebug->drawLineHorizontal(300 + 18.5, 600);
-		//_drawDebug->drawLineHorizontal(300, 600);
-		//_drawDebug->drawLineVertical(300, 500);
-		//_billy.render();
-
-		//billy.render(_deviceManager, _texture);
-		//billy2.render(_deviceManager, _texture);
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -167,13 +166,7 @@ int Game::render()
 
 int Game::update(float dt)
 {
-
-	//_billy.handlerInput();
-	//_billy.update(dt);
-
-	//billy.update(dt);
-	//billy2.update(dt);
-
+	_map.update(dt);
 	return 1;
 }
 
@@ -189,6 +182,7 @@ void Game::release()
 	if (_texture != nullptr) _texture->release();
 	if (_gameTime != nullptr) _gameTime->release();
 	if (_drawDebug != nullptr) _drawDebug->release();
+	_map.release();
 }
 
 Game::~Game()

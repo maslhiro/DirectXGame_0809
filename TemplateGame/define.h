@@ -30,6 +30,7 @@
 #define KEY_A 0x41
 #define KEY_D 0x44
 #define KEY_S 0x53
+#define KEY_W 0x57
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

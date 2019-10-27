@@ -6,6 +6,8 @@ class DeviceManager {
 
 private:
 	static DeviceManager* _instance;
+	RECT _sizeWindow;
+
 	LPDIRECT3D9			_pD3d;
 	DirectDevice	_pDevice;
 	DirectSurface	_backBuffer;
@@ -24,6 +26,8 @@ public:
 	void present();
 
 	int init(pGraphic);
+
+	RECT getSizeWindow();
 
 	DirectSprite getSpriteHandler();
 	DirectDevice getDevice();
