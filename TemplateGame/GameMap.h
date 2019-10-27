@@ -21,6 +21,8 @@ private:
 
 	pCamera _camera;
 
+	Vec2 _scale;
+
 public:
 	GameMap();
 	~GameMap();
@@ -28,6 +30,8 @@ public:
 	void init();
 
 	void setCamera(pCamera);
+	void setScale(Vec2);
+	void setScale(float);
 
 	int getWidth();
 	int getHeight();
@@ -37,8 +41,6 @@ public:
 	void release();
 
 	void render();
-
-	void renderTileMap(int, RECT&, Vec3, Vec2, int, int);
 
 	void update(float);
 

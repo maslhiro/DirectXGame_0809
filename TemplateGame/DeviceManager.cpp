@@ -65,6 +65,16 @@ RECT DeviceManager::getSizeWindow()
 	return _sizeWindow;
 }
 
+int DeviceManager::getWidthWindow()
+{
+	return _sizeWindow.right - _sizeWindow.left;
+}
+
+int DeviceManager::getHeightWindow()
+{
+	return _sizeWindow.bottom - _sizeWindow.top;
+}
+
 DeviceManager* DeviceManager::getInstance()
 {
 	if (_instance == nullptr)

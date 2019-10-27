@@ -75,6 +75,7 @@ int Game::init()
 	_camera->setPositisonWorld(20 * 32, 30 * 32);
 	_camera->setSizeWindow(sizeWindow.right - sizeWindow.left, sizeWindow.bottom - sizeWindow.top);
 	_map.init();
+	_map.setScale(1);
 	_map.setCamera(_camera);
 
 	_RPT0(0, "[INFO] Init Game done;\n");
@@ -149,8 +150,8 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
-		_drawDebug->drawLineHorizontal((_deviceManager->getSizeWindow().bottom - _deviceManager->getSizeWindow().top) / 2, 500);
-		_drawDebug->drawLineVertical((_deviceManager->getSizeWindow().right - _deviceManager->getSizeWindow().left) / 2, 500);
+		//_drawDebug->drawLineHorizontal((_deviceManager->getSizeWindow().bottom - _deviceManager->getSizeWindow().top) / 2, 500);
+		//_drawDebug->drawLineVertical((_deviceManager->getSizeWindow().right - _deviceManager->getSizeWindow().left) / 2, 500);
 
 		_map.render();
 

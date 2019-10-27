@@ -16,6 +16,8 @@ void GameMap::init()
 	_input = InputHandler::getInstance();
 
 	_camera = nullptr;
+
+	_scale = Vec2(1, 1);
 }
 
 void GameMap::setCamera(pCamera camera)
@@ -23,6 +25,16 @@ void GameMap::setCamera(pCamera camera)
 
 	_camera = camera;
 
+}
+
+void GameMap::setScale(Vec2 scale)
+{
+	_scale = scale;
+}
+
+void GameMap::setScale(float scale)
+{
+	_scale = Vec2(scale, scale);
 }
 
 int GameMap::getWidth()
@@ -46,12 +58,16 @@ void GameMap::load(char *filePath)
 
 void GameMap::release()
 {
-	//delete _map;
+	delete _map;
 	//delete _camera;
 }
 
 void GameMap::render()
 {
+	D3DXMATRIX matFinal;
+	D3DXMATRIX matTransformed;
+	D3DXMATRIX matOld;
+	auto mSpriteHandler = _device->getSpriteHandler();
 
 	for (size_t i = 0; i < _map->GetNumTileLayers(); i++)
 	{
@@ -98,27 +114,46 @@ void GameMap::render()
 
 					//tru tilewidth/2 va tileheight/2 vi Sprite ve o vi tri giua hinh anh cho nen doi hinh de cho
 					//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
-					Vec3 position(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+					Vec3 pos(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
+
+					Vec2 trans(_device->getWidthWindow() / 2 - _camera->getPositionWorld().x, _device->getHeightWindow() / 2 - _camera->getPositionWorld().y);
+
+					Vec2 scalingScenter = Vec2(pos.x, pos.y);
+
+					mSpriteHandler->GetTransform(&matOld);
+
+					D3DXMatrixTransformation2D(&matTransformed, &scalingScenter, 0, &_scale, &Vec2(pos.x, pos.y), 0, &trans);
+
+					matFinal = matTransformed * matOld;
 
 					// kiem tra tile do co nam ngoai map ko ?
 					if (_camera != nullptr)
 					{
-						//_RPT1(0, "[INFO] MAP RECT %d %d %d %d \n", _camera->getBounding().left, _camera->getBounding().top, _camera->getBounding().right, _camera->getBounding().bottom);
-						RECT objRECT;
-						objRECT.left = position.x - tileWidth / 2;
-						objRECT.top = position.y - tileHeight / 2;
-						objRECT.right = objRECT.left + tileWidth;
-						objRECT.bottom = objRECT.top + tileHeight;
 
-						//_RPT1(0, "[INFO] TILE RECT %d %d %d %d \n", sourceRECT.left, sourceRECT.top, sourceRECT.right, sourceRECT.bottom);
+						RECT objRECT;
+						objRECT.left = pos.x - (tileWidth / 2) * _scale.x;
+						objRECT.top = pos.y - (tileHeight / 2) * _scale.y;
+						objRECT.right = objRECT.left + (tileWidth)* _scale.x;
+						objRECT.bottom = objRECT.top + (tileHeight)* _scale.y;
+
 						//neu nam ngoai camera thi khong render
-						//if (_camera->isContain(objRECT) == false) continue;
+						if (_camera->isContain(objRECT) == false)
+						{
+							continue;
+						}
 					}
 
+					mSpriteHandler->SetTransform(&matFinal);
 
-					Vec2 trans(SCREEN_WIDTH / 2 - _camera->getPositionWorld().x, SCREEN_HEIGHT / 2 - _camera->getPositionWorld().y);
+					Vec3 center = Vec3(tileWidth / 2, tileHeight / 2, 0);
 
-					renderTileMap(idTexture, sourceRECT, position, trans, tileWidth, tileHeight);
+					mSpriteHandler->Draw(_texture->get(idTexture),
+						&sourceRECT,
+						&center,
+						&pos,
+						D3DCOLOR_ARGB(255, 255, 255, 255)); // nhung pixel nao co mau trang se duoc to mau nay len
+
+					mSpriteHandler->SetTransform(&matOld); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
 
 				}
 			}
@@ -126,38 +161,13 @@ void GameMap::render()
 	}
 }
 
-void GameMap::renderTileMap(int idTexture, RECT &rect, Vec3 pos, Vec2 trans, int tileWidth, int tileHeight)
-{
-	D3DXMATRIX  mMatrix;
-	auto mSpriteHandler = _device->getSpriteHandler();
-
-	Vec2 scalingScenter = Vec2(pos.x, pos.y);
-
-
-	D3DXMatrixTransformation2D(&mMatrix, &scalingScenter, 0, &Vec2(1, 1), &Vec2(pos.x, pos.y), 0, &trans);
-
-	D3DXMATRIX oldMatrix;
-	mSpriteHandler->GetTransform(&oldMatrix);
-	mSpriteHandler->SetTransform(&mMatrix);
-
-	Vec3 center = Vec3(tileWidth / 2, tileHeight / 2, 0);
-
-	mSpriteHandler->Draw(_texture->get(idTexture),
-		&rect,
-		&center,
-		&pos,
-		D3DCOLOR_ARGB(255, 255, 255, 255)); // nhung pixel nao co mau trang se duoc to mau nay len
-
-	mSpriteHandler->SetTransform(&oldMatrix); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
-}
-
 void GameMap::update(float dt)
 {
 	handlerInput(dt);
 }
 
-#define DISTANCE_X 30
-#define DISTANCE_Y 30
+#define DISTANCE_X 10
+#define DISTANCE_Y 10
 
 void GameMap::handlerInput(float)
 {

@@ -29,6 +29,10 @@ public:
 
 	RECT getSizeWindow();
 
+	int getWidthWindow();
+
+	int getHeightWindow();
+
 	DirectSprite getSpriteHandler();
 	DirectDevice getDevice();
 	DirectSurface getSurface();
