@@ -12,6 +12,9 @@ public:
 	void setPositisonWorld(float, float);
 	void setPositisonWorld(Vec3);
 
+	void setPositionWorld_X(float);
+	void setPositionWorld_Y(float);
+
 	void setSizeWindow(float, float);
 
 	int getWidth();

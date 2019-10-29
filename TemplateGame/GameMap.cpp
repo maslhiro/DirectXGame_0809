@@ -59,7 +59,6 @@ void GameMap::load(char *filePath)
 void GameMap::release()
 {
 	delete _map;
-	//delete _camera;
 }
 
 void GameMap::render()
@@ -68,6 +67,22 @@ void GameMap::render()
 	D3DXMATRIX matTransformed;
 	D3DXMATRIX matOld;
 	auto mSpriteHandler = _device->getSpriteHandler();
+
+	Vec2 trans(_device->getWidthWindow() / 2 - _camera->getPositionWorld().x, _device->getHeightWindow() / 2 - _camera->getPositionWorld().y);
+
+	//_RPT1(0, "[INFO] MAP WIDHT %d \n", _map->GetWidth()* _map->GetTileWidth());
+
+	//_RPT1(0, "[INFO] MAP HEIGHT %d \n", _map->GetHeight()*_map->GetTileHeight());
+
+	Vec2 centerMap = Vec2(_map->GetWidth()* _map->GetTileWidth() / 2, _map->GetHeight()*_map->GetTileHeight() / 2);
+
+	mSpriteHandler->GetTransform(&matOld);
+
+	D3DXMatrixTransformation2D(&matTransformed, &centerMap, 0, &_scale, &centerMap, 0, &trans);
+
+	matFinal = matTransformed * matOld;
+
+	mSpriteHandler->SetTransform(&matFinal);
 
 	for (size_t i = 0; i < _map->GetNumTileLayers(); i++)
 	{
@@ -116,23 +131,16 @@ void GameMap::render()
 					//dung toa do (0,0) cua the gioi thuc la (0,0) neu khong thi se la (-tilewidth/2, -tileheigth/2);
 					Vec3 pos(n * tileWidth + tileWidth / 2, m * tileHeight + tileHeight / 2, 0);
 
-					Vec2 trans(_device->getWidthWindow() / 2 - _camera->getPositionWorld().x, _device->getHeightWindow() / 2 - _camera->getPositionWorld().y);
-
-					Vec2 scalingScenter = Vec2(pos.x, pos.y);
-
-					mSpriteHandler->GetTransform(&matOld);
-
-					D3DXMatrixTransformation2D(&matTransformed, &scalingScenter, 0, &_scale, &Vec2(pos.x, pos.y), 0, &trans);
-
-					matFinal = matTransformed * matOld;
-
 					// kiem tra tile do co nam ngoai map ko ?
 					if (_camera != nullptr)
 					{
+						Vec3 transPos = pos;
+
+						//D3DXVec3TransformCoord(&transPos, &pos, &matFinal);
 
 						RECT objRECT;
-						objRECT.left = pos.x - (tileWidth / 2) * _scale.x;
-						objRECT.top = pos.y - (tileHeight / 2) * _scale.y;
+						objRECT.left = transPos.x - (tileWidth / 2) * _scale.x;
+						objRECT.top = transPos.y - (tileHeight / 2) * _scale.y;
 						objRECT.right = objRECT.left + (tileWidth)* _scale.x;
 						objRECT.bottom = objRECT.top + (tileHeight)* _scale.y;
 
@@ -143,8 +151,6 @@ void GameMap::render()
 						}
 					}
 
-					mSpriteHandler->SetTransform(&matFinal);
-
 					Vec3 center = Vec3(tileWidth / 2, tileHeight / 2, 0);
 
 					mSpriteHandler->Draw(_texture->get(idTexture),
@@ -153,12 +159,14 @@ void GameMap::render()
 						&pos,
 						D3DCOLOR_ARGB(255, 255, 255, 255)); // nhung pixel nao co mau trang se duoc to mau nay len
 
-					mSpriteHandler->SetTransform(&matOld); // set lai matrix cu~ de Sprite chi ap dung transfrom voi class nay
+
 
 				}
 			}
 		}
 	}
+
+	mSpriteHandler->SetTransform(&matOld); // set lai matrix cu~ chi ap dung transfrom voi class nay
 }
 
 void GameMap::update(float dt)
@@ -166,32 +174,63 @@ void GameMap::update(float dt)
 	handlerInput(dt);
 }
 
-#define DISTANCE_X 10
-#define DISTANCE_Y 10
+#define DISTANCE_X 5
+#define DISTANCE_Y 5
 
 void GameMap::handlerInput(float)
 {
 	if (_input->getMapKey()[KEY_A]) {
-		_RPT0(0, "OK A \n");
-		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(-DISTANCE_X, 0, 0));
+		//_RPT0(0, "OK A \n");
+		if (_camera->getPositionWorld().x > _device->getWidthWindow() / 2)
+		{
+			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(-DISTANCE_X, 0, 0));
+		}
+		else
+		{
+			_camera->setPositionWorld_X(_device->getWidthWindow() / 2);
+		}
+
 	}
 	else if (_input->getMapKey()[KEY_D])
 	{
-		_RPT0(0, "OK D \n");
-		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(DISTANCE_X, 0, 0));
+		//_RPT0(0, "OK D \n");
+		if (_camera->getPositionWorld().x < (getWidth() - _device->getWidthWindow() / 2))
+		{
+			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(DISTANCE_X, 0, 0));
+		}
+		else
+		{
+			_camera->setPositionWorld_X(getWidth() - _device->getWidthWindow() / 2);
+		}
+
 
 	}
 	else if (_input->getMapKey()[KEY_W])
 	{
-		_RPT0(0, "OK W \n");
-		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(0, -DISTANCE_Y, 0));
+		//_RPT0(0, "OK W \n");
+		if (_camera->getPositionWorld().y > (_device->getHeightWindow() / 2))
+		{
+			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(0, -DISTANCE_Y, 0));
+		}
+		else
+		{
+			_camera->setPositionWorld_Y(_device->getHeightWindow() / 2);
+		}
+
 
 	}
 
 	else if (_input->getMapKey()[KEY_S])
 	{
-		_RPT0(0, "OK S \n");
-		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(0, DISTANCE_Y, 0));
+		//_RPT0(0, "OK S \n");
+		if (_camera->getPositionWorld().y < (getHeight() - _device->getHeightWindow() / 2))
+		{
+			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(0, DISTANCE_Y, 0));
+		}
+		else
+		{
+			_camera->setPositionWorld_Y(getHeight() - _device->getHeightWindow() / 2);
+		}
 
 	}
 }

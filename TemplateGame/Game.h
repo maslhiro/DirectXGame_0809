@@ -9,7 +9,8 @@
 #include "Sprite.h"
 #include "DrawDebug.h"
 #include "AnimationManager.h"
-#include "GameMap.h"
+
+#include "FirstScene.h"
 
 #include "Billy.h"
 
@@ -25,8 +26,7 @@ private:
 	pSprite _sprite;
 	pAnimationManager _animationManager;
 
-	GameMap _map;
-	pCamera _camera;
+	FirstScene _firstScene;
 
 public:
 	static pGraphic _hWindow;

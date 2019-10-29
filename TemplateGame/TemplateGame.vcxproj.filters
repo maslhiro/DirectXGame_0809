@@ -156,11 +156,11 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
-    <ClCompile Include="FistScene.cpp">
-      <Filter>Source Files\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstScene.cpp">
+      <Filter>Source Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -287,11 +287,11 @@
     <ClInclude Include="Scene.h">
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
-    <ClInclude Include="FistScene.h">
-      <Filter>Header Files\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstScene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

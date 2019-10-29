@@ -26,6 +26,16 @@ void Camera::setPositisonWorld(Vec3 pos)
 	_positionWorld = Vec2(pos.x, pos.y);
 }
 
+void Camera::setPositionWorld_X(float x)
+{
+	_positionWorld = Vec2(x, _positionWorld.y);
+}
+
+void Camera::setPositionWorld_Y(float y)
+{
+	_positionWorld = Vec2(_positionWorld.x, y);
+}
+
 void Camera::setSizeWindow(float width, float height)
 {
 	_width = width;

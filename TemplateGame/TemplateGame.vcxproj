@@ -128,7 +128,7 @@
     <ClCompile Include="Billy.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
-    <ClCompile Include="FistScene.cpp" />
+    <ClCompile Include="FirstScene.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="GameMap.cpp" />
@@ -170,7 +170,7 @@
     <ClInclude Include="Billy.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawDebug.h" />
-    <ClInclude Include="FistScene.h" />
+    <ClInclude Include="FirstScene.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="DeviceManager.h" />

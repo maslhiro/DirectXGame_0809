@@ -23,8 +23,6 @@ void Game::loadResource()
 	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(0, 106, 106));
 	_texture->add(eIdTexture::SCENE_TEX, L"Resource//Map//map.png", D3DCOLOR_XRGB(255, 255, 255));
 
-	_map.load("Resource/Map/map.tmx");
-
 
 	//_sprite->add(eIdTexture::BILLY_TEX, "Resource//Object//Billy_Animation.txt");
 
@@ -45,6 +43,8 @@ void Game::loadResource()
 	/*_billy.loadResource();
 	_billy.setPosition(300, 300);
 	_billy.setScale(2);*/
+	_firstScene.loadResource();
+
 
 	_RPT0(0, "[INFO] Load Resource DONE ;\n");
 
@@ -70,13 +70,7 @@ int Game::init()
 	_drawDebug->init();
 	_texture->init();
 
-	RECT sizeWindow = _deviceManager->getSizeWindow();
-	_camera = new Camera();
-	_camera->setPositisonWorld(20 * 32, 30 * 32);
-	_camera->setSizeWindow(sizeWindow.right - sizeWindow.left, sizeWindow.bottom - sizeWindow.top);
-	_map.init();
-	_map.setScale(1);
-	_map.setCamera(_camera);
+	_firstScene.init();
 
 	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
@@ -153,7 +147,7 @@ int Game::render()
 		//_drawDebug->drawLineHorizontal((_deviceManager->getSizeWindow().bottom - _deviceManager->getSizeWindow().top) / 2, 500);
 		//_drawDebug->drawLineVertical((_deviceManager->getSizeWindow().right - _deviceManager->getSizeWindow().left) / 2, 500);
 
-		_map.render();
+		_firstScene.render();
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -167,7 +161,7 @@ int Game::render()
 
 int Game::update(float dt)
 {
-	_map.update(dt);
+	_firstScene.update(dt);
 	return 1;
 }
 
@@ -183,7 +177,8 @@ void Game::release()
 	if (_texture != nullptr) _texture->release();
 	if (_gameTime != nullptr) _gameTime->release();
 	if (_drawDebug != nullptr) _drawDebug->release();
-	_map.release();
+
+	_firstScene.release();
 }
 
 Game::~Game()
