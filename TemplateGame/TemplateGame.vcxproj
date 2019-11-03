@@ -128,7 +128,9 @@
     <ClCompile Include="Billy.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FirstScene.cpp" />
+    <ClCompile Include="FixedGrid.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="GameMap.cpp" />
@@ -158,11 +160,13 @@
     <ClCompile Include="MapReader\TmxTileOffset.cpp" />
     <ClCompile Include="MapReader\TmxTileset.cpp" />
     <ClCompile Include="MapReader\TmxUtil.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RectSprite.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -170,7 +174,9 @@
     <ClInclude Include="Billy.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawDebug.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="FirstScene.h" />
+    <ClInclude Include="FixedGrid.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="DeviceManager.h" />
@@ -202,12 +208,14 @@
     <ClInclude Include="MapReader\TmxUtil.h" />
     <ClInclude Include="MapReader\zconf.h" />
     <ClInclude Include="MapReader\zlib.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RectSprite.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Unit.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TemplateGame.rc" />

@@ -3,6 +3,8 @@
 #include "DeviceManager.h"
 #include "Texture.h"
 #include "Camera.h"
+#include "Entity.h"
+#include "FixedGrid.h"
 #include "MapReader/Tmx.h.in"
 
 // dinh dang file tmx 
@@ -20,6 +22,7 @@ private:
 	pInputHandler _input;
 
 	pCamera _camera;
+	pFixedGrid _grid;
 
 	Vec2 _scale;
 
@@ -36,6 +39,12 @@ public:
 	int getWidth();
 	int getHeight();
 
+	Vec3 getPosWorld_PLAYER();
+
+	Tmx::Map* getTMXMap();
+
+	pCamera getCamera();
+
 	void load(char*);
 
 	void release();
@@ -43,8 +52,6 @@ public:
 	void render();
 
 	void update(float);
-
-	void handlerInput(float);
 
 };
 

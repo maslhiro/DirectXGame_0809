@@ -15,8 +15,8 @@
 #include "RectSprite.h"
 #include "EnumID.h"
 
-#define WINDOW_CLASS_NAME L"Template Game"
-#define MAIN_WINDOW_TITLE L"Template Game"
+#define WINDOW_CLASS_NAME L"mashiro"
+#define MAIN_WINDOW_TITLE L"mashiro"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(255, 255, 255)
 
@@ -24,6 +24,15 @@
 #define SCREEN_HEIGHT 540
 
 #define MAX_FRAME_RATE 60
+
+// Khoang cach camera
+#define DISTANCE_X 5
+#define DISTANCE_Y 5
+
+// UNIT GRID
+#define WIDTH_UNIT 227*2
+//#define WIDTH_UNIT 227
+#define HEIGHT_UNIT 228
 
 #define BBOX_WIDTH 5
 

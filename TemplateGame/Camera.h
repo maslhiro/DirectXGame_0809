@@ -15,13 +15,14 @@ public:
 	void setPositionWorld_X(float);
 	void setPositionWorld_Y(float);
 
-	void setSizeWindow(float, float);
+	void setSizeWindow(int, int);
 
 	int getWidth();
 	int getHeight();
 
 	D3DXVECTOR3 getPositionWorld();
 
+	// get Bouding view port trong world
 	RECT getBounding();
 
 	// Kiem tra xem rect nay co nam trong map ko ?
@@ -32,8 +33,8 @@ private:
 	// Mac dinh la pos center cua map
 	Vec2 _positionWorld;
 
-	float _width;
-	float _height;
+	int _width;
+	int _height;
 
 };
 

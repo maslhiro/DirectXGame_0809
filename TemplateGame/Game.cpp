@@ -22,23 +22,13 @@ void Game::loadResource()
 	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(255, 255, 255));
 	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(0, 106, 106));
 	_texture->add(eIdTexture::SCENE_TEX, L"Resource//Map//map.png", D3DCOLOR_XRGB(255, 255, 255));
-
+	_texture->add(eIdTexture::BOX_RED_TEX, L"Resource//Object//Box_Red.png", D3DCOLOR_XRGB(255, 255, 255));
+	_texture->add(eIdTexture::BOX_GRAY_TEX, L"Resource//Object//Box_Gray.png", D3DCOLOR_XRGB(255, 255, 255));
+	_texture->add(eIdTexture::BOX_GREEN_TEX, L"Resource//Object//Box_Green.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	//_sprite->add(eIdTexture::BILLY_TEX, "Resource//Object//Billy_Animation.txt");
 
 	//_animationManager->load();
-
-	//billy = _animationManager->get(eIdAnimation::BILLY_PUNCHING);
-	//billy.setPosition(Vec3(300, 300, 0));
-	//billy.setIsReverse(true);
-	//billy.setDrawingBound(true);
-	//billy.setColorBound(D3DCOLOR_XRGB(2, 56, 60));
-	//billy.setScale(Vec2(2, 2));
-
-	//billy2 = _animationManager->get(eIdAnimation::BILLY_PUNCHING);
-	//billy2.setPosition(Vec3(300, 300, 0));
-	//billy2.setDrawingBound(true);
-	//billy2.setScale(Vec2(2, 2));
 
 	/*_billy.loadResource();
 	_billy.setPosition(300, 300);
@@ -143,9 +133,6 @@ int Game::render()
 		_deviceManager->clearScreen();
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
-
-		//_drawDebug->drawLineHorizontal((_deviceManager->getSizeWindow().bottom - _deviceManager->getSizeWindow().top) / 2, 500);
-		//_drawDebug->drawLineVertical((_deviceManager->getSizeWindow().right - _deviceManager->getSizeWindow().left) / 2, 500);
 
 		_firstScene.render();
 

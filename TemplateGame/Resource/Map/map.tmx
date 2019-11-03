@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="454" tileheight="228" infinite="0" nextlayerid="11" nextobjectid="3">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="454" tileheight="228" infinite="0" nextlayerid="13" nextobjectid="25">
  <tileset firstgid="1" name="70" tilewidth="454" tileheight="228" tilecount="100" columns="10">
   <image source="map.png" width="4540" height="2280"/>
  </tileset>
@@ -17,7 +17,22 @@
 91,92,93,94,95,96,97,98,99,100
 </data>
  </layer>
- <objectgroup id="9" name="land">
-  <object id="2" x="0.999997" y="2250.33" width="2976.46" height="24"/>
+ <objectgroup id="11" name="entity">
+  <object id="3" name="entity_09" x="529.636" y="2071.94" width="29.8182" height="35.333"/>
+  <object id="6" name="entity_08" x="697.091" y="1963.33" width="29.8182" height="35.333"/>
+  <object id="7" name="entity_07" x="771.424" y="2058.67" width="29.8182" height="35.333"/>
+  <object id="8" name="entity_06" x="845.341" y="2061.17" width="29.8182" height="35.333"/>
+  <object id="9" name="entity_05" x="1063.45" y="1378.39" width="29.8182" height="35.333"/>
+  <object id="10" name="entity_04" x="1374.33" y="2089.8" width="29.8182" height="35.333"/>
+  <object id="11" name="entity_03" x="1542.59" y="1963.33" width="29.8182" height="35.333"/>
+  <object id="12" name="entity_02" x="805.091" y="1761" width="29.8182" height="35.333"/>
+  <object id="13" name="entity_01" x="525.758" y="1698.33" width="29.8182" height="35.333"/>
+  <object id="14" name="entity_11" x="1069.09" y="1602.33" width="29.8182" height="35.333"/>
+  <object id="15" name="entity_10" x="1840.59" y="2107.33" width="29.8182" height="35.333"/>
+ </objectgroup>
+ <objectgroup id="12" name="player">
+  <object id="23" name="player_01" x="193" y="2164.5">
+   <point/>
+  </object>
  </objectgroup>
 </map>

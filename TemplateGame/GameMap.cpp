@@ -14,7 +14,7 @@ void GameMap::init()
 	_texture = Texture::getInstance();
 	_device = DeviceManager::getInstance();
 	_input = InputHandler::getInstance();
-
+	_grid = new FixedGrid();
 	_camera = nullptr;
 
 	_scale = Vec2(1, 1);
@@ -49,11 +49,47 @@ int GameMap::getHeight()
 	return _map->GetHeight() *_map->GetTileHeight();
 }
 
+Vec3 GameMap::getPosWorld_PLAYER()
+{
+	for (size_t i = 0; i < _map->GetNumObjectGroups(); i++)
+	{
+		const Tmx::ObjectGroup *objectGroup = _map->GetObjectGroup(i);
+
+		if (objectGroup->GetName() != "player") continue;
+
+		for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
+		{
+			auto *object = objectGroup->GetObjects().at(j);
+
+			if (!object->IsVisible())
+			{
+				continue;
+			}
+
+			return Vec3((float)object->GetX(), (float)object->GetY(), 0);
+		}
+	}
+	return Vec3();
+}
+
+Tmx::Map* GameMap::getTMXMap()
+{
+	return _map;
+}
+
+pCamera GameMap::getCamera()
+{
+	return _camera;
+}
+
 void GameMap::load(char *filePath)
 {
 	_map = new Tmx::Map();
 	_map->ParseFile(filePath);
+
+	_grid->init(_map);
 	_RPT1(0, "[INFO] LOAD MAP DONE %s \n", filePath);
+
 }
 
 void GameMap::release()
@@ -66,7 +102,7 @@ void GameMap::render()
 	D3DXMATRIX matFinal;
 	D3DXMATRIX matTransformed;
 	D3DXMATRIX matOld;
-	auto mSpriteHandler = _device->getSpriteHandler();
+	auto _spriteHandler = _device->getSpriteHandler();
 
 	Vec2 trans(_device->getWidthWindow() / 2 - _camera->getPositionWorld().x, _device->getHeightWindow() / 2 - _camera->getPositionWorld().y);
 
@@ -76,13 +112,13 @@ void GameMap::render()
 
 	Vec2 centerMap = Vec2(_map->GetWidth()* _map->GetTileWidth() / 2, _map->GetHeight()*_map->GetTileHeight() / 2);
 
-	mSpriteHandler->GetTransform(&matOld);
+	_spriteHandler->GetTransform(&matOld);
 
 	D3DXMatrixTransformation2D(&matTransformed, &centerMap, 0, &_scale, &centerMap, 0, &trans);
 
 	matFinal = matTransformed * matOld;
 
-	mSpriteHandler->SetTransform(&matFinal);
+	_spriteHandler->SetTransform(&matFinal);
 
 	for (size_t i = 0; i < _map->GetNumTileLayers(); i++)
 	{
@@ -153,7 +189,7 @@ void GameMap::render()
 
 					Vec3 center = Vec3(tileWidth / 2, tileHeight / 2, 0);
 
-					mSpriteHandler->Draw(_texture->get(idTexture),
+					_spriteHandler->Draw(_texture->get(idTexture),
 						&sourceRECT,
 						&center,
 						&pos,
@@ -166,71 +202,42 @@ void GameMap::render()
 		}
 	}
 
-	mSpriteHandler->SetTransform(&matOld); // set lai matrix cu~ chi ap dung transfrom voi class nay
+	// Lay toa do 2 goc => tinh ra cac UNIT dang trong man hinh
+	RECT _viewPort = _camera->getBounding();
+
+	Vec3 posLEFT_T = Vec3(_viewPort.left, _viewPort.top, 0);
+	Vec3 posRIGHT_BT = Vec3(_viewPort.right, _viewPort.bottom, 0);
+
+	int min_CellX = posLEFT_T.x / WIDTH_UNIT + 1;
+	int min_CellY = posLEFT_T.y / HEIGHT_UNIT + 1;
+
+	int max_CellX = posRIGHT_BT.x / WIDTH_UNIT + 1;
+	int max_CellY = posRIGHT_BT.y / HEIGHT_UNIT + 1;
+
+	//_RPT1(0, "[INFO] CELL X %d %d \n", min_CellX, max_CellX);
+	//_RPT1(0, "[INFO] CELL Y %d %d \n", min_CellY, max_CellY);
+
+	for (int x = min_CellX; x <= max_CellX; x++)
+	{
+		for (int y = min_CellY; y <= max_CellY; y++)
+		{
+			auto curUnit = _grid->getUnit(x, y);
+
+			auto listEntity = curUnit.getListEntity();
+
+			if (listEntity.size() == 0) continue;
+
+			for (int i = 0; i < listEntity.size(); i++)
+			{
+				listEntity[i]->render();
+			}
+		}
+	}
+
+	_spriteHandler->SetTransform(&matOld); // set lai matrix cu~ chi ap dung transfrom voi class nay
 }
 
 void GameMap::update(float dt)
 {
-	handlerInput(dt);
-}
 
-#define DISTANCE_X 5
-#define DISTANCE_Y 5
-
-void GameMap::handlerInput(float)
-{
-	if (_input->getMapKey()[KEY_A]) {
-		//_RPT0(0, "OK A \n");
-		if (_camera->getPositionWorld().x > _device->getWidthWindow() / 2)
-		{
-			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(-DISTANCE_X, 0, 0));
-		}
-		else
-		{
-			_camera->setPositionWorld_X(_device->getWidthWindow() / 2);
-		}
-
-	}
-	else if (_input->getMapKey()[KEY_D])
-	{
-		//_RPT0(0, "OK D \n");
-		if (_camera->getPositionWorld().x < (getWidth() - _device->getWidthWindow() / 2))
-		{
-			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(DISTANCE_X, 0, 0));
-		}
-		else
-		{
-			_camera->setPositionWorld_X(getWidth() - _device->getWidthWindow() / 2);
-		}
-
-
-	}
-	else if (_input->getMapKey()[KEY_W])
-	{
-		//_RPT0(0, "OK W \n");
-		if (_camera->getPositionWorld().y > (_device->getHeightWindow() / 2))
-		{
-			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(0, -DISTANCE_Y, 0));
-		}
-		else
-		{
-			_camera->setPositionWorld_Y(_device->getHeightWindow() / 2);
-		}
-
-
-	}
-
-	else if (_input->getMapKey()[KEY_S])
-	{
-		//_RPT0(0, "OK S \n");
-		if (_camera->getPositionWorld().y < (getHeight() - _device->getHeightWindow() / 2))
-		{
-			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(0, DISTANCE_Y, 0));
-		}
-		else
-		{
-			_camera->setPositionWorld_Y(getHeight() - _device->getHeightWindow() / 2);
-		}
-
-	}
 }

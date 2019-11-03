@@ -40,6 +40,30 @@
     <Filter Include="Source Files\Scene">
       <UniqueIdentifier>{fc5e2cef-417a-4407-8288-b49030c5e53a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\Enemy">
+      <UniqueIdentifier>{8fe85d95-f412-4563-8f75-1d5bf5292234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\Enemy">
+      <UniqueIdentifier>{6eec763c-cb0c-4746-86d5-cf61537f2f72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Map">
+      <UniqueIdentifier>{c9cdc8a6-d219-4510-b143-d6f3c50b78a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\Map">
+      <UniqueIdentifier>{3d3b28be-0c16-4a1b-bf12-15905c86ac28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Player">
+      <UniqueIdentifier>{0c9a3b91-6621-4dd6-a8fa-162ea82d3792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\Player">
+      <UniqueIdentifier>{fe776d58-98d6-4b77-8a8e-7cfd63bb72a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FixedGrid">
+      <UniqueIdentifier>{dc35410b-42f3-4397-a0d9-cd9afda203d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FixedGrid">
+      <UniqueIdentifier>{5006f2c5-e3f3-4f56-99c7-88b05bb080ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,12 +104,6 @@
     </ClCompile>
     <ClCompile Include="InputHandler.cpp">
       <Filter>Source Files\BaseClass</Filter>
-    </ClCompile>
-    <ClCompile Include="Tank.cpp">
-      <Filter>Source Files\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Billy.cpp">
-      <Filter>Source Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="DrawDebug.cpp">
       <Filter>Source Files\BaseClass</Filter>
@@ -162,6 +180,24 @@
     <ClCompile Include="FirstScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Billy.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Tank.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Source Files\FixedGrid</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedGrid.cpp">
+      <Filter>Source Files\FixedGrid</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Object\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -202,12 +238,6 @@
     </ClInclude>
     <ClInclude Include="InputHandler.h">
       <Filter>Header Files\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="Tank.h">
-      <Filter>Header Files\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Billy.h">
-      <Filter>Header Files\Object</Filter>
     </ClInclude>
     <ClInclude Include="DrawDebug.h">
       <Filter>Header Files\BaseClass</Filter>
@@ -292,6 +322,24 @@
     </ClInclude>
     <ClInclude Include="FirstScene.h">
       <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Billy.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Header Files\FixedGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedGrid.h">
+      <Filter>Header Files\FixedGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Object\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

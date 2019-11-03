@@ -21,6 +21,9 @@ enum eIdTexture
 	TANK_TEX = 1,
 	ENEMY_TEX,
 	BILLY_TEX,
+	BOX_RED_TEX,
+	BOX_GRAY_TEX,
+	BOX_GREEN_TEX,
 
 	SCENE_TEX = 70,
 
