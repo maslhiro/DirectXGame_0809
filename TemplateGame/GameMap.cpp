@@ -97,7 +97,7 @@ void GameMap::release()
 	delete _map;
 }
 
-void GameMap::render()
+void GameMap::render(RECT _rectPlayer)
 {
 	D3DXMATRIX matFinal;
 	D3DXMATRIX matTransformed;
@@ -214,8 +214,24 @@ void GameMap::render()
 	int max_CellX = posRIGHT_BT.x / WIDTH_UNIT + 1;
 	int max_CellY = posRIGHT_BT.y / HEIGHT_UNIT + 1;
 
-	//_RPT1(0, "[INFO] CELL X %d %d \n", min_CellX, max_CellX);
-	//_RPT1(0, "[INFO] CELL Y %d %d \n", min_CellY, max_CellY);
+	// Kiem tra bound _player nam trong UNIT nao ?
+
+	Vec3 posLEFT_T_PLAYER = Vec3(_rectPlayer.left, _rectPlayer.top, 0);
+	Vec3 posRIGHT_BT_PLAYER = Vec3(_rectPlayer.right, _rectPlayer.bottom, 0);
+
+	int min_CellX_PLAYER = posLEFT_T_PLAYER.x / WIDTH_UNIT + 1;
+	int min_CellY_PLAYER = posLEFT_T_PLAYER.y / HEIGHT_UNIT + 1;
+
+	int max_CellX_PLAYER = posRIGHT_BT_PLAYER.x / WIDTH_UNIT + 1;
+	int max_CellY_PLAYER = posRIGHT_BT_PLAYER.y / HEIGHT_UNIT + 1;
+
+	_RPT1(0, "[INFO] CELL PLAYER X %d %d \n", min_CellX_PLAYER, max_CellX_PLAYER);
+	_RPT1(0, "[INFO] CELL PLAYER Y %d %d \n", min_CellY_PLAYER, max_CellY_PLAYER);
+
+	//_RPT1(0, "[INFO] %d %d %d %d \n", _viewPort.left, _viewPort.top, _viewPort.right, _viewPort.bottom);
+
+	_RPT1(0, "[INFO] CELL X %d %d \n", min_CellX, max_CellX);
+	_RPT1(0, "[INFO] CELL Y %d %d \n", min_CellY, max_CellY);
 
 	for (int x = min_CellX; x <= max_CellX; x++)
 	{
@@ -227,8 +243,21 @@ void GameMap::render()
 
 			if (listEntity.size() == 0) continue;
 
+			bool bounding = false;
+
+			_RPT1(0, "[OK] x : %d y : %d \n", x, y);
+			//_RPT1(0, "[INFO] CELL PLAYER X %d %d \n", min_CellX_PLAYER, max_CellX_PLAYER);
+			//_RPT1(0, "[INFO] CELL PLAYER Y %d %d \n", min_CellY_PLAYER, max_CellY_PLAYER);
+
+			if ((x >= min_CellX_PLAYER && x <= max_CellX_PLAYER) && (y >= min_CellY_PLAYER && y <= max_CellY_PLAYER))
+			{
+				_RPT1(0, "[OK] x : %d y : %d \n", x, y);
+				bounding = true;
+			}
+
 			for (int i = 0; i < listEntity.size(); i++)
 			{
+				listEntity[i]->setDrawingBound(bounding);
 				listEntity[i]->render();
 			}
 		}

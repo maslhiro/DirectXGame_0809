@@ -49,7 +49,7 @@ public:
 
 	void release();
 
-	void render();
+	void render(RECT);
 
 	void update(float);
 

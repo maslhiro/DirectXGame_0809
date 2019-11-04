@@ -50,7 +50,7 @@ void FirstScene::render()
 	auto _drawDebug = DrawDebug::getInstance();
 	auto _device = DeviceManager::getInstance();
 
-	_map.render();
+	_map.render(_player.getBounding());
 
 	_player.render();
 

@@ -30,8 +30,8 @@
 #define DISTANCE_Y 5
 
 // UNIT GRID
-#define WIDTH_UNIT 227*2
-//#define WIDTH_UNIT 227
+//#define WIDTH_UNIT 454
+#define WIDTH_UNIT 227
 #define HEIGHT_UNIT 228
 
 #define BBOX_WIDTH 5

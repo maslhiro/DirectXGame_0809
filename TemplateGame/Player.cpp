@@ -87,6 +87,7 @@ void Player::handlerInput(float)
 		if (_camera->getPositionWorld().x > _device->getWidthWindow() / 2)
 		{
 			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(-DISTANCE_X, 0, 0));
+			_posWorld += Vec3(-DISTANCE_X, 0, 0);
 		}
 		else
 		{
@@ -100,6 +101,7 @@ void Player::handlerInput(float)
 		if (_camera->getPositionWorld().x < (4540 - _device->getWidthWindow() / 2))
 		{
 			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(DISTANCE_X, 0, 0));
+			_posWorld += Vec3(DISTANCE_X, 0, 0);
 		}
 		else
 		{
@@ -114,6 +116,7 @@ void Player::handlerInput(float)
 		if (_camera->getPositionWorld().y > (_device->getHeightWindow() / 2))
 		{
 			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(0, -DISTANCE_Y, 0));
+			_posWorld += Vec3(0, -DISTANCE_Y, 0);
 		}
 		else
 		{
@@ -129,6 +132,7 @@ void Player::handlerInput(float)
 		if (_camera->getPositionWorld().y < (2280 - _device->getHeightWindow() / 2))
 		{
 			_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(0, DISTANCE_Y, 0));
+			_posWorld += Vec3(0, DISTANCE_Y, 0);
 		}
 		else
 		{

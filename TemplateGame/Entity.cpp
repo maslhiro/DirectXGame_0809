@@ -40,7 +40,7 @@ void Entity::render()
 	rect.right = 50;
 	rect.bottom = 50;
 
-	Vec3 center = Vec3(25, 25, 0);
+	//Vec3 center = Vec3(25, 25, 0);
 
 	if (_drawingBound)
 	{
@@ -56,14 +56,14 @@ void Entity::render()
 
 		_spriteHandler->Draw(_texture->get(eIdTexture::BOX_GREEN_TEX),
 			&rectDrawing,
-			&centerDrawing,
+			&Vec3(2, 2, 0),
 			&_pos,
 			D3DCOLOR_ARGB(255, 255, 255, 255)); // nhung pixel nao co mau trang se duoc to mau nay len
 	}
 
 	_spriteHandler->Draw(_texture->get(eIdTexture::BOX_RED_TEX),
 		&rect,
-		&center,
+		NULL,
 		&_pos,
 		D3DCOLOR_ARGB(255, 255, 255, 255)); // nhung pixel nao co mau trang se duoc to mau nay len
 
