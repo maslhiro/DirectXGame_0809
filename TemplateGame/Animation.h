@@ -19,9 +19,18 @@ private:
 	// index frame hien tai va frame cuoi
 	int _currentFrame;
 	int _loopCount;
+
 	bool _isLoop;		// default : true , false => chay 1 lan va ko lap 
-	bool _isReverse;	// default false,  true => lật ảnh ngược lại
-	bool _isAnimated;   // default true, false => chi hien thi sprite dau tien
+	bool _isFlip;		// default : false, true => lật ảnh ngược lại
+	bool _isReverse;	// default : false, true => frame cuoi se chay quay lai frame dau 
+	bool _isAnimated;   // default : true, false => chi hien thi sprite dau tien
+	int _typeFixPos;	// default :	1 => fix pos Left BTom sprite dau tien, 
+						//				2 => fix pos left top
+						//				3 => center
+
+	// Xet sprite xuat hien dau tien sau lần lặp đầu tiên
+	// EX => xét = 4 thì trong lần điên nó sẽ chạy đủ hết listSprite nhưng đến lần lặp tiếp sẽ bắt đầu = 4 thay bằng = 0
+	int _indexStart;
 
 	// Vi tri vẽ sprite lên màn hình
 	Vec3 _position;
@@ -42,8 +51,11 @@ public:
 	void setTimePerFrame(float);
 
 	void setIsLoop(bool);
+	void setIsFlip(bool);
 	void setIsReverse(bool);
 	void setIsAnimated(bool);
+	void setTypeFixPos(int);
+	void setIndexStart(int);
 
 	void setPosition(Vec3);
 	void setScale(Vec2);
@@ -61,10 +73,13 @@ public:
 	int render(pDeviceManager, pTexture);
 	int update(float);
 
-	// Get width va heigt frame dau tien cua Animation de GameObjetc fix pos
+	// Get width va height MAC DINH cua frame dau tien de GameObjetc fix pos
 	// khi chuyen doi giua cac animation
 	float getWidth();
 	float getHeight();
+
+	// Get bouding cua frame hien tai 
+	RECT getBouding();
 
 	// Can theo bottom
 	float fixPosHeight(RectSprite);

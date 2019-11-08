@@ -1,17 +1,37 @@
-#include "GameObject.h"
+﻿#include "GameObject.h"
+
+RECT GameObject::getBoudingBox()
+{
+	if (_listAnimation.size() > 0) {
+
+		float width_Ani = _listAnimation[_state].getWidth() * _scale.x / 2.0;
+		float height_Ani = _listAnimation[_state].getHeight() * _scale.y / 2.0;
+		// ướm vào posWorld mới ra BOUDING :( DM
+
+		RECT bouding;
+		bouding.left = _posWorld.x - (int)ceil(width_Ani);
+		bouding.right = _posWorld.x - (int)ceil(width_Ani);
+		bouding.top = _posWorld.y - (int)ceil(height_Ani);
+		bouding.bottom = _posWorld.y + (int)ceil(height_Ani);
+
+
+		return bouding;
+	}
+	return RECT();
+}
 
 GameObject::GameObject()
 {
 	this->_device = DeviceManager::getInstance();
 	this->_texture = Texture::getInstance();
 
-	_isReverse = false;
+	_isFlip = false;
 	_isAnimated = true;
 
-	_pos = Vec3(0, 0, 0);
+	_posWorld = Vec3(0, 0, 0);
 	_scale = Vec2(1, 1);
 
-	_state = 0;
+	_state = eIdState::NONE;
 	_speed = 1;
 }
 
@@ -19,11 +39,12 @@ void GameObject::fixPosAnimation(int nextState)
 {
 	float fixBottom = this->fixPosHeight(nextState);
 	float fixLeft = this->fixPosWidth(nextState);
-	if (_isReverse) {
+
+	if (_isFlip) {
 		// Tuong tu trong animation
-		this->setPosition(_pos.x - fixLeft * _scale.x, _pos.y + fixBottom * _scale.y);
+		this->setPositionWorld(_posWorld.x - fixLeft * _scale.x, _posWorld.y + fixBottom * _scale.y);
 	}
-	else this->setPosition(_pos.x + fixLeft * _scale.x, _pos.y + fixBottom * _scale.y);
+	else this->setPositionWorld(_posWorld.x + fixLeft * _scale.x, _posWorld.y + fixBottom * _scale.y);
 }
 
 float GameObject::fixPosHeight(int nextState)
@@ -64,19 +85,29 @@ void GameObject::setId(int id)
 	this->_id = id;
 }
 
-void GameObject::setPosition(Vec3 pos)
+int GameObject::getIdType()
 {
-	this->_pos = pos;
+	return this->_idType;
 }
 
-void GameObject::setPosition(Vec2 pos)
+void GameObject::setIdType(int id)
 {
-	this->_pos = Vec3(pos.x, pos.y, 0);
+	this->_idType = id;
 }
 
-void GameObject::setPosition(float x, float y)
+void GameObject::setPositionWorld(Vec3 pos)
 {
-	this->setPosition(Vec2(x, y));
+	this->_posWorld = pos;
+}
+
+void GameObject::setPositionWorld(Vec2 pos)
+{
+	this->_posWorld = Vec3(pos.x, pos.y, 0);
+}
+
+void GameObject::setPositionWorld(int x, int y)
+{
+	this->setPositionWorld(Vec3((float)x, (float)y, 0));
 }
 
 void GameObject::setScale(Vec2 pos)
@@ -89,9 +120,9 @@ void GameObject::setScale(float x, float y)
 	this->setScale(Vec2(x, y));
 }
 
-void GameObject::setIsReverse(bool isReverse)
+void GameObject::setIsFlip(bool isFlip)
 {
-	this->_isReverse = isReverse;
+	this->_isFlip = isFlip;
 }
 
 void GameObject::setIsAnimated(bool isAni)

@@ -1,14 +1,18 @@
 #pragma once
 #include "Scene.h"
 #include "Player.h"
+#include "Apple.h"
+#include "GameMap_Txt.h"
 
 class FirstScene :
 	public Scene
 {
 private:
-	GameMap _map;
+	//GameMap _map;
+	GameMap_Txt _map2;
 	pCamera _camera;
 
+	//pGameObject _apple;
 
 	Player _player;
 public:

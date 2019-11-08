@@ -5,15 +5,15 @@ class Camera
 {
 public:
 	Camera();
-	Camera(float, float);
+	Camera(int, int);
 	~Camera();;
 
 	//center of camera
-	void setPositisonWorld(float, float);
+	void setPositisonWorld(int, int);
 	void setPositisonWorld(Vec3);
 
-	void setPositionWorld_X(float);
-	void setPositionWorld_Y(float);
+	void setPositionWorld_X(int);
+	void setPositionWorld_Y(int);
 
 	void setSizeWindow(int, int);
 

@@ -12,8 +12,6 @@
 
 #include "FirstScene.h"
 
-#include "Billy.h"
-
 class Game {
 private:
 	static int isExit;

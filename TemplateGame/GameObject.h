@@ -8,7 +8,11 @@
 class GameObject
 {
 protected:
+
 	int _id;
+
+	// Chia Id de phan biet cac the loai game obj :)))
+	int _idType;
 
 	// 
 	Animation _curAnimation;
@@ -20,12 +24,12 @@ protected:
 	int _state;
 
 	// Lat nguoc sprite 
-	bool _isReverse;
+	bool _isFlip;
 	bool _isAnimated;
 
 	float _speed; // vx
 
-	Vec3 _pos;
+	Vec3 _posWorld;
 	Vec2 _scale;
 
 	pDeviceManager _device;
@@ -36,18 +40,21 @@ public:
 	int getId();
 	void setId(int);
 
+	int getIdType();
+	void setIdType(int);
+
 	void setSpeed(float);
 	void setState(int);
 
-	void setPosition(Vec3);
-	void setPosition(Vec2);
-	void setPosition(float, float);
+	void setPositionWorld(Vec3);
+	void setPositionWorld(Vec2);
+	void setPositionWorld(int, int);
 
 	void setScale(Vec2);
 	void setScale(float, float);
 	void setScale(float);
 
-	void setIsReverse(bool);
+	void setIsFlip(bool);
 	void setIsAnimated(bool);
 
 	// Load Animation từ Animation Manager vao map Animation
@@ -68,6 +75,9 @@ public:
 
 	// Mac dinh fix theo left
 	float fixPosWidth(int);
+
+	// Lay RECT cua ani hien tai
+	RECT getBoudingBox();
 
 	GameObject();
 	~GameObject();

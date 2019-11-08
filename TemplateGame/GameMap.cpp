@@ -172,8 +172,6 @@ void GameMap::render(RECT _rectPlayer)
 					{
 						Vec3 transPos = pos;
 
-						//D3DXVec3TransformCoord(&transPos, &pos, &matFinal);
-
 						RECT objRECT;
 						objRECT.left = transPos.x - (tileWidth / 2) * _scale.x;
 						objRECT.top = transPos.y - (tileHeight / 2) * _scale.y;
@@ -186,6 +184,7 @@ void GameMap::render(RECT _rectPlayer)
 							continue;
 						}
 					}
+					_RPT1(0, "[INFO] POS TILE %f %f \n", pos.x, pos.y);
 
 					Vec3 center = Vec3(tileWidth / 2, tileHeight / 2, 0);
 

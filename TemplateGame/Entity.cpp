@@ -52,7 +52,7 @@ void Entity::render()
 		rectDrawing.right = 50 + BBOX_WIDTH;
 		rectDrawing.bottom = 50 + BBOX_WIDTH;
 
-		Vec3 centerDrawing = Vec3(rectDrawing.right / 2, rectDrawing.bottom / 2, 0);
+		Vec3 centerDrawing = Vec3((float)rectDrawing.right / 2, (float)rectDrawing.bottom / 2, 0);
 
 		_spriteHandler->Draw(_texture->get(eIdTexture::BOX_GREEN_TEX),
 			&rectDrawing,

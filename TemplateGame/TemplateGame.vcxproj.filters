@@ -64,6 +64,12 @@
     <Filter Include="Source Files\FixedGrid">
       <UniqueIdentifier>{5006f2c5-e3f3-4f56-99c7-88b05bb080ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Object\Item">
+      <UniqueIdentifier>{0a3075bb-4847-4a1b-93e8-2cefbdb5f0dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\Item">
+      <UniqueIdentifier>{7bf5eb29-7ee6-436b-b2cf-67f8fdc72a0d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -196,6 +202,18 @@
       <Filter>Source Files\FixedGrid</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Apple.cpp">
+      <Filter>Source Files\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap_Txt.cpp">
+      <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="WreckingBall.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Aladin.cpp">
       <Filter>Source Files\Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
@@ -339,6 +357,18 @@
       <Filter>Header Files\FixedGrid</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
+      <Filter>Header Files\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap_Txt.h">
+      <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Apple.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="WreckingBall.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Aladin.h">
       <Filter>Header Files\Object\Player</Filter>
     </ClInclude>
   </ItemGroup>

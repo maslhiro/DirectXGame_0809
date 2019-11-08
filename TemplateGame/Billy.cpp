@@ -8,8 +8,8 @@ Billy::Billy()
 
 void Billy::loadResource()
 {
-	_listAnimation[eIdState::STANDING] = AnimationManager::getInstance()->get(eIdAnimation::BILLY_STANDING);
-	_listAnimation[eIdState::PUNCHING] = AnimationManager::getInstance()->get(eIdAnimation::BILLY_PUNCHING);
+	//_listAnimation[eIdState::STANDING] = AnimationManager::getInstance()->get(eIdAnimation::BILLY_STANDING);
+	//_listAnimation[eIdState::PUNCHING] = AnimationManager::getInstance()->get(eIdAnimation::BILLY_PUNCHING);
 
 	this->setState(eIdState::STANDING);
 }
@@ -17,9 +17,9 @@ void Billy::loadResource()
 void Billy::render()
 {
 	_curAnimation.setIsAnimated(_isAnimated);
-	_curAnimation.setPosition(_pos);
+	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
-	_curAnimation.setIsReverse(_isReverse);
+	_curAnimation.setIsFlip(_isFlip);
 	_curAnimation.render(_device, _texture);
 
 }
@@ -36,7 +36,7 @@ void Billy::handlerInput()
 	case eIdState::STANDING:
 		if (_input->getMapKey()[KEY_A]) {
 			_RPT0(0, "OK A \n");
-			this->setIsReverse(true);
+			this->setIsFlip(true);
 			//this->setIsAnimated(true);
 
 			//_pos.x -= _speed;
@@ -44,7 +44,7 @@ void Billy::handlerInput()
 		else if (_input->getMapKey()[KEY_D])
 		{
 			_RPT0(0, "OK D \n");
-			this->setIsReverse(false);
+			this->setIsFlip(false);
 			//this->setIsAnimated(true);
 
 			//_pos.x += _speed;

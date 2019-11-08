@@ -4,6 +4,8 @@ int Game::isExit = 0;
 
 pGraphic Game::_hWindow = NULL;
 
+Animation _test;
+
 pGraphic Game::getWindow()
 {
 	return _hWindow;
@@ -19,22 +21,36 @@ Game::Game()
 
 void Game::loadResource()
 {
-	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(255, 255, 255));
-	//_texture->add(eIdTexture::BILLY_TEX, L"Resource//Object//Billy.png", D3DCOLOR_XRGB(0, 106, 106));
+#pragma region Load Texture
+	// Map
 	_texture->add(eIdTexture::SCENE_TEX, L"Resource//Map//map.png", D3DCOLOR_XRGB(255, 255, 255));
+
+	// Bounding box
 	_texture->add(eIdTexture::BOX_RED_TEX, L"Resource//Object//Box_Red.png", D3DCOLOR_XRGB(255, 255, 255));
 	_texture->add(eIdTexture::BOX_GRAY_TEX, L"Resource//Object//Box_Gray.png", D3DCOLOR_XRGB(255, 255, 255));
 	_texture->add(eIdTexture::BOX_GREEN_TEX, L"Resource//Object//Box_Green.png", D3DCOLOR_XRGB(255, 255, 255));
 
-	//_sprite->add(eIdTexture::BILLY_TEX, "Resource//Object//Billy_Animation.txt");
+	// Item game
+	_texture->add(eIdTexture::ITEM_TEX, L"Resource//Object//Item.png", D3DCOLOR_XRGB(255, 0, 255));
 
-	//_animationManager->load();
+	// Aladin
+	_texture->add(eIdTexture::ALADIN_TEX, L"Resource//Object//Aladin.png", D3DCOLOR_XRGB(255, 0, 255));
+#pragma endregion
 
-	/*_billy.loadResource();
-	_billy.setPosition(300, 300);
-	_billy.setScale(2);*/
+#pragma region Load Sprite
+
+	_sprite->add(eIdTexture::ITEM_TEX, "Resource//Object//Item_Sprite.txt");
+	_sprite->add(eIdTexture::ALADIN_TEX, "Resource//Object//Aladin_Sprite.txt");
+
+#pragma endregion
+
+	_animationManager->load();
+
+	//_test = _animationManager->get(eIdAnimation::ALADIN_RUNNING);
+	//_test.setPosition(Vec3(300, 300, 0));
+	//_test.setScale(Vec2(2, 2));
+	//_test.setDrawingBound(true);
 	_firstScene.loadResource();
-
 
 	_RPT0(0, "[INFO] Load Resource DONE ;\n");
 
@@ -59,9 +75,7 @@ int Game::init()
 	_deviceManager->init(_hWindow);
 	_drawDebug->init();
 	_texture->init();
-
 	_firstScene.init();
-
 	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
 }
@@ -134,6 +148,7 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
+		//_test.render(_deviceManager, _texture);
 		_firstScene.render();
 
 		_deviceManager->getSpriteHandler()->End();
@@ -148,6 +163,7 @@ int Game::render()
 
 int Game::update(float dt)
 {
+	//_test.update(dt);
 	_firstScene.update(dt);
 	return 1;
 }

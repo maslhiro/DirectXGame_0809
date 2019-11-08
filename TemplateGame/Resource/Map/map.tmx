@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="227" tileheight="228" infinite="0" nextlayerid="14" nextobjectid="25">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="227" tileheight="228" infinite="0" nextlayerid="16" nextobjectid="36">
  <tileset firstgid="1" name="70" tilewidth="227" tileheight="228" tilecount="200" columns="20">
   <image source="map.png" width="4540" height="2280"/>
  </tileset>
@@ -17,22 +17,18 @@
 181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200
 </data>
  </layer>
- <objectgroup id="11" name="entity">
-  <object id="3" name="entity_09" x="529.636" y="2071.94" width="29.8182" height="35.333"/>
-  <object id="6" name="entity_08" x="697.091" y="1963.33" width="29.8182" height="35.333"/>
-  <object id="7" name="entity_07" x="771.424" y="2058.67" width="29.8182" height="35.333"/>
-  <object id="8" name="entity_06" x="845.341" y="2061.17" width="29.8182" height="35.333"/>
-  <object id="9" name="entity_05" x="1063.45" y="1378.39" width="29.8182" height="35.333"/>
-  <object id="10" name="entity_04" x="1374.33" y="2089.8" width="29.8182" height="35.333"/>
-  <object id="11" name="entity_03" x="1542.59" y="1963.33" width="29.8182" height="35.333"/>
-  <object id="12" name="entity_02" x="805.091" y="1761" width="29.8182" height="35.333"/>
-  <object id="13" name="entity_01" x="525.758" y="1698.33" width="29.8182" height="35.333"/>
-  <object id="14" name="entity_11" x="1069.09" y="1602.33" width="29.8182" height="35.333"/>
-  <object id="15" name="entity_10" x="1840.59" y="2107.33" width="29.8182" height="35.333"/>
+ <objectgroup id="11" name="4000"/>
+ <objectgroup id="14" name="4001">
+  <object id="32" name="5033" x="1979.71" y="2072" width="15.3333" height="13.3333"/>
+  <object id="33" name="5032" x="2080" y="2071.66" width="15.3333" height="13.3333"/>
+  <object id="34" name="5031" x="2239" y="2070.67" width="17.3333" height="13.3333"/>
  </objectgroup>
- <objectgroup id="12" name="player">
-  <object id="23" name="player_01" x="193" y="2164.5">
+ <objectgroup id="12" name="6000">
+  <object id="23" name="5020" x="90.3333" y="2063.17">
    <point/>
   </object>
+ </objectgroup>
+ <objectgroup id="15" name="land">
+  <object id="35" x="1.95833" y="2240.67" width="2973.88" height="32"/>
  </objectgroup>
 </map>

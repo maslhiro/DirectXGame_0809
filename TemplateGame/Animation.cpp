@@ -1,5 +1,7 @@
 ﻿#include "Animation.h"
 
+int reverse = 1;
+
 Animation::Animation()
 {
 	this->_timePerFrame = 0;
@@ -7,9 +9,13 @@ Animation::Animation()
 	this->_loopCount = 0;
 
 	this->_isLoop = true;
+	this->_isFlip = false;
 	this->_isReverse = false;
 	this->_isAnimated = true;
 	this->_drawingBound = false;
+
+	this->_typeFixPos = 1;
+	this->_indexStart = 0;
 
 	this->_sprite = Sprite::getInstance();
 	this->_position = Vec3(0, 0, 0);
@@ -29,9 +35,24 @@ void Animation::setIsLoop(bool isLoop)
 	this->_isLoop = isLoop;
 }
 
+void Animation::setIsFlip(bool isFlip)
+{
+	this->_isFlip = isFlip;
+}
+
 void Animation::setIsAnimated(bool isAni)
 {
 	this->_isAnimated = isAni;
+}
+
+void Animation::setTypeFixPos(int val)
+{
+	this->_typeFixPos = val;
+}
+
+void Animation::setIndexStart(int index)
+{
+	this->_indexStart = index;
 }
 
 void Animation::setIsReverse(bool isReverse)
@@ -76,6 +97,7 @@ int Animation::getLoopCount() {
 void Animation::addSprite(eIdSprite id) {
 
 	RectSprite currentRect = _sprite->get(id);
+
 	Vec3 _origin = Vec3(currentRect.getWidth() / 2, currentRect.getHeight() / 2, 0);
 	_listOrigin.push_back(_origin);
 	//_RPT1(0, "[INFO] Origin Sprite [%d] || x : %f || y : %f \n", id, _origin.x, _origin.y);
@@ -83,11 +105,12 @@ void Animation::addSprite(eIdSprite id) {
 	// Check co phai sprite dau tien ko ?
 	if (_listSpriteId.size() >= 1) {
 
-		//	// canh bottom cac frame trung nhau
-		float fixBottom = this->fixPosHeight(currentRect);
-		float fixLeft = this->fixPosWidth(currentRect);
-		_fixPosVec.push_back(Vec3(fixLeft, fixBottom, 0));
-		//_RPT1(0, "[INFO] Fix Pos Sprite [%d] || height : %f || width : %f \n", id, fixBottom, fixLeft);
+		// canh bottom cac frame trung nhau
+		float fixHeight = this->fixPosHeight(currentRect);
+		float fixWidth = this->fixPosWidth(currentRect);
+
+		_fixPosVec.push_back(Vec3(fixWidth, fixHeight, 0));
+		//_RPT1(0, "[INFO] Fix Pos Sprite [%d] || height : %f || width : %f \n", id, fixHeight, fixWidth);
 
 	}
 	else {
@@ -132,21 +155,75 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	Vec2 scale = this->_scale;
 
 	// Lật ngước sprite lại 
-	if (_isReverse) scale = Vec2(_scale.x*-1, _scale.y);
+	if (_isFlip) scale = Vec2(_scale.x*-1, _scale.y);
 	// Fix pos
 	Vec3 _newPos = _position;
 	Vec3 _fixPos = _fixPosVec[_currentFrame];
-	if (_isReverse)
+
+	if (_isFlip)
 	{
-		// nếu lật sprite lại thì fix pos theo góc bottom right
-		// Khi lat sprite lai thi left bottom => right top 
-		// nhung ma hinh can right bottom => -fixPos.y 
-		_newPos -= Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
+		// Thuong chi co player va entity fix pos left bottom nen khi lat 
+		// chi xet TH nay
+
+		// Dao nay hoi thieu ngu? nen v =_=
+
+		switch (this->_typeFixPos)
+		{
+		case 1:
+		{
+			// LEFT BOTTOM	
+			// nếu lật sprite lại thì fix pos theo góc bottom right
+			// Khi lat sprite lai thi left bottom => right top 
+			// nhung ma hinh can right bottom => -fixPos.y 
+			_newPos -= Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
+			break;
+		}
+
+		case 2:
+		{
+			// LEFT TOP
+			//_newPos += Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
+			break;
+		}
+		case 3:
+		{
+			// center 
+			break;
+		}
+		default:
+			break;
+		}
 	}
 	else
 	{
-		// fix pos theo goc bottom left
-		_newPos += Vec3(_fixPos.x*_scale.x, _fixPos.y*_scale.y, 0);
+		////fix pos theo goc bottom left
+		//_RPT1(0, "[INFO] TYPE FIX POS %d \n", _typeFixPos);
+		switch (this->_typeFixPos)
+		{
+		case 1:
+		{
+			// LEFT BOTTOM
+			_newPos += Vec3(_fixPos.x*_scale.x, _fixPos.y*_scale.y, 0);
+			break;
+		}
+
+		case 2:
+		{
+			// LEFT TOP
+			_newPos += Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
+			break;
+		}
+		case 3:
+		{
+			// center 
+			// Khoi can xet newPos vi pos hien tai la trung tam roi 
+			break;
+		}
+		default:
+			break;
+		}
+
+
 	}
 	//_RPT1(0, "[INFO] FIX POS %d :x %f y %f \n", _currentFrame, _newPos.x, _newPos.y);
 
@@ -221,20 +298,51 @@ int Animation::update(float dt)
 		// Kiem tra co animated co cho phep ve sprite tiep ko ? 
 		if (!_isAnimated) return 0;
 
-		// Kiem tra phai frame cuoi ko ?
-		// Neu dung chuyen ve frame dau
-		if (_currentFrame == _listSpriteId.size() - 1)
-		{
-			_currentFrame = 0;
-			_loopCount += 1;
-		}
-		else
-		{
-			if (!_isLoop) {
-				if (_loopCount == 1) _currentFrame = 0;
-				else _currentFrame += 1;
+		if (!_isReverse) {
+			// Lap binh thuong frame cuoi => frame dau
+			// Kiem tra phai frame cuoi ko ?
+			// Neu dung chuyen ve frame dau
+			if (_currentFrame == _listSpriteId.size() - 1)
+			{
+				// quay nguoc frame neu den frame cuoi
+				_currentFrame = _indexStart;
+
+				_loopCount += 1;
 			}
-			else _currentFrame += 1;
+			else
+			{
+				if (!_isLoop) {
+					if (_loopCount == 1) _currentFrame = _indexStart;
+					else _currentFrame += 1;
+				}
+				// TH cho phep lap ani
+				else _currentFrame += 1;
+
+			}
+		}
+		else {
+			if (_currentFrame == _listSpriteId.size() - 1)
+			{
+				reverse = -1;
+				_currentFrame -= 1;
+
+				_loopCount += 1;
+			}
+			else
+			{
+				if (!_isLoop) {
+					if (_loopCount == 1) _currentFrame = _indexStart;
+					else _currentFrame += 1;
+				}
+
+				// TH cho phep lap ani
+				else if (reverse < 0 && _currentFrame == _indexStart) {
+					reverse = 1;
+					_currentFrame += 1;
+				}
+				else _currentFrame += 1 * reverse;
+
+			}
 		}
 
 	}
@@ -252,6 +360,14 @@ float Animation::getHeight() {
 	return 0;
 }
 
+RECT Animation::getBouding()
+{
+	if (_listSpriteId.size() > 0) {
+		return _sprite->get(_listSpriteId[_currentFrame]).getRECT();
+	}
+	return RECT();
+}
+
 float Animation::getWidth() {
 	if (_listSpriteId.size() > 0) {
 		return _sprite->get(_listSpriteId[0]).getWidth();
@@ -267,7 +383,7 @@ float Animation::fixPosHeight(RectSprite _nextRect)
 	float heigthFirst = firstRect.getHeight();
 	float heigthCurrent = _nextRect.getHeight();
 
-	return (heigthFirst - heigthCurrent) / 2;
+	return ((heigthFirst - heigthCurrent) / 2);
 }
 
 float Animation::fixPosWidth(RectSprite _nextRect)
@@ -278,6 +394,6 @@ float Animation::fixPosWidth(RectSprite _nextRect)
 	float widthFirst = firstRect.getWidth();
 	float widthCurrent = _nextRect.getWidth();
 
-	return (widthCurrent - widthFirst) / 2;
+	return ((widthCurrent - widthFirst) / 2);
 
 }

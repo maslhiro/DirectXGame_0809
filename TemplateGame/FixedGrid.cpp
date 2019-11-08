@@ -50,9 +50,9 @@ void FixedGrid::init(Tmx::Map* _map)
 
 			_cell[cellX][cellY].addEnity(entity);
 
-			_RPT0(0, "=============== \n");
-			_RPT1(0, "[UNIT ID] %d %d \n", cellX, cellY);
-			_RPT1(0, "[OBJ MAP] %s : %d %d \n", object->GetName().c_str(), object->GetX() + object->GetWidth(), object->GetY() + object->GetHeight());
+			//_RPT0(0, "=============== \n");
+			//_RPT1(0, "[UNIT ID] %d %d \n", cellX, cellY);
+			//_RPT1(0, "[OBJ MAP] %s : %d %d \n", object->GetName().c_str(), object->GetX() + object->GetWidth(), object->GetY() + object->GetHeight());
 
 		}
 	}
@@ -64,4 +64,3 @@ Unit FixedGrid::getUnit(int x, int y)
 {
 	return _cell[x][y];
 }
-

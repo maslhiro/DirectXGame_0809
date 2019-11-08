@@ -47,7 +47,7 @@ void DrawDebug::drawLineHorizontal(int pos, int length, DWORD color, int width)
 	auto _spriteHandler = DeviceManager::getInstance()->getSpriteHandler();
 	auto _texture = Texture::getInstance();
 
-	Vec3 position = Vec3(0, pos, 0);
+	Vec3 position = Vec3(0, (float)pos, 0);
 
 	_spriteHandler->Draw(_texture->get(eIdTexture::BOX_RED_TEX),
 		&line,
@@ -79,7 +79,7 @@ void DrawDebug::drawLineVertical(int pos, int length, DWORD color, int width)
 	auto _spriteHandler = DeviceManager::getInstance()->getSpriteHandler();
 	auto _texture = Texture::getInstance();
 
-	Vec3 position = Vec3(pos, 0, 0);
+	Vec3 position = Vec3((float)pos, 0, 0);
 
 	_spriteHandler->Draw(_texture->get(eIdTexture::BOX_RED_TEX),
 		&line,

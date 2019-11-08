@@ -7,16 +7,15 @@ Tank::Tank()
 
 void Tank::loadResource()
 {
-	_listAnimation[eIdState::RUNNING] = AnimationManager::getInstance()->get(eIdAnimation::TANK_RUNNING);
-	_listAnimation[eIdState::STANDING] = AnimationManager::getInstance()->get(eIdAnimation::TANK_EXPLODING);
+	//_listAnimation[eIdState::RUNNING] = AnimationManager::getInstance()->get(eIdAnimation::TANK_RUNNING);
+	//_listAnimation[eIdState::STANDING] = AnimationManager::getInstance()->get(eIdAnimation::TANK_EXPLODING);
 
-	_state = eIdState::STANDING;
-	_curAnimation = _listAnimation[_state];
+	this->setState(eIdState::NONE);
 }
 
 void Tank::render()
 {
-	_curAnimation.setPosition(_pos);
+	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
 
 	_curAnimation.render(_device, _texture);
@@ -47,7 +46,7 @@ void Tank::handlerInput()
 			// Fix pos animation
 			this->fixPosAnimation(_state);
 		}
-		_pos.x -= 1;
+		_posWorld.x -= 1;
 	}
 
 	// DD
@@ -58,7 +57,7 @@ void Tank::handlerInput()
 			// Fix pos animation
 			this->fixPosAnimation(_state);
 		}
-		_pos.x += 1;
+		_posWorld.x += 1;
 	}
 	else {
 		if (_state != eIdState::STANDING) {
@@ -76,5 +75,5 @@ void Tank::fixPosAnimation(int state)
 	float preHeight = _curAnimation.getHeight();
 	_curAnimation = _listAnimation[_state];
 	float curHeight = _curAnimation.getHeight();
-	this->setPosition(_pos.x, _pos.y + (preHeight - curHeight));
+	this->setPositionWorld(_posWorld.x, _posWorld.y + (preHeight - curHeight));
 }
