@@ -31,50 +31,50 @@ void Billy::update(float dt)
 
 void Billy::handlerInput()
 {
-	switch (_state)
-	{
-	case eIdState::STANDING:
-		if (_input->getMapKey()[KEY_A]) {
-			_RPT0(0, "OK A \n");
-			this->setIsFlip(true);
-			//this->setIsAnimated(true);
+	//switch (_state)
+	//{
+	//case eIdState::STANDING:
+	//	if (_input->getMapKey()[KEY_A]) {
+	//		_RPT0(0, "OK A \n");
+	//		this->setIsFlip(true);
+	//		//this->setIsAnimated(true);
 
-			//_pos.x -= _speed;
-		}
-		else if (_input->getMapKey()[KEY_D])
-		{
-			_RPT0(0, "OK D \n");
-			this->setIsFlip(false);
-			//this->setIsAnimated(true);
+	//		//_pos.x -= _speed;
+	//	}
+	//	else if (_input->getMapKey()[KEY_D])
+	//	{
+	//		_RPT0(0, "OK D \n");
+	//		this->setIsFlip(false);
+	//		//this->setIsAnimated(true);
 
-			//_pos.x += _speed;
-		}
-		else if (_input->getMapKey()[KEY_S])
-		{
-			// Fix pos truoc sau do moi set State
-			this->fixPosAnimation(eIdState::PUNCHING);
+	//		//_pos.x += _speed;
+	//	}
+	//	else if (_input->getMapKey()[KEY_S])
+	//	{
+	//		// Fix pos truoc sau do moi set State
+	//		this->fixPosAnimation(eIdState::PUNCHING);
 
-			this->setState(eIdState::PUNCHING);
+	//		this->setState(eIdState::PUNCHING);
 
-			this->setIsAnimated(true);
-		}
-		else
-		{
-			this->setIsAnimated(false);
-		}
-		break;
+	//		this->setIsAnimated(true);
+	//	}
+	//	else
+	//	{
+	//		this->setIsAnimated(false);
+	//	}
+	//	break;
 
-	case eIdState::PUNCHING:
-		if (_curAnimation.getLoopCount() == 1) {
+	////case eIdState::PUNCHING:
+	//	if (_curAnimation.getLoopCount() == 1) {
 
-			this->fixPosAnimation(eIdState::STANDING);
+	//		this->fixPosAnimation(eIdState::STANDING);
 
-			this->setState(eIdState::STANDING);
-		}
+	//		this->setState(eIdState::STANDING);
+	//	}
 
-		break;
-	default:
-		break;
-	}
+	//	break;
+	//default:
+	//	break;
+	//}
 
 }

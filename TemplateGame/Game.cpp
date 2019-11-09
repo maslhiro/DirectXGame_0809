@@ -5,6 +5,7 @@ int Game::isExit = 0;
 pGraphic Game::_hWindow = NULL;
 
 Animation _test;
+Animation _test01;
 
 pGraphic Game::getWindow()
 {
@@ -32,6 +33,7 @@ void Game::loadResource()
 
 	// Item game
 	_texture->add(eIdTexture::ITEM_TEX, L"Resource//Object//Item.png", D3DCOLOR_XRGB(255, 0, 255));
+	_texture->add(eIdTexture::ITEM_MAP_TEX, L"Resource//Object//Item_Map.png", D3DCOLOR_XRGB(163, 73, 164));
 
 	// Aladin
 	_texture->add(eIdTexture::ALADIN_TEX, L"Resource//Object//Aladin.png", D3DCOLOR_XRGB(255, 0, 255));
@@ -40,16 +42,24 @@ void Game::loadResource()
 #pragma region Load Sprite
 
 	_sprite->add(eIdTexture::ITEM_TEX, "Resource//Object//Item_Sprite.txt");
+	_sprite->add(eIdTexture::ITEM_MAP_TEX, "Resource//Object//Item_Map_Sprite.txt");
 	_sprite->add(eIdTexture::ALADIN_TEX, "Resource//Object//Aladin_Sprite.txt");
 
 #pragma endregion
 
 	_animationManager->load();
 
-	//_test = _animationManager->get(eIdAnimation::ALADIN_RUNNING);
+	//_test = _animationManager->get(eIdAnimation::STONE_COLUMN_01_VISIBLE);
 	//_test.setPosition(Vec3(300, 300, 0));
 	//_test.setScale(Vec2(2, 2));
 	//_test.setDrawingBound(true);
+
+
+	//_test01 = _animationManager->get(eIdAnimation::WRECKING_BALL_VISIBLE);
+	//_test01.setPosition(Vec3(300, 300, 1));
+	//_test01.setScale(Vec2(2, 2));
+	//_test01.setDrawingBound(true);
+
 	_firstScene.loadResource();
 
 	_RPT0(0, "[INFO] Load Resource DONE ;\n");
@@ -148,7 +158,10 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
+		//_test01.render(_deviceManager, _texture);
+
 		//_test.render(_deviceManager, _texture);
+
 		_firstScene.render();
 
 		_deviceManager->getSpriteHandler()->End();
@@ -163,6 +176,7 @@ int Game::render()
 
 int Game::update(float dt)
 {
+	//_test01.update(dt);
 	//_test.update(dt);
 	_firstScene.update(dt);
 	return 1;

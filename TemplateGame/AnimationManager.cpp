@@ -47,6 +47,41 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::WRECKING_BALL_VISIBLE] = _wreckingBall;
 #pragma endregion
 
+#pragma region STONE COLUMN
+	Animation _column01;
+	_column01.setTimePerFrame(1.0f);
+	_column01.setIsLoop(false);
+	//_column01.setDrawingBound(true);
+	_column01.addSprite(eIdSprite::STONE_COLUMN_01);
+
+	_listAnimation[eIdAnimation::STONE_COLUMN_01_VISIBLE] = _column01;
+
+	Animation _column02;
+	_column02.setTimePerFrame(1.0f);
+	_column02.setIsLoop(false);
+	//_column02.setDrawingBound(true);
+	_column02.addSprite(eIdSprite::STONE_COLUMN_02);
+
+	_listAnimation[eIdAnimation::STONE_COLUMN_02_VISIBLE] = _column02;
+
+	Animation _column03;
+	_column03.setTimePerFrame(1.0f);
+	_column03.setIsLoop(false);
+	//_column03.setDrawingBound(true);
+	_column03.addSprite(eIdSprite::STONE_COLUMN_03);
+
+	_listAnimation[eIdAnimation::STONE_COLUMN_03_VISIBLE] = _column03;
+
+	Animation _column04;
+	_column04.setTimePerFrame(1.0f);
+	_column04.setIsLoop(false);
+	//_column04.setDrawingBound(true);
+	_column04.addSprite(eIdSprite::STONE_COLUMN_04);
+
+	_listAnimation[eIdAnimation::STONE_COLUMN_04_VISIBLE] = _column04;
+
+#pragma endregion
+
 #pragma region Aladin
 
 	Animation _stand;

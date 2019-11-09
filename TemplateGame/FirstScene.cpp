@@ -60,6 +60,7 @@ void FirstScene::render()
 
 	_map2.render();
 	_player.render();
+	_map2.renderAbove();
 	//_apple->render();
 
 	//_drawDebug->drawLineHorizontal(_device->getHeightWindow() / 2, 500);

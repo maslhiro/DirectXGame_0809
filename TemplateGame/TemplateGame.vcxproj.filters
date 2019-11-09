@@ -216,6 +216,18 @@
     <ClCompile Include="Aladin.cpp">
       <Filter>Source Files\Object\Player</Filter>
     </ClCompile>
+    <ClCompile Include="StoneColumn_1.cpp">
+      <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="StoneColumn_2.cpp">
+      <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="StoneColumn_3.cpp">
+      <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="StoneColumn_4.cpp">
+      <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -370,6 +382,18 @@
     </ClInclude>
     <ClInclude Include="Aladin.h">
       <Filter>Header Files\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="StoneColumn_1.h">
+      <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="StoneColumn_2.h">
+      <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="StoneColumn_3.h">
+      <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="StoneColumn_4.h">
+      <Filter>Header Files\Object\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

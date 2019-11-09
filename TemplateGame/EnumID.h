@@ -14,6 +14,18 @@ enum eIdObject
 {
 	APPLE = 4000,
 	WRECKING_BALL,
+
+	STONE_COLUMN_1,	// Cot da player co the di xuyen qua
+	STONE_COLUMN_2,
+	STONE_COLUMN_3,
+	STONE_COLUMN_4,
+
+	// Static Obj => ko render
+	LAND = 4500,	// Dat
+	PILLAR,			// Cot go - sat
+	PLANKS,			// Thanh go - sat
+	ROPE,			// Day thung
+
 	BILLY
 };
 
@@ -23,8 +35,10 @@ enum eIdTexture
 	BOX_RED_TEX,
 	BOX_GRAY_TEX,
 	BOX_GREEN_TEX,
+
 	ALADIN_TEX,
 	ITEM_TEX,
+	ITEM_MAP_TEX,
 
 	SCENE_TEX = 70,
 
@@ -33,12 +47,12 @@ enum eIdTexture
 //Sprite > 1000
 enum eIdSprite
 {
-#pragma region APPLE
+#pragma region APPLE || 1000
 	ITEM_APPLE_BIG = 1000,
 	ITEM_APPLE,
 #pragma endregion
 
-#pragma region WECKING BALL
+#pragma region WECKING BALL || 1010
 	WRECKING_BALL_01 = 1010,
 	WRECKING_BALL_02,
 	WRECKING_BALL_03,
@@ -55,6 +69,16 @@ enum eIdSprite
 	WRECKING_BALL_14,
 	WRECKING_BALL_15,
 #pragma endregion
+
+#pragma region STONE COLUMN || 1030
+
+	STONE_COLUMN_01 = 1030,
+	STONE_COLUMN_02,
+	STONE_COLUMN_03,
+	STONE_COLUMN_04,
+
+#pragma endregion
+
 
 #pragma region ALADIN
 
@@ -118,6 +142,11 @@ enum eIdAnimation
 {
 	APPLE_VISIBLE = 100,
 	WRECKING_BALL_VISIBLE,
+
+	STONE_COLUMN_01_VISIBLE,
+	STONE_COLUMN_02_VISIBLE,
+	STONE_COLUMN_03_VISIBLE,
+	STONE_COLUMN_04_VISIBLE,
 
 	ALADIN_STANDING = 200,
 	ALADIN_JUMPING,

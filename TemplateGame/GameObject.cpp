@@ -75,12 +75,12 @@ GameObject::~GameObject()
 
 }
 
-int GameObject::getId()
+std::string GameObject::getId()
 {
 	return this->_id;
 }
 
-void GameObject::setId(int id)
+void GameObject::setId(std::string id)
 {
 	this->_id = id;
 }

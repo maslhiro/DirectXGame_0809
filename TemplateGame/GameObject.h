@@ -9,7 +9,7 @@ class GameObject
 {
 protected:
 
-	int _id;
+	std::string _id;
 
 	// Chia Id de phan biet cac the loai game obj :)))
 	int _idType;
@@ -37,8 +37,8 @@ protected:
 
 public:
 
-	int getId();
-	void setId(int);
+	std::string getId();
+	void setId(std::string);
 
 	int getIdType();
 	void setIdType(int);

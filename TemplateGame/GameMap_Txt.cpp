@@ -83,13 +83,13 @@ void GameMap_Txt::load(const char *filePath)
 	if (file == NULL) return;
 
 	int countline = 0;
-	int idTypeObj, idObj, posObj_X, posObj_Y;
+	int idTypeObj, posObj_X, posObj_Y, objW, objH;
 
 	while (!feof(file))
 	{
 		// Dong dau tien thong so map
 		//
-		// idTexture - mapW - mapH - tileW - tileH
+		// idTexture - mapW - mapH - tileW - tileH - objW - objH
 		//
 
 		if (countline == 0)
@@ -101,13 +101,17 @@ void GameMap_Txt::load(const char *filePath)
 		}
 		else
 		{
+			char idObj[100];
 			// Doc pos va idType cua cac obj
-			fscanf_s(file, "%d %d %d %d", &idTypeObj, &idObj, &posObj_X, &posObj_Y);
-			_RPT1(0, "[MAP TXT] Load OBJ Type : %d Id %d ( %d , %d ) \n", idTypeObj, idObj, posObj_X, posObj_Y);
+
+			std::fscanf(file, "%d %s %d %d %d %d", &idTypeObj, &idObj, &posObj_X, &posObj_Y, &objW, &objH);
+
+			_RPT1(0, "[MAP TXT] Load OBJ: %d %s || ( %d , %d ) || w %d h %d \n", idTypeObj, idObj, posObj_X, posObj_Y, objW, objH);
 
 			//Tu idTypeObj = > RECT = > BOUNDING cua obj do
 
 			pGameObject _obj;
+
 			switch (idTypeObj)
 			{
 			case eIdObject::APPLE:
@@ -120,12 +124,32 @@ void GameMap_Txt::load(const char *filePath)
 				_obj = new WreckingBall();
 				break;
 			}
+			case eIdObject::STONE_COLUMN_1:
+			{
+				_obj = new StoneColumn_1();
+				break;
+			}
+			case eIdObject::STONE_COLUMN_2:
+			{
+				_obj = new StoneColumn_2();
+				break;
+			}
+			case eIdObject::STONE_COLUMN_3:
+			{
+				_obj = new StoneColumn_3();
+				break;
+			}
+			case eIdObject::STONE_COLUMN_4:
+			{
+				_obj = new StoneColumn_4();
+				break;
+			}
 			default:
 				_obj = new Apple();
 				break;
 			}
 
-			_obj->setId(idObj);
+			_obj->setId(std::string(idObj));
 			_obj->loadResource();
 			_obj->setScale(2.0f);
 			_obj->setPositionWorld(posObj_X, posObj_Y);
@@ -266,8 +290,89 @@ void GameMap_Txt::render()
 
 			for (int i = 0; i < listGameObj.size(); i++)
 			{
-				//listEntity[i]->setDrawingBound(bounding);
+				int idType = listGameObj[i]->getIdType();
+
+				// Doi voi 4 cot da thi render sau khi ve aladin
+				if (idType == eIdObject::STONE_COLUMN_1 ||
+					idType == eIdObject::STONE_COLUMN_2 ||
+					idType == eIdObject::STONE_COLUMN_3 ||
+					idType == eIdObject::STONE_COLUMN_4)
+				{
+					continue;
+
+				}
 				listGameObj[i]->render();
+			}
+
+
+		}
+	}
+
+	_spriteHandler->SetTransform(&matOld); // set lai matrix cu~ chi ap dung transfrom voi class nay
+}
+
+void GameMap_Txt::renderAbove()
+{
+
+	D3DXMATRIX matFinal;
+	D3DXMATRIX matTransformed;
+	D3DXMATRIX matOld;
+
+	auto listUnit = _grid->_cell;
+	auto _spriteHandler = _device->getSpriteHandler();
+
+	Vec2 trans(_device->getWidthWindow() / 2 - _camera->getPositionWorld().x, _device->getHeightWindow() / 2 - _camera->getPositionWorld().y);
+
+	Vec2 centerMap = Vec2((float)_mapWidth / 2, (float)_mapHeight / 2);
+
+	_spriteHandler->GetTransform(&matOld);
+
+	D3DXMatrixTransformation2D(&matTransformed, &centerMap, 0, &_scale, &centerMap, 0, &trans);
+
+	matFinal = matTransformed * matOld;
+
+	_spriteHandler->SetTransform(&matFinal);
+
+	// Render map
+
+	RECT _viewPort = _camera->getBounding();
+
+	// Lay ra Cac Unit contain voi viewport
+	Vec3 posLEFT_T = Vec3(_viewPort.left, _viewPort.top, 0);
+	Vec3 posRIGHT_BT = Vec3(_viewPort.right, _viewPort.bottom, 0);
+
+	int min_CellX = posLEFT_T.x / _tileWidth;
+	int min_CellY = posLEFT_T.y / _tileHeight;
+
+	int max_CellX = posRIGHT_BT.x / _tileWidth;
+	int max_CellY = posRIGHT_BT.y / _tileHeight;
+
+	for (int x = min_CellX; x <= max_CellX; x++)
+	{
+		for (int y = min_CellY; y <= max_CellY; y++)
+		{
+			auto curUnit = listUnit[x][y];
+
+			Vec3 pos = curUnit.getPosWorld();
+
+			auto listGameObj = curUnit.getListGameObj();
+
+			if (listGameObj.size() == 0) continue;
+
+			for (int i = 0; i < listGameObj.size(); i++)
+			{
+				int idType = listGameObj[i]->getIdType();
+
+				// Doi voi 4 cot da thi render sau khi ve aladin
+				if (idType == eIdObject::STONE_COLUMN_1 ||
+					idType == eIdObject::STONE_COLUMN_2 ||
+					idType == eIdObject::STONE_COLUMN_3 ||
+					idType == eIdObject::STONE_COLUMN_4)
+				{
+					listGameObj[i]->render();
+				}
+				else continue;
+
 			}
 
 

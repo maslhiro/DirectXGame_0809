@@ -8,8 +8,13 @@
 #pragma region List GAME OBJ
 
 #include "GameObject.h"
+
 #include "Apple.h"
 #include "WreckingBall.h"
+#include "StoneColumn_1.h"
+#include "StoneColumn_2.h"
+#include "StoneColumn_3.h"
+#include "StoneColumn_4.h"
 
 #pragma endregion
 
@@ -59,6 +64,9 @@ public:
 	void release();
 
 	void render();
+
+	// render cac obj nam tren player va map
+	void renderAbove();
 
 	void update(float);
 
