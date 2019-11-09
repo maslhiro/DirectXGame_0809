@@ -228,6 +228,9 @@
     <ClCompile Include="StoneColumn_4.cpp">
       <Filter>Source Files\Object\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Land.cpp">
+      <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -393,6 +396,9 @@
       <Filter>Header Files\Object\Map</Filter>
     </ClInclude>
     <ClInclude Include="StoneColumn_4.h">
+      <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Land.h">
       <Filter>Header Files\Object\Map</Filter>
     </ClInclude>
   </ItemGroup>

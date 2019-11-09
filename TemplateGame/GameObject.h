@@ -14,7 +14,11 @@ protected:
 	// Chia Id de phan biet cac the loai game obj :)))
 	int _idType;
 
-	// 
+	// Static obj : land, pillar, rope, ..
+	bool _isStaticObj;
+	// Lưu lại rect của các obj như land, rope,.. bởi vì chúng nó đéo có animation
+	RECT _boudingWorld;
+
 	Animation _curAnimation;
 
 	// Map state voi idAnimation tuong ung
@@ -39,6 +43,11 @@ public:
 
 	std::string getId();
 	void setId(std::string);
+
+	void setIsStaticObj(bool);
+	bool getIsStaticObj();
+
+	void setRectWorld(RECT);
 
 	int getIdType();
 	void setIdType(int);
@@ -76,7 +85,8 @@ public:
 	// Mac dinh fix theo left
 	float fixPosWidth(int);
 
-	// Lay RECT cua ani hien tai
+	// isStatic = false => Lay RECT cua ani hien tai
+	// isStatic = true => lay bouding world obj
 	RECT getBoudingBox();
 
 	GameObject();

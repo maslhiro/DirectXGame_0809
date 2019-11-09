@@ -97,6 +97,8 @@ void GameMap_Txt::load(const char *filePath)
 			// Doc info cua map
 			fscanf_s(file, "%d %d %d %d %d", &_textureMapId, &_mapWidth, &_mapHeight, &_tileWidth, &_tileHeight);
 			_RPT1(0, "[MAP TXT] %d %d %d %d %d \n", _textureMapId, _mapWidth, _mapHeight, _tileWidth, _tileHeight);
+			_grid->setWidthUnit(_tileWidth);
+			_grid->setWidthUnit(_tileHeight);
 			//return;
 		}
 		else
@@ -144,6 +146,19 @@ void GameMap_Txt::load(const char *filePath)
 				_obj = new StoneColumn_4();
 				break;
 			}
+			case eIdObject::LAND:
+			{
+				_obj = new Land();
+
+				RECT rec;
+				rec.left = posObj_X;
+				rec.top = posObj_Y;
+				rec.right = objW;
+				rec.bottom = objH;
+				_obj->setRectWorld(rec);
+
+				break;
+			}
 			default:
 				_obj = new Apple();
 				break;
@@ -155,7 +170,7 @@ void GameMap_Txt::load(const char *filePath)
 			_obj->setPositionWorld(posObj_X, posObj_Y);
 
 			RECT rect = _obj->getBoudingBox();
-			//_RPT1(0, "[MAP TXT] RECT OBJ : %d %d %d %d \n", rect.left, rect.top, rect.right, rect.bottom);
+			_RPT1(0, "[MAP TXT] RECT OBJ : %d %d %d %d \n", rect.left, rect.top, rect.right, rect.bottom);
 
 			// Kiem tra xem obj do nam o UNIT NAO
 			Vec3 posLEFT_T = Vec3(rect.left, rect.top, 0);
@@ -175,7 +190,6 @@ void GameMap_Txt::load(const char *filePath)
 				}
 			}
 
-			//delete _obj;
 		}
 
 		countline += 1;
@@ -303,8 +317,6 @@ void GameMap_Txt::render()
 				}
 				listGameObj[i]->render();
 			}
-
-
 		}
 	}
 
@@ -372,13 +384,9 @@ void GameMap_Txt::renderAbove()
 					listGameObj[i]->render();
 				}
 				else continue;
-
 			}
-
-
 		}
 	}
-
 	_spriteHandler->SetTransform(&matOld); // set lai matrix cu~ chi ap dung transfrom voi class nay
 }
 
@@ -389,6 +397,7 @@ void GameMap_Txt::update(float dt)
 
 	auto listUnit = _grid->_cell;
 
+	// Luon Update
 	for (int x = 0; x < _grid->NUM_X; x++)
 	{
 		for (int y = 0; y < _grid->NUM_Y; y++)
@@ -401,10 +410,13 @@ void GameMap_Txt::update(float dt)
 
 			for (int i = 0; i < listGameObj.size(); i++)
 			{
-				listGameObj[i]->update(dt);
+				int idType = listGameObj[i]->getIdType();
+
+				if (idType == eIdObject::WRECKING_BALL) {
+					listGameObj[i]->update(dt);
+
+				}
 			}
-
-
 		}
 	}
 }

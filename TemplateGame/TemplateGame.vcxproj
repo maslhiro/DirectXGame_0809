@@ -141,6 +141,7 @@
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="EnumID.h" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="Land.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="MapReader\base64.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="Land.h" />
     <ClInclude Include="MapReader\base64.h" />
     <ClInclude Include="MapReader\tinyxml2.h" />
     <ClInclude Include="MapReader\TmxEllipse.h" />

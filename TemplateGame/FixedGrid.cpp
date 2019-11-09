@@ -2,20 +2,13 @@
 
 FixedGrid::FixedGrid()
 {
+	_widthUnit = _heightUnit = 0;
+	_isLoaded = false;
 }
 
 
 void FixedGrid::init(Tmx::Map* _map)
 {
-	// Clear the FixedGrid.
-	//for (int x = 0; x < NUM_CELLS; x++)
-	//{
-	//	for (int y = 0; y < NUM_CELLS; y++)
-	//	{
-	//		_cell[x][y] == nullptr;
-	//	}
-	//}
-
 	// Chia map thanh nhieu UNIT
 	int count = 0;
 	for (int h = _map->GetHeight()*_map->GetTileHeight(); h > 0; h -= HEIGHT_UNIT)
@@ -58,6 +51,45 @@ void FixedGrid::init(Tmx::Map* _map)
 	}
 
 
+}
+
+void FixedGrid::setWidthUnit(int w)
+{
+	_widthUnit = w;
+}
+
+void FixedGrid::setHeightUnit(int h)
+{
+	_heightUnit = h;
+}
+
+void FixedGrid::setIsLoaded(bool val)
+{
+	this->_isLoaded = val;
+}
+
+std::vector<Unit> FixedGrid::getUnitsContain(RECT _view)
+{
+	std::vector<Unit> listUnit;
+	// Lay ra Cac Unit contain voi viewport
+	Vec3 posLEFT_T = Vec3(_view.left, _view.top, 0);
+	Vec3 posRIGHT_BT = Vec3(_view.right, _view.bottom, 0);
+
+	int min_CellX = posLEFT_T.x / _widthUnit;
+	int min_CellY = posLEFT_T.y / _heightUnit;
+
+	int max_CellX = posRIGHT_BT.x / _widthUnit;
+	int max_CellY = posRIGHT_BT.y / _heightUnit;
+
+	for (int x = min_CellX; x <= max_CellX; x++)
+	{
+		for (int y = min_CellY; y <= max_CellY; y++)
+		{
+			listUnit.push_back(_cell[x][y]);
+		}
+	}
+
+	return listUnit;
 }
 
 Unit FixedGrid::getUnit(int x, int y)

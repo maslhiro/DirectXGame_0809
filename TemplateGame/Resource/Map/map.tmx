@@ -17,30 +17,30 @@
 181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200
 </data>
  </layer>
- <objectgroup id="12" name="6000">
+ <objectgroup id="12" name="6000" visible="0">
   <object id="23" name="aladin" x="90.3333" y="2063.17">
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="17" name="4501" visible="0">
+ <objectgroup id="17" name="4501">
   <object id="37" name="pillar_04" x="2813.33" y="1866" width="165" height="32"/>
   <object id="38" name="pillar_03" x="2845.86" y="1737.64" width="131.727" height="32"/>
   <object id="39" name="pillar_02" x="2635.14" y="1642" width="212.727" height="32"/>
   <object id="40" name="pillar_01" x="2225.64" y="1834" width="237.227" height="16.5"/>
  </objectgroup>
- <objectgroup id="15" name="4500" visible="0">
+ <objectgroup id="15" name="4500">
   <object id="35" name="land_01" x="1.95833" y="2240.67" width="2973.88" height="32"/>
  </objectgroup>
- <objectgroup id="21" name="4005">
+ <objectgroup id="21" name="4005" visible="0">
   <object id="64" name="column_04" x="2370" y="2042" width="1" height="1"/>
  </objectgroup>
- <objectgroup id="20" name="4004">
+ <objectgroup id="20" name="4004" visible="0">
   <object id="62" name="column_03" x="1666" y="1490" width="1" height="1"/>
  </objectgroup>
- <objectgroup id="19" name="4003">
+ <objectgroup id="19" name="4003" visible="0">
   <object id="56" name="column_02" x="1026" y="2074" width="1" height="1"/>
  </objectgroup>
- <objectgroup id="18" name="4002">
+ <objectgroup id="18" name="4002" visible="0">
   <object id="50" name="column_01" x="394" y="1891" width="1" height="1"/>
  </objectgroup>
  <objectgroup id="14" name="4001" visible="0">

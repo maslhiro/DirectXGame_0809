@@ -2,28 +2,36 @@
 
 RECT GameObject::getBoudingBox()
 {
-	if (_listAnimation.size() > 0) {
+	if (_isStaticObj == false) {
+		if (_listAnimation.size() > 0) {
+			float width_Ani = _listAnimation[_state].getWidth() * _scale.x / 2.0;
+			float height_Ani = _listAnimation[_state].getHeight() * _scale.y / 2.0;
+			// ướm vào posWorld mới ra BOUDING :( DM
 
-		float width_Ani = _listAnimation[_state].getWidth() * _scale.x / 2.0;
-		float height_Ani = _listAnimation[_state].getHeight() * _scale.y / 2.0;
-		// ướm vào posWorld mới ra BOUDING :( DM
-
-		RECT bouding;
-		bouding.left = _posWorld.x - (int)ceil(width_Ani);
-		bouding.right = _posWorld.x - (int)ceil(width_Ani);
-		bouding.top = _posWorld.y - (int)ceil(height_Ani);
-		bouding.bottom = _posWorld.y + (int)ceil(height_Ani);
+			RECT bouding;
+			bouding.left = _posWorld.x - (int)ceil(width_Ani);
+			bouding.right = _posWorld.x - (int)ceil(width_Ani);
+			bouding.top = _posWorld.y - (int)ceil(height_Ani);
+			bouding.bottom = _posWorld.y + (int)ceil(height_Ani);
 
 
-		return bouding;
+			return bouding;
+		}
+		else return RECT();
 	}
-	return RECT();
+	else {
+		// TH : gameobj static : LAND, ROPE , ...
+		return _boudingWorld;
+	}
 }
 
 GameObject::GameObject()
 {
 	this->_device = DeviceManager::getInstance();
 	this->_texture = Texture::getInstance();
+
+	_isStaticObj = false;
+	_boudingWorld = RECT();
 
 	_isFlip = false;
 	_isAnimated = true;
@@ -83,6 +91,21 @@ std::string GameObject::getId()
 void GameObject::setId(std::string id)
 {
 	this->_id = id;
+}
+
+void GameObject::setIsStaticObj(bool val)
+{
+	this->_isStaticObj = val;
+}
+
+bool GameObject::getIsStaticObj()
+{
+	return this->_isStaticObj;
+}
+
+void GameObject::setRectWorld(RECT rec)
+{
+	this->_boudingWorld = rec;
 }
 
 int GameObject::getIdType()
