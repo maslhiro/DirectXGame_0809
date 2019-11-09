@@ -22,7 +22,7 @@ private:
 	pInputHandler _input;
 
 	pCamera _camera;
-	pFixedGrid _grid;
+	//pFixedGrid _grid;
 
 	Vec2 _scale;
 

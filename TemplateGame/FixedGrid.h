@@ -1,12 +1,28 @@
 #pragma once
 #include "Unit.h"
-#include "MapReader/Tmx.h.in"
+
+#pragma region List GAME OBJ
+
+#include "GameObject.h"
+
+#include "Apple.h"
+#include "Land.h"
+#include "WreckingBall.h"
+#include "StoneColumn_1.h"
+#include "StoneColumn_2.h"
+#include "StoneColumn_3.h"
+#include "StoneColumn_4.h"
+
+#pragma endregion
 
 class FixedGrid
 {
 private:
 
 	int _widthUnit, _heightUnit;
+
+	// Info map 
+	int _textureMapId, _mapWidth, _mapHeight;
 
 	// Kiem tra grid da dc load chua ?
 	bool _isLoaded;
@@ -20,10 +36,23 @@ public:
 
 	FixedGrid();
 
-	void init(Tmx::Map*);
+	// Tao grid tu 1 file txt cho truoc
+	void init(const char*);
 
-	void setWidthUnit(int);
-	void setHeightUnit(int);
+	// Doc file map txt => info map : idTexture, mapW, mapH, unitW, unitH
+	// Sau do ktra _isLoaded de biet dc da load grid chua 
+	// Neu load roi thi => doc dong dau tien sau do return 
+	void load(const char*);
+
+	// Luu lai grid xuong file txt o duong dan mac dinh
+	void save();
+
+	int getWidthUnit();
+	int getHeightUnit();
+	int getIdTextureMap();
+	int getMapWidth();
+	int getMapHeight();
+
 	void setIsLoaded(bool);
 
 	// Tra ve list Unit cotain voi RECT

@@ -3,64 +3,190 @@
 FixedGrid::FixedGrid()
 {
 	_widthUnit = _heightUnit = 0;
+	_textureMapId = _mapWidth = _mapHeight = 0;
 	_isLoaded = false;
 }
 
-
-void FixedGrid::init(Tmx::Map* _map)
+void FixedGrid::init(const char * filePath)
 {
-	// Chia map thanh nhieu UNIT
+}
+
+void FixedGrid::load(const char * filePath)
+{
+
+#pragma region LOAD FILE TXT MAP
+	FILE* file;
+	fopen_s(&file, filePath, "r");
+
+	if (file == NULL) return;
+
+	int countline = 0;
+	int idTypeObj, posObj_X, posObj_Y, objW, objH;
+
+	while (!feof(file))
+	{
+		// Dong dau tien thong so map
+		//
+		// idTexture - mapW - mapH - tileW - tileH - objW - objH
+		//
+
+		if (countline == 0)
+		{
+			// Doc info cua map
+			fscanf_s(file, "%d %d %d %d %d", &_textureMapId, &_mapWidth, &_mapHeight, &_widthUnit, &_heightUnit);
+			_RPT1(0, "[MAP TXT] %d %d %d %d %d \n", _textureMapId, _mapWidth, _mapHeight, _widthUnit, _heightUnit);
+			if (_isLoaded) {
+				return;
+			}
+		}
+		else
+		{
+			char idObj[100];
+			// Doc pos va idType cua cac obj
+
+			std::fscanf(file, "%d %s %d %d %d %d", &idTypeObj, &idObj, &posObj_X, &posObj_Y, &objW, &objH);
+
+			_RPT1(0, "[MAP TXT] Load OBJ: %d %s || ( %d , %d ) || w %d h %d \n", idTypeObj, idObj, posObj_X, posObj_Y, objW, objH);
+
+			//Tu idTypeObj = > RECT = > BOUNDING cua obj do
+
+			pGameObject _obj;
+
+			switch (idTypeObj)
+			{
+			case eIdObject::APPLE:
+			{
+				_obj = new Apple();
+				break;
+			}
+			case eIdObject::WRECKING_BALL:
+			{
+				_obj = new WreckingBall();
+				break;
+			}
+			case eIdObject::STONE_COLUMN_1:
+			{
+				_obj = new StoneColumn_1();
+				break;
+			}
+			case eIdObject::STONE_COLUMN_2:
+			{
+				_obj = new StoneColumn_2();
+				break;
+			}
+			case eIdObject::STONE_COLUMN_3:
+			{
+				_obj = new StoneColumn_3();
+				break;
+			}
+			case eIdObject::STONE_COLUMN_4:
+			{
+				_obj = new StoneColumn_4();
+				break;
+			}
+			case eIdObject::LAND:
+			{
+				_obj = new Land();
+
+				RECT rec;
+				rec.left = posObj_X;
+				rec.top = posObj_Y;
+				rec.right = objW;
+				rec.bottom = objH;
+				_obj->setRectWorld(rec);
+
+				break;
+			}
+			default:
+				_obj = new Apple();
+				break;
+			}
+
+			_obj->setId(std::string(idObj));
+			_obj->loadResource();
+			_obj->setScale(2.0f);
+			_obj->setPositionWorld(posObj_X, posObj_Y);
+
+			RECT rect = _obj->getBoudingBox();
+			_RPT1(0, "[MAP TXT] RECT OBJ : %d %d %d %d \n", rect.left, rect.top, rect.right, rect.bottom);
+
+			// Kiem tra xem obj do nam o UNIT NAO
+			Vec3 posLEFT_T = Vec3(rect.left, rect.top, 0);
+			Vec3 posRIGHT_BT = Vec3(rect.right, rect.bottom, 0);
+
+			int min_CellX = posLEFT_T.x / _widthUnit;
+			int min_CellY = posLEFT_T.y / _heightUnit;
+
+			int max_CellX = posRIGHT_BT.x / _widthUnit;
+			int max_CellY = posRIGHT_BT.y / _heightUnit;
+
+			for (int x = min_CellX; x <= max_CellX; x++)
+			{
+				for (int y = min_CellY; y <= max_CellY; y++)
+				{
+					this->_cell[x][y].addGameObj(_obj);
+				}
+			}
+		}
+		countline += 1;
+	}
+
+	fclose(file);
+#pragma endregion
+
+#pragma region Chia Unit || Set Bounding Tung Unit
 	int count = 0;
-	for (int h = _map->GetHeight()*_map->GetTileHeight(); h > 0; h -= HEIGHT_UNIT)
+	int cellX = 0, cellY = 0;
+
+	for (int x = 0; x < _mapWidth; x += _widthUnit)
 	{
-		for (int w = 0; w < _map->GetWidth()*_map->GetTileWidth(); w += WIDTH_UNIT)
+		for (int y = 0; y < _mapHeight; y += _heightUnit)
 		{
-			count += 1;
+
+			cellX = x / _widthUnit;
+			cellY = y / _heightUnit;
+
+			this->_cell[cellX][cellY].setIndex(cellX, cellY);
+			this->_cell[cellX][cellY].setSize(_widthUnit, _heightUnit);
+			this->_cell[cellX][cellY].setPosWorld(x, y);
+
+			count++;
 		}
 	}
 
-	_RPT1(0, "[GRID] Count %d \n", count);
+	_RPT1(0, "[MAP TXT] Num UNIT %d \n", count);
 
-	// Ktra xem co object nao trong Unit nay ko ?
-	for (size_t i = 0; i < _map->GetNumObjectGroups(); i++)
-	{
-		const Tmx::ObjectGroup *objectGroup = _map->GetObjectGroup(i);
-
-		if (objectGroup->GetName() == "player") continue;
-
-		for (size_t j = 0; j < objectGroup->GetNumObjects(); j++)
-		{
-			auto *object = objectGroup->GetObjects().at(j);
-
-			int posX = object->GetX();
-			int posY = object->GetY();
-
-			int cellX = posX / WIDTH_UNIT + 1;
-			int cellY = posY / HEIGHT_UNIT + 1;
-
-			pEntity entity = new Entity();
-			entity->setPos(posX, posY);
-
-			_cell[cellX][cellY].addEnity(entity);
-
-			//_RPT0(0, "=============== \n");
-			//_RPT1(0, "[UNIT ID] %d %d \n", cellX, cellY);
-			//_RPT1(0, "[OBJ MAP] %s : %d %d \n", object->GetName().c_str(), object->GetX() + object->GetWidth(), object->GetY() + object->GetHeight());
-
-		}
-	}
-
+#pragma endregion
 
 }
 
-void FixedGrid::setWidthUnit(int w)
+void FixedGrid::save()
 {
-	_widthUnit = w;
 }
 
-void FixedGrid::setHeightUnit(int h)
+int FixedGrid::getWidthUnit()
 {
-	_heightUnit = h;
+	return _widthUnit;
+}
+
+int FixedGrid::getHeightUnit()
+{
+	return _heightUnit;
+}
+
+int FixedGrid::getIdTextureMap()
+{
+	return this->_textureMapId;
+}
+
+int FixedGrid::getMapWidth()
+{
+	return this->_mapWidth;
+}
+
+int FixedGrid::getMapHeight()
+{
+	return this->_mapHeight;
 }
 
 void FixedGrid::setIsLoaded(bool val)
