@@ -5,6 +5,7 @@ Player::Player()
 	_pos = Vec3();
 	_posWorld = Vec3();
 	_camera = nullptr;
+	_grid = nullptr;
 }
 
 
@@ -31,6 +32,11 @@ void Player::setPos(Vec3 pos)
 void Player::setPosWorld(Vec3 pos)
 {
 	_posWorld = pos;
+}
+
+void Player::setGrid(pFixedGrid grid)
+{
+	_grid = grid;
 }
 
 void Player::setCamera(pCamera cam)
@@ -75,6 +81,51 @@ void Player::render()
 
 void Player::update(float)
 {
+	if (_grid == nullptr) return;
+
+	auto listUnit = _grid->getUnitsContain(getBounding());
+
+	_RPT1(0, "[PLAYER] %d \n", listUnit.size());
+	for (int i = 0; i < listUnit.size(); i++)
+	{
+		// Kiem tra va cham
+		auto listObjet = listUnit[i].getListGameObj();
+
+		int indexX, indexY;
+		listUnit[i].getIndex(indexX, indexY);
+		_RPT1(0, "[PLAYER] UNIT %d %d \n", indexX, indexY);
+		if (listObjet.size() == 0) continue;
+
+		for (int j = 0; j < listObjet.size(); j++)
+		{
+			// Check va cham voi land
+			if (listObjet[j]->getIdType() == eIdObject::LAND)
+			{
+				bool collision = checkCollision(listObjet[j]->getBoudingBox());
+				if (!collision)
+				{
+					_posWorld += Vec3(0, 2, 0);
+					_pos += Vec3(0, 2, 0);
+				}
+			}
+			else {
+				_posWorld += Vec3(0, 2, 0);
+				_pos += Vec3(0, 2, 0);
+			}
+		}
+
+	}
+
+}
+
+bool Player::checkCollision(RECT r)
+{
+	RECT _cur = getBounding();
+	return !(
+		_cur.left > r.right ||
+		_cur.right < r.left ||
+		_cur.top > r.bottom ||
+		_cur.bottom < r.top);
 }
 
 void Player::handlerInput(float)

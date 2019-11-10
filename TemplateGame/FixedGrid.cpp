@@ -1,5 +1,6 @@
 #include "FixedGrid.h"
 #define __STDC_WANT_LIB_EXT1__ 1
+
 FixedGrid::FixedGrid()
 {
 	_widthUnit = _heightUnit = 0;
@@ -63,16 +64,15 @@ void FixedGrid::load(const char * filePath)
 			fprintf(fileSave, "%d\t%d\t%d\t%d\t%d\t%d\n", _numX, _numY, _widthUnit, _heightUnit, _mapWidth, _mapHeight);
 
 			_RPT1(0, "[MAP TXT] %d %d %d %d %d %d \n", _textureMapId, _mapWidth, _mapHeight, _widthUnit, _heightUnit, _numObj);
-			if (_isLoaded) {
-				return;
-			}
 		}
 		else if (countline == 1)
 		{
 			int posx, posy;
 			fscanf(file, "%d %d", &posx, &posy);
-
 			_posWorld_PLAYER = Vec3(posx, posy, 0);
+			if (_isLoaded) {
+				return;
+			}
 		}
 		else
 		{
@@ -226,6 +226,11 @@ int FixedGrid::getMapWidth()
 int FixedGrid::getMapHeight()
 {
 	return this->_mapHeight;
+}
+
+Vec3 FixedGrid::getPosWorld_PLAYER()
+{
+	return _posWorld_PLAYER;
 }
 
 int FixedGrid::getNumX()

@@ -18,7 +18,6 @@ void GameMap_Txt::init()
 	_grid = nullptr;
 	_camera = nullptr;
 
-	_posWorld_Player = Vec3();
 	_scale = Vec2(1, 1);
 
 	_textureMapId = _mapWidth = _mapHeight = _tileWidth = _tileHeight = 0;
@@ -70,11 +69,6 @@ int GameMap_Txt::getTileHeight()
 pFixedGrid GameMap_Txt::getGrid()
 {
 	return _grid;
-}
-
-Vec3 GameMap_Txt::getPosWorld_PLAYER()
-{
-	return _posWorld_Player;
 }
 
 pCamera GameMap_Txt::getCamera()
@@ -178,8 +172,8 @@ void GameMap_Txt::render()
 			{
 				int idType = listGameObj[i]->getIdType();
 
-				int objID = listGameObj[i]->getId();
-				_RPT1(0, "[ID OBJ] %d \n", objID);
+				//int objID = listGameObj[i]->getId();
+				//_RPT1(0, "[ID OBJ] %d \n", objID);
 
 				// Doi voi 4 cot da thi render sau khi ve aladin
 				if (idType == eIdObject::STONE_COLUMN_1 ||
@@ -272,7 +266,7 @@ void GameMap_Txt::update(float dt)
 
 	auto listUnit = _grid->_cell;
 
-	// Luon Update
+	// Luon Update Cac OBJ dac biet
 	for (int x = 0; x < _grid->getNumX(); x++)
 	{
 		for (int y = 0; y < _grid->getNumY(); y++)

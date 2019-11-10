@@ -3,6 +3,7 @@
 #include "DeviceManager.h"
 #include "Texture.h"
 #include "Camera.h"
+#include "FixedGrid.h"
 
 class Player
 {
@@ -12,6 +13,8 @@ private:
 
 	pInputHandler _input;
 	pCamera _camera;
+	pFixedGrid _grid;
+
 public:
 	Player();
 	~Player();
@@ -22,7 +25,11 @@ public:
 	void setPos(Vec3);
 	void setPosWorld(Vec3);
 
+	void setGrid(pFixedGrid);
+
 	void setCamera(pCamera);
+
+	bool checkCollision(RECT);
 
 	RECT getBounding();
 

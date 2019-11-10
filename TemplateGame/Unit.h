@@ -14,6 +14,7 @@ public:
 	void setPosWorld(int, int);
 	void setPosWorld(Vec3);
 
+	void getIndex(int&, int&);
 
 	Vec3 getPosWorld();
 	RECT getBoudingUnit();

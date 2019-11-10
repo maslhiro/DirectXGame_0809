@@ -5,6 +5,8 @@
 FirstScene::FirstScene()
 {
 	_grid = new FixedGrid();
+	_player = new Aladin();
+	_camera = new Camera();
 }
 
 
@@ -19,8 +21,12 @@ void FirstScene::init()
 	_grid->setPathTxt("Resource//Map//grid.txt");
 	_grid->init();
 	_map2.setGrid(_grid);
+
 	//_apple = new Apple();
-	_camera = new Camera();
+
+
+	_player->setGrid(_grid);
+	_player->setCamera(_camera);
 
 	_RPT0(0, "[INFO] Init FIRST SCENE done;\n");
 }
@@ -40,18 +46,20 @@ void FirstScene::loadResource()
 
 	//_map.setCamera(_camera);
 	_map2.setCamera(_camera);
-	_player.setPos(300, 300);
-	//_player.setPos((int)_map.getPosWorld_PLAYER().x,
-	//	_deviceManager->getHeightWindow() - _map.getHeight() + (int)_map.getPosWorld_PLAYER().y);
-	//_player.setPosWorld(_map.getPosWorld_PLAYER());
-	_player.setCamera(_camera);
+	_player->loadResource();
+	_player->setScale(2.0f);
+	_player->setSpeed(150.f);
+	//_player->setPosView(300, 300);
+
+	_player->setPosView((int)_grid->getPosWorld_PLAYER().x,
+		_deviceManager->getHeightWindow() - _map2.getHeight() + (int)_grid->getPosWorld_PLAYER().y);
+	_player->setPositionWorld(_grid->getPosWorld_PLAYER());
 }
 
 void FirstScene::update(float dt)
 {
-	this->handlerInput(dt);
-
-	//_map2.update(dt);
+	_map2.update(dt);
+	_player->update(dt);
 }
 
 void FirstScene::render()
@@ -62,7 +70,7 @@ void FirstScene::render()
 	//_map.render(_player.getBounding());
 
 	_map2.render();
-	_player.render();
+	_player->render();
 	_map2.renderAbove();
 	//_apple->render();
 
@@ -73,7 +81,7 @@ void FirstScene::render()
 
 void FirstScene::handlerInput(float dt)
 {
-	_player.handlerInput(dt);
+	_player->handlerInput(dt);
 }
 
 void FirstScene::release()

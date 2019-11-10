@@ -27,6 +27,12 @@ void Unit::setPosWorld(Vec3 pos)
 	_posWorld = pos;
 }
 
+void Unit::getIndex(int &a, int &b)
+{
+	a = _x;
+	b = _y;
+}
+
 Vec3 Unit::getPosWorld()
 {
 	return _posWorld;
@@ -36,16 +42,15 @@ RECT Unit::getBoudingUnit()
 {
 	RECT rect;
 
+	//rect.left = (int)_posWorld.x;
+	//rect.right = (int)_posWorld.x + _width;
+	//rect.top = (int)_posWorld.y;
+	//rect.bottom = (int)_posWorld.y + _height;
+
 	rect.left = (int)_posWorld.x;
-	rect.right = (int)_posWorld.x + _width;
+	rect.right = (int)_posWorld.x + _width - 1;
 	rect.top = (int)_posWorld.y;
-	rect.bottom = (int)_posWorld.y + _height;
-
-	//rect.left = (int)_posWorld.x - _width / 2;
-	//rect.right = (int)_posWorld.x + _width / 2;
-	//rect.top = (int)_posWorld.y - _height / 2;
-	//rect.bottom = (int)_posWorld.y + _height / 2;
-
+	rect.bottom = (int)_posWorld.y + _height - 1;
 	return rect;
 }
 

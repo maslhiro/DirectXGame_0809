@@ -30,8 +30,10 @@ protected:
 	// Lat nguoc sprite 
 	bool _isFlip;
 	bool _isAnimated;
+	bool _isTerminated;
 
 	float _speed; // vx
+	float _dx, _dy;
 
 	Vec3 _posWorld;
 	Vec2 _scale;
@@ -53,6 +55,8 @@ public:
 	void setIdType(int);
 
 	void setSpeed(float);
+	void setDx(float);
+	void setDy(float);
 	void setState(int);
 
 	void setPositionWorld(Vec3);
@@ -67,6 +71,7 @@ public:
 
 	void setIsFlip(bool);
 	void setIsAnimated(bool);
+	void setIsTerminated(bool);
 
 	// Load Animation từ Animation Manager vao map Animation
 	virtual void loadResource() = 0;
@@ -76,7 +81,13 @@ public:
 	virtual void update(float) = 0;
 
 	// bắt sự kiện phím thay dổi, đặt trước hàm update để fix pos -> dưa theo speed :rainbow:
-	virtual void handlerInput() = 0;
+	virtual void handlerInput(float) = 0;
+
+	RECT getSweptBroadphaseRect();
+
+	bool checkCollision(RECT);
+
+	float checkCollision_SweptAABB(RECT, float);
 
 	// Fix pos khi chuyển animation
 	void fixPosAnimation(int);

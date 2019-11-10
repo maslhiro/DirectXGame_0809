@@ -57,6 +57,8 @@ public:
 	int getMapWidth();
 	int getMapHeight();
 
+	Vec3 getPosWorld_PLAYER();
+
 	int getNumX();
 	int getNumY();
 

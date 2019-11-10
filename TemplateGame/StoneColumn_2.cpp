@@ -24,6 +24,6 @@ void StoneColumn_2::update(float)
 {
 }
 
-void StoneColumn_2::handlerInput()
+void StoneColumn_2::handlerInput(float)
 {
 }
