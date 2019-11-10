@@ -14,7 +14,8 @@ void GameMap_Txt::init()
 	_texture = Texture::getInstance();
 	_device = DeviceManager::getInstance();
 	_input = InputHandler::getInstance();
-	_grid = new FixedGrid();
+
+	_grid = nullptr;
 	_camera = nullptr;
 
 	_posWorld_Player = Vec3();
@@ -41,6 +42,11 @@ void GameMap_Txt::setScale(float scale)
 	_scale = Vec2(scale, scale);
 }
 
+void GameMap_Txt::setGrid(pFixedGrid grid)
+{
+	_grid = grid;
+}
+
 int GameMap_Txt::getWidth()
 {
 	return _mapWidth;
@@ -61,6 +67,11 @@ int GameMap_Txt::getTileHeight()
 	return _tileHeight;
 }
 
+pFixedGrid GameMap_Txt::getGrid()
+{
+	return _grid;
+}
+
 Vec3 GameMap_Txt::getPosWorld_PLAYER()
 {
 	return _posWorld_Player;
@@ -73,6 +84,8 @@ pCamera GameMap_Txt::getCamera()
 
 void GameMap_Txt::load(const char *filePath)
 {
+	if (_grid == nullptr) return;
+
 	_grid->load(filePath);
 
 	_textureMapId = _grid->getIdTextureMap();
@@ -130,9 +143,9 @@ void GameMap_Txt::render()
 	//_RPT1(0, "[INFO] CELL Y %d %d \n", min_CellY, max_CellY);
 
 	// Ve map truoc
-	for (int x = min_CellX; x <= max_CellX; x++)
+	for (int x = min_CellX; x < max_CellX; x++)
 	{
-		for (int y = min_CellY; y <= max_CellY; y++)
+		for (int y = min_CellY; y < max_CellY; y++)
 		{
 			auto curUnit = listUnit[x][y];
 
@@ -149,9 +162,9 @@ void GameMap_Txt::render()
 
 	// Sau do ve entity
 	// tranh truong hon map ve tren entity
-	for (int x = min_CellX; x <= max_CellX; x++)
+	for (int x = min_CellX; x < max_CellX; x++)
 	{
-		for (int y = min_CellY; y <= max_CellY; y++)
+		for (int y = min_CellY; y < max_CellY; y++)
 		{
 			auto curUnit = listUnit[x][y];
 
@@ -164,6 +177,8 @@ void GameMap_Txt::render()
 			for (int i = 0; i < listGameObj.size(); i++)
 			{
 				int idType = listGameObj[i]->getIdType();
+
+				//_RPT1(0, "[ID OBJ] %s \n", listGameObj[i]->getId());
 
 				// Doi voi 4 cot da thi render sau khi ve aladin
 				if (idType == eIdObject::STONE_COLUMN_1 ||
@@ -257,9 +272,9 @@ void GameMap_Txt::update(float dt)
 	auto listUnit = _grid->_cell;
 
 	// Luon Update
-	for (int x = 0; x < _grid->NUM_X; x++)
+	for (int x = 0; x < _grid->getNumX(); x++)
 	{
-		for (int y = 0; y < _grid->NUM_Y; y++)
+		for (int y = 0; y < _grid->getNumY(); y++)
 		{
 			auto curUnit = listUnit[x][y];
 

@@ -5,6 +5,11 @@ Apple::Apple() : GameObject()
 	_idType = eIdObject::APPLE;
 }
 
+Apple::Apple(int id) : GameObject(id)
+{
+	_idType = eIdObject::APPLE;
+}
+
 void Apple::loadResource()
 {
 	_listAnimation[eIdState::NONE] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_VISIBLE);

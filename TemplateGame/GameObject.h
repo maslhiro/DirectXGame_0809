@@ -9,7 +9,7 @@ class GameObject
 {
 protected:
 
-	std::string _id;
+	int _id;
 
 	// Chia Id de phan biet cac the loai game obj :)))
 	int _idType;
@@ -41,8 +41,8 @@ protected:
 
 public:
 
-	std::string getId();
-	void setId(std::string);
+	int getId();
+	void setId(int);
 
 	void setIsStaticObj(bool);
 	bool getIsStaticObj();
@@ -90,6 +90,8 @@ public:
 	RECT getBoudingBox();
 
 	GameObject();
+	GameObject(int);
+
 	~GameObject();
 };
 

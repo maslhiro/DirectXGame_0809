@@ -43,6 +43,26 @@ GameObject::GameObject()
 	_speed = 1;
 }
 
+GameObject::GameObject(int id)
+{
+	this->_device = DeviceManager::getInstance();
+	this->_texture = Texture::getInstance();
+
+	_isStaticObj = false;
+	_boudingWorld = RECT();
+
+	_isFlip = false;
+	_isAnimated = true;
+
+	_posWorld = Vec3(0, 0, 0);
+	_scale = Vec2(1, 1);
+
+	_state = eIdState::NONE;
+	_speed = 1;
+
+	_id = id;
+}
+
 void GameObject::fixPosAnimation(int nextState)
 {
 	float fixBottom = this->fixPosHeight(nextState);
@@ -83,14 +103,16 @@ GameObject::~GameObject()
 
 }
 
-std::string GameObject::getId()
+int GameObject::getId()
 {
+	_RPT1(0, "[GET ID] %s \n", _id);
 	return this->_id;
 }
 
-void GameObject::setId(std::string id)
+void GameObject::setId(int id)
 {
 	this->_id = id;
+	_RPT1(0, "[SET ID] %s \n", _id);
 }
 
 void GameObject::setIsStaticObj(bool val)

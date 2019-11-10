@@ -12,8 +12,7 @@ private:
 	GameMap_Txt _map2;
 	pCamera _camera;
 
-	//pGameObject _apple;
-
+	pFixedGrid _grid;
 	Player _player;
 public:
 	FirstScene();

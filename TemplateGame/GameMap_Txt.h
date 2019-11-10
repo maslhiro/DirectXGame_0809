@@ -49,6 +49,7 @@ public:
 	void setCamera(pCamera);
 	void setScale(Vec2);
 	void setScale(float);
+	void setGrid(pFixedGrid);
 
 	int getWidth();
 	int getHeight();
@@ -56,6 +57,7 @@ public:
 	int getTileWidth();
 	int getTileHeight();
 
+	pFixedGrid getGrid();
 	Vec3 getPosWorld_PLAYER();
 
 	pCamera getCamera();

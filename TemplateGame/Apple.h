@@ -6,6 +6,7 @@ class Apple :
 {
 public:
 	Apple();
+	Apple(int);
 
 	void loadResource();
 

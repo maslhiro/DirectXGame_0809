@@ -4,6 +4,7 @@
 
 FirstScene::FirstScene()
 {
+	_grid = new FixedGrid();
 }
 
 
@@ -15,7 +16,9 @@ void FirstScene::init()
 {
 	_map2.init();
 	//_map.init();
-
+	_grid->setPathTxt("Resource//Map//grid.txt");
+	_grid->init();
+	_map2.setGrid(_grid);
 	//_apple = new Apple();
 	_camera = new Camera();
 
@@ -48,7 +51,7 @@ void FirstScene::update(float dt)
 {
 	this->handlerInput(dt);
 
-	_map2.update(dt);
+	//_map2.update(dt);
 }
 
 void FirstScene::render()
