@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="227" tileheight="228" infinite="0" nextlayerid="22" nextobjectid="65">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="227" tileheight="228" infinite="0" nextlayerid="22" nextobjectid="69">
  <tileset firstgid="1" name="70" tilewidth="227" tileheight="228" tilecount="200" columns="20">
   <image source="map.png" width="4540" height="2280"/>
  </tileset>
@@ -17,41 +17,41 @@
 181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200
 </data>
  </layer>
- <objectgroup id="12" name="6000" visible="0">
-  <object id="23" name="aladin" x="90.3333" y="2063.17">
-   <point/>
-  </object>
+ <objectgroup id="12" name="6000">
+  <object id="65" name="600001" x="150.333" y="2170" width="1" height="1"/>
  </objectgroup>
- <objectgroup id="17" name="4501">
-  <object id="37" name="pillar_04" x="2813.33" y="1866" width="165" height="32"/>
-  <object id="38" name="pillar_03" x="2845.86" y="1737.64" width="131.727" height="32"/>
-  <object id="39" name="pillar_02" x="2635.14" y="1642" width="212.727" height="32"/>
-  <object id="40" name="pillar_01" x="2225.64" y="1834" width="237.227" height="16.5"/>
+ <objectgroup id="17" name="4501" visible="0">
+  <object id="37" name="450104" x="2813.33" y="1866" width="165" height="32"/>
+  <object id="38" name="450103" x="2845.86" y="1737.64" width="131.727" height="32"/>
+  <object id="39" name="450102" x="2635.14" y="1642" width="212.727" height="32"/>
+  <object id="40" name="450101" x="2225.64" y="1834" width="237.227" height="16.5"/>
  </objectgroup>
- <objectgroup id="15" name="4500">
-  <object id="35" name="land_01" x="1.95833" y="2240.67" width="2973.88" height="32"/>
+ <objectgroup id="15" name="4500" visible="0">
+  <object id="35" name="450001" x="1.95833" y="2240.67" width="2973.88" height="32"/>
  </objectgroup>
  <objectgroup id="21" name="4005" visible="0">
-  <object id="64" name="column_04" x="2370" y="2042" width="1" height="1"/>
+  <object id="64" name="400504" x="2370" y="2042" width="1" height="1"/>
  </objectgroup>
  <objectgroup id="20" name="4004" visible="0">
-  <object id="62" name="column_03" x="1666" y="1490" width="1" height="1"/>
+  <object id="62" name="400403" x="1666" y="1490" width="1" height="1"/>
  </objectgroup>
  <objectgroup id="19" name="4003" visible="0">
-  <object id="56" name="column_02" x="1026" y="2074" width="1" height="1"/>
+  <object id="56" name="400302" x="1026" y="2074" width="1" height="1"/>
  </objectgroup>
  <objectgroup id="18" name="4002" visible="0">
-  <object id="50" name="column_01" x="394" y="1891" width="1" height="1"/>
+  <object id="50" name="400201" x="394" y="1891" width="1" height="1"/>
  </objectgroup>
  <objectgroup id="14" name="4001" visible="0">
-  <object id="32" name="ball_03" x="1979.71" y="2072" width="15.3333" height="13.3333"/>
-  <object id="33" name="ball_02" x="2080" y="2071.66" width="15.3333" height="13.3333"/>
-  <object id="34" name="ball_01" x="2239" y="2070.67" width="17.3333" height="13.3333"/>
+  <object id="32" name="400103" x="1979.71" y="2072" width="15.3333" height="13.3333"/>
+  <object id="33" name="400102" x="2080" y="2071.66" width="15.3333" height="13.3333"/>
+  <object id="34" name="400101" x="2239" y="2070.67" width="17.3333" height="13.3333"/>
  </objectgroup>
- <objectgroup id="11" name="4000" visible="0">
-  <object id="44" name="apple_02" x="528.5" y="1982.5"/>
-  <object id="45" name="apple_04" x="565.5" y="2012.5"/>
-  <object id="46" name="apple_03" x="486" y="2013.5"/>
-  <object id="47" name="apple_01" x="529.333" y="2050"/>
+ <objectgroup id="11" name="4000">
+  <object id="44" name="400002" x="1197.83" y="2111.83"/>
+  <object id="45" name="400004" x="938.833" y="2159.17"/>
+  <object id="46" name="400003" x="773" y="2117.5"/>
+  <object id="47" name="400001" x="255.083" y="2128.5"/>
+  <object id="66" name="400006" x="578.421" y="2116.24"/>
+  <object id="67" name="400005" x="316.25" y="2128.17"/>
  </objectgroup>
 </map>

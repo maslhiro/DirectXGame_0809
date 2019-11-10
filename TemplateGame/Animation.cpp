@@ -271,7 +271,6 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		_lineDraw->Begin();
 		_lineDraw->Draw(line, 5, _colorBound);
 		_lineDraw->End();
-
 	}
 
 	// Ve sprite hien tai
@@ -356,6 +355,22 @@ int Animation::update(float dt)
 float Animation::getHeight() {
 	if (_listSpriteId.size() > 0) {
 		return _sprite->get(_listSpriteId[0]).getHeight();
+	}
+	return 0;
+}
+
+float Animation::getCurrentWidth()
+{
+	if (_listSpriteId.size() > 0) {
+		return _sprite->get(_listSpriteId[_currentFrame]).getWidth();
+	}
+	return 0;
+}
+
+float Animation::getCurrentHeight()
+{
+	if (_listSpriteId.size() > 0) {
+		return _sprite->get(_listSpriteId[_currentFrame]).getHeight();
 	}
 	return 0;
 }

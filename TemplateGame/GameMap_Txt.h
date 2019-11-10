@@ -37,9 +37,6 @@ private:
 	// Thong tin map
 	int _textureMapId, _mapWidth, _mapHeight, _tileWidth, _tileHeight;
 
-	// Pos player
-	Vec3 _posWorld_Player;
-
 public:
 	GameMap_Txt();
 	~GameMap_Txt();
@@ -49,6 +46,7 @@ public:
 	void setCamera(pCamera);
 	void setScale(Vec2);
 	void setScale(float);
+	void setGrid(pFixedGrid);
 
 	int getWidth();
 	int getHeight();
@@ -56,7 +54,7 @@ public:
 	int getTileWidth();
 	int getTileHeight();
 
-	Vec3 getPosWorld_PLAYER();
+	pFixedGrid getGrid();
 
 	pCamera getCamera();
 

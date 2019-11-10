@@ -36,7 +36,7 @@ void Game::loadResource()
 	_texture->add(eIdTexture::ITEM_MAP_TEX, L"Resource//Object//Item_Map.png", D3DCOLOR_XRGB(163, 73, 164));
 
 	// Aladin
-	_texture->add(eIdTexture::ALADIN_TEX, L"Resource//Object//Aladin.png", D3DCOLOR_XRGB(255, 0, 255));
+	_texture->add(eIdTexture::ALADIN_TEX, L"Resource//Object//Aladin.png", D3DCOLOR_XRGB(106, 148, 189));
 #pragma endregion
 
 #pragma region Load Sprite
@@ -178,7 +178,11 @@ int Game::update(float dt)
 {
 	//_test01.update(dt);
 	//_test.update(dt);
+	_firstScene.handlerInput(dt);
+
 	_firstScene.update(dt);
+
+
 	return 1;
 }
 

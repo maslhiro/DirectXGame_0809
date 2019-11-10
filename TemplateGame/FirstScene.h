@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Apple.h"
 #include "GameMap_Txt.h"
+#include "Aladin.h"
 
 class FirstScene :
 	public Scene
@@ -12,9 +13,10 @@ private:
 	GameMap_Txt _map2;
 	pCamera _camera;
 
-	//pGameObject _apple;
+	pFixedGrid _grid;
+	Player _player2;
+	pAladin _player;
 
-	Player _player;
 public:
 	FirstScene();
 	~FirstScene();

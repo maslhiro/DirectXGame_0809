@@ -12,7 +12,7 @@ public:
 
 	void update(float);
 
-	void handlerInput();
+	void handlerInput(float);
 
 };
 

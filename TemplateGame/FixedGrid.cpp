@@ -1,27 +1,47 @@
 #include "FixedGrid.h"
+#define __STDC_WANT_LIB_EXT1__ 1
 
 FixedGrid::FixedGrid()
 {
 	_widthUnit = _heightUnit = 0;
 	_textureMapId = _mapWidth = _mapHeight = 0;
+	_numX = _numY = _numObj = 0;
 	_isLoaded = false;
+	_posWorld_PLAYER = Vec3();
 }
 
-void FixedGrid::init(const char * filePath)
+void FixedGrid::init()
 {
+	FILE* file;
+	fopen_s(&file, _fileSavePath, "r");
+
+	// File ko ton tai
+	if (file == NULL) {
+		setIsLoaded(false);
+		return;
+	}
+
+	fclose(file);
+
 }
 
 void FixedGrid::load(const char * filePath)
 {
 
-#pragma region LOAD FILE TXT MAP
+#pragma region LOAD FILE TXT MAP || LUU LAI GRID TXT
 	FILE* file;
+	FILE* fileSave;
+
+	fopen_s(&fileSave, _fileSavePath, "w+");
 	fopen_s(&file, filePath, "r");
 
-	if (file == NULL) return;
+
+	if (file == NULL) {
+		fclose(fileSave);
+		return;
+	}
 
 	int countline = 0;
-	int idTypeObj, posObj_X, posObj_Y, objW, objH;
 
 	while (!feof(file))
 	{
@@ -33,20 +53,35 @@ void FixedGrid::load(const char * filePath)
 		if (countline == 0)
 		{
 			// Doc info cua map
-			fscanf_s(file, "%d %d %d %d %d", &_textureMapId, &_mapWidth, &_mapHeight, &_widthUnit, &_heightUnit);
-			_RPT1(0, "[MAP TXT] %d %d %d %d %d \n", _textureMapId, _mapWidth, _mapHeight, _widthUnit, _heightUnit);
+			fscanf(file, "%d %d %d %d %d %d", &_textureMapId, &_mapWidth, &_mapHeight, &_widthUnit, &_heightUnit, &_numObj);
+
+			// Tinh so num X, Y
+			_numX = _mapWidth / _widthUnit;
+			_numY = _mapHeight / _heightUnit;
+
+			// Dong dau tien la thong tin cua grid
+			// numX - numY - unitW - unitH - mapW - mapH 
+			fprintf(fileSave, "%d\t%d\t%d\t%d\t%d\t%d\n", _numX, _numY, _widthUnit, _heightUnit, _mapWidth, _mapHeight);
+
+			_RPT1(0, "[MAP TXT] %d %d %d %d %d %d \n", _textureMapId, _mapWidth, _mapHeight, _widthUnit, _heightUnit, _numObj);
+		}
+		else if (countline == 1)
+		{
+			int posx, posy;
+			fscanf(file, "%d %d", &posx, &posy);
+			_posWorld_PLAYER = Vec3(posx, posy, 0);
 			if (_isLoaded) {
 				return;
 			}
 		}
 		else
 		{
-			char idObj[100];
+			int idTypeObj, idObj, posObj_X, posObj_Y, objW, objH;
+
 			// Doc pos va idType cua cac obj
+			fscanf(file, "%d %d %d %d %d %d", &idTypeObj, &idObj, &posObj_X, &posObj_Y, &objW, &objH);
 
-			std::fscanf(file, "%d %s %d %d %d %d", &idTypeObj, &idObj, &posObj_X, &posObj_Y, &objW, &objH);
-
-			_RPT1(0, "[MAP TXT] Load OBJ: %d %s || ( %d , %d ) || w %d h %d \n", idTypeObj, idObj, posObj_X, posObj_Y, objW, objH);
+			_RPT1(0, "[MAP TXT] Load OBJ: %d %d || ( %d , %d ) || w %d h %d \n", idTypeObj, idObj, posObj_X, posObj_Y, objW, objH);
 
 			//Tu idTypeObj = > RECT = > BOUNDING cua obj do
 
@@ -102,7 +137,7 @@ void FixedGrid::load(const char * filePath)
 				break;
 			}
 
-			_obj->setId(std::string(idObj));
+			_obj->setId(idObj);
 			_obj->loadResource();
 			_obj->setScale(2.0f);
 			_obj->setPositionWorld(posObj_X, posObj_Y);
@@ -125,6 +160,13 @@ void FixedGrid::load(const char * filePath)
 				for (int y = min_CellY; y <= max_CellY; y++)
 				{
 					this->_cell[x][y].addGameObj(_obj);
+
+					if (countline == _numObj + 1 && x == max_CellX && y == max_CellY)
+					{
+						fprintf(fileSave, "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", x, y, idTypeObj, idObj, posObj_X, posObj_Y, objW, objH);
+					}
+					else fprintf(fileSave, "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n", x, y, idTypeObj, idObj, posObj_X, posObj_Y, objW, objH);
+
 				}
 			}
 		}
@@ -132,6 +174,8 @@ void FixedGrid::load(const char * filePath)
 	}
 
 	fclose(file);
+	fclose(fileSave);
+
 #pragma endregion
 
 #pragma region Chia Unit || Set Bounding Tung Unit
@@ -142,10 +186,9 @@ void FixedGrid::load(const char * filePath)
 	{
 		for (int y = 0; y < _mapHeight; y += _heightUnit)
 		{
-
 			cellX = x / _widthUnit;
 			cellY = y / _heightUnit;
-
+			//_RPT1(0, "[INFO GRID] CELL x: %d y: %d \n", cellX, cellY);
 			this->_cell[cellX][cellY].setIndex(cellX, cellY);
 			this->_cell[cellX][cellY].setSize(_widthUnit, _heightUnit);
 			this->_cell[cellX][cellY].setPosWorld(x, y);
@@ -158,10 +201,6 @@ void FixedGrid::load(const char * filePath)
 
 #pragma endregion
 
-}
-
-void FixedGrid::save()
-{
 }
 
 int FixedGrid::getWidthUnit()
@@ -189,9 +228,29 @@ int FixedGrid::getMapHeight()
 	return this->_mapHeight;
 }
 
+Vec3 FixedGrid::getPosWorld_PLAYER()
+{
+	return _posWorld_PLAYER;
+}
+
+int FixedGrid::getNumX()
+{
+	return this->_numX;
+}
+
+int FixedGrid::getNumY()
+{
+	return this->_numY;
+}
+
 void FixedGrid::setIsLoaded(bool val)
 {
 	this->_isLoaded = val;
+}
+
+void FixedGrid::setPathTxt(char *path)
+{
+	this->_fileSavePath = path;
 }
 
 std::vector<Unit> FixedGrid::getUnitsContain(RECT _view)

@@ -25,7 +25,7 @@ void WreckingBall::update(float dt)
 	_curAnimation.update(dt);
 }
 
-void WreckingBall::handlerInput()
+void WreckingBall::handlerInput(float)
 {
 }
 

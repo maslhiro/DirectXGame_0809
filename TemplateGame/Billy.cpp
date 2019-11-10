@@ -29,7 +29,7 @@ void Billy::update(float dt)
 	_curAnimation.update(dt);
 }
 
-void Billy::handlerInput()
+void Billy::handlerInput(float)
 {
 	//switch (_state)
 	//{

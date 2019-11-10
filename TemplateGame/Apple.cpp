@@ -3,6 +3,12 @@
 Apple::Apple() : GameObject()
 {
 	_idType = eIdObject::APPLE;
+	_isTerminated = false;
+}
+
+Apple::Apple(int id) : GameObject(id)
+{
+	_idType = eIdObject::APPLE;
 }
 
 void Apple::loadResource()
@@ -14,6 +20,8 @@ void Apple::loadResource()
 
 void Apple::render()
 {
+	if (_isTerminated) return;
+
 	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
 
@@ -22,9 +30,11 @@ void Apple::render()
 
 void Apple::update(float dt)
 {
+	if (_isTerminated) return;
+
 	_curAnimation.update(dt);
 }
 
-void Apple::handlerInput()
+void Apple::handlerInput(float)
 {
 }

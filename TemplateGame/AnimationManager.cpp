@@ -86,7 +86,7 @@ void AnimationManager::load() {
 
 	Animation _stand;
 	_stand.setTimePerFrame(1.0f);
-	_stand.setIsLoop(true);
+	_stand.setIsLoop(false);
 	_stand.setTypeFixPos(1);
 	_stand.setScale(2.0f, 2.0f);
 	_stand.addSprite(eIdSprite::ALADIN_STAND);
@@ -132,10 +132,10 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADIN_JUMPING] = _jump;
 
 	Animation _run;
-	_run.setTimePerFrame(0.2f);
+	_run.setTimePerFrame(0.1f);
 	_run.setIsLoop(true);
-	_run.setTypeFixPos(3);
-	_run.setIndexStart(4);
+	_run.setTypeFixPos(1);
+	_run.setIndexStart(3);
 	_run.setScale(2.0f, 2.0f);
 	_run.addSprite(eIdSprite::ALADIN_RUN_01);
 	_run.addSprite(eIdSprite::ALADIN_RUN_02);

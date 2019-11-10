@@ -4,8 +4,11 @@
 class Apple :
 	public GameObject
 {
+private:
+
 public:
 	Apple();
+	Apple(int);
 
 	void loadResource();
 
@@ -13,6 +16,6 @@ public:
 
 	void update(float);
 
-	void handlerInput();
+	void handlerInput(float);
 };
 

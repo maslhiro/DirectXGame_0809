@@ -27,7 +27,7 @@ void Tank::update(float dt)
 	_curAnimation.update(dt);
 }
 
-void Tank::handlerInput()
+void Tank::handlerInput(float)
 {
 	//switch (_state)
 	//{
