@@ -15,6 +15,8 @@
 
 #pragma endregion
 
+#define __STDC_WANT_LIB_EXT1__ 1
+
 class FixedGrid
 {
 private:
@@ -22,13 +24,15 @@ private:
 	int _widthUnit, _heightUnit;
 
 	// Info map 
-	int _textureMapId, _mapWidth, _mapHeight;
+	int _textureMapId, _mapWidth, _mapHeight, _numObj;
 
 	// 
 	int _numX, _numY;
 
 	// Kiem tra grid da dc load chua ?
 	bool _isLoaded;
+
+	Vec3 _posWorld_PLAYER;
 
 	// Path file grid lưu lại và load lên lúc init
 	char* _fileSavePath;
@@ -46,9 +50,6 @@ public:
 	// Sau do ktra _isLoaded de biet dc da load grid chua 
 	// Neu load roi thi => doc dong dau tien sau do return 
 	void load(const char*);
-
-	// Luu lai grid xuong file txt o duong dan mac dinh
-	void save();
 
 	int getWidthUnit();
 	int getHeightUnit();

@@ -14,6 +14,7 @@
 
 #include "RectSprite.h"
 #include "EnumID.h"
+#include "ItemMapId.h"
 
 #define WINDOW_CLASS_NAME L"mashiro"
 #define MAIN_WINDOW_TITLE L"mashiro"

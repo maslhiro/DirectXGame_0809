@@ -143,11 +143,11 @@ void GameMap_Txt::render()
 	//_RPT1(0, "[INFO] CELL Y %d %d \n", min_CellY, max_CellY);
 
 	// Ve map truoc
-	for (int x = min_CellX; x < max_CellX; x++)
+	for (int x = min_CellX; x <= max_CellX; x++)
 	{
-		for (int y = min_CellY; y < max_CellY; y++)
+		for (int y = min_CellY; y <= max_CellY; y++)
 		{
-			auto curUnit = listUnit[x][y];
+			Unit curUnit = listUnit[x][y];
 
 			RECT tile = curUnit.getBoudingUnit();
 
@@ -162,15 +162,15 @@ void GameMap_Txt::render()
 
 	// Sau do ve entity
 	// tranh truong hon map ve tren entity
-	for (int x = min_CellX; x < max_CellX; x++)
+	for (int x = min_CellX; x <= max_CellX; x++)
 	{
-		for (int y = min_CellY; y < max_CellY; y++)
+		for (int y = min_CellY; y <= max_CellY; y++)
 		{
-			auto curUnit = listUnit[x][y];
+			Unit curUnit = listUnit[x][y];
 
 			Vec3 pos = curUnit.getPosWorld();
 
-			auto listGameObj = curUnit.getListGameObj();
+			std::vector<pGameObject> listGameObj = curUnit.getListGameObj();
 
 			if (listGameObj.size() == 0) continue;
 
@@ -178,7 +178,8 @@ void GameMap_Txt::render()
 			{
 				int idType = listGameObj[i]->getIdType();
 
-				//_RPT1(0, "[ID OBJ] %s \n", listGameObj[i]->getId());
+				int objID = listGameObj[i]->getId();
+				_RPT1(0, "[ID OBJ] %d \n", objID);
 
 				// Doi voi 4 cot da thi render sau khi ve aladin
 				if (idType == eIdObject::STONE_COLUMN_1 ||

@@ -401,6 +401,9 @@
     <ClInclude Include="Land.h">
       <Filter>Header Files\Object\Map</Filter>
     </ClInclude>
+    <ClInclude Include="ItemMapId.h">
+      <Filter>Header Files\Enum</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TemplateGame.rc">

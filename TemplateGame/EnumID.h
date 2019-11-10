@@ -26,6 +26,8 @@ enum eIdObject
 	PLANKS,			// Thanh go - sat
 	ROPE,			// Day thung
 
+
+	ALADIN = 6000,
 	BILLY
 };
 

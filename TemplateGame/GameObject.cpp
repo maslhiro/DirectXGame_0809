@@ -41,6 +41,8 @@ GameObject::GameObject()
 
 	_state = eIdState::NONE;
 	_speed = 1;
+
+	_id = 0;
 }
 
 GameObject::GameObject(int id)
@@ -105,14 +107,37 @@ GameObject::~GameObject()
 
 int GameObject::getId()
 {
-	_RPT1(0, "[GET ID] %s \n", _id);
+	_RPT1(0, "[GET ID] %d \n", _id);
 	return this->_id;
 }
 
 void GameObject::setId(int id)
 {
+	//switch (id)
+	//{
+	//case eIdMapItem::IM_APPLE_01:
+	//	this->_id = eIdMapItem::IM_APPLE_01;
+	//	break;
+
+	//case eIdMapItem::IM_APPLE_02:
+	//	this->_id = eIdMapItem::IM_APPLE_02;
+	//	break;
+
+	//case eIdMapItem::IM_APPLE_03:
+	//	this->_id = eIdMapItem::IM_APPLE_03;
+	//	break;
+
+	//case eIdMapItem::IM_APPLE_04:
+	//	this->_id = eIdMapItem::IM_APPLE_04;
+	//	break;
+	//default:
+	//	this->_id = 0;
+	//	break;
+	//}
+
 	this->_id = id;
-	_RPT1(0, "[SET ID] %s \n", _id);
+
+	_RPT1(0, "[SET ID] %d \n", _id);
 }
 
 void GameObject::setIsStaticObj(bool val)
@@ -153,6 +178,11 @@ void GameObject::setPositionWorld(Vec2 pos)
 void GameObject::setPositionWorld(int x, int y)
 {
 	this->setPositionWorld(Vec3((float)x, (float)y, 0));
+}
+
+Vec3 GameObject::getPosWorld()
+{
+	return _posWorld;
 }
 
 void GameObject::setScale(Vec2 pos)

@@ -59,6 +59,8 @@ public:
 	void setPositionWorld(Vec2);
 	void setPositionWorld(int, int);
 
+	Vec3 getPosWorld();
+
 	void setScale(Vec2);
 	void setScale(float, float);
 	void setScale(float);
