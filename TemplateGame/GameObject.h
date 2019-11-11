@@ -33,6 +33,7 @@ protected:
 	bool _isTerminated;
 
 	float _speed; // vx
+	float _gravity; // vy
 	float _dx, _dy;
 
 	Vec3 _posWorld;
@@ -55,6 +56,7 @@ public:
 	void setIdType(int);
 
 	void setSpeed(float);
+	void setGravity(float);
 	void setDx(float);
 	void setDy(float);
 	void setState(int);

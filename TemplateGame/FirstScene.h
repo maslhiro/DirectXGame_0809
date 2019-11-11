@@ -9,7 +9,7 @@ class FirstScene :
 	public Scene
 {
 private:
-	//GameMap _map;
+
 	GameMap_Txt _map2;
 	pCamera _camera;
 

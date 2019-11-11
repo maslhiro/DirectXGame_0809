@@ -36,6 +36,8 @@ void Aladin::loadResource()
 
 	_listAnimation[eIdState::RUNNING] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_RUNNING);
 
+	_listAnimation[eIdState::JUMPING] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_JUMPING);
+
 	this->setState(eIdState::STANDING);
 }
 
@@ -45,22 +47,11 @@ void Aladin::render()
 	_curAnimation.setPosition(_pos);
 	_curAnimation.setScale(_scale);
 	_curAnimation.setIsFlip(_isFlip);
-	_curAnimation.setDrawingBound(true);
 	_curAnimation.render(_device, _texture);
 }
 
 void Aladin::update(float dt)
 {
-	_curAnimation.update(dt);
-	if (_grid == nullptr || _camera == nullptr) return;
-
-}
-
-void Aladin::handlerInput(float dt)
-{
-	//auto _device = DeviceManager::getInstance();
-	auto _input = InputHandler::getInstance();
-
 	// Get list obj nam trong view port
 	auto listUnit = _grid->getUnitsContain(getBoudingBox());
 
@@ -71,16 +62,54 @@ void Aladin::handlerInput(float dt)
 
 		for (int j = 0; j < listObj.size(); j++)
 		{
-			// Kiem tra va cham voi apple
+
 			auto obj = listObj[j];
+
+			switch (_state)
+			{
+			case eIdState::JUMPING:
+			{
+				if (_dy > 0)
+				{
+					if (obj->getIdType() == eIdObject::LAND)
+					{
+						//int objID = obj->getId();
+						//_RPT1(0, "[ID OBJ] %d \n", objID);
+						float check = this->checkCollision(obj->getBoudingBox());
+						if (check)
+						{
+							this->setState(eIdState::STANDING);
+						}
+					}
+				}
+			}
+			break;
+			default:
+				break;
+			}
+
+			// Kiem tra va cham voi apple
 			if (obj->getIdType() == eIdObject::APPLE)
 			{
+				//int objID = obj->getId();
+				//_RPT1(0, "[ID OBJ] %d \n", objID);
 				float check = this->checkCollision(obj->getBoudingBox());
 				if (check) obj->setIsTerminated(true);
 			}
 		}
 
 	}
+
+	_curAnimation.update(dt);
+	if (_grid == nullptr || _camera == nullptr) return;
+
+
+}
+
+void Aladin::handlerInput(float dt)
+{
+	//auto _device = DeviceManager::getInstance();
+	auto _input = InputHandler::getInstance();
 
 	// Xu ly phan di chuyen cua aladin
 	switch (_state)
@@ -102,7 +131,13 @@ void Aladin::handlerInput(float dt)
 			this->setState(eIdState::RUNNING);
 
 		}
-	}break;
+		else if (_input->getMapKey()[KEY_W])
+		{
+			this->setState(eIdState::JUMPING);
+			this->setDy(-_gravity);
+		}
+	}
+	break;
 	case eIdState::RUNNING:
 	{
 		// Ko co su kien tu A va D
@@ -162,6 +197,21 @@ void Aladin::handlerInput(float dt)
 			}
 		}
 	}break;
+	case eIdState::JUMPING:
+	{
+		// test
+		if (_posWorld.y > 2060 && _dy < 0)
+		{
+			this->setDy(-_gravity);
+			this->updateAllPos(Vec3(0, _dy*dt, 0));
+		}
+		else
+		{
+			this->setDy(_gravity);
+			this->updateAllPos(Vec3(0, _dy*dt, 0));
+		}
+	}
+	break;
 	default:
 		break;
 	}

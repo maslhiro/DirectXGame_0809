@@ -176,7 +176,6 @@ void Player::handlerInput(float)
 
 
 	}
-
 	else if (_input->getMapKey()[KEY_S])
 	{
 		//_RPT0(0, "OK S \n");

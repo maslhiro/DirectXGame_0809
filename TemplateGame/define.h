@@ -14,7 +14,6 @@
 
 #include "RectSprite.h"
 #include "EnumID.h"
-#include "ItemMapId.h"
 
 #define WINDOW_CLASS_NAME L"mashiro"
 #define MAIN_WINDOW_TITLE L"mashiro"
@@ -24,7 +23,7 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 540
 
-#define MAX_FRAME_RATE 60
+#define MAX_FRAME_RATE 90
 
 // Khoang cach camera
 #define DISTANCE_X 6
@@ -40,6 +39,7 @@
 #define KEY_D 0x44
 #define KEY_S 0x53
 #define KEY_W 0x57
+#define KEY_SPACE 0x08
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

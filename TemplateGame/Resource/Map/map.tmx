@@ -17,7 +17,7 @@
 181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200
 </data>
  </layer>
- <objectgroup id="12" name="6000">
+ <objectgroup id="12" name="6000" visible="0">
   <object id="65" name="600001" x="150.333" y="2170" width="1" height="1"/>
  </objectgroup>
  <objectgroup id="17" name="4501" visible="0">
@@ -26,8 +26,8 @@
   <object id="39" name="450102" x="2635.14" y="1642" width="212.727" height="32"/>
   <object id="40" name="450101" x="2225.64" y="1834" width="237.227" height="16.5"/>
  </objectgroup>
- <objectgroup id="15" name="4500" visible="0">
-  <object id="35" name="450001" x="1.95833" y="2240.67" width="2973.88" height="32"/>
+ <objectgroup id="15" name="4500">
+  <object id="35" name="450001" x="1.95833" y="2217.67" width="2973.88" height="55"/>
  </objectgroup>
  <objectgroup id="21" name="4005" visible="0">
   <object id="64" name="400504" x="2370" y="2042" width="1" height="1"/>
@@ -47,11 +47,11 @@
   <object id="34" name="400101" x="2239" y="2070.67" width="17.3333" height="13.3333"/>
  </objectgroup>
  <objectgroup id="11" name="4000">
-  <object id="44" name="400002" x="1197.83" y="2111.83"/>
-  <object id="45" name="400004" x="938.833" y="2159.17"/>
-  <object id="46" name="400003" x="773" y="2117.5"/>
-  <object id="47" name="400001" x="255.083" y="2128.5"/>
-  <object id="66" name="400006" x="578.421" y="2116.24"/>
-  <object id="67" name="400005" x="316.25" y="2128.17"/>
+  <object id="44" name="400002" x="1431.83" y="2063.83"/>
+  <object id="45" name="400004" x="1172.83" y="2111.17"/>
+  <object id="46" name="400003" x="779.667" y="2064.17"/>
+  <object id="47" name="400001" x="255.083" y="2140.5"/>
+  <object id="66" name="400006" x="558.421" y="2061.24"/>
+  <object id="67" name="400005" x="316.25" y="2140.17"/>
  </objectgroup>
 </map>

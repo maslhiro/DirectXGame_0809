@@ -238,28 +238,6 @@ int GameObject::getId()
 
 void GameObject::setId(int id)
 {
-	//switch (id)
-	//{
-	//case eIdMapItem::IM_APPLE_01:
-	//	this->_id = eIdMapItem::IM_APPLE_01;
-	//	break;
-
-	//case eIdMapItem::IM_APPLE_02:
-	//	this->_id = eIdMapItem::IM_APPLE_02;
-	//	break;
-
-	//case eIdMapItem::IM_APPLE_03:
-	//	this->_id = eIdMapItem::IM_APPLE_03;
-	//	break;
-
-	//case eIdMapItem::IM_APPLE_04:
-	//	this->_id = eIdMapItem::IM_APPLE_04;
-	//	break;
-	//default:
-	//	this->_id = 0;
-	//	break;
-	//}
-
 	this->_id = id;
 
 	_RPT1(0, "[SET ID] %d \n", _id);
@@ -344,6 +322,12 @@ void GameObject::setSpeed(float speed)
 {
 	this->_speed = speed;
 	this->_dx = speed;
+}
+
+void GameObject::setGravity(float val)
+{
+	this->_gravity = val;
+	this->_dy = -val;
 }
 
 void GameObject::setDx(float val)
