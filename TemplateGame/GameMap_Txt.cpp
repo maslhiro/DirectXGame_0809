@@ -17,6 +17,7 @@ void GameMap_Txt::init()
 
 	_grid = nullptr;
 	_camera = nullptr;
+	_player = nullptr;
 
 	_scale = Vec2(1, 1);
 
@@ -76,6 +77,11 @@ pCamera GameMap_Txt::getCamera()
 	return _camera;
 }
 
+void GameMap_Txt::setPointerPlayer(pAladin val)
+{
+	this->_player = val;
+}
+
 void GameMap_Txt::load(const char *filePath)
 {
 	if (_grid == nullptr) return;
@@ -87,6 +93,9 @@ void GameMap_Txt::load(const char *filePath)
 	_mapHeight = _grid->getMapHeight();
 	_tileWidth = _grid->getWidthUnit();
 	_tileHeight = _grid->getHeightUnit();
+
+	// 
+	_player->setPositionWorld(_grid->getPosWorld_PLAYER());
 
 	_RPT0(0, "[INFO] Load GAME MAP TXT Done\n");
 }
@@ -137,22 +146,22 @@ void GameMap_Txt::render()
 	//_RPT1(0, "[INFO] CELL Y %d %d \n", min_CellY, max_CellY);
 
 	// Ve map truoc
-	for (int x = min_CellX; x <= max_CellX; x++)
-	{
-		for (int y = min_CellY; y <= max_CellY; y++)
-		{
-			Unit curUnit = listUnit[x][y];
+	//for (int x = min_CellX; x <= max_CellX; x++)
+	//{
+	//	for (int y = min_CellY; y <= max_CellY; y++)
+	//	{
+	//		Unit curUnit = listUnit[x][y];
 
-			RECT tile = curUnit.getBoudingUnit();
+	//		RECT tile = curUnit.getBoudingUnit();
 
-			Vec3 pos = curUnit.getPosWorld();
-			//_RPT1(0, "[INFO] POS TILE %d %d %d %d \n", tile.left, tile.top, tile.right, tile.bottom);
-			_spriteHandler->Draw(
-				_texture->get(_textureMapId),
-				&tile, NULL, &pos, D3DCOLOR_ARGB(255, 255, 255, 255));
+	//		Vec3 pos = curUnit.getPosWorld();
+	//		//_RPT1(0, "[INFO] POS TILE %d %d %d %d \n", tile.left, tile.top, tile.right, tile.bottom);
+	//		_spriteHandler->Draw(
+	//			_texture->get(_textureMapId),
+	//			&tile, NULL, &pos, D3DCOLOR_ARGB(255, 255, 255, 255));
 
-		}
-	}
+	//	}
+	//}
 
 	// Sau do ve entity
 	// tranh truong hon map ve tren entity
@@ -188,6 +197,9 @@ void GameMap_Txt::render()
 			}
 		}
 	}
+
+	// Cuoi cung la ve thang aladdin
+	_player->render();
 
 	_spriteHandler->SetTransform(&matOld); // set lai matrix cu~ chi ap dung transfrom voi class nay
 }

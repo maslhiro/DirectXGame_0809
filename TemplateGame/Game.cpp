@@ -49,10 +49,11 @@ void Game::loadResource()
 
 	_animationManager->load();
 
-	//_test = _animationManager->get(eIdAnimation::STONE_COLUMN_01_VISIBLE);
-	//_test.setPosition(Vec3(300, 300, 0));
-	//_test.setScale(Vec2(2, 2));
-	//_test.setDrawingBound(true);
+	_test = _animationManager->get(eIdAnimation::ALADIN_JUMPING);
+	_test.setPosition(Vec3(300, 300, 0));
+	_test.setScale(Vec2(2, 2));
+	_test.setIsLoop(true);
+	_test.setDrawingBound(true);
 
 
 	//_test01 = _animationManager->get(eIdAnimation::WRECKING_BALL_VISIBLE);

@@ -4,15 +4,16 @@ RECT GameObject::getBoudingBox()
 {
 	if (_isStaticObj == false) {
 		if (_listAnimation.size() > 0) {
+
 			float width_Ani = _listAnimation[_state].getCurrentWidth() * _scale.x / 2.0;
 			float height_Ani = _listAnimation[_state].getCurrentHeight() * _scale.y / 2.0;
 			// ướm vào posWorld mới ra BOUDING :( DM
 
 			RECT bouding;
-			bouding.left = _posWorld.x - (int)ceil(width_Ani);
-			bouding.right = _posWorld.x + (int)ceil(width_Ani);
-			bouding.top = _posWorld.y - (int)ceil(height_Ani);
-			bouding.bottom = _posWorld.y + (int)ceil(height_Ani);
+			bouding.left = _posWorld.x - (int)round(width_Ani);
+			bouding.right = _posWorld.x + (int)round(width_Ani);
+			bouding.top = _posWorld.y - (int)round(height_Ani);
+			bouding.bottom = _posWorld.y + (int)round(height_Ani);
 
 
 			return bouding;
@@ -205,8 +206,8 @@ void GameObject::fixPosAnimation(int nextState)
 float GameObject::fixPosHeight(int nextState)
 {
 	if (_listAnimation.size() > 1) {
-		float _nextHeight = _listAnimation[nextState].getHeight();
-		float _curtHeight = _listAnimation[_state].getHeight();
+		float _nextHeight = _listAnimation[nextState].getCurrentHeight();
+		float _curtHeight = _listAnimation[_state].getCurrentHeight();
 
 		return (_curtHeight - _nextHeight) / 2;
 	}
@@ -216,8 +217,8 @@ float GameObject::fixPosHeight(int nextState)
 float GameObject::fixPosWidth(int nextState)
 {
 	if (_listAnimation.size() > 1) {
-		float _nextWidth = _listAnimation[nextState].getWidth();
-		float _curtWidth = _listAnimation[_state].getWidth();
+		float _nextWidth = _listAnimation[nextState].getCurrentWidth();
+		float _curtWidth = _listAnimation[_state].getCurrentWidth();
 
 		return (_nextWidth - _curtWidth) / 2;
 	}

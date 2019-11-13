@@ -26,8 +26,8 @@
 #define MAX_FRAME_RATE 90
 
 // Khoang cach camera
-#define DISTANCE_X 6
-#define DISTANCE_Y 6
+#define DISTANCE_X 10
+#define DISTANCE_Y 10
 
 // UNIT GRID
 #define WIDTH_UNIT 227

@@ -383,9 +383,6 @@
     <ClInclude Include="WreckingBall.h">
       <Filter>Header Files\Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Aladin.h">
-      <Filter>Header Files\Object\Player</Filter>
-    </ClInclude>
     <ClInclude Include="StoneColumn_1.h">
       <Filter>Header Files\Object\Map</Filter>
     </ClInclude>
@@ -403,6 +400,9 @@
     </ClInclude>
     <ClInclude Include="ItemMapId.h">
       <Filter>Header Files\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Aladin.h">
+      <Filter>Header Files\Object\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

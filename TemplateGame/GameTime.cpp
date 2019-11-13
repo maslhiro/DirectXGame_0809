@@ -27,7 +27,7 @@ void GameTime::init()
 {
 	QueryPerformanceFrequency(&this->_frequency);
 	//// Ham tra ve microsecond
-	//// 10000000 : microsecond.
+	//// 1 000 000 : microsecond.
 	//// milisecond : 1000
 	//// second :1
 

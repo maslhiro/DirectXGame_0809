@@ -81,6 +81,8 @@ public:
 	float getCurrentWidth();
 	float getCurrentHeight();
 
+	int getCurrentFrame();
+
 	// Get bouding cua frame hien tai 
 	RECT getBouding();
 

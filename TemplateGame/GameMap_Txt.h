@@ -9,6 +9,8 @@
 
 #include "GameObject.h"
 
+#include "Aladin.h"
+
 #include "Apple.h"
 #include "Land.h"
 #include "WreckingBall.h"
@@ -34,6 +36,8 @@ private:
 
 	Vec2 _scale;
 
+	pAladin _player;
+
 	// Thong tin map
 	int _textureMapId, _mapWidth, _mapHeight, _tileWidth, _tileHeight;
 
@@ -57,6 +61,8 @@ public:
 	pFixedGrid getGrid();
 
 	pCamera getCamera();
+
+	void setPointerPlayer(pAladin);
 
 	void load(const char*);
 

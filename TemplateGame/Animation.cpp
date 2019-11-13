@@ -254,23 +254,36 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	// ve bound
 	if (_drawingBound) {
 
-		float top = _newPos.y - rect.getHeight() / 2 * _scale.y - 1;
-		float bottom = _newPos.y + rect.getHeight() / 2 * _scale.y + 1;
-		float left = _newPos.x - rect.getWidth() / 2 * _scale.x - 1;
-		float right = _newPos.x + rect.getWidth() / 2 * _scale.x + 1;
+		/*	float top = _newPos.y - rect.getHeight() / 2 * _scale.y - 1;
+			float bottom = _newPos.y + rect.getHeight() / 2 * _scale.y + 1;
+			float left = _newPos.x - rect.getWidth() / 2 * _scale.x - 1;
+			float right = _newPos.x + rect.getWidth() / 2 * _scale.x + 1;
 
-		Vec2 line[] = {
-			Vec2(left,top),
-			Vec2(right,top),
-			Vec2(right,bottom),
-			Vec2(left,bottom),
-			Vec2(left,top)
-		};
+			Vec2 line[] = {
+				Vec2(left,top),
+				Vec2(right,top),
+				Vec2(right,bottom),
+				Vec2(left,bottom),
+				Vec2(left,top)
+			};
 
-		_lineDraw->SetWidth(BBOX_WIDTH);
-		_lineDraw->Begin();
-		_lineDraw->Draw(line, 5, _colorBound);
-		_lineDraw->End();
+			_lineDraw->SetWidth(BBOX_WIDTH);
+			_lineDraw->Begin();
+			_lineDraw->Draw(line, 5, _colorBound);
+			_lineDraw->End();*/
+
+		RECT _bb = getBouding();
+		_bb.right += 2;
+		_bb.bottom += 2;
+
+		// Ve sprite hien tai
+		device->getSpriteHandler()->Draw(
+			texture->get(eIdTexture::BOX_GREEN_TEX),
+			&_bb,
+			&_listOrigin[_currentFrame],
+			&_newPos,
+			D3DCOLOR_XRGB(255, 255, 255));
+
 	}
 
 	// Ve sprite hien tai
@@ -373,6 +386,11 @@ float Animation::getCurrentHeight()
 		return _sprite->get(_listSpriteId[_currentFrame]).getHeight();
 	}
 	return 0;
+}
+
+int Animation::getCurrentFrame()
+{
+	return _currentFrame;
 }
 
 RECT Animation::getBouding()

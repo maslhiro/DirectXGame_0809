@@ -23,6 +23,8 @@ public:
 	void setPosView(Vec3);
 	void setPosView(int, int);
 
+	Vec3 getPosView();
+
 	void setCamera(pCamera);
 
 	void setGrid(pFixedGrid);

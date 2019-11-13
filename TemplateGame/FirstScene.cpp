@@ -17,13 +17,11 @@ FirstScene::~FirstScene()
 void FirstScene::init()
 {
 	_map2.init();
+	_map2.setPointerPlayer(_player);
 
 	_grid->setPathTxt("Resource//Map//grid.txt");
 	_grid->init();
 	_map2.setGrid(_grid);
-
-	_player->setGrid(_grid);
-	_player->setCamera(_camera);
 
 	_RPT0(0, "[INFO] Init FIRST SCENE done;\n");
 }
@@ -38,20 +36,22 @@ void FirstScene::loadResource()
 	_camera->setSizeWindow(_deviceManager->getWidthWindow(), _deviceManager->getHeightWindow());
 
 	_map2.setCamera(_camera);
+
 	_player->loadResource();
 	_player->setScale(2.0f);
-	_player->setSpeed(150.f);
-	_player->setGravity(110.f);
+	_player->setSpeed(140.f);
+	_player->setGravity(130.f);
 
-	_player->setPosView((int)_grid->getPosWorld_PLAYER().x,
-		_deviceManager->getHeightWindow() - _map2.getHeight() + (int)_grid->getPosWorld_PLAYER().y);
-	_player->setPositionWorld(_grid->getPosWorld_PLAYER());
+	_player->setGrid(_grid);
+	_player->setCamera(_camera);
+
 }
 
 void FirstScene::update(float dt)
 {
-	_map2.update(dt);
 	_player->update(dt);
+	_map2.update(dt);
+
 }
 
 void FirstScene::render()
@@ -60,7 +60,6 @@ void FirstScene::render()
 	auto _device = DeviceManager::getInstance();
 
 	_map2.render();
-	_player->render();
 	_map2.renderAbove();
 
 	//_drawDebug->drawLineHorizontal(_device->getHeightWindow() / 2, 500);
