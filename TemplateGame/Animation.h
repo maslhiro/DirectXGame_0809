@@ -65,6 +65,7 @@ public:
 	void setColorBound(DWORD);
 
 	int getLoopCount();
+	bool isLoopDone();
 
 	void release();
 
@@ -83,8 +84,14 @@ public:
 
 	int getCurrentFrame();
 
-	// Get bouding cua frame hien tai 
-	RECT getBouding();
+	// Get bouding cua frame đầu tiên 
+	RECT getBounding();
+
+	// Get bouding cua frame theo PosWorld
+	// Do các SPRITE có kích thước ko đều nên 
+	// Pos đưa vào cho animation 
+	// se dc fix theo từng sprite
+	RECT getCurrentBounding();
 
 	// Can theo bottom
 	float fixPosHeight(RectSprite);

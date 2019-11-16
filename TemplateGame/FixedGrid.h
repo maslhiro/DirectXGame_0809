@@ -68,6 +68,7 @@ public:
 	// Tra ve list Unit cotain voi RECT
 	std::vector<Unit> getUnitsContain(RECT);
 
+	std::vector<pGameObject> getListGameObjContain(RECT);
 	Unit getUnit(int, int);
 };
 

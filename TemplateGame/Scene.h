@@ -3,7 +3,6 @@
 #include "Scene.h"
 #include "DeviceManager.h"
 #include "DrawDebug.h"
-#include "GameMap.h"
 
 class Scene
 {

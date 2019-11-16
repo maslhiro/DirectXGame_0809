@@ -54,16 +54,6 @@ RECT Unit::getBoudingUnit()
 	return rect;
 }
 
-void Unit::addEnity(pEntity entity)
-{
-	_listEntity.push_back(entity);
-}
-
-std::vector<pEntity> Unit::getListEntity()
-{
-	return _listEntity;
-}
-
 void Unit::addGameObj(pGameObject gameObj)
 {
 	_listGameObj.push_back(gameObj);

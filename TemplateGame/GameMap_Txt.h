@@ -35,7 +35,6 @@ private:
 	pFixedGrid _grid;
 
 	Vec2 _scale;
-
 	pAladin _player;
 
 	// Thong tin map

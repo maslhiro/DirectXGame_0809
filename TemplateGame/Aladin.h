@@ -8,7 +8,6 @@ class Aladin :
 {
 private:
 
-	pCamera _camera;
 	pFixedGrid _grid;
 
 	pInputHandler _input;
@@ -17,6 +16,8 @@ private:
 	// Pos voi viewPort
 	Vec3 _pos;
 
+	// Bien bool check Player da dung tren mat dat chua
+	bool _isOnGround;
 public:
 	Aladin();
 
@@ -24,8 +25,6 @@ public:
 	void setPosView(int, int);
 
 	Vec3 getPosView();
-
-	void setCamera(pCamera);
 
 	void setGrid(pFixedGrid);
 

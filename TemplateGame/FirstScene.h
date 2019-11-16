@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include "Player.h"
 #include "Apple.h"
 #include "GameMap_Txt.h"
 #include "Aladin.h"
@@ -14,7 +13,6 @@ private:
 	pCamera _camera;
 
 	pFixedGrid _grid;
-	Player _player2;
 	pAladin _player;
 
 public:

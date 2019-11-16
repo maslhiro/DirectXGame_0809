@@ -19,12 +19,12 @@ void Land::render()
 	RECT bound;
 
 	bound.left = 0;
-	bound.right = getBoudingBox().right - getBoudingBox().left;
+	bound.right = getBoundingBox().right - getBoundingBox().left;
 	bound.top = 0;
-	bound.bottom = getBoudingBox().bottom - getBoudingBox().top;
+	bound.bottom = getBoundingBox().bottom - getBoundingBox().top;
 
 	// Render test
-	_device->getSpriteHandler()->Draw(_texture->get(eIdTexture::BOX_RED_TEX), &bound, NULL, &Vec3(getBoudingBox().left, getBoudingBox().top, 0), D3DCOLOR_ARGB(255, 255, 255, 255));
+	_device->getSpriteHandler()->Draw(_texture->get(eIdTexture::BOX_RED_TEX), &bound, NULL, &Vec3(getBoundingBox().left, getBoundingBox().top, 0), D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
 void Land::update(float dt)

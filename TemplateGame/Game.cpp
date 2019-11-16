@@ -49,12 +49,14 @@ void Game::loadResource()
 
 	_animationManager->load();
 
-	_test = _animationManager->get(eIdAnimation::ALADIN_JUMPING);
-	_test.setPosition(Vec3(300, 300, 0));
-	_test.setScale(Vec2(2, 2));
-	_test.setIsLoop(true);
-	_test.setDrawingBound(true);
+	//_test = _animationManager->get(eIdAnimation::ALADIN_JUMPING);
+	//_test.setPosition(Vec3(300, 300, 0));
+	//_test.setScale(Vec2(2, 2));
+	//_test.setIsLoop(true);
+	//_test.setDrawingBound(true);
 
+	//RECT bb = _test.getBounding();
+	//_RPT1(0, "[INFO] %d %d %d %d \n", bb.left, bb.top, bb.right, bb.bottom);
 
 	//_test01 = _animationManager->get(eIdAnimation::WRECKING_BALL_VISIBLE);
 	//_test01.setPosition(Vec3(300, 300, 1));
@@ -177,7 +179,7 @@ int Game::render()
 
 int Game::update(float dt)
 {
-	//_test01.update(dt);
+	//_test.update(dt);
 	//_test.update(dt);
 	_firstScene.handlerInput(dt);
 

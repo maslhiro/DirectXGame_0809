@@ -111,7 +111,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADIN_IDLING_01] = _idle;
 
 	Animation _jump;
-	_jump.setTimePerFrame(0.12f);
+	_jump.setTimePerFrame(0.092f);
 	_jump.setIsLoop(false);
 	_jump.setTypeFixPos(1);
 	_jump.setScale(2.0f, 2.0f);

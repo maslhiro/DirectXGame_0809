@@ -11,6 +11,7 @@
 #include <string.h>
 #include <malloc.h>
 #include <crtdbg.h>
+#include <algorithm>
 
 #include "RectSprite.h"
 #include "EnumID.h"
@@ -23,7 +24,7 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 540
 
-#define MAX_FRAME_RATE 90
+#define MAX_FRAME_RATE 60
 
 // Khoang cach camera
 #define DISTANCE_X 10
@@ -40,6 +41,8 @@
 #define KEY_S 0x53
 #define KEY_W 0x57
 #define KEY_SPACE 0x08
+
+#define MAX_JUMP_DISTANCE 140
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

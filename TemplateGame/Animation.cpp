@@ -94,6 +94,11 @@ int Animation::getLoopCount() {
 	return _loopCount;
 }
 
+bool Animation::isLoopDone()
+{
+	return (_currentFrame == _listSpriteId.size() - 1);
+}
+
 void Animation::addSprite(eIdSprite id) {
 
 	RectSprite currentRect = _sprite->get(id);
@@ -190,6 +195,12 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 			// center 
 			break;
 		}
+		case 4:
+		{
+			// Center // Bottom
+			_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
+			break;
+		}
 		default:
 			break;
 		}
@@ -217,6 +228,12 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		{
 			// center 
 			// Khoi can xet newPos vi pos hien tai la trung tam roi 
+			break;
+		}
+		case 4:
+		{
+			// Center // Bottom
+			_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
 			break;
 		}
 		default:
@@ -254,32 +271,16 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 	// ve bound
 	if (_drawingBound) {
 
-		/*	float top = _newPos.y - rect.getHeight() / 2 * _scale.y - 1;
-			float bottom = _newPos.y + rect.getHeight() / 2 * _scale.y + 1;
-			float left = _newPos.x - rect.getWidth() / 2 * _scale.x - 1;
-			float right = _newPos.x + rect.getWidth() / 2 * _scale.x + 1;
-
-			Vec2 line[] = {
-				Vec2(left,top),
-				Vec2(right,top),
-				Vec2(right,bottom),
-				Vec2(left,bottom),
-				Vec2(left,top)
-			};
-
-			_lineDraw->SetWidth(BBOX_WIDTH);
-			_lineDraw->Begin();
-			_lineDraw->Draw(line, 5, _colorBound);
-			_lineDraw->End();*/
-
-		RECT _bb = getBouding();
-		_bb.right += 2;
-		_bb.bottom += 2;
+		RECT bb;
+		bb.top = _newPos.y - rect.getHeight() / 2 - 1;
+		bb.bottom = _newPos.y + rect.getHeight() / 2 + 1;
+		bb.left = _newPos.x - rect.getWidth() / 2 - 1;
+		bb.right = _newPos.x + rect.getWidth() / 2 + 1;
 
 		// Ve sprite hien tai
 		device->getSpriteHandler()->Draw(
 			texture->get(eIdTexture::BOX_GREEN_TEX),
-			&_bb,
+			&bb,
 			&_listOrigin[_currentFrame],
 			&_newPos,
 			D3DCOLOR_XRGB(255, 255, 255));
@@ -393,10 +394,117 @@ int Animation::getCurrentFrame()
 	return _currentFrame;
 }
 
-RECT Animation::getBouding()
+RECT Animation::getBounding()
+{
+	if (_listSpriteId.size() > 0)
+	{
+		float width_Ani = this->getWidth() * _scale.x / 2.0;
+		float height_Ani = this->getHeight() * _scale.y / 2.0;
+		// ƯỚm pos vào để ra bouding frame hiện tại
+
+		RECT bounding;
+
+		bounding.left = _position.x - (int)round(width_Ani);
+		bounding.right = _position.x + (int)round(width_Ani);
+		bounding.top = _position.y - (int)round(height_Ani);
+		bounding.bottom = _position.y + (int)round(height_Ani);
+
+		return bounding;
+	}
+	return RECT();
+}
+
+RECT Animation::getCurrentBounding()
 {
 	if (_listSpriteId.size() > 0) {
-		return _sprite->get(_listSpriteId[_currentFrame]).getRECT();
+		Vec3 _fixPos = _fixPosVec[_currentFrame];
+		Vec3 _newPos = _position;
+
+		if (_isFlip)
+		{
+			// Thuong chi co player va entity fix pos left bottom nen khi lat 
+			// chi xet TH nay
+			switch (this->_typeFixPos)
+			{
+			case 1:
+			{
+				// LEFT BOTTOM	
+				// nếu lật sprite lại thì fix pos theo góc bottom right
+				// Khi lat sprite lai thi left bottom => right top 
+				// nhung ma hinh can right bottom => -fixPos.y 
+				_newPos -= Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
+				break;
+			}
+
+			case 2:
+			{
+				// LEFT TOP
+				//_newPos += Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
+				break;
+			}
+			case 3:
+			{
+				// center 
+				break;
+			}
+			case 4:
+			{
+				// Center // Bottom
+				_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		else
+		{
+			////fix pos theo goc bottom left
+			//_RPT1(0, "[INFO] TYPE FIX POS %d \n", _typeFixPos);
+			switch (this->_typeFixPos)
+			{
+			case 1:
+			{
+				// LEFT BOTTOM
+				_newPos += Vec3(_fixPos.x*_scale.x, _fixPos.y*_scale.y, 0);
+				break;
+			}
+
+			case 2:
+			{
+				// LEFT TOP
+				_newPos += Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
+				break;
+			}
+			case 3:
+			{
+				// center 
+				// Khoi can xet newPos vi pos hien tai la trung tam roi 
+				break;
+			}
+			case 4:
+			{
+				// Center // Bottom
+				_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
+				break;
+			}
+			default:
+				break;
+			}
+
+		}
+
+		float width_Ani = this->getCurrentWidth() * _scale.x / 2.0;
+		float height_Ani = this->getCurrentHeight() * _scale.y / 2.0;
+		// ƯỚm pos vào để ra bouding frame hiện tại
+		RECT bounding;
+		bounding.left = _newPos.x - (int)round(width_Ani);
+		bounding.right = _newPos.x + (int)round(width_Ani);
+		bounding.top = _newPos.y - (int)round(height_Ani);
+		bounding.bottom = _newPos.y + (int)round(height_Ani);
+
+		return bounding;
+
 	}
 	return RECT();
 }
