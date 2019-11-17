@@ -1,4 +1,4 @@
-#include "Aladin.h"
+﻿#include "Aladin.h"
 
 Aladin::Aladin() : GameObject()
 {
@@ -6,8 +6,10 @@ Aladin::Aladin() : GameObject()
 
 	_pos = Vec3();
 
-	_camera = nullptr;
 	_grid = nullptr;
+	_camera = nullptr;
+
+	_isOnGround = false;
 }
 
 void Aladin::setPosView(Vec3 pos)
@@ -25,14 +27,14 @@ Vec3 Aladin::getPosView()
 	return _pos;
 }
 
-void Aladin::setCamera(pCamera cam)
-{
-	_camera = cam;
-}
-
 void Aladin::setGrid(pFixedGrid grid)
 {
 	_grid = grid;
+}
+
+void Aladin::setCamera(pCamera cam)
+{
+	_camera = cam;
 }
 
 void Aladin::loadResource()
@@ -51,7 +53,7 @@ void Aladin::render()
 	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
-	//	_curAnimation.setDrawingBound(true);
+	//_curAnimation.setDrawingBound(true);
 	_curAnimation.setIsFlip(_isFlip);
 	_curAnimation.render(_device, _texture);
 }
@@ -59,66 +61,99 @@ void Aladin::render()
 void Aladin::update(float dt)
 {
 	// Get list obj nam trong view port
-	auto listUnit = _grid->getUnitsContain(getBoudingBox());
 
-	for (int i = 0; i < listUnit.size(); i++)
+	auto listObj = _grid->getListGameObjContain(getBoundingBox());
+
+	// Va cham dung tao
+	for (int i = 0; i < listObj.size(); i++)
 	{
-		auto listObj = listUnit[i].getListGameObj();
-		if (listObj.size() == 0) continue;
+		auto obj = listObj[i];
 
-		for (int j = 0; j < listObj.size(); j++)
+		// Kiem tra va cham voi apple
+		if (obj->getIdType() == eIdObject::APPLE)
 		{
-
-			auto obj = listObj[j];
-
-			switch (_state)
-			{
-			case eIdState::JUMPING:
-			{
-				if (_dy > 0)
-				{
-					if (obj->getIdType() == eIdObject::LAND)
-					{
-						//int objID = obj->getId();
-						float check = this->checkCollision_SweptAABB(obj->getBoudingBox(), dt);
-						_RPT1(0, "[CHECK Collision] Delta : %f \n", dt);
-						_RPT1(0, "[CHECK Collision] CHECK FLOAT : %f \n", dt);
-						if (check < dt)
-						{
-							if (check == 0.f) {
-
-								this->setState(eIdState::STANDING);
-							}
-
-							this->setIsAnimated(true);
-							this->updateAllPos(Vec3(0, _dy*check, 0));
-							//if (_curAnimation.getCurrentFrame() == 14) {
-							//	this->setDy(-_gravity);
-							//	this->setState(eIdState::STANDING);
-
-							//}
-							//this->setState(eIdState::STANDING);
-						}
-					}
-				}
-			}
-			break;
-			default:
-				break;
-			}
-
-			// Kiem tra va cham voi apple
-			if (obj->getIdType() == eIdObject::APPLE)
-			{
-				//int objID = obj->getId();
-				//_RPT1(0, "[ID OBJ] %d \n", objID);
-				float check = this->checkCollision(obj->getBoudingBox());
-				if (check) {
-					obj->setIsTerminated(true);
-				}
+			//int objID = obj->getId();
+			//_RPT1(0, "[ID OBJ] %d \n", objID);
+			float check = this->checkCollision(obj->getBoundingBox());
+			if (check) {
+				obj->setIsTerminated(true);
 			}
 		}
 
+	}
+
+	switch (_state)
+	{
+	case eIdState::JUMPING:
+	{
+		// Qua frame thu 2 moi bat dau nhay len
+		if (_curAnimation.getCurrentFrame() <= 2) break;
+
+		if (_isOnGround)
+		{
+			RECT t1 = getBoundingBox();
+			_RPT1(0, "[IS ON GROUND] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
+
+			if (_curAnimation.getCurrentFrame() == 12)
+			{
+				_isOnGround = false;
+				this->fixPosAnimation(eIdState::STANDING);
+				_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
+				this->setState(eIdState::STANDING);
+			}
+			else break;
+		}
+		else {
+			if (_dy < 0.f)
+			{
+				/*_jumpDistance += abs(_dy) * dt;
+				_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
+				this->updateAllPos(Vec3(0, _dy*dt, 0));
+
+				// Den frame nay la phai roi xuong
+				if (_curAnimation.getCurrentFrame() == 11) {
+					this->setIsAnimated(false);
+					this->setDy(_gravity);
+				}
+			}
+			else if (_dy > 0.f)
+			{
+				this->updateAllPos(Vec3(0, _dy*dt, 0));
+
+				for (int i = 0; i < listObj.size(); i++)
+				{
+					auto obj = listObj[i];
+
+					// Va cham voi land
+					if (obj->getIdType() == eIdObject::LAND)
+					{
+						//int objID = obj->getId();
+/*						float check2 = this->checkCollision_SweptAABB(obj->getBoundingBox(), dt, 0.f, _dy);
+						_RPT1(0, "[CHECK Collision] DELTA TIME : %f \n", dt);
+						_RPT1(0, "[CHECK Collision] CHECK COLLISION : %f \n", check);*/
+						float check = this->checkCollision(obj->getBoundingBox());
+
+						RECT t = obj->getBoundingBox();
+						RECT t1 = getBoundingBox();
+
+						if (check)
+						{
+							//_RPT1(0, "[AAAAAAAAAAA] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
+							//_RPT1(0, "[AAAAAAAAAAA] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
+							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
+							//_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
+							_isOnGround = true;
+							this->setIsAnimated(true);
+						}
+					}
+
+				}
+			}
+		}
+	}
+	break;
+	default:
+		break;
 	}
 
 	_curAnimation.update(dt);
@@ -141,10 +176,22 @@ void Aladin::handlerInput(float dt)
 			this->fixPosAnimation(eIdState::RUNNING);
 			this->setState(eIdState::RUNNING);
 
+			if (!_camera->getIsReverse())
+			{
+				_camera->setIsReverse(true);
+				_camera->setNextPositisonWorld(_camera->getPositionWorld().x - _device->getWidthWindow() / 2, _camera->getPositionWorld().y);
+			}
+
 		}
 		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
 		{
 			_isFlip = false;
+
+			if (_camera->getIsReverse())
+			{
+				_camera->setIsReverse(false);
+				_camera->setNextPositisonWorld(_camera->getPositionWorld().x + _device->getWidthWindow() / 2, _camera->getPositionWorld().y);
+			}
 
 			this->fixPosAnimation(eIdState::RUNNING);
 			this->setState(eIdState::RUNNING);
@@ -171,22 +218,8 @@ void Aladin::handlerInput(float dt)
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
 
-			// Di chuyen cam neu aladin
-			//if (_camera->getPositionWorld().x > _device->getWidthWindow() / 2)
-			//{
-			//	if (_pos.x <= (_device->getWidthWindow() * 1 / 3))
-			//	{
-			//		// di chuyen camera qua phai va doi player qua trai
-			//		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(-DISTANCE_X, 0, 0));
+			_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
 
-			//		// posView giam 
-			//		_pos += Vec3(DISTANCE_X, 0, 0);
-			//	}
-			//}
-			//else
-			//{
-			//	_camera->setPositionWorld_X(_device->getWidthWindow() / 2);
-			//}
 
 		}
 		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
@@ -197,44 +230,14 @@ void Aladin::handlerInput(float dt)
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
 
-			//if (_camera->getPositionWorld().x < (_grid->getMapWidth() - _device->getWidthWindow() / 2))
-			//{
-			//	// Aladin di qua nua man hinh
-			//	if (_pos.x >= (_device->getWidthWindow() * 2 / 3))
-			//	{
-			//		// di chuyen camera qua phai va doi player qua trai
-			//		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(DISTANCE_X, 0, 0));
+			_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
 
-			//		// posView giam 
-			//		_pos += Vec3(-DISTANCE_X, 0, 0);
-			//	}
-			//}
-			//else
-			//{
-			//	// Cham width thi cam ko di chuyen
-			//	_camera->setPositionWorld_X(_grid->getMapWidth() - _device->getWidthWindow() / 4);
-			//}
 		}
 	}break;
 	case eIdState::JUMPING:
 	{
 		// test
-		if (_curAnimation.getCurrentFrame() > 2 && _curAnimation.getCurrentFrame() < 12)
-		{
-			if (_posWorld.y > 2060 && _dy < 0)
-			{
-				//this->setDy(-_gravity);
-				this->updateAllPos(Vec3(0, _dy*dt, 0));
-			}
-			else
-			{
 
-				if (_curAnimation.getCurrentFrame() == 11) this->setIsAnimated(false);
-				this->setDx(0);
-				this->setDy(_gravity);
-				this->updateAllPos(Vec3(0, _dy*dt, 0));
-			}
-		}
 	}
 	break;
 	default:

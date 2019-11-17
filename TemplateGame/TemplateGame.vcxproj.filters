@@ -28,12 +28,6 @@
     <Filter Include="Source Files\Object">
       <UniqueIdentifier>{5b7d25b3-7315-4f4c-8a32-5a4818ce8aae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\MapReader">
-      <UniqueIdentifier>{d2b5d6b5-45ec-4af2-b007-5bac039ff3be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\MapReader">
-      <UniqueIdentifier>{3884e9c0-b27b-4eb8-a12c-3396050a992a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Scene">
       <UniqueIdentifier>{df3b6444-b616-4582-9b84-81f734a6841c}</UniqueIdentifier>
     </Filter>
@@ -114,69 +108,6 @@
     <ClCompile Include="DrawDebug.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
-    <ClCompile Include="GameMap.cpp">
-      <Filter>Source Files\BaseClass</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\base64.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\miniz.c">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\tinyxml2.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxEllipse.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxImage.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxImageLayer.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxLayer.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxMap.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxObject.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxObjectGroup.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxPolygon.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxPolyline.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxPropertySet.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTerrain.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTerrainArray.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTile.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTileLayer.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTileOffset.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxTileset.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
-    <ClCompile Include="MapReader\TmxUtil.cpp">
-      <Filter>Source Files\MapReader</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
@@ -186,23 +117,11 @@
     <ClCompile Include="FirstScene.cpp">
       <Filter>Source Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Billy.cpp">
-      <Filter>Source Files\Object\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Tank.cpp">
-      <Filter>Source Files\Object\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Object\Map</Filter>
-    </ClCompile>
     <ClCompile Include="Unit.cpp">
       <Filter>Source Files\FixedGrid</Filter>
     </ClCompile>
     <ClCompile Include="FixedGrid.cpp">
       <Filter>Source Files\FixedGrid</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="Apple.cpp">
       <Filter>Source Files\Object\Item</Filter>
@@ -275,78 +194,6 @@
     <ClInclude Include="DrawDebug.h">
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
-    <ClInclude Include="GameMap.h">
-      <Filter>Header Files\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\base64.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\tinyxml2.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxEllipse.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxImage.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxImageLayer.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxLayer.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxMap.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxMapTile.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxObject.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxObjectGroup.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxPoint.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxPolygon.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxPolyline.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxPropertySet.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTerrain.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTerrainArray.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTile.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTileLayer.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTileOffset.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxTileset.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\TmxUtil.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\zconf.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
-    <ClInclude Include="MapReader\zlib.h">
-      <Filter>Header Files\MapReader</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
@@ -356,23 +203,11 @@
     <ClInclude Include="FirstScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Tank.h">
-      <Filter>Header Files\Object\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Billy.h">
-      <Filter>Header Files\Object\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files\Object\Map</Filter>
-    </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>Header Files\FixedGrid</Filter>
     </ClInclude>
     <ClInclude Include="FixedGrid.h">
       <Filter>Header Files\FixedGrid</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files\Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="GameMap_Txt.h">
       <Filter>Header Files\BaseClass</Filter>
@@ -397,9 +232,6 @@
     </ClInclude>
     <ClInclude Include="Land.h">
       <Filter>Header Files\Object\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemMapId.h">
-      <Filter>Header Files\Enum</Filter>
     </ClInclude>
     <ClInclude Include="Aladin.h">
       <Filter>Header Files\Object\Player</Filter>

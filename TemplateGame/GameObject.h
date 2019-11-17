@@ -17,7 +17,7 @@ protected:
 	// Static obj : land, pillar, rope, ..
 	bool _isStaticObj;
 	// Lưu lại rect của các obj như land, rope,.. bởi vì chúng nó đéo có animation
-	RECT _boudingWorld;
+	RECT _boundingWorld;
 
 	Animation _curAnimation;
 
@@ -85,11 +85,9 @@ public:
 	// bắt sự kiện phím thay dổi, đặt trước hàm update để fix pos -> dưa theo speed :rainbow:
 	virtual void handlerInput(float) = 0;
 
-	RECT getSweptBroadphaseRect();
-
 	bool checkCollision(RECT);
 
-	float checkCollision_SweptAABB(RECT, float);
+	float checkCollision_SweptAABB(RECT, float, float, float);
 
 	// Fix pos khi chuyển animation
 	void fixPosAnimation(int);
@@ -100,10 +98,15 @@ public:
 	// Mac dinh fix theo left
 	float fixPosWidth(int);
 
-	// isStatic = false => Lay RECT cua ani hien tai
+	// isStatic = false => Lay RECT của Sprite đầu tiên trong Animation 
 	// isStatic = true => lay bouding world obj
-	RECT getBoudingBox();
+	// Này dùng để fix pos
+	RECT getBoundingBox();
 
+	// isStatic = false => Lay RECT của Ani gốc 
+	// isStatic = true => lay bouding world obj
+	// Này dùng để fix pos
+	RECT getCurrentBoudingBox();
 	GameObject();
 	GameObject(int);
 

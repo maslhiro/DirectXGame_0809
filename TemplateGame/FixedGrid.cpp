@@ -25,7 +25,7 @@ void FixedGrid::init()
 
 }
 
-void FixedGrid::load(const char * filePath)
+void FixedGrid::load(const char* filePath)
 {
 
 #pragma region LOAD FILE TXT MAP || LUU LAI GRID TXT
@@ -69,7 +69,8 @@ void FixedGrid::load(const char * filePath)
 		{
 			int posx, posy;
 			fscanf(file, "%d %d", &posx, &posy);
-			_posWorld_PLAYER = Vec3(posx, posy, 0);
+			_RPT1(0, "[MAP TXT - PLAYER ] %d %d \n", posx, posy);
+			_posWorld_PLAYER = Vec3((float)posx, (float)posy, 0);
 			if (_isLoaded) {
 				return;
 			}
@@ -142,8 +143,8 @@ void FixedGrid::load(const char * filePath)
 			_obj->setScale(2.0f);
 			_obj->setPositionWorld(posObj_X, posObj_Y);
 
-			RECT rect = _obj->getBoudingBox();
-			_RPT1(0, "[MAP TXT] RECT OBJ : %d %d %d %d \n", rect.left, rect.top, rect.right, rect.bottom);
+			RECT rect = _obj->getBoundingBox();
+			//_RPT1(0, "[MAP TXT] RECT OBJ : %d %d %d %d \n", rect.left, rect.top, rect.right, rect.bottom);
 
 			// Kiem tra xem obj do nam o UNIT NAO
 			Vec3 posLEFT_T = Vec3(rect.left, rect.top, 0);
@@ -275,6 +276,46 @@ std::vector<Unit> FixedGrid::getUnitsContain(RECT _view)
 	}
 
 	return listUnit;
+}
+
+std::vector<pGameObject> FixedGrid::getListGameObjContain(RECT r)
+{
+	std::vector<Unit> listUnit = getUnitsContain(r);
+	std::vector<int> listId;
+	std::vector<pGameObject> listGameObj;
+	//_RPT0(0, "==================================\n");
+	for (int i = 0; i < listUnit.size(); i++)
+	{
+		auto listObj = listUnit[i].getListGameObj();
+
+		if (listObj.size() == 0) continue;
+
+		for (int j = 0; j < listObj.size(); j++)
+		{
+			bool foundId = false;
+
+			for (auto & elem : listId)
+			{
+				if (elem == listObj[j]->getId())
+				{
+					foundId = true;
+					break;
+				}
+			}
+
+			if (!foundId)
+			{
+				//_RPT1(0, "[ID OBJ] %d \n", listObj[j]->getId());
+				listGameObj.push_back(listObj[j]);
+
+				listId.push_back(listObj[j]->getId());
+			}
+		}
+	}
+
+	//_RPT0(0, "==================================\n");
+
+	return listGameObj;
 }
 
 Unit FixedGrid::getUnit(int x, int y)

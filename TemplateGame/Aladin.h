@@ -8,8 +8,8 @@ class Aladin :
 {
 private:
 
-	pCamera _camera;
 	pFixedGrid _grid;
+	pCamera _camera;
 
 	pInputHandler _input;
 	std::unordered_map<int, bool> _keys;
@@ -17,6 +17,8 @@ private:
 	// Pos voi viewPort
 	Vec3 _pos;
 
+	// Bien bool check Player da dung tren mat dat chua
+	bool _isOnGround;
 public:
 	Aladin();
 
@@ -25,9 +27,8 @@ public:
 
 	Vec3 getPosView();
 
-	void setCamera(pCamera);
-
 	void setGrid(pFixedGrid);
+	void setCamera(pCamera);
 
 	void loadResource();
 

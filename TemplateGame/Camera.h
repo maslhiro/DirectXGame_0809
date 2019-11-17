@@ -12,17 +12,27 @@ public:
 	void setPositisonWorld(int, int);
 	void setPositisonWorld(Vec3);
 
+	void setSpeed(float);
+
 	// Xet vi tri tiep theo cua camera
 	void setNextPositisonWorld(int, int);
 	void setNextPositisonWorld(Vec3);
+
+	void addNextPositisonWorld(Vec3);
+	void addNextPositisonWorld(int, int);
 
 	void setPositionWorld_X(int);
 	void setPositionWorld_Y(int);
 
 	void setSizeWindow(int, int);
 
+	void setIsReverse(bool);
+	bool getIsReverse();
+
 	int getWidth();
 	int getHeight();
+
+	void setSizeMap(int, int);
 
 	void update(float);
 
@@ -41,8 +51,18 @@ private:
 	// Pos mốc để camera di chuyển tịnh tiến 
 	Vec2 _nextPosWorld;
 
+	// Vân tốc cam di chuyển
+	float _speed;
+
+	bool _isMoving;
+
+	bool _isReverse;
+
 	int _width;
 	int _height;
+
+	int _mapWidth;
+	int _mapHeight;
 
 };
 

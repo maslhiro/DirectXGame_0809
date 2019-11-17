@@ -1,28 +1,37 @@
 ﻿#include "GameObject.h"
 
-RECT GameObject::getBoudingBox()
+RECT GameObject::getBoundingBox()
 {
 	if (_isStaticObj == false) {
 		if (_listAnimation.size() > 0) {
 
-			float width_Ani = _listAnimation[_state].getCurrentWidth() * _scale.x / 2.0;
-			float height_Ani = _listAnimation[_state].getCurrentHeight() * _scale.y / 2.0;
-			// ướm vào posWorld mới ra BOUDING :( DM
+			_curAnimation.setPosition(_posWorld);
+			RECT bounding = _curAnimation.getBounding();
 
-			RECT bouding;
-			bouding.left = _posWorld.x - (int)round(width_Ani);
-			bouding.right = _posWorld.x + (int)round(width_Ani);
-			bouding.top = _posWorld.y - (int)round(height_Ani);
-			bouding.bottom = _posWorld.y + (int)round(height_Ani);
-
-
-			return bouding;
+			//_RPT1(0, "[INFO] %d %d %d %d \n", bb.left, bb.top, bb.right, bb.bottom);
+			return bounding;
 		}
 		else return RECT();
 	}
 	else {
 		// TH : gameobj static : LAND, ROPE , ...
-		return _boudingWorld;
+		return _boundingWorld;
+	}
+}
+
+RECT GameObject::getCurrentBoudingBox()
+{
+	if (_isStaticObj == false) {
+		if (_listAnimation.size() > 0) {
+
+			_curAnimation.setPosition(_posWorld);
+			return _curAnimation.getCurrentBounding();
+		}
+		else return RECT();
+	}
+	else {
+		// TH : gameobj static : LAND, ROPE , ...
+		return _boundingWorld;
 	}
 }
 
@@ -32,7 +41,7 @@ GameObject::GameObject()
 	this->_texture = Texture::getInstance();
 
 	_isStaticObj = false;
-	_boudingWorld = RECT();
+	_boundingWorld = RECT();
 
 	_isFlip = false;
 	_isAnimated = true;
@@ -53,7 +62,7 @@ GameObject::GameObject(int id)
 	this->_texture = Texture::getInstance();
 
 	_isStaticObj = false;
-	_boudingWorld = RECT();
+	_boundingWorld = RECT();
 
 	_isFlip = false;
 	_isAnimated = true;
@@ -69,21 +78,9 @@ GameObject::GameObject(int id)
 	_id = id;
 }
 
-RECT GameObject::getSweptBroadphaseRect()
-{
-	RECT current = getBoudingBox();
-
-	current.left = _dx != 0 ? current.left + _dx : current.left;
-	current.right = _dx != 0 ? current.right + _dx : current.right;
-	current.top = _dy != 0 ? current.top + _dy : current.top;
-	current.bottom = _dy != 0 ? current.bottom + _dy : current.bottom;
-
-	return current;
-}
-
 bool GameObject::checkCollision(RECT r)
 {
-	RECT _cur = getBoudingBox();
+	RECT _cur = getCurrentBoudingBox();
 	return !(
 		_cur.left > r.right ||
 		_cur.right < r.left ||
@@ -91,14 +88,14 @@ bool GameObject::checkCollision(RECT r)
 		_cur.bottom < r.top);
 }
 
-float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt)
+float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, float dx, float dy)
 {
-	float dxEntry, dxExit;
-	float dyEntry, dyExit;
+	int dxEntry, dxExit;
+	int dyEntry, dyExit;
 
-	RECT _rectObj = getBoudingBox();
+	RECT _rectObj = getBoundingBox();
 
-	if (_dx > 0.0f)
+	if (dx > 0.0f)
 	{
 		dxEntry = _rectOther.left - _rectObj.right;
 		dxExit = _rectOther.right - _rectObj.left;
@@ -110,7 +107,7 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt)
 	}
 
 
-	if (_dy > 0.0f)
+	if (dy > 0.0f)
 	{
 		dyEntry = _rectOther.top - _rectObj.bottom;
 		dyExit = _rectOther.bottom - _rectObj.top;
@@ -126,36 +123,46 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt)
 	float tyEntry, tyExit;
 
 	//// tim thoi gian va cham
-	if (_dx == 0.0f)
+	if (dx == 0.0f)
 	{
 		// đang đứng yên thì bằng vô cực (chia cho  0)
-		txEntry = -std::numeric_limits<long>::infinity();
-		txExit = std::numeric_limits<long>::infinity();
+		txEntry = -std::numeric_limits<float>::infinity();
+		txExit = std::numeric_limits<float>::infinity();
 	}
 	else
 	{
-		txEntry = dxEntry / abs(_dx);
-		txExit = dxExit / abs(_dx);
+		txEntry = dxEntry / abs(dx);
+		txExit = dxExit / abs(dx);
 	}
 
-	if (_dy == 0.0f)
+	if (dy == 0.0f)
 	{
-		tyEntry = -std::numeric_limits<long>::infinity();
-		tyExit = std::numeric_limits<long>::infinity();
+		tyEntry = -std::numeric_limits<float>::infinity();
+		tyExit = std::numeric_limits<float>::infinity();
 	}
 	else
 	{
-		tyEntry = dyEntry / abs(_dy);
-		tyExit = dyExit / abs(_dy);
+		tyEntry = dyEntry / abs(dy);
+		tyExit = dyExit / abs(dy);
 	}
+
+	_RPT0(0, "===================\n");
+	_RPT1(0, "[SWEPT] Vx : %f Vy %f \n", dx, dy);
+	_RPT1(0, "[BOUNDING] STATE : %d \n", _state);
+	_RPT1(0, "[BOUNDING] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
+	_RPT1(0, "[SWEPT] TX Entry : %f TX Exit %f \n", txEntry, txExit);
+	_RPT1(0, "[SWEPT] TY Entry : %f TY Exit %f \n", tyEntry, tyExit);
+	_RPT1(0, "[SWEPT] CUR : %d %d %d %d \n", _rectObj.left, _rectObj.top, _rectObj.right, _rectObj.bottom);
+	_RPT1(0, "[SWEPT] OTHER : %d %d %d %d \n", _rectOther.left, _rectOther.top, _rectOther.right, _rectOther.bottom);
+
 
 	// thời gian va chạm là thời gian lớn nhất của 2 trục (2 trục phải cùng tiếp xúc thì mới va chạm)
 	float entryTime = max(txEntry, tyEntry);
 	// thời gian hết va chạm là thời gian của 2 trục, (1 cái ra khỏi là object hết va chạm)
 	float exitTime = min(txExit, tyExit);
 
-	// kiểm tra xem có thể va chạm không, mình xét ngược lại cho nhanh
-	if (entryTime > exitTime || (txEntry < 0 && tyEntry < 0) || txEntry > dt || tyEntry > dt)
+	// kiểm tra xem có thể va chạm không
+	if (entryTime > exitTime || (txEntry < 0.f && tyEntry < 0.f) || txEntry > dt || tyEntry > dt)
 	{
 		return dt;
 	}
@@ -206,8 +213,8 @@ void GameObject::fixPosAnimation(int nextState)
 float GameObject::fixPosHeight(int nextState)
 {
 	if (_listAnimation.size() > 1) {
-		float _nextHeight = _listAnimation[nextState].getCurrentHeight();
-		float _curtHeight = _listAnimation[_state].getCurrentHeight();
+		float _nextHeight = _listAnimation[nextState].getHeight();
+		float _curtHeight = _curAnimation.getHeight();
 
 		return (_curtHeight - _nextHeight) / 2;
 	}
@@ -217,8 +224,8 @@ float GameObject::fixPosHeight(int nextState)
 float GameObject::fixPosWidth(int nextState)
 {
 	if (_listAnimation.size() > 1) {
-		float _nextWidth = _listAnimation[nextState].getCurrentWidth();
-		float _curtWidth = _listAnimation[_state].getCurrentWidth();
+		float _nextWidth = _listAnimation[nextState].getWidth();
+		float _curtWidth = _curAnimation.getWidth();
 
 		return (_nextWidth - _curtWidth) / 2;
 	}
@@ -233,7 +240,7 @@ GameObject::~GameObject()
 
 int GameObject::getId()
 {
-	_RPT1(0, "[GET ID] %d \n", _id);
+	//_RPT1(0, "[GET ID] %d \n", _id);
 	return this->_id;
 }
 
@@ -241,7 +248,7 @@ void GameObject::setId(int id)
 {
 	this->_id = id;
 
-	_RPT1(0, "[SET ID] %d \n", _id);
+	//_RPT1(0, "[SET ID] %d \n", _id);
 }
 
 void GameObject::setIsStaticObj(bool val)
@@ -256,7 +263,7 @@ bool GameObject::getIsStaticObj()
 
 void GameObject::setRectWorld(RECT rec)
 {
-	this->_boudingWorld = rec;
+	this->_boundingWorld = rec;
 }
 
 int GameObject::getIdType()
