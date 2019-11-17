@@ -7,6 +7,7 @@ Aladin::Aladin() : GameObject()
 	_pos = Vec3();
 
 	_grid = nullptr;
+	_camera = nullptr;
 
 	_isOnGround = false;
 }
@@ -29,6 +30,11 @@ Vec3 Aladin::getPosView()
 void Aladin::setGrid(pFixedGrid grid)
 {
 	_grid = grid;
+}
+
+void Aladin::setCamera(pCamera cam)
+{
+	_camera = cam;
 }
 
 void Aladin::loadResource()
@@ -132,10 +138,10 @@ void Aladin::update(float dt)
 
 						if (check)
 						{
-							_RPT1(0, "[AAAAAAAAAAA] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
-							_RPT1(0, "[AAAAAAAAAAA] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
-							_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
-							_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
+							//_RPT1(0, "[AAAAAAAAAAA] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
+							//_RPT1(0, "[AAAAAAAAAAA] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
+							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
+							//_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
 							_isOnGround = true;
 							this->setIsAnimated(true);
 						}
@@ -170,10 +176,22 @@ void Aladin::handlerInput(float dt)
 			this->fixPosAnimation(eIdState::RUNNING);
 			this->setState(eIdState::RUNNING);
 
+			if (!_camera->getIsReverse())
+			{
+				_camera->setIsReverse(true);
+				_camera->setNextPositisonWorld(_camera->getPositionWorld().x - _device->getWidthWindow() / 2, _camera->getPositionWorld().y);
+			}
+
 		}
 		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
 		{
 			_isFlip = false;
+
+			if (_camera->getIsReverse())
+			{
+				_camera->setIsReverse(false);
+				_camera->setNextPositisonWorld(_camera->getPositionWorld().x + _device->getWidthWindow() / 2, _camera->getPositionWorld().y);
+			}
 
 			this->fixPosAnimation(eIdState::RUNNING);
 			this->setState(eIdState::RUNNING);
@@ -200,22 +218,8 @@ void Aladin::handlerInput(float dt)
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
 
-			// Di chuyen cam neu aladin
-			//if (_camera->getPositionWorld().x > _device->getWidthWindow() / 2)
-			//{
-			//	if (_pos.x <= (_device->getWidthWindow() * 1 / 3))
-			//	{
-			//		// di chuyen camera qua phai va doi player qua trai
-			//		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(-DISTANCE_X, 0, 0));
+			_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
 
-			//		// posView giam 
-			//		_pos += Vec3(DISTANCE_X, 0, 0);
-			//	}
-			//}
-			//else
-			//{
-			//	_camera->setPositionWorld_X(_device->getWidthWindow() / 2);
-			//}
 
 		}
 		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
@@ -226,23 +230,8 @@ void Aladin::handlerInput(float dt)
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
 
-			//if (_camera->getPositionWorld().x < (_grid->getMapWidth() - _device->getWidthWindow() / 2))
-			//{
-			//	// Aladin di qua nua man hinh
-			//	if (_pos.x >= (_device->getWidthWindow() * 2 / 3))
-			//	{
-			//		// di chuyen camera qua phai va doi player qua trai
-			//		_camera->setPositisonWorld(_camera->getPositionWorld() + Vec3(DISTANCE_X, 0, 0));
+			_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
 
-			//		// posView giam 
-			//		_pos += Vec3(-DISTANCE_X, 0, 0);
-			//	}
-			//}
-			//else
-			//{
-			//	// Cham width thi cam ko di chuyen
-			//	_camera->setPositionWorld_X(_grid->getMapWidth() - _device->getWidthWindow() / 4);
-			//}
 		}
 	}break;
 	case eIdState::JUMPING:

@@ -144,7 +144,7 @@ void FixedGrid::load(const char* filePath)
 			_obj->setPositionWorld(posObj_X, posObj_Y);
 
 			RECT rect = _obj->getBoundingBox();
-			_RPT1(0, "[MAP TXT] RECT OBJ : %d %d %d %d \n", rect.left, rect.top, rect.right, rect.bottom);
+			//_RPT1(0, "[MAP TXT] RECT OBJ : %d %d %d %d \n", rect.left, rect.top, rect.right, rect.bottom);
 
 			// Kiem tra xem obj do nam o UNIT NAO
 			Vec3 posLEFT_T = Vec3(rect.left, rect.top, 0);
@@ -283,7 +283,7 @@ std::vector<pGameObject> FixedGrid::getListGameObjContain(RECT r)
 	std::vector<Unit> listUnit = getUnitsContain(r);
 	std::vector<int> listId;
 	std::vector<pGameObject> listGameObj;
-	_RPT0(0, "==================================\n");
+	//_RPT0(0, "==================================\n");
 	for (int i = 0; i < listUnit.size(); i++)
 	{
 		auto listObj = listUnit[i].getListGameObj();
@@ -302,9 +302,10 @@ std::vector<pGameObject> FixedGrid::getListGameObjContain(RECT r)
 					break;
 				}
 			}
+
 			if (!foundId)
 			{
-				_RPT1(0, "[ID OBJ] %d \n", listObj[j]->getId());
+				//_RPT1(0, "[ID OBJ] %d \n", listObj[j]->getId());
 				listGameObj.push_back(listObj[j]);
 
 				listId.push_back(listObj[j]->getId());
@@ -312,7 +313,7 @@ std::vector<pGameObject> FixedGrid::getListGameObjContain(RECT r)
 		}
 	}
 
-	_RPT0(0, "==================================\n");
+	//_RPT0(0, "==================================\n");
 
 	return listGameObj;
 }

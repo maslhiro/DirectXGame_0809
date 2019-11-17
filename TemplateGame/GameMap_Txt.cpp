@@ -27,8 +27,8 @@ void GameMap_Txt::init()
 
 void GameMap_Txt::setCamera(pCamera camera)
 {
-
 	_camera = camera;
+	_camera->setSizeMap(_mapWidth, _mapHeight);
 
 }
 
@@ -94,7 +94,6 @@ void GameMap_Txt::load(const char *filePath)
 	_tileWidth = _grid->getWidthUnit();
 	_tileHeight = _grid->getHeightUnit();
 
-	// 
 	_player->setPositionWorld(_grid->getPosWorld_PLAYER());
 
 	_RPT0(0, "[INFO] Load GAME MAP TXT Done\n");

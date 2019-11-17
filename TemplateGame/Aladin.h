@@ -9,6 +9,7 @@ class Aladin :
 private:
 
 	pFixedGrid _grid;
+	pCamera _camera;
 
 	pInputHandler _input;
 	std::unordered_map<int, bool> _keys;
@@ -27,6 +28,7 @@ public:
 	Vec3 getPosView();
 
 	void setGrid(pFixedGrid);
+	void setCamera(pCamera);
 
 	void loadResource();
 

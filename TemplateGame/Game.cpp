@@ -49,10 +49,10 @@ void Game::loadResource()
 
 	_animationManager->load();
 
-	//_test = _animationManager->get(eIdAnimation::ALADIN_JUMPING);
-	//_test.setPosition(Vec3(300, 300, 0));
-	//_test.setScale(Vec2(2, 2));
-	//_test.setIsLoop(true);
+	_test = _animationManager->get(eIdAnimation::APPLE_EXPLODE);
+	_test.setPosition(Vec3(300, 300, 0));
+	_test.setScale(Vec2(2, 2));
+	_test.setIsLoop(true);
 	//_test.setDrawingBound(true);
 
 	//RECT bb = _test.getBounding();
@@ -63,7 +63,7 @@ void Game::loadResource()
 	//_test01.setScale(Vec2(2, 2));
 	//_test01.setDrawingBound(true);
 
-	_firstScene.loadResource();
+	//_firstScene.loadResource();
 
 	_RPT0(0, "[INFO] Load Resource DONE ;\n");
 
@@ -88,7 +88,7 @@ int Game::init()
 	_deviceManager->init(_hWindow);
 	_drawDebug->init();
 	_texture->init();
-	_firstScene.init();
+	//_firstScene.init();
 	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
 }
@@ -163,9 +163,9 @@ int Game::render()
 
 		//_test01.render(_deviceManager, _texture);
 
-		//_test.render(_deviceManager, _texture);
+		_test.render(_deviceManager, _texture);
 
-		_firstScene.render();
+		//_firstScene.render();
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -180,10 +180,10 @@ int Game::render()
 int Game::update(float dt)
 {
 	//_test.update(dt);
-	//_test.update(dt);
-	_firstScene.handlerInput(dt);
+	_test.update(dt);
+	//_firstScene.handlerInput(dt);
 
-	_firstScene.update(dt);
+	//_firstScene.update(dt);
 
 
 	return 1;
@@ -202,7 +202,7 @@ void Game::release()
 	if (_gameTime != nullptr) _gameTime->release();
 	if (_drawDebug != nullptr) _drawDebug->release();
 
-	_firstScene.release();
+	//_firstScene.release();
 }
 
 Game::~Game()

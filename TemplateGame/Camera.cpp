@@ -1,9 +1,16 @@
-#include "Camera.h"
+﻿#include "Camera.h"
 
 Camera::Camera()
 {
 	_width = 0;
 	_height = 0;
+
+	_mapWidth = 0;
+	_mapHeight = 0;
+
+	_speed = 120.f;
+
+	_isMoving = false;
 
 	_positionWorld = _nextPosWorld = Vec2();
 }
@@ -12,6 +19,13 @@ Camera::Camera(int width, int height)
 {
 	_width = width;
 	_height = height;
+
+	_mapWidth = 0;
+	_mapHeight = 0;
+
+	_speed = 100.f;
+
+	_isMoving = false;
 
 	_positionWorld = _nextPosWorld = Vec2();
 
@@ -33,14 +47,31 @@ void Camera::setPositisonWorld(Vec3 pos)
 	_nextPosWorld = _positionWorld;
 }
 
+void Camera::setSpeed(float val)
+{
+	_speed = val;
+}
+
 void Camera::setNextPositisonWorld(int x, int y)
 {
+	_RPT1(0, "[ CAM ] SET NEXT POS %d\n", x);
+	_RPT1(0, "[ CAM ] CUR POS %f\n", _positionWorld.x);
 	_nextPosWorld = Vec2((float)x, (float)y);
 }
 
 void Camera::setNextPositisonWorld(Vec3 pos)
 {
 	_nextPosWorld = Vec2(pos.x, pos.y);
+}
+
+void Camera::addNextPositisonWorld(Vec3 pos)
+{
+	_nextPosWorld += Vec2(pos.x, pos.y);
+}
+
+void Camera::addNextPositisonWorld(int x, int y)
+{
+	_nextPosWorld += Vec2((float)x, (float)y);
 }
 
 void Camera::setPositionWorld_X(int x)
@@ -61,6 +92,16 @@ void Camera::setSizeWindow(int width, int height)
 	_height = height;
 }
 
+void Camera::setIsReverse(bool val)
+{
+	_isReverse = val;
+}
+
+bool Camera::getIsReverse()
+{
+	return _isReverse;
+}
+
 int Camera::getWidth()
 {
 	return _width;
@@ -71,9 +112,49 @@ int Camera::getHeight()
 	return _height;
 }
 
+void Camera::setSizeMap(int _mW, int _mH)
+{
+	_mapWidth = _mW;
+	_mapHeight = _mH;
+}
+
 void Camera::update(float dt)
 {
 	if (_positionWorld == _nextPosWorld) return;
+
+	// Không cho cam ra khỏi map
+	//if (_nextPosWorld.x <(_width * 2.0 / 3.0) || _nextPosWorld.x >(_mapWidth - _width / 2)) return;
+
+	if (_isMoving)
+	{
+
+		if (_nextPosWorld.x > _positionWorld.x)
+		{
+			_positionWorld += Vec2(_speed*dt, 0);
+		}
+		else if (_nextPosWorld.x < _positionWorld.x)
+		{
+			_positionWorld -= Vec2(_speed*dt, 0);
+		}
+
+		_RPT0(0, "==================================\n");
+		_RPT1(0, "[ CAM ] NEXT %f\n", _nextPosWorld.x);
+		_RPT1(0, "[ CAM ] CUR %f\n", _positionWorld.x);
+		_RPT0(0, "==================================\n");
+
+		if (abs(_nextPosWorld.x - _positionWorld.x) <= DISTANCE_X)
+		{
+			_isMoving = false;
+			_RPT1(0, "== [ CAM ] == MOVING DONE %f\n", _nextPosWorld.x);
+			_nextPosWorld = _positionWorld;
+		}
+	}
+	else if (abs(_nextPosWorld.x - _positionWorld.x) > DISTANCE_X)
+	{
+		_isMoving = true;
+	}
+
+
 }
 
 D3DXVECTOR3 Camera::getPositionWorld()

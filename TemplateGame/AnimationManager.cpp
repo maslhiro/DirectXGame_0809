@@ -21,6 +21,28 @@ void AnimationManager::load() {
 
 #pragma endregion
 
+#pragma region Apple Explode
+	Animation _appleExplode;
+	_appleExplode.setTimePerFrame(0.15f);
+	_appleExplode.setIsLoop(true);
+	//_apple.setIsReverse(true);
+	//_apple.setDrawingBound(true);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_01);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_02);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_03);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_04);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_05);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_06);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_07);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_08);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_09);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_10);
+	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_11);
+
+	_listAnimation[eIdAnimation::APPLE_EXPLODE] = _appleExplode;
+#pragma endregion
+
+
 #pragma region WreckingBall
 	Animation _wreckingBall;
 	_wreckingBall.setTimePerFrame(0.2f);
