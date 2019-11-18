@@ -95,6 +95,11 @@ void FixedGrid::load(const char* filePath)
 				_obj = new Apple();
 				break;
 			}
+			case eIdObject::ROCK:
+			{
+				_obj = new Rock();
+				break;
+			}
 			case eIdObject::WRECKING_BALL:
 			{
 				_obj = new WreckingBall();

@@ -353,3 +353,13 @@ void GameObject::setState(int state)
 	this->_state = state;
 	_curAnimation = _listAnimation[state];
 }
+
+int GameObject::getState()
+{
+	return _state;
+}
+
+int GameObject::getCurrentFrame()
+{
+	return _curAnimation.getCurrentFrame();
+}

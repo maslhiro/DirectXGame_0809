@@ -45,6 +45,8 @@ void Aladin::loadResource()
 
 	_listAnimation[eIdState::JUMPING] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_JUMPING);
 
+	_listAnimation[eIdState::DAMAGE] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_DAMAGE);
+
 	this->setState(eIdState::STANDING);
 }
 
@@ -76,10 +78,14 @@ void Aladin::update(float dt)
 			//_RPT1(0, "[ID OBJ] %d \n", objID);
 			float check = this->checkCollision(obj->getBoundingBox());
 			if (check) {
-				obj->setIsTerminated(true);
+				if (obj->getState() != eIdState::EXPLODING)
+				{
+					obj->setState(eIdState::EXPLODING);
+					//obj->setIsTerminated(true);
+				}
+
 			}
 		}
-
 	}
 
 	switch (_state)
@@ -179,7 +185,7 @@ void Aladin::handlerInput(float dt)
 			if (!_camera->getIsReverse())
 			{
 				_camera->setIsReverse(true);
-				_camera->setNextPositisonWorld(_camera->getPositionWorld().x - _device->getWidthWindow() / 2, _camera->getPositionWorld().y);
+				_camera->setNextPositisonWorld(_camera->getPositionWorld().x - 300, _camera->getPositionWorld().y);
 			}
 
 		}
@@ -187,10 +193,10 @@ void Aladin::handlerInput(float dt)
 		{
 			_isFlip = false;
 
-			if (_camera->getIsReverse())
+			if (_camera->getIsReverse() && _camera->getPositionWorld().x > 500)
 			{
 				_camera->setIsReverse(false);
-				_camera->setNextPositisonWorld(_camera->getPositionWorld().x + _device->getWidthWindow() / 2, _camera->getPositionWorld().y);
+				_camera->setNextPositisonWorld(_camera->getPositionWorld().x + 300, _camera->getPositionWorld().y);
 			}
 
 			this->fixPosAnimation(eIdState::RUNNING);
@@ -217,9 +223,8 @@ void Aladin::handlerInput(float dt)
 			this->setDx(-_speed);
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
-
+			_camera->setIsReverse(true);
 			_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
-
 
 		}
 		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
@@ -229,8 +234,9 @@ void Aladin::handlerInput(float dt)
 			this->setDx(_speed);
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
-
+			_camera->setIsReverse(false);
 			_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
+
 
 		}
 	}break;

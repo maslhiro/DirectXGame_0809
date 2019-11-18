@@ -23,7 +23,7 @@ Camera::Camera(int width, int height)
 	_mapWidth = 0;
 	_mapHeight = 0;
 
-	_speed = 100.f;
+	_speed = 120.f;
 
 	_isMoving = false;
 
@@ -123,7 +123,14 @@ void Camera::update(float dt)
 	if (_positionWorld == _nextPosWorld) return;
 
 	// Không cho cam ra khỏi map
-	//if (_nextPosWorld.x <(_width * 2.0 / 3.0) || _nextPosWorld.x >(_mapWidth - _width / 2)) return;
+	if (_nextPosWorld.x < (_width / 2.0))
+	{
+		_nextPosWorld.x = _width / 2.0;
+	}
+	if (_nextPosWorld.x > (_mapWidth - _width / 2))
+	{
+		_nextPosWorld.x = _mapWidth - _width / 2;
+	}
 
 	if (_isMoving)
 	{
@@ -137,10 +144,10 @@ void Camera::update(float dt)
 			_positionWorld -= Vec2(_speed*dt, 0);
 		}
 
-		_RPT0(0, "==================================\n");
-		_RPT1(0, "[ CAM ] NEXT %f\n", _nextPosWorld.x);
-		_RPT1(0, "[ CAM ] CUR %f\n", _positionWorld.x);
-		_RPT0(0, "==================================\n");
+		//_RPT0(0, "==================================\n");
+		//_RPT1(0, "[ CAM ] NEXT %f\n", _nextPosWorld.x);
+		//_RPT1(0, "[ CAM ] CUR %f\n", _positionWorld.x);
+		//_RPT0(0, "==================================\n");
 
 		if (abs(_nextPosWorld.x - _positionWorld.x) <= DISTANCE_X)
 		{

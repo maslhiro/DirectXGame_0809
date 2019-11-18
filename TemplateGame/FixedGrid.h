@@ -7,6 +7,7 @@
 
 #include "Apple.h"
 #include "Land.h"
+#include "Rock.h"
 #include "WreckingBall.h"
 #include "StoneColumn_1.h"
 #include "StoneColumn_2.h"

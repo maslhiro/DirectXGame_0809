@@ -42,15 +42,15 @@ RECT Unit::getBoudingUnit()
 {
 	RECT rect;
 
-	//rect.left = (int)_posWorld.x;
-	//rect.right = (int)_posWorld.x + _width;
-	//rect.top = (int)_posWorld.y;
-	//rect.bottom = (int)_posWorld.y + _height;
-
 	rect.left = (int)_posWorld.x;
-	rect.right = (int)_posWorld.x + _width - 1;
+	rect.right = (int)_posWorld.x + _width;
 	rect.top = (int)_posWorld.y;
-	rect.bottom = (int)_posWorld.y + _height - 1;
+	rect.bottom = (int)_posWorld.y + _height;
+
+	//rect.left = (int)_posWorld.x;
+	//rect.right = (int)_posWorld.x + _width - 1;
+	//rect.top = (int)_posWorld.y;
+	//rect.bottom = (int)_posWorld.y + _height - 1;
 	return rect;
 }
 

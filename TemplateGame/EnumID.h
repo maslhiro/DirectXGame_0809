@@ -5,8 +5,8 @@ enum eIdState
 	STANDING = 2,
 	RUNNING = 4,
 	JUMPING = 6,
-	EXPLODING = 8
-
+	EXPLODING = 8,
+	DAMAGE = 10,
 };
 
 // Object >= 4000
@@ -20,12 +20,13 @@ enum eIdObject
 	STONE_COLUMN_3,
 	STONE_COLUMN_4,
 
+	ROCK,
+
 	// Static Obj => ko render
 	LAND = 4500,	// Dat
 	PILLAR,			// Cot go - sat
 	PLANKS,			// Thanh go - sat
 	ROPE,			// Day thung
-
 
 	ALADIN = 6000,
 };
@@ -90,8 +91,14 @@ enum eIdSprite
 	APPLE_EXPLODE_07,
 	APPLE_EXPLODE_08,
 	APPLE_EXPLODE_09,
-	APPLE_EXPLODE_10,
-	APPLE_EXPLODE_11,
+#pragma endregion
+
+#pragma region ROCK || 1050
+	ROCK_01 = 1050,
+	ROCK_02,
+	ROCK_03,
+	ROCK_04,
+	ROCK_05,
 #pragma endregion
 
 #pragma region ALADIN
@@ -135,6 +142,13 @@ enum eIdSprite
 	ALADIN_RUN_12,
 	ALADIN_RUN_13,
 
+	ALADIN_DAMAGE_01 = 2060,
+	ALADIN_DAMAGE_02,
+	ALADIN_DAMAGE_03,
+	ALADIN_DAMAGE_04,
+	ALADIN_DAMAGE_05,
+	ALADIN_DAMAGE_06,
+
 #pragma endregion
 
 };
@@ -144,6 +158,8 @@ enum eIdAnimation
 {
 	APPLE_VISIBLE = 100,
 	APPLE_EXPLODE,
+
+	ROCK_VISIBLE,
 
 	WRECKING_BALL_VISIBLE,
 
@@ -155,6 +171,7 @@ enum eIdAnimation
 	ALADIN_STANDING = 200,
 	ALADIN_JUMPING,
 	ALADIN_RUNNING,
+	ALADIN_DAMAGE,
 	ALADIN_IDLING_01,
 	ALADIN_IDLING_02
 };

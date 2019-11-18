@@ -142,6 +142,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="RectSprite.cpp" />
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StoneColumn_1.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Land.h" />
     <ClInclude Include="RectSprite.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Rock.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StoneColumn_1.h" />

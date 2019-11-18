@@ -59,7 +59,11 @@ public:
 	void setGravity(float);
 	void setDx(float);
 	void setDy(float);
+
 	void setState(int);
+	int getState();
+
+	int getCurrentFrame();
 
 	void setPositionWorld(Vec3);
 	void setPositionWorld(Vec2);

@@ -23,8 +23,9 @@ void AnimationManager::load() {
 
 #pragma region Apple Explode
 	Animation _appleExplode;
-	_appleExplode.setTimePerFrame(0.15f);
+	_appleExplode.setTimePerFrame(0.08f);
 	_appleExplode.setIsLoop(true);
+	_appleExplode.setTypeFixPos(3);
 	//_apple.setIsReverse(true);
 	//_apple.setDrawingBound(true);
 	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_01);
@@ -36,12 +37,9 @@ void AnimationManager::load() {
 	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_07);
 	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_08);
 	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_09);
-	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_10);
-	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_11);
 
 	_listAnimation[eIdAnimation::APPLE_EXPLODE] = _appleExplode;
 #pragma endregion
-
 
 #pragma region WreckingBall
 	Animation _wreckingBall;
@@ -67,6 +65,22 @@ void AnimationManager::load() {
 	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_15);
 
 	_listAnimation[eIdAnimation::WRECKING_BALL_VISIBLE] = _wreckingBall;
+#pragma endregion
+
+#pragma region ROCK
+	Animation _rock;
+	_rock.setTimePerFrame(0.5f);
+	_rock.setIsLoop(true);
+	_rock.setTypeFixPos(2);
+	_rock.setIsReverse(true);
+	//_rock.setDrawingBound(true);
+	_rock.addSprite(eIdSprite::ROCK_01);
+	_rock.addSprite(eIdSprite::ROCK_02);
+	_rock.addSprite(eIdSprite::ROCK_03);
+	_rock.addSprite(eIdSprite::ROCK_04);
+	_rock.addSprite(eIdSprite::ROCK_05);
+
+	_listAnimation[eIdAnimation::ROCK_VISIBLE] = _rock;
 #pragma endregion
 
 #pragma region STONE COLUMN
@@ -128,7 +142,7 @@ void AnimationManager::load() {
 	_idle.addSprite(eIdSprite::ALADIN_IDLE_05);
 	_idle.addSprite(eIdSprite::ALADIN_IDLE_06);
 	_idle.addSprite(eIdSprite::ALADIN_IDLE_07);
-	_idle.addSprite(eIdSprite::ALADIN_IDLE_08);;
+	_idle.addSprite(eIdSprite::ALADIN_IDLE_08);
 
 	_listAnimation[eIdAnimation::ALADIN_IDLING_01] = _idle;
 
@@ -174,6 +188,20 @@ void AnimationManager::load() {
 	_run.addSprite(eIdSprite::ALADIN_RUN_13);
 
 	_listAnimation[eIdAnimation::ALADIN_RUNNING] = _run;
+
+	Animation _damage;
+	_damage.setTimePerFrame(0.15f);
+	_damage.setIsLoop(true);
+	_damage.setTypeFixPos(1);
+	_damage.setScale(2.0f, 2.0f);
+	_damage.addSprite(eIdSprite::ALADIN_DAMAGE_01);
+	_damage.addSprite(eIdSprite::ALADIN_DAMAGE_02);
+	_damage.addSprite(eIdSprite::ALADIN_DAMAGE_03);
+	_damage.addSprite(eIdSprite::ALADIN_DAMAGE_04);
+	_damage.addSprite(eIdSprite::ALADIN_DAMAGE_05);
+	_damage.addSprite(eIdSprite::ALADIN_DAMAGE_06);
+
+	_listAnimation[eIdAnimation::ALADIN_DAMAGE] = _damage;
 #pragma endregion
 
 }

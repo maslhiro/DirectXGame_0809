@@ -32,7 +32,7 @@ void FirstScene::loadResource()
 	_map2.load("Resource//Map//map.txt");
 
 	// set cam o goc duoi ben trai
-	_camera->setPositisonWorld(0, _map2.getHeight() - 4 - _deviceManager->getHeightWindow() / 2);
+	_camera->setPositisonWorld(_deviceManager->getWidthWindow() / 2, _map2.getHeight() - 4 - _deviceManager->getHeightWindow() / 2);
 	_camera->setSizeWindow(_deviceManager->getWidthWindow(), _deviceManager->getHeightWindow());
 
 	_map2.setCamera(_camera);

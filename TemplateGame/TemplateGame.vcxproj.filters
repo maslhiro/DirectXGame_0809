@@ -58,11 +58,11 @@
     <Filter Include="Source Files\FixedGrid">
       <UniqueIdentifier>{5006f2c5-e3f3-4f56-99c7-88b05bb080ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Object\Item">
-      <UniqueIdentifier>{0a3075bb-4847-4a1b-93e8-2cefbdb5f0dc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Object\Item">
       <UniqueIdentifier>{7bf5eb29-7ee6-436b-b2cf-67f8fdc72a0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Item">
+      <UniqueIdentifier>{0a3075bb-4847-4a1b-93e8-2cefbdb5f0dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +150,9 @@
     <ClCompile Include="Land.cpp">
       <Filter>Source Files\Object\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>Source Files\Object\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="Aladin.h">
       <Filter>Header Files\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>Header Files\Object\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

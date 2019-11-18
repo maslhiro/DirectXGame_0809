@@ -294,7 +294,12 @@ void GameMap_Txt::update(float dt)
 
 				if (idType == eIdObject::WRECKING_BALL) {
 					listGameObj[i]->update(dt);
-
+				}
+				else if (idType == eIdObject::APPLE) {
+					listGameObj[i]->update(dt);
+				}
+				else if (idType == eIdObject::ROCK) {
+					listGameObj[i]->update(dt);
 				}
 			}
 		}
