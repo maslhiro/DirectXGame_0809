@@ -26,9 +26,6 @@ public:
 
 	void setSizeWindow(int, int);
 
-	void setIsReverse(bool);
-	bool getIsReverse();
-
 	int getWidth();
 	int getHeight();
 
@@ -55,8 +52,6 @@ private:
 	float _speed;
 
 	bool _isMoving;
-
-	bool _isReverse;
 
 	int _width;
 	int _height;

@@ -34,6 +34,7 @@ void FirstScene::loadResource()
 	// set cam o goc duoi ben trai
 	_camera->setPositisonWorld(_deviceManager->getWidthWindow() / 2, _map2.getHeight() - 4 - _deviceManager->getHeightWindow() / 2);
 	_camera->setSizeWindow(_deviceManager->getWidthWindow(), _deviceManager->getHeightWindow());
+	_camera->setSpeed(130.f);
 
 	_map2.setCamera(_camera);
 
@@ -41,7 +42,7 @@ void FirstScene::loadResource()
 	_player->loadResource();
 	_player->setScale(2.0f);
 	_player->setSpeed(140.f);
-	_player->setGravity(121.f);
+	_player->setGravity(140.f);
 
 	_player->setGrid(_grid);
 

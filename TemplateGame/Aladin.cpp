@@ -182,22 +182,10 @@ void Aladin::handlerInput(float dt)
 			this->fixPosAnimation(eIdState::RUNNING);
 			this->setState(eIdState::RUNNING);
 
-			if (!_camera->getIsReverse())
-			{
-				_camera->setIsReverse(true);
-				_camera->setNextPositisonWorld(_camera->getPositionWorld().x - 300, _camera->getPositionWorld().y);
-			}
-
 		}
 		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
 		{
 			_isFlip = false;
-
-			if (_camera->getIsReverse() && _camera->getPositionWorld().x > 500)
-			{
-				_camera->setIsReverse(false);
-				_camera->setNextPositisonWorld(_camera->getPositionWorld().x + 300, _camera->getPositionWorld().y);
-			}
 
 			this->fixPosAnimation(eIdState::RUNNING);
 			this->setState(eIdState::RUNNING);
@@ -223,8 +211,12 @@ void Aladin::handlerInput(float dt)
 			this->setDx(-_speed);
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
-			_camera->setIsReverse(true);
-			_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
+
+			if (_posWorld.x >= _device->getWidthWindow() *2.0 / 3.0)
+			{
+				_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
+			}
+
 
 		}
 		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
@@ -234,8 +226,12 @@ void Aladin::handlerInput(float dt)
 			this->setDx(_speed);
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
-			_camera->setIsReverse(false);
-			_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
+
+			if (_posWorld.x >= _device->getWidthWindow() *2.0 / 3.0)
+			{
+				_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
+			}
+
 
 
 		}

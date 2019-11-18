@@ -8,7 +8,7 @@ Camera::Camera()
 	_mapWidth = 0;
 	_mapHeight = 0;
 
-	_speed = 120.f;
+	_speed = 140.f;
 
 	_isMoving = false;
 
@@ -23,7 +23,7 @@ Camera::Camera(int width, int height)
 	_mapWidth = 0;
 	_mapHeight = 0;
 
-	_speed = 120.f;
+	_speed = 140.f;
 
 	_isMoving = false;
 
@@ -92,16 +92,6 @@ void Camera::setSizeWindow(int width, int height)
 	_height = height;
 }
 
-void Camera::setIsReverse(bool val)
-{
-	_isReverse = val;
-}
-
-bool Camera::getIsReverse()
-{
-	return _isReverse;
-}
-
 int Camera::getWidth()
 {
 	return _width;
@@ -123,9 +113,9 @@ void Camera::update(float dt)
 	if (_positionWorld == _nextPosWorld) return;
 
 	// Không cho cam ra khỏi map
-	if (_nextPosWorld.x < (_width / 2.0))
+	if (_nextPosWorld.x < (_width * 2.0 / 3.0))
 	{
-		_nextPosWorld.x = _width / 2.0;
+		_nextPosWorld.x = _width * 2.0 / 3.0;
 	}
 	if (_nextPosWorld.x > (_mapWidth - _width / 2))
 	{
