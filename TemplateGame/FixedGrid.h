@@ -38,6 +38,9 @@ private:
 	// Path file grid lưu lại và load lên lúc init
 	char* _fileSavePath;
 
+	// List static obj như => 
+	std::vector<pGameObject> _listStaticObj;
+
 public:
 
 	Unit _cell[25][15];

@@ -43,10 +43,10 @@ void AnimationManager::load() {
 
 #pragma region WreckingBall
 	Animation _wreckingBall;
-	_wreckingBall.setTimePerFrame(0.2f);
+	_wreckingBall.setTimePerFrame(0.12f);
 	_wreckingBall.setIsLoop(true);
 	_wreckingBall.setTypeFixPos(2);
-	_wreckingBall.setIsReverse(true);
+	//_wreckingBall.setIsReverse(true);
 	_wreckingBall.setScale(2.0f, 2.0f);
 	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_01);
 	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_02);
@@ -63,6 +63,19 @@ void AnimationManager::load() {
 	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_13);
 	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_14);
 	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_15);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_14);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_13);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_12);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_11);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_10);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_09);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_08);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_07);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_06);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_05);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_04);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_03);
+	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_02);
 
 	_listAnimation[eIdAnimation::WRECKING_BALL_VISIBLE] = _wreckingBall;
 #pragma endregion
@@ -72,13 +85,17 @@ void AnimationManager::load() {
 	_rock.setTimePerFrame(0.5f);
 	_rock.setIsLoop(true);
 	_rock.setTypeFixPos(2);
-	_rock.setIsReverse(true);
+	//_rock.setIsReverse(true);
 	//_rock.setDrawingBound(true);
 	_rock.addSprite(eIdSprite::ROCK_01);
 	_rock.addSprite(eIdSprite::ROCK_02);
 	_rock.addSprite(eIdSprite::ROCK_03);
 	_rock.addSprite(eIdSprite::ROCK_04);
 	_rock.addSprite(eIdSprite::ROCK_05);
+	_rock.addSprite(eIdSprite::ROCK_04);
+	_rock.addSprite(eIdSprite::ROCK_03);
+	_rock.addSprite(eIdSprite::ROCK_02);
+	_rock.addSprite(eIdSprite::ROCK_01);
 
 	_listAnimation[eIdAnimation::ROCK_VISIBLE] = _rock;
 #pragma endregion

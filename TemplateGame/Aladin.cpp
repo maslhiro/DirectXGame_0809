@@ -67,7 +67,7 @@ void Aladin::update(float dt)
 	auto listObj = _grid->getListGameObjContain(getBoundingBox());
 
 	// Va cham dung tao
-	for (int i = 0; i < listObj.size(); i++)
+	for (size_t i = 0; i < listObj.size(); i++)
 	{
 		auto obj = listObj[i];
 
@@ -98,13 +98,13 @@ void Aladin::update(float dt)
 		if (_isOnGround)
 		{
 			RECT t1 = getBoundingBox();
-			_RPT1(0, "[IS ON GROUND] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
+			//_RPT1(0, "[IS ON GROUND] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
 
 			if (_curAnimation.getCurrentFrame() == 12)
 			{
 				_isOnGround = false;
 				this->fixPosAnimation(eIdState::STANDING);
-				_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
+				//_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
 				this->setState(eIdState::STANDING);
 			}
 			else break;
@@ -126,7 +126,7 @@ void Aladin::update(float dt)
 			{
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
 
-				for (int i = 0; i < listObj.size(); i++)
+				for (size_t i = 0; i < listObj.size(); i++)
 				{
 					auto obj = listObj[i];
 

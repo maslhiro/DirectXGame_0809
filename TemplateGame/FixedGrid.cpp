@@ -289,13 +289,13 @@ std::vector<pGameObject> FixedGrid::getListGameObjContain(RECT r)
 	std::vector<int> listId;
 	std::vector<pGameObject> listGameObj;
 	//_RPT0(0, "==================================\n");
-	for (int i = 0; i < listUnit.size(); i++)
+	for (size_t i = 0; i < listUnit.size(); i++)
 	{
 		auto listObj = listUnit[i].getListGameObj();
 
 		if (listObj.size() == 0) continue;
 
-		for (int j = 0; j < listObj.size(); j++)
+		for (size_t j = 0; j < listObj.size(); j++)
 		{
 			bool foundId = false;
 

@@ -54,8 +54,8 @@ void Camera::setSpeed(float val)
 
 void Camera::setNextPositisonWorld(int x, int y)
 {
-	_RPT1(0, "[ CAM ] SET NEXT POS %d\n", x);
-	_RPT1(0, "[ CAM ] CUR POS %f\n", _positionWorld.x);
+	//_RPT1(0, "[ CAM ] SET NEXT POS %d\n", x);
+	//_RPT1(0, "[ CAM ] CUR POS %f\n", _positionWorld.x);
 	_nextPosWorld = Vec2((float)x, (float)y);
 }
 
@@ -115,11 +115,11 @@ void Camera::update(float dt)
 	// Không cho cam ra khỏi map
 	if (_nextPosWorld.x < (_width * 2.0 / 3.0))
 	{
-		_nextPosWorld.x = _width * 2.0 / 3.0;
+		_nextPosWorld.x = ((float)_width) * 2.0 / 3.0;
 	}
 	if (_nextPosWorld.x > (_mapWidth - _width / 2))
 	{
-		_nextPosWorld.x = _mapWidth - _width / 2;
+		_nextPosWorld.x = (float)(_mapWidth - _width) / 2.0;
 	}
 
 	if (_isMoving)
@@ -142,7 +142,7 @@ void Camera::update(float dt)
 		if (abs(_nextPosWorld.x - _positionWorld.x) <= DISTANCE_X)
 		{
 			_isMoving = false;
-			_RPT1(0, "== [ CAM ] == MOVING DONE %f\n", _nextPosWorld.x);
+			//_RPT1(0, "== [ CAM ] == MOVING DONE %f\n", _nextPosWorld.x);
 			_nextPosWorld = _positionWorld;
 		}
 	}
@@ -156,7 +156,7 @@ void Camera::update(float dt)
 
 D3DXVECTOR3 Camera::getPositionWorld()
 {
-	return this->_positionWorld;
+	return _positionWorld;
 }
 
 RECT Camera::getBounding()

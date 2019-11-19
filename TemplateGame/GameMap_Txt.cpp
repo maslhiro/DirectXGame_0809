@@ -110,7 +110,6 @@ void GameMap_Txt::render()
 	D3DXMATRIX matTransformed;
 	D3DXMATRIX matOld;
 
-	auto listUnit = _grid->_cell;
 	auto _spriteHandler = _device->getSpriteHandler();
 
 	Vec2 trans(_device->getWidthWindow() / 2 - _camera->getPositionWorld().x, _device->getHeightWindow() / 2 - _camera->getPositionWorld().y);
@@ -131,70 +130,39 @@ void GameMap_Txt::render()
 
 	RECT _viewPort = _camera->getBounding();
 
-	// Lay ra Cac Unit contain voi viewport
-	Vec3 posLEFT_T = Vec3(_viewPort.left, _viewPort.top, 0);
-	Vec3 posRIGHT_BT = Vec3(_viewPort.right, _viewPort.bottom, 0);
+	auto listUnit = _grid->getUnitsContain(_viewPort);
 
-	int min_CellX = posLEFT_T.x / _tileWidth;
-	int min_CellY = posLEFT_T.y / _tileHeight;
-
-	int max_CellX = posRIGHT_BT.x / _tileWidth;
-	int max_CellY = posRIGHT_BT.y / _tileHeight;
-
-	//_RPT1(0, "[INFO] CELL X %d %d \n", min_CellX, max_CellX);
-	//_RPT1(0, "[INFO] CELL Y %d %d \n", min_CellY, max_CellY);
-
-	// Ve map truoc
-	for (int x = min_CellX; x <= max_CellX; x++)
+	for (size_t i = 0; i < listUnit.size(); i++)
 	{
-		for (int y = min_CellY; y <= max_CellY; y++)
-		{
-			Unit curUnit = listUnit[x][y];
+		Unit curUnit = listUnit[i];
 
-			RECT tile = curUnit.getBoudingUnit();
+		RECT tile = curUnit.getBoudingUnit();
 
-			Vec3 pos = curUnit.getPosWorld();
-			//_RPT1(0, "[INFO] POS TILE %d %d %d %d \n", tile.left, tile.top, tile.right, tile.bottom);
-			_spriteHandler->Draw(
-				_texture->get(_textureMapId),
-				&tile, NULL, &pos, D3DCOLOR_ARGB(255, 255, 255, 255));
-
-		}
+		Vec3 pos = curUnit.getPosWorld();
+		//_RPT1(0, "[INFO] POS TILE %d %d %d %d \n", tile.left, tile.top, tile.right, tile.bottom);
+		_spriteHandler->Draw(
+			_texture->get(_textureMapId),
+			&tile, NULL, &pos, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
+
 
 	// Sau do ve entity
 	// tranh truong hon map ve tren entity
-	for (int x = min_CellX; x <= max_CellX; x++)
+	auto listObj = _grid->getListGameObjContain(_viewPort);
+
+	for (size_t i = 0; i < listObj.size(); i++)
 	{
-		for (int y = min_CellY; y <= max_CellY; y++)
+		int idType = listObj[i]->getIdType();
+
+		// Doi voi 4 cot da thi render sau khi ve aladin
+		if (idType == eIdObject::STONE_COLUMN_1 ||
+			idType == eIdObject::STONE_COLUMN_2 ||
+			idType == eIdObject::STONE_COLUMN_3 ||
+			idType == eIdObject::STONE_COLUMN_4)
 		{
-			Unit curUnit = listUnit[x][y];
-
-			Vec3 pos = curUnit.getPosWorld();
-
-			std::vector<pGameObject> listGameObj = curUnit.getListGameObj();
-
-			if (listGameObj.size() == 0) continue;
-
-			for (int i = 0; i < listGameObj.size(); i++)
-			{
-				int idType = listGameObj[i]->getIdType();
-
-				//int objID = listGameObj[i]->getId();
-				//_RPT1(0, "[ID OBJ] %d \n", objID);
-
-				// Doi voi 4 cot da thi render sau khi ve aladin
-				if (idType == eIdObject::STONE_COLUMN_1 ||
-					idType == eIdObject::STONE_COLUMN_2 ||
-					idType == eIdObject::STONE_COLUMN_3 ||
-					idType == eIdObject::STONE_COLUMN_4)
-				{
-					continue;
-
-				}
-				listGameObj[i]->render();
-			}
+			continue;
 		}
+		else listObj[i]->render();
 	}
 
 	// Cuoi cung la ve thang aladdin
@@ -225,48 +193,26 @@ void GameMap_Txt::renderAbove()
 
 	_spriteHandler->SetTransform(&matFinal);
 
-	// Render map
+	// Render map above
 
 	RECT _viewPort = _camera->getBounding();
 
-	// Lay ra Cac Unit contain voi viewport
-	Vec3 posLEFT_T = Vec3(_viewPort.left, _viewPort.top, 0);
-	Vec3 posRIGHT_BT = Vec3(_viewPort.right, _viewPort.bottom, 0);
+	auto listObj = _grid->getListGameObjContain(_viewPort);
 
-	int min_CellX = posLEFT_T.x / _tileWidth;
-	int min_CellY = posLEFT_T.y / _tileHeight;
-
-	int max_CellX = posRIGHT_BT.x / _tileWidth;
-	int max_CellY = posRIGHT_BT.y / _tileHeight;
-
-	for (int x = min_CellX; x <= max_CellX; x++)
+	for (size_t i = 0; i < listObj.size(); i++)
 	{
-		for (int y = min_CellY; y <= max_CellY; y++)
+		int idType = listObj[i]->getIdType();
+
+		// Doi voi 4 cot da thi render sau khi ve aladin
+		if (idType == eIdObject::STONE_COLUMN_1 ||
+			idType == eIdObject::STONE_COLUMN_2 ||
+			idType == eIdObject::STONE_COLUMN_3 ||
+			idType == eIdObject::STONE_COLUMN_4)
 		{
-			auto curUnit = listUnit[x][y];
-
-			Vec3 pos = curUnit.getPosWorld();
-
-			auto listGameObj = curUnit.getListGameObj();
-
-			if (listGameObj.size() == 0) continue;
-
-			for (int i = 0; i < listGameObj.size(); i++)
-			{
-				int idType = listGameObj[i]->getIdType();
-
-				// Doi voi 4 cot da thi render sau khi ve aladin
-				if (idType == eIdObject::STONE_COLUMN_1 ||
-					idType == eIdObject::STONE_COLUMN_2 ||
-					idType == eIdObject::STONE_COLUMN_3 ||
-					idType == eIdObject::STONE_COLUMN_4)
-				{
-					listGameObj[i]->render();
-				}
-				else continue;
-			}
+			listObj[i]->render();
 		}
 	}
+
 	_spriteHandler->SetTransform(&matOld); // set lai matrix cu~ chi ap dung transfrom voi class nay
 }
 
@@ -275,33 +221,23 @@ void GameMap_Txt::update(float dt)
 	// Update cac obj tinh apple , ball, ....
 	RECT _viewPort = _camera->getBounding();
 
-	auto listUnit = _grid->_cell;
+	auto listObj = _grid->getListGameObjContain(_viewPort);
 
-	// Luon Update Cac OBJ dac biet
-	for (int x = 0; x < _grid->getNumX(); x++)
+	_RPT0(0, "============================================\n");
+	for (size_t i = 0; i < listObj.size(); i++)
 	{
-		for (int y = 0; y < _grid->getNumY(); y++)
-		{
-			auto curUnit = listUnit[x][y];
-
-			auto listGameObj = curUnit.getListGameObj();
-
-			if (listGameObj.size() == 0) continue;
-
-			for (int i = 0; i < listGameObj.size(); i++)
-			{
-				int idType = listGameObj[i]->getIdType();
-
-				if (idType == eIdObject::WRECKING_BALL) {
-					listGameObj[i]->update(dt);
-				}
-				else if (idType == eIdObject::APPLE) {
-					listGameObj[i]->update(dt);
-				}
-				else if (idType == eIdObject::ROCK) {
-					listGameObj[i]->update(dt);
-				}
-			}
+		int idType = listObj[i]->getIdType();
+		_RPT1(0, "[UPDATE MAP] ID Obj %d \n", listObj[i]->getId());
+		if (idType == eIdObject::WRECKING_BALL) {
+			listObj[i]->update(dt);
+		}
+		else if (idType == eIdObject::APPLE) {
+			listObj[i]->update(dt);
+		}
+		else if (idType == eIdObject::ROCK) {
+			listObj[i]->update(dt);
 		}
 	}
+	_RPT0(0, "============================================\n");
+
 }
