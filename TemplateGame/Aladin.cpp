@@ -205,6 +205,11 @@ void Aladin::handlerInput(float dt)
 			this->fixPosAnimation(eIdState::STANDING);
 			this->setState(eIdState::STANDING);
 		}
+		// Vừa bấm A vừa D
+		else if (_input->getMapKey()[KEY_A] && _input->getMapKey()[KEY_D]) {
+			this->fixPosAnimation(eIdState::STANDING);
+			this->setState(eIdState::STANDING);
+		}
 		else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
 			_isFlip = true;
 

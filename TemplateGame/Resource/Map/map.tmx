@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="227" tileheight="228" infinite="0" nextlayerid="23" nextobjectid="71">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="227" tileheight="228" infinite="0" nextlayerid="23" nextobjectid="73">
  <tileset firstgid="1" name="70" tilewidth="227" tileheight="228" tilecount="200" columns="20">
   <image source="map.png" width="4540" height="2280"/>
  </tileset>
@@ -30,7 +30,9 @@
   <object id="35" name="450001" x="1.95833" y="2217.67" width="2973.88" height="55"/>
  </objectgroup>
  <objectgroup id="22" name="4006">
-  <object id="70" name="400601" x="2491.18" y="2060.58"/>
+  <object id="70" name="400601" x="2635" y="2069" width="10" height="10" rotation="1"/>
+  <object id="71" name="400602" x="2527" y="1978" width="10" height="10"/>
+  <object id="72" name="400603" x="2656" y="1913" width="10" height="10"/>
  </objectgroup>
  <objectgroup id="21" name="4005" visible="0">
   <object id="64" name="400504" x="2370" y="2042" width="1" height="1"/>
@@ -45,9 +47,9 @@
   <object id="50" name="400201" x="394" y="1891" width="1" height="1"/>
  </objectgroup>
  <objectgroup id="14" name="4001" visible="0">
-  <object id="32" name="400103" x="1979.71" y="2072" width="15.3333" height="13.3333"/>
+  <object id="32" name="400103" x="1970" y="2073" width="15.3333" height="13.3333"/>
   <object id="33" name="400102" x="2080" y="2071.66" width="15.3333" height="13.3333"/>
-  <object id="34" name="400101" x="2239" y="2070.67" width="17.3333" height="13.3333"/>
+  <object id="34" name="400101" x="2230" y="2070.67" width="17.3333" height="13.3333"/>
  </objectgroup>
  <objectgroup id="11" name="4000" visible="0">
   <object id="44" name="400002" x="1431.83" y="2063.83"/>
