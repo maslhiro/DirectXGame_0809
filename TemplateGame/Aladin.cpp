@@ -76,13 +76,25 @@ void Aladin::update(float dt)
 		{
 			//int objID = obj->getId();
 			//_RPT1(0, "[ID OBJ] %d \n", objID);
-			float check = this->checkCollision(obj->getBoundingBox());
+			float check = this->checkCollision(obj->getCurrentBoudingBox());
 			if (check) {
 				if (obj->getState() != eIdState::EXPLODING)
 				{
 					obj->setState(eIdState::EXPLODING);
 					//obj->setIsTerminated(true);
 				}
+
+			}
+		}
+
+		if (obj->getIdType() == eIdObject::WRECKING_BALL)
+		{
+			//int objID = obj->getId();
+			//_RPT1(0, "[ID OBJ] %d \n", objID);
+			float check = this->checkCollision(obj->getCurrentBoudingBox());
+			if (check) {
+
+				obj->setIsTerminated(true);
 
 			}
 		}
@@ -104,7 +116,7 @@ void Aladin::update(float dt)
 			{
 				_isOnGround = false;
 				this->fixPosAnimation(eIdState::STANDING);
-				//_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
+				_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
 				this->setState(eIdState::STANDING);
 			}
 			else break;
@@ -124,36 +136,40 @@ void Aladin::update(float dt)
 			}
 			else if (_dy > 0.f)
 			{
-				this->updateAllPos(Vec3(0, _dy*dt, 0));
+				float timeUpdate = dt;
 
 				for (size_t i = 0; i < listObj.size(); i++)
 				{
 					auto obj = listObj[i];
 
 					// Va cham voi land
-					if (obj->getIdType() == eIdObject::LAND)
+					if (obj->getIdType() == eIdObject::GROUND)
 					{
-						//int objID = obj->getId();
-/*						float check2 = this->checkCollision_SweptAABB(obj->getBoundingBox(), dt, 0.f, _dy);
-						_RPT1(0, "[CHECK Collision] DELTA TIME : %f \n", dt);
-						_RPT1(0, "[CHECK Collision] CHECK COLLISION : %f \n", check);*/
-						float check = this->checkCollision(obj->getBoundingBox());
+						float check2 = this->checkCollision_SweptAABB(obj->getCurrentBoudingBox(), timeUpdate, 0.f, _dy);
 
-						RECT t = obj->getBoundingBox();
-						RECT t1 = getBoundingBox();
+						_RPT1(0, "[CHECK Collision] CHECK COLLISION : %f \n", check2);
+						//float check = this->checkCollision(obj->getBoundingBox());
 
-						if (check)
+						//RECT t = obj->getBoundingBox();
+						//RECT t1 = getBoundingBox();
+
+						if (check2 < timeUpdate)
 						{
 							//_RPT1(0, "[AAAAAAAAAAA] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
 							//_RPT1(0, "[AAAAAAAAAAA] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
 							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
 							//_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
+							timeUpdate = check2;
+
 							_isOnGround = true;
 							this->setIsAnimated(true);
 						}
 					}
 
 				}
+
+
+				this->updateAllPos(Vec3(0, _dy*timeUpdate, 0));
 			}
 		}
 	}

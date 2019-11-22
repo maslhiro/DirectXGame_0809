@@ -1,10 +1,10 @@
 #pragma once
 #include "GameObject.h"
-class Land :
+class Ground :
 	public GameObject
 {
 public:
-	Land();
+	Ground();
 
 	void loadResource();
 

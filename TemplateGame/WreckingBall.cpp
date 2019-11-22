@@ -14,6 +14,8 @@ void WreckingBall::loadResource()
 
 void WreckingBall::render()
 {
+	if (_isTerminated) return;
+
 	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
 
@@ -22,6 +24,8 @@ void WreckingBall::render()
 
 void WreckingBall::update(float dt)
 {
+	if (_isTerminated) return;
+
 	_curAnimation.update(dt);
 }
 

@@ -23,7 +23,7 @@ enum eIdObject
 	ROCK,
 
 	// Static Obj => ko render
-	LAND = 4500,	// Dat
+	GROUND = 4500,	// Dat
 	PILLAR,			// Cot go - sat
 	PLANKS,			// Thanh go - sat
 	ROPE,			// Day thung

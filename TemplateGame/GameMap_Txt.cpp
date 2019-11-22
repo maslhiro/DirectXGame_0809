@@ -223,13 +223,15 @@ void GameMap_Txt::update(float dt)
 
 	auto listObj = _grid->getListGameObjContain(_viewPort);
 
-	_RPT0(0, "============================================\n");
+	//_RPT0(0, "============================================\n");
 	for (size_t i = 0; i < listObj.size(); i++)
 	{
 		int idType = listObj[i]->getIdType();
-		_RPT1(0, "[UPDATE MAP] ID Obj %d \n", listObj[i]->getId());
 		if (idType == eIdObject::WRECKING_BALL) {
 			listObj[i]->update(dt);
+			//_RPT1(0, "[UPDATE MAP] ID Obj %d \n", listObj[i]->getId());
+			//RECT r = listObj[i]->getCurrentBoudingBox();
+			//_RPT1(0, "[UPDATE MAP] RECT %d %d %d %d \n", r.left, r.top, r.right, r.bottom);
 		}
 		else if (idType == eIdObject::APPLE) {
 			listObj[i]->update(dt);
@@ -238,6 +240,6 @@ void GameMap_Txt::update(float dt)
 			listObj[i]->update(dt);
 		}
 	}
-	_RPT0(0, "============================================\n");
+	//_RPT0(0, "============================================\n");
 
 }

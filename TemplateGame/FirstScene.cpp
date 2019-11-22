@@ -1,7 +1,6 @@
 #include "FirstScene.h"
 
 
-
 FirstScene::FirstScene()
 {
 	_grid = new FixedGrid();

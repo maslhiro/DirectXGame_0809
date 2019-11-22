@@ -138,7 +138,7 @@
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="EnumID.h" />
     <ClCompile Include="InputHandler.cpp" />
-    <ClCompile Include="Land.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="RectSprite.cpp" />
@@ -170,7 +170,7 @@
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="InputHandler.h" />
-    <ClInclude Include="Land.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="RectSprite.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Rock.h" />

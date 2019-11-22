@@ -125,9 +125,9 @@ void FixedGrid::load(const char* filePath)
 				_obj = new StoneColumn_4();
 				break;
 			}
-			case eIdObject::LAND:
+			case eIdObject::GROUND:
 			{
-				_obj = new Land();
+				_obj = new Ground();
 
 				RECT rec;
 				rec.left = posObj_X;

@@ -1,17 +1,17 @@
-#include "Land.h"
+#include "Ground.h"
 
-Land::Land() :GameObject()
+Ground::Ground() :GameObject()
 {
 	_isStaticObj = true;
-	_idType = eIdObject::LAND;
+	_idType = eIdObject::GROUND;
 }
 
-void Land::loadResource()
+void Ground::loadResource()
 {
 
 }
 
-void Land::render()
+void Ground::render()
 {
 	//auto _devive = DeviceManager::getInstance();
 	//auto _texture = Texture::getInstance();
@@ -27,11 +27,11 @@ void Land::render()
 	//_device->getSpriteHandler()->Draw(_texture->get(eIdTexture::BOX_RED_TEX), &bound, NULL, &Vec3(getBoundingBox().left, getBoundingBox().top, 0), D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
-void Land::update(float dt)
+void Ground::update(float dt)
 {
 
 }
 
-void Land::handlerInput(float)
+void Ground::handlerInput(float)
 {
 }
