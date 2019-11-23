@@ -1,15 +1,15 @@
-﻿#include "GameMap_Txt.h"
+﻿#include "GameMap.h"
 
-GameMap_Txt::GameMap_Txt()
+GameMap::GameMap()
 {
 }
 
 
-GameMap_Txt::~GameMap_Txt()
+GameMap::~GameMap()
 {
 }
 
-void GameMap_Txt::init()
+void GameMap::init()
 {
 	_texture = Texture::getInstance();
 	_device = DeviceManager::getInstance();
@@ -21,68 +21,73 @@ void GameMap_Txt::init()
 
 	_scale = Vec2(1, 1);
 
-	_textureMapId = _mapWidth = _mapHeight = _tileWidth = _tileHeight = 0;
+	_textureMapId = _mapWidth = _mapHeight = _textureMapAboveId = _tileWidth = _tileHeight = 0;
 
 }
 
-void GameMap_Txt::setCamera(pCamera camera)
+void GameMap::setIdTextureMapAbove(int id)
+{
+	_textureMapAboveId = id;
+}
+
+void GameMap::setCamera(pCamera camera)
 {
 	_camera = camera;
 	_camera->setSizeMap(_mapWidth, _mapHeight);
 
 }
 
-void GameMap_Txt::setScale(Vec2 scale)
+void GameMap::setScale(Vec2 scale)
 {
 	_scale = scale;
 }
 
-void GameMap_Txt::setScale(float scale)
+void GameMap::setScale(float scale)
 {
 	_scale = Vec2(scale, scale);
 }
 
-void GameMap_Txt::setGrid(pFixedGrid grid)
+void GameMap::setGrid(pFixedGrid grid)
 {
 	_grid = grid;
 }
 
-int GameMap_Txt::getWidth()
+int GameMap::getWidth()
 {
 	return _mapWidth;
 }
 
-int GameMap_Txt::getHeight()
+int GameMap::getHeight()
 {
 	return _mapHeight;
 }
 
-int GameMap_Txt::getTileWidth()
+int GameMap::getTileWidth()
 {
 	return _tileWidth;
 }
 
-int GameMap_Txt::getTileHeight()
+int GameMap::getTileHeight()
 {
 	return _tileHeight;
 }
 
-pFixedGrid GameMap_Txt::getGrid()
+pFixedGrid GameMap::getGrid()
 {
 	return _grid;
 }
 
-pCamera GameMap_Txt::getCamera()
+pCamera GameMap::getCamera()
 {
 	return _camera;
 }
 
-void GameMap_Txt::setPointerPlayer(pAladin val)
+void GameMap::setPointerPlayer(pAladin val)
 {
 	this->_player = val;
 }
 
-void GameMap_Txt::load(const char *filePath)
+void GameMap::load(const char *filePath)
 {
 	if (_grid == nullptr) return;
 
@@ -99,12 +104,12 @@ void GameMap_Txt::load(const char *filePath)
 	_RPT0(0, "[INFO] Load GAME MAP TXT Done\n");
 }
 
-void GameMap_Txt::release()
+void GameMap::release()
 {
 
 }
 
-void GameMap_Txt::render()
+void GameMap::render()
 {
 	D3DXMATRIX matFinal;
 	D3DXMATRIX matTransformed;
@@ -171,14 +176,13 @@ void GameMap_Txt::render()
 	_spriteHandler->SetTransform(&matOld); // set lai matrix cu~ chi ap dung transfrom voi class nay
 }
 
-void GameMap_Txt::renderAbove()
+void GameMap::renderAbove()
 {
 
 	D3DXMATRIX matFinal;
 	D3DXMATRIX matTransformed;
 	D3DXMATRIX matOld;
 
-	auto listUnit = _grid->_cell;
 	auto _spriteHandler = _device->getSpriteHandler();
 
 	Vec2 trans(_device->getWidthWindow() / 2 - _camera->getPositionWorld().x, _device->getHeightWindow() / 2 - _camera->getPositionWorld().y);
@@ -213,10 +217,26 @@ void GameMap_Txt::renderAbove()
 		}
 	}
 
-	_spriteHandler->SetTransform(&matOld); // set lai matrix cu~ chi ap dung transfrom voi class nay
+	auto listUnit = _grid->getUnitsContain(_viewPort);
+
+	//for (size_t i = 0; i < listUnit.size(); i++)
+	//{
+	//	Unit curUnit = listUnit[i];
+
+	//	RECT tile = curUnit.getBoudingUnit();
+
+	//	Vec3 pos = curUnit.getPosWorld();
+	//	//_RPT1(0, "[INFO] POS TILE %d %d %d %d \n", tile.left, tile.top, tile.right, tile.bottom);
+	//	_spriteHandler->Draw(
+	//		_texture->get(_textureMapAboveId),
+	//		&tile, NULL, &pos, D3DCOLOR_ARGB(255, 255, 255, 255));
+	//}
+
+	_spriteHandler->SetTransform(&matOld);
+	// set lai matrix cu~ chi ap dung transfrom voi class nay
 }
 
-void GameMap_Txt::update(float dt)
+void GameMap::update(float dt)
 {
 	// Update cac obj tinh apple , ball, ....
 	RECT _viewPort = _camera->getBounding();

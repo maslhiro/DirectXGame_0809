@@ -18,7 +18,7 @@
 </data>
  </layer>
  <objectgroup id="12" name="6000" visible="0">
-  <object id="65" name="600001" x="150.333" y="2170" width="1" height="1"/>
+  <object id="65" name="600001" x="150.333" y="2470" width="1" height="1"/>
  </objectgroup>
  <objectgroup id="17" name="4501" visible="0">
   <object id="37" name="450104" x="2813.33" y="1866" width="165" height="32"/>
@@ -27,9 +27,9 @@
   <object id="40" name="450101" x="2225.64" y="1834" width="237.227" height="16.5"/>
  </objectgroup>
  <objectgroup id="15" name="4500" visible="0">
-  <object id="35" name="450001" x="1.95833" y="2217.67" width="2973.88" height="55"/>
+  <object id="35" name="450001" x="1.95833" y="2197.17" width="2973.88" height="75.5"/>
  </objectgroup>
- <objectgroup id="22" name="4006">
+ <objectgroup id="22" name="4006" visible="0">
   <object id="70" name="400601" x="2635" y="2069" width="10" height="10" rotation="1"/>
   <object id="71" name="400602" x="2527" y="1978" width="10" height="10"/>
   <object id="72" name="400603" x="2656" y="1913" width="10" height="10"/>

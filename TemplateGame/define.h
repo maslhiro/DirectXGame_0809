@@ -24,7 +24,7 @@
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 540
 
-#define MAX_FRAME_RATE 60
+#define MAX_FRAME_RATE 90
 
 // Khoang cach camera
 #define DISTANCE_X 5

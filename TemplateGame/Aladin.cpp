@@ -10,6 +10,7 @@ Aladin::Aladin() : GameObject()
 	_camera = nullptr;
 
 	_isOnGround = false;
+	_moveDirection = 0;
 }
 
 void Aladin::setPosView(Vec3 pos)
@@ -63,6 +64,7 @@ void Aladin::render()
 void Aladin::update(float dt)
 {
 	// Get list obj nam trong view port
+	//_RPT1(0, "[STATE UPDATE] %d \n", _state);
 
 	auto listObj = _grid->getListGameObjContain(getBoundingBox());
 
@@ -100,16 +102,14 @@ void Aladin::update(float dt)
 		}
 	}
 
-	switch (_state)
-	{
-	case eIdState::JUMPING:
+	if ((_state & eIdState::JUMPING) == eIdState::JUMPING)
 	{
 		// Qua frame thu 2 moi bat dau nhay len
-		if (_curAnimation.getCurrentFrame() <= 2) break;
+		if (_curAnimation.getCurrentFrame() <= 2) goto updateAni;
 
 		if (_isOnGround)
 		{
-			RECT t1 = getBoundingBox();
+			//RECT t1 = getBoundingBox();
 			//_RPT1(0, "[IS ON GROUND] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
 
 			if (_curAnimation.getCurrentFrame() == 12)
@@ -119,7 +119,6 @@ void Aladin::update(float dt)
 				_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
 				this->setState(eIdState::STANDING);
 			}
-			else break;
 		}
 		else {
 			if (_dy < 0.f)
@@ -129,7 +128,7 @@ void Aladin::update(float dt)
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
 
 				// Den frame nay la phai roi xuong
-				if (_curAnimation.getCurrentFrame() == 11) {
+				if (_curAnimation.getCurrentFrame() == 10) {
 					this->setIsAnimated(false);
 					this->setDy(_gravity);
 				}
@@ -168,65 +167,21 @@ void Aladin::update(float dt)
 
 				}
 
-
 				this->updateAllPos(Vec3(0, _dy*timeUpdate, 0));
 			}
+
 		}
 	}
-	break;
-	default:
-		break;
-	}
 
-	_curAnimation.update(dt);
-
-}
-
-void Aladin::handlerInput(float dt)
-{
-	//auto _device = DeviceManager::getInstance();
-	auto _input = InputHandler::getInstance();
-
-	// Xu ly phan di chuyen cua aladin
-	switch (_state)
-	{
-	case eIdState::STANDING:
-	{
-		if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
-			_isFlip = true;
-
-			this->fixPosAnimation(eIdState::RUNNING);
-			this->setState(eIdState::RUNNING);
-
-		}
-		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
-		{
-			_isFlip = false;
-
-			this->fixPosAnimation(eIdState::RUNNING);
-			this->setState(eIdState::RUNNING);
-
-		}
-		else if (_input->getMapKey()[KEY_W])
-		{
-			this->setState(eIdState::JUMPING);
-			this->setDy(-_gravity);
-		}
-	}
-	break;
-	case eIdState::RUNNING:
+	if ((_state & eIdState::RUNNING) == eIdState::RUNNING)
 	{
 		// Ko co su kien tu A va D
-		if (!_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+		if (_moveDirection == 0) {
 			this->fixPosAnimation(eIdState::STANDING);
 			this->setState(eIdState::STANDING);
 		}
-		// Vừa bấm A vừa D
-		else if (_input->getMapKey()[KEY_A] && _input->getMapKey()[KEY_D]) {
-			this->fixPosAnimation(eIdState::STANDING);
-			this->setState(eIdState::STANDING);
-		}
-		else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+		// Move Left
+		else if (_moveDirection == -1) {
 			_isFlip = true;
 
 			this->setDx(-_speed);
@@ -237,10 +192,9 @@ void Aladin::handlerInput(float dt)
 			{
 				_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
 			}
-
-
 		}
-		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
+		// Move right
+		else if (_moveDirection == 1)
 		{
 			_isFlip = false;
 
@@ -252,19 +206,88 @@ void Aladin::handlerInput(float dt)
 			{
 				_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
 			}
+		}
+	}
 
+updateAni:	_curAnimation.update(dt);
 
+}
+
+void Aladin::handlerInput(float dt)
+{
+	//auto _device = DeviceManager::getInstance();
+	auto _input = InputHandler::getInstance();
+
+	// Xu ly phan di chuyen cua aladin
+
+	if ((_state & eIdState::STANDING) == eIdState::STANDING)
+	{
+		if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+
+			_moveDirection = -1;
+
+			_isFlip = true;
+			this->fixPosAnimation(eIdState::RUNNING);
+			this->setState(eIdState::RUNNING);
 
 		}
-	}break;
-	case eIdState::JUMPING:
-	{
-		// test
+		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
+		{
+			_moveDirection = 1;
 
+			_isFlip = false;
+			this->fixPosAnimation(eIdState::RUNNING);
+			this->setState(eIdState::RUNNING);
+
+		}
+		else if (_input->getMapKey()[KEY_W])
+		{
+			this->setState(eIdState::JUMPING);
+			this->setDy(-_gravity);
+		}
 	}
-	break;
-	default:
-		break;
+
+	if ((_state & eIdState::RUNNING) == eIdState::RUNNING)
+	{
+		// Ko co su kien tu A va D
+		if (!_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+			_moveDirection = 0;
+		}
+		// Vừa bấm A vừa D
+		else if (_input->getMapKey()[KEY_A] && _input->getMapKey()[KEY_D]) {
+			_moveDirection = 0;
+		}
+		else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+			_moveDirection = -1;
+		}
+		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
+		{
+			_moveDirection = 1;
+		}
+	}
+
+	if ((_state & eIdState::JUMPING) == eIdState::JUMPING)
+	{
+
+		if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+			_state |= eIdState::RUNNING;
+			_moveDirection = -1;
+		}
+		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
+		{
+			_state |= eIdState::RUNNING;
+			_moveDirection = 1;
+		}
+		// Ko co su kien tu A va D
+		else if (!_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+			_state &= ~eIdState::RUNNING;
+			_moveDirection = 0;
+		}
+		// Vừa bấm A vừa D
+		else if (_input->getMapKey()[KEY_A] && _input->getMapKey()[KEY_D]) {
+			_state &= ~eIdState::RUNNING;
+			_moveDirection = 0;
+		}
 	}
 }
 

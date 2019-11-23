@@ -2,11 +2,11 @@
 enum eIdState
 {
 	NONE = 0,
-	STANDING = 2,
-	RUNNING = 4,
-	JUMPING = 6,
-	EXPLODING = 8,
-	DAMAGE = 10,
+	STANDING = 1 << 1,
+	RUNNING = 1 << 2,
+	JUMPING = 1 << 3,
+	EXPLODING = 1 << 4,
+	DAMAGE = 1 << 5,
 };
 
 // Object >= 4000
@@ -42,8 +42,8 @@ enum eIdTexture
 	ITEM_TEX,
 	ITEM_MAP_TEX,
 
-	SCENE_TEX = 70,
-
+	SCENE_DUNGEON_TEX = 70,
+	SCENE_ABOVE_TEX
 };
 
 //Sprite > 1000

@@ -14,6 +14,12 @@ private:
 	pInputHandler _input;
 	std::unordered_map<int, bool> _keys;
 
+	// Xet huong di chuyen
+	// 1 -> right
+	// 0 -> none
+	// -1 -> left
+	int _moveDirection;
+
 	// Pos voi viewPort
 	Vec3 _pos;
 

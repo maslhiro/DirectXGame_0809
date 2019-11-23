@@ -16,6 +16,7 @@ FirstScene::~FirstScene()
 void FirstScene::init()
 {
 	_map2.init();
+	_map2.setIdTextureMapAbove(eIdTexture::SCENE_ABOVE_TEX);
 	_map2.setPointerPlayer(_player);
 
 	_grid->setPathTxt("Resource//Map//grid.txt");

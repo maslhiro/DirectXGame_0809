@@ -133,7 +133,7 @@
     <ClCompile Include="FixedGrid.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
-    <ClCompile Include="GameMap_Txt.cpp" />
+    <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="EnumID.h" />
@@ -165,7 +165,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="DeviceManager.h" />
-    <ClInclude Include="GameMap_Txt.h" />
+    <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Graphic.h" />

@@ -24,7 +24,8 @@ void Game::loadResource()
 {
 #pragma region Load Texture
 	// Map
-	_texture->add(eIdTexture::SCENE_TEX, L"Resource//Map//map.png", D3DCOLOR_XRGB(255, 255, 255));
+	_texture->add(eIdTexture::SCENE_DUNGEON_TEX, L"Resource//Map//Map.png", D3DCOLOR_XRGB(255, 255, 255));
+	_texture->add(eIdTexture::SCENE_ABOVE_TEX, L"Resource//Map//Map_Above.png", D3DCOLOR_XRGB(163, 73, 164));
 
 	// Bounding box
 	_texture->add(eIdTexture::BOX_RED_TEX, L"Resource//Object//Box_Red.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -35,7 +36,7 @@ void Game::loadResource()
 	_texture->add(eIdTexture::ITEM_TEX, L"Resource//Object//Item.png", D3DCOLOR_XRGB(255, 0, 255));
 	_texture->add(eIdTexture::ITEM_MAP_TEX, L"Resource//Object//Item_Map.png", D3DCOLOR_XRGB(163, 73, 164));
 
-	// Aladin
+	// Aladdin
 	_texture->add(eIdTexture::ALADIN_TEX, L"Resource//Object//Aladin.png", D3DCOLOR_XRGB(106, 148, 189));
 #pragma endregion
 
@@ -180,7 +181,7 @@ int Game::render()
 int Game::update(float dt)
 {
 	//_test.update(dt);
-	_test.update(dt);
+	//_test.update(dt);
 	_firstScene.handlerInput(dt);
 
 	_firstScene.update(dt);

@@ -1,7 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Apple.h"
-#include "GameMap_Txt.h"
+#include "GameMap.h"
 #include "Aladin.h"
 
 class FirstScene :
@@ -9,7 +9,7 @@ class FirstScene :
 {
 private:
 
-	GameMap_Txt _map2;
+	GameMap _map2;
 	pCamera _camera;
 
 	pFixedGrid _grid;

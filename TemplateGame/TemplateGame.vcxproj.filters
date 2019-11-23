@@ -114,9 +114,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
-    <ClCompile Include="FirstScene.cpp">
-      <Filter>Source Files\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Unit.cpp">
       <Filter>Source Files\FixedGrid</Filter>
     </ClCompile>
@@ -125,9 +122,6 @@
     </ClCompile>
     <ClCompile Include="Apple.cpp">
       <Filter>Source Files\Object\Item</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMap_Txt.cpp">
-      <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
     <ClCompile Include="WreckingBall.cpp">
       <Filter>Source Files\Object\Enemy</Filter>
@@ -152,6 +146,12 @@
     </ClCompile>
     <ClCompile Include="Ground.cpp">
       <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstScene.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,9 +212,6 @@
     <ClInclude Include="FixedGrid.h">
       <Filter>Header Files\FixedGrid</Filter>
     </ClInclude>
-    <ClInclude Include="GameMap_Txt.h">
-      <Filter>Header Files\BaseClass</Filter>
-    </ClInclude>
     <ClInclude Include="Apple.h">
       <Filter>Header Files\Object\Item</Filter>
     </ClInclude>
@@ -241,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="Ground.h">
       <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

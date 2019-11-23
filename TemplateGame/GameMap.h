@@ -22,7 +22,7 @@
 #pragma endregion
 
 
-class GameMap_Txt
+class GameMap
 {
 
 private:
@@ -38,14 +38,15 @@ private:
 	pAladin _player;
 
 	// Thong tin map
-	int _textureMapId, _mapWidth, _mapHeight, _tileWidth, _tileHeight;
+	int _textureMapId, _textureMapAboveId, _mapWidth, _mapHeight, _tileWidth, _tileHeight;
 
 public:
-	GameMap_Txt();
-	~GameMap_Txt();
+	GameMap();
+	~GameMap();
 
 	void init();
 
+	void setIdTextureMapAbove(int);
 	void setCamera(pCamera);
 	void setScale(Vec2);
 	void setScale(float);
@@ -76,4 +77,4 @@ public:
 
 };
 
-typedef GameMap_Txt* pGameMap_Txt;
+typedef GameMap* pGameMap;
