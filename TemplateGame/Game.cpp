@@ -59,7 +59,7 @@ void Game::loadResource()
 	//RECT bb = _test.getBounding();
 	//_RPT1(0, "[INFO] %d %d %d %d \n", bb.left, bb.top, bb.right, bb.bottom);
 
-	//_test = _animationManager->get(eIdAnimation::ROCK_VISIBLE);
+	//_test = _animationManager->get(eIdAnimation::ALADING_RUN_JUMP);
 	//_test.setPosition(Vec3(300, 300, 1));
 	//_test.setScale(Vec2(2, 2));
 	//_test.setDrawingBound(true);

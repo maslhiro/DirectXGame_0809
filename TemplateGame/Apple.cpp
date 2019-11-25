@@ -15,7 +15,7 @@ void Apple::loadResource()
 {
 	_listAnimation[eIdState::NONE] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_VISIBLE);
 
-	_listAnimation[eIdState::EXPLODING] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_EXPLODE);
+	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_EXPLODE);
 
 	this->setState(eIdState::NONE);
 }
@@ -35,7 +35,7 @@ void Apple::update(float dt)
 {
 	if (_isTerminated) return;
 
-	if (_state == eIdState::EXPLODING)
+	if (_state == eIdState::EXPLODE)
 	{
 		if (_curAnimation.getLoopCount() == 1) _isTerminated = true;
 	}

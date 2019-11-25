@@ -1,12 +1,22 @@
+enum eDirection
+{
+	LEFT = 1,
+	TOP,
+	RIGHT,
+	BOTTOM
+};
+
 // State bit
 enum eIdState
 {
 	NONE = 0,
-	STANDING = 1 << 1,
-	RUNNING = 1 << 2,
-	JUMPING = 1 << 3,
-	EXPLODING = 1 << 4,
-	DAMAGE = 1 << 5,
+	STAND = 1 << 1,
+	RUN = 1 << 2,
+	JUMP = 1 << 3,
+	RUN_JUMP = 1 << 4,
+	EXPLODE = 1 << 5,
+	WAIT = 1 << 6,
+	DAMAGE = 1 << 7,
 };
 
 // Object >= 4000
@@ -149,6 +159,14 @@ enum eIdSprite
 	ALADIN_DAMAGE_05,
 	ALADIN_DAMAGE_06,
 
+	ALADIN_RUN_JUMP_01 = 2070,
+	ALADIN_RUN_JUMP_02,
+	ALADIN_RUN_JUMP_03,
+	ALADIN_RUN_JUMP_04,
+	ALADIN_RUN_JUMP_05,
+	ALADIN_RUN_JUMP_06,
+	ALADIN_RUN_JUMP_07,
+
 #pragma endregion
 
 };
@@ -173,5 +191,6 @@ enum eIdAnimation
 	ALADIN_RUNNING,
 	ALADIN_DAMAGE,
 	ALADIN_IDLING_01,
-	ALADIN_IDLING_02
+	ALADIN_IDLING_02,
+	ALADING_RUN_JUMP
 };

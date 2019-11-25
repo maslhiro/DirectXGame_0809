@@ -30,19 +30,16 @@
 #define DISTANCE_X 5
 #define DISTANCE_Y 5
 
-// UNIT GRID
-#define WIDTH_UNIT 227
-#define HEIGHT_UNIT 228
-
 #define BBOX_WIDTH 5
 
 #define KEY_A 0x41
 #define KEY_D 0x44
 #define KEY_S 0x53
 #define KEY_W 0x57
-#define KEY_SPACE 0x08
+#define KEY_Q 0x51
 
-#define MAX_JUMP_DISTANCE 140
+// 2s de aladdin tu stand => wait
+#define WAIT_TIME_ALADDIN 5.f
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

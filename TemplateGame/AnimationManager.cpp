@@ -43,7 +43,7 @@ void AnimationManager::load() {
 
 #pragma region WreckingBall
 	Animation _wreckingBall;
-	_wreckingBall.setTimePerFrame(0.12f);
+	_wreckingBall.setTimePerFrame(0.08f);
 	_wreckingBall.setIsLoop(true);
 	_wreckingBall.setTypeFixPos(2);
 	//_wreckingBall.setIsReverse(true);
@@ -148,9 +148,9 @@ void AnimationManager::load() {
 
 
 	Animation _idle;
-	_idle.setTimePerFrame(0.15f);
+	_idle.setTimePerFrame(0.18f);
 	_idle.setIsLoop(true);
-	_idle.setTypeFixPos(1);
+	_idle.setTypeFixPos(4);
 	_idle.setScale(2.0f, 2.0f);
 	_idle.addSprite(eIdSprite::ALADIN_IDLE_01);
 	_idle.addSprite(eIdSprite::ALADIN_IDLE_02);
@@ -219,6 +219,21 @@ void AnimationManager::load() {
 	_damage.addSprite(eIdSprite::ALADIN_DAMAGE_06);
 
 	_listAnimation[eIdAnimation::ALADIN_DAMAGE] = _damage;
+
+	Animation _runJump;
+	_runJump.setTimePerFrame(0.15f);
+	_runJump.setIsLoop(false);
+	_runJump.setTypeFixPos(1);
+	_runJump.setScale(2.0f, 2.0f);
+	_runJump.addSprite(eIdSprite::ALADIN_RUN_JUMP_01);
+	_runJump.addSprite(eIdSprite::ALADIN_RUN_JUMP_02);
+	_runJump.addSprite(eIdSprite::ALADIN_RUN_JUMP_03);
+	_runJump.addSprite(eIdSprite::ALADIN_RUN_JUMP_04);
+	_runJump.addSprite(eIdSprite::ALADIN_RUN_JUMP_05);
+	_runJump.addSprite(eIdSprite::ALADIN_RUN_JUMP_06);
+	_runJump.addSprite(eIdSprite::ALADIN_RUN_JUMP_07);
+
+	_listAnimation[eIdAnimation::ALADING_RUN_JUMP] = _runJump;
 #pragma endregion
 
 }

@@ -89,7 +89,7 @@ bool GameObject::checkCollision(RECT r)
 }
 
 // dt dx dy
-float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, float dx, float dy)
+float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, float dx, float dy, int &direction)
 {
 	int dxEntry, dxExit;
 	int dyEntry, dyExit;
@@ -168,31 +168,31 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, float dx, 
 		return dt;
 	}
 
-	// Kiem tra xem time theo chieu x hay y se dung obj truoc
-	//if (txEntry > tyEntry)
-	//{
-	//	// va cham theo truc x
-	//	if (dxEntry > 0.0f)
-	//	{
-	//		if (dx != 0.0f)	result = eDirection::D_RIGHT;
-	//	}
-	//	// dx co the am neu object  va cham voi other
-	//	else
-	//	{
-	//		if (dx != 0.0f)	result = eDirection::D_LEFT;
-	//	}
-	//}
-	//else
-	//{
-	//	if (dyEntry > 0.0f)
-	//	{
-	//		if (dy != 0.0f)	result = eDirection::D_UP;
-	//	}
-	//	else
-	//	{
-	//		if (dy != 0.0f)	result = eDirection::D_DOWN;
-	//	}
-	//}
+	//Kiem tra xem time theo chieu x hay y se dung obj truoc
+	if (txEntry > tyEntry)
+	{
+		// va cham theo truc x
+		if (dxEntry > 0.0f)
+		{
+			if (dx != 0.0f)	direction = eDirection::RIGHT;
+		}
+		// dx co the am neu object  va cham voi other
+		else
+		{
+			if (dx != 0.0f)	direction = eDirection::LEFT;
+		}
+	}
+	else
+	{
+		if (dyEntry > 0.0f)
+		{
+			if (dy != 0.0f)	direction = eDirection::TOP;
+		}
+		else
+		{
+			if (dy != 0.0f)	direction = eDirection::BOTTOM;
+		}
+	}
 
 	//_RPT1(0, "[INFO] ENTRY TIME : %f \n", entryTime);
 

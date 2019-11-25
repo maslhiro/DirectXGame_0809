@@ -25,6 +25,11 @@ private:
 
 	// Bien bool check Player da dung tren mat dat chua
 	bool _isOnGround;
+
+	bool _isDamage;
+
+	float _waitTime;
+
 public:
 	Aladin();
 
