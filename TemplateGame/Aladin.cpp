@@ -83,16 +83,16 @@ void Aladin::update(float dt)
 			auto obj = listObj[i];
 
 			// Kiem tra va cham voi ground
-			if (obj->getIdType() == eIdObject::GROUND)
-			{
-				//int objID = obj->getId();
-				//_RPT1(0, "[ID OBJ] %d \n", objID);
-				float check = this->checkCollision(obj->getBoundingBox());
-				if (!check) {
-					this->setDy(_gravity);
-					this->setState(eIdState::JUMP);
-				}
-			}
+			//if (obj->getIdType() == eIdObject::GROUND)
+			//{
+			//	//int objID = obj->getId();
+			//	//_RPT1(0, "[ID OBJ] %d \n", objID);
+			//	float check = this->checkCollision(obj->getBoundingBox());
+			//	if (!check) {
+			//		this->setDy(_gravity);
+			//		this->setState(eIdState::JUMP);
+			//	}
+			//}
 
 			// Kiem tra co dang dung tren rock ko
 			//if (obj->getIdType() == eIdObject::ROCK)
@@ -262,7 +262,7 @@ void Aladin::update(float dt)
 						float check2 = this->checkCollision_SweptAABB(obj->getCurrentBoudingBox(), timeUpdate, _dx, _dy, direction);
 
 						//if (obj->getIdType() == eIdObject::ROCK) {
-						_RPT1(0, "[CHECK Collision] CHECK COLLISION : %d \n", direction);
+						//_RPT1(0, "[CHECK Collision] CHECK COLLISION : %d \n", direction);
 						//}
 						//float check = this->checkCollision(obj->getBoundingBox());
 
