@@ -150,6 +150,7 @@
     <ClCompile Include="StoneColumn_3.cpp" />
     <ClCompile Include="StoneColumn_4.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="WreckingBall.cpp" />
   </ItemGroup>
@@ -181,6 +182,7 @@
     <ClInclude Include="StoneColumn_3.h" />
     <ClInclude Include="StoneColumn_4.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="WreckingBall.h" />
   </ItemGroup>

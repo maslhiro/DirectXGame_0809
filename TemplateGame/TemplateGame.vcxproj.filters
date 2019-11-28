@@ -64,6 +64,12 @@
     <Filter Include="Header Files\Object\Item">
       <UniqueIdentifier>{0a3075bb-4847-4a1b-93e8-2cefbdb5f0dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Map">
+      <UniqueIdentifier>{0328bdd6-d6fc-4c11-967b-33a523096869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Map">
+      <UniqueIdentifier>{55106005-4794-4954-b20e-24745ee8cf41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -148,10 +154,13 @@
       <Filter>Source Files\Object\Map</Filter>
     </ClCompile>
     <ClCompile Include="GameMap.cpp">
-      <Filter>Source Files\BaseClass</Filter>
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
     <ClCompile Include="FirstScene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Source Files\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -240,7 +249,10 @@
       <Filter>Header Files\Object\Map</Filter>
     </ClInclude>
     <ClInclude Include="GameMap.h">
-      <Filter>Header Files\BaseClass</Filter>
+      <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

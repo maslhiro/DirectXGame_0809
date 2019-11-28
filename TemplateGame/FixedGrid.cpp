@@ -45,35 +45,17 @@ void FixedGrid::load(const char* filePath)
 
 	while (!feof(file))
 	{
-		// Dong dau tien thong so map
+		// Dong dau tien so OBJ
 		//
-		// idTexture - mapW - mapH - tileW - tileH - objW - objH
+		// numObj
 		//
 
 		if (countline == 0)
 		{
 			// Doc info cua map
-			fscanf(file, "%d %d %d %d %d %d", &_textureMapId, &_mapWidth, &_mapHeight, &_widthUnit, &_heightUnit, &_numObj);
+			fscanf(file, "%d", &_numObj);
 
-			// Tinh so num X, Y
-			_numX = _mapWidth / _widthUnit;
-			_numY = _mapHeight / _heightUnit;
-
-			// Dong dau tien la thong tin cua grid
-			// numX - numY - unitW - unitH - mapW - mapH 
-			fprintf(fileSave, "%d\t%d\t%d\t%d\t%d\t%d\n", _numX, _numY, _widthUnit, _heightUnit, _mapWidth, _mapHeight);
-
-			_RPT1(0, "[MAP TXT] %d %d %d %d %d %d \n", _textureMapId, _mapWidth, _mapHeight, _widthUnit, _heightUnit, _numObj);
-		}
-		else if (countline == 1)
-		{
-			int posx, posy;
-			fscanf(file, "%d %d", &posx, &posy);
-			_RPT1(0, "[MAP TXT - PLAYER ] %d %d \n", posx, posy);
-			_posWorld_PLAYER = Vec3((float)posx, (float)posy, 0);
-			if (_isLoaded) {
-				return;
-			}
+			_RPT1(0, "[MAP TXT] NUM OBJ  %d \n", _numObj);
 		}
 		else
 		{
@@ -188,15 +170,15 @@ void FixedGrid::load(const char* filePath)
 	int count = 0;
 	int cellX = 0, cellY = 0;
 
-	for (int x = 0; x < _mapWidth; x += _widthUnit)
+	for (int x = 0; x < _mapWidth; x += UNIT_WIDTH)
 	{
-		for (int y = 0; y < _mapHeight; y += _heightUnit)
+		for (int y = 0; y < _mapHeight; y += UNIT_HEIGHT)
 		{
-			cellX = x / _widthUnit;
-			cellY = y / _heightUnit;
+			cellX = x / UNIT_WIDTH;
+			cellY = y / UNIT_HEIGHT;
 			//_RPT1(0, "[INFO GRID] CELL x: %d y: %d \n", cellX, cellY);
 			this->_cell[cellX][cellY].setIndex(cellX, cellY);
-			this->_cell[cellX][cellY].setSize(_widthUnit, _heightUnit);
+			this->_cell[cellX][cellY].setSize(UNIT_WIDTH, UNIT_HEIGHT);
 			this->_cell[cellX][cellY].setPosWorld(x, y);
 
 			count++;

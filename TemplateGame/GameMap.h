@@ -4,6 +4,8 @@
 #include "Texture.h"
 #include "Camera.h"
 #include "FixedGrid.h"
+#include "Tile.h"
+#include "RectSprite.h"
 
 #pragma region List GAME OBJ
 
@@ -37,6 +39,10 @@ private:
 	Vec2 _scale;
 	pAladin _player;
 
+	// tileset cua map
+	std::vector<RectSprite> _tiles;
+
+	std::vector<Tile> _map;
 	// Thong tin map
 	int _textureMapId, _textureMapAboveId, _mapWidth, _mapHeight, _tileWidth, _tileHeight;
 
@@ -64,7 +70,15 @@ public:
 
 	void setPointerPlayer(pAladin);
 
+	void loadGameObj(const char*);
+
+	void loadTileSet(const char*);
+
+	// Load Map txt ma tran 
+	// set luon w, h cua game
 	void load(const char*);
+
+	std::vector<Tile> getMapContain(RECT);
 
 	void release();
 

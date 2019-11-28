@@ -6,6 +6,7 @@
 
 #include <unordered_map>
 #include <sstream>
+#include <fstream>
 #include <iostream> 
 #include <stdio.h>
 #include <string.h>
@@ -25,6 +26,11 @@
 #define SCREEN_HEIGHT 540
 
 #define MAX_FRAME_RATE 90
+
+#define TILE_SIZE 32
+
+#define UNIT_WIDTH 200
+#define UNIT_HEIGHT 200
 
 // Khoang cach camera
 #define DISTANCE_X 5

@@ -29,7 +29,8 @@ void FirstScene::init()
 void FirstScene::loadResource()
 {
 	auto _deviceManager = DeviceManager::getInstance();
-	_map2.load("Resource//Map//map.txt");
+	_map2.loadTileSet("Resource/Map/tile.txt");
+	_map2.load("Resource/Map/map.txt");
 
 	// set cam o goc duoi ben trai
 	_camera->setPositisonWorld(_deviceManager->getWidthWindow() / 2, _map2.getHeight() - 4 - _deviceManager->getHeightWindow() / 2);
@@ -50,9 +51,9 @@ void FirstScene::loadResource()
 
 void FirstScene::update(float dt)
 {
-	_player->update(dt);
+	//_player->update(dt);
 
-	_camera->update(dt);
+	//_camera->update(dt);
 
 	_map2.update(dt);
 
@@ -60,8 +61,8 @@ void FirstScene::update(float dt)
 
 void FirstScene::render()
 {
-	auto _drawDebug = DrawDebug::getInstance();
-	auto _device = DeviceManager::getInstance();
+	//auto _drawDebug = DrawDebug::getInstance();
+	//auto _device = DeviceManager::getInstance();
 
 	_map2.render();
 	_map2.renderAbove();
@@ -73,7 +74,7 @@ void FirstScene::render()
 
 void FirstScene::handlerInput(float dt)
 {
-	_player->handlerInput(dt);
+	//_player->handlerInput(dt);
 }
 
 void FirstScene::release()
