@@ -109,14 +109,13 @@ void GameMap::loadTileSet(const char *filePath)
 		return;
 	}
 
-	int idTexture = 0;
-	fileTile >> idTexture;
+	fileTile >> _textureMapId;
 
 	int numTile = 0;
 	fileTile >> numTile;
 
-	_RPT1(0, "[TILE TXT] Texture %d \n", idTexture);
-	_RPT1(0, "[TILE TXT] NUM Tile %d \n", numTile);
+	//_RPT1(0, "[TILE TXT] Texture %d \n", idTexture);
+	//_RPT1(0, "[TILE TXT] NUM Tile %d \n", numTile);
 
 	int left = 0;
 	int top = 0;
@@ -134,15 +133,14 @@ void GameMap::loadTileSet(const char *filePath)
 		fileTile >> right;
 		fileTile >> bottom;
 
-		RectSprite r;
-		r.setIdTexture(id);
+		RECT r;
 		r.left = left;
 		r.top = top;
 		r.right = right;
 		r.bottom = bottom;
-		_RPT1(0, "[TILE TXT %d %d %d %d %d\n", id, left, top, right, bottom);
+		//_RPT1(0, "[TILE TXT %d %d %d %d %d\n", id, left, top, right, bottom);
 
-		_tiles.push_back(r);
+		_tiles[id] = r;
 
 		numTile -= 1;
 	}
@@ -171,8 +169,8 @@ void GameMap::load(const char *filePath)
 	_mapWidth = numTile_X * TILE_SIZE;
 	_mapHeight = numTile_Y * TILE_SIZE;
 
-	_RPT1(0, "[MAP TXT] NUM X %d \n", numTile_X);
-	_RPT1(0, "[MAP TXT] NUM Y %d \n", numTile_Y);
+	//_RPT1(0, "[MAP TXT] NUM X %d \n", numTile_X);
+	//_RPT1(0, "[MAP TXT] NUM Y %d \n", numTile_Y);
 
 	int numTile = numTile_X * numTile_Y;
 	int numX = 0;
@@ -191,7 +189,7 @@ void GameMap::load(const char *filePath)
 
 		t.setPosWorld(numX*TILE_SIZE, numY*TILE_SIZE);
 
-		_RPT1(0, "[MAP TXT] ID TILE %d NUM X %d || NUM Y L %d\n", id, t._x, t._y);
+		//_RPT1(0, "[MAP TXT] ID TILE %d NUM X %d || NUM Y L %d\n", id, t._x, t._y);
 
 		_map.push_back(t);
 
@@ -226,7 +224,7 @@ std::vector<Tile> GameMap::getMapContain(RECT _view)
 	{
 		if ((_map[i]._x >= min_CellX && _map[i]._x <= max_CellX) && (_map[i]._y >= min_CellY && _map[i]._y <= max_CellY))
 		{
-			_RPT1(0, "[MAP CONTAIN] %d \n", i);
+			//_RPT1(0, "[MAP CONTAIN] %d \n", i);
 			listTile.push_back(_map[i]);
 		}
 	}
@@ -268,13 +266,12 @@ void GameMap::render()
 
 	for (size_t i = 0; i < mapContain.size(); i++)
 	{
-		RectSprite rectTile = _tiles[mapContain[i].getTileId() - 1];
-		RECT boudingTile = rectTile.getRECT();
+		RECT boudingTile = _tiles[mapContain[i].getTileId()];
 
 		Vec3 pos = mapContain[i].getPosWorld();
-		_RPT1(0, "[INFO] POS TILE %f %f \n", pos.x, pos.y);
+		//_RPT1(0, "[INFO] POS TILE %f %f \n", pos.x, pos.y);
 		_spriteHandler->Draw(
-			_texture->get(70),
+			_texture->get(_textureMapId),
 			&boudingTile, NULL, &pos, D3DCOLOR_ARGB(255, 255, 255, 255));
 	}
 

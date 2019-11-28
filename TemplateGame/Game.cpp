@@ -25,7 +25,7 @@ void Game::loadResource()
 #pragma region Load Texture
 	// Map
 	_texture->add(eIdTexture::SCENE_DUNGEON_TEX, L"Resource//Map//Map.png", D3DCOLOR_XRGB(255, 255, 255));
-	_texture->add(eIdTexture::SCENE_ABOVE_TEX, L"Resource//Map//Map_Above.png", D3DCOLOR_XRGB(163, 73, 164));
+	//_texture->add(eIdTexture::SCENE_ABOVE_TEX, L"Resource//Map//Map_Above.png", D3DCOLOR_XRGB(163, 73, 164));
 
 	// Bounding box
 	_texture->add(eIdTexture::BOX_RED_TEX, L"Resource//Object//Box_Red.png", D3DCOLOR_XRGB(255, 255, 255));

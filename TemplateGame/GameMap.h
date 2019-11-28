@@ -5,7 +5,6 @@
 #include "Camera.h"
 #include "FixedGrid.h"
 #include "Tile.h"
-#include "RectSprite.h"
 
 #pragma region List GAME OBJ
 
@@ -40,7 +39,7 @@ private:
 	pAladin _player;
 
 	// tileset cua map
-	std::vector<RectSprite> _tiles;
+	std::unordered_map<int, RECT> _tiles;
 
 	std::vector<Tile> _map;
 	// Thong tin map

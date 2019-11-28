@@ -34,6 +34,7 @@ void FirstScene::loadResource()
 
 	// set cam o goc duoi ben trai
 	_camera->setPositisonWorld(_deviceManager->getWidthWindow() / 2, _map2.getHeight() - 4 - _deviceManager->getHeightWindow() / 2);
+	//_camera->setPositisonWorld(_deviceManager->getWidthWindow() / 2, _deviceManager->getHeightWindow() / 2);
 	_camera->setSizeWindow(_deviceManager->getWidthWindow(), _deviceManager->getHeightWindow());
 	_camera->setSpeed(130.f);
 
@@ -65,7 +66,7 @@ void FirstScene::render()
 	//auto _device = DeviceManager::getInstance();
 
 	_map2.render();
-	_map2.renderAbove();
+	//_map2.renderAbove();
 
 	//_drawDebug->drawLineHorizontal(_device->getHeightWindow() / 2, 500);
 	//_drawDebug->drawLineVertical(_device->getWidthWindow() / 2, 500);

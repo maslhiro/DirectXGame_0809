@@ -125,7 +125,7 @@ void Animation::addSprite(eIdSprite id) {
 
 	// cuoi cung moi add sprite vao frame
 	_listSpriteId.push_back(id);
-	_RPT1(0, "[INFO] Add Sprite [%d] Done \n", id);
+	//_RPT1(0, "[INFO] Add Sprite [%d] Done \n", id);
 }
 
 int Animation::getSprite(int index)
