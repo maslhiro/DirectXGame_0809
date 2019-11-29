@@ -54,7 +54,7 @@ void Texture::add(eIdTexture eId, LPCWSTR filePath, D3DCOLOR transparentColor)
 	}
 
 	_listTexture[eId] = texture;
-	_RPT1(0, "[INFO] Texture loaded Ok : id = %d \n", eId);
+	//_RPT1(0, "[INFO] Texture loaded Ok : id = %d \n", eId);
 }
 
 LPDIRECT3DTEXTURE9 Texture::get(unsigned int eId)

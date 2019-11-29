@@ -113,9 +113,9 @@ void Camera::update(float dt)
 	if (_positionWorld == _nextPosWorld) return;
 
 	// Không cho cam ra khỏi map
-	if (_nextPosWorld.x < (_width * 2.0 / 3.0))
+	if (_nextPosWorld.x < ((_width * 2.0) / 3.0) - 34.)
 	{
-		_nextPosWorld.x = ((float)_width) * 2.0 / 3.0;
+		_nextPosWorld.x = ((float)_width) * 2.0 / 3.0 - 34.;
 	}
 	if (_nextPosWorld.x > (_mapWidth - _width / 2))
 	{

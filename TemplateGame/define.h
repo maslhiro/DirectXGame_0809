@@ -27,10 +27,10 @@
 
 #define MAX_FRAME_RATE 90
 
-#define TILE_SIZE 32
+#define TILE_SIZE 128
 
-#define UNIT_WIDTH 200
-#define UNIT_HEIGHT 200
+#define UNIT_WIDTH 228
+#define UNIT_HEIGHT 227
 
 // Khoang cach camera
 #define DISTANCE_X 5

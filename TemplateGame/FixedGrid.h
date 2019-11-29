@@ -22,10 +22,8 @@ class FixedGrid
 {
 private:
 
-	int _widthUnit, _heightUnit;
-
 	// Info map 
-	int _textureMapId, _mapWidth, _mapHeight, _numObj;
+	int _mapWidth, _mapHeight, _numObj;
 
 	// 
 	int _numX, _numY;
@@ -47,19 +45,13 @@ public:
 
 	FixedGrid();
 
-	// Tao grid tu 1 file txt cho truoc
+	// Load grid tu file txt neu pathfile hop le
 	void init();
 
-	// Doc file MAP TXT => info map : idTexture, mapW, mapH, unitW, unitH
+	// Doc file OBJ TXT => gan cac obj vao unit
 	// Sau do ktra _isLoaded de biet dc da load grid chua 
 	// Neu load roi thi => doc dong dau tien sau do return 
 	void load(const char*);
-
-	int getWidthUnit();
-	int getHeightUnit();
-	int getIdTextureMap();
-	int getMapWidth();
-	int getMapHeight();
 
 	Vec3 getPosWorld_PLAYER();
 

@@ -43,7 +43,7 @@ private:
 
 	std::vector<Tile> _map;
 	// Thong tin map
-	int _textureMapId, _textureMapAboveId, _mapWidth, _mapHeight, _tileWidth, _tileHeight;
+	int _textureMapId, _textureMapAboveId, _mapWidth, _mapHeight;
 
 public:
 	GameMap();
@@ -59,9 +59,6 @@ public:
 
 	int getWidth();
 	int getHeight();
-
-	int getTileWidth();
-	int getTileHeight();
 
 	pFixedGrid getGrid();
 

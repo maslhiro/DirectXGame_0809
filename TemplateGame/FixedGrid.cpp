@@ -3,8 +3,7 @@
 
 FixedGrid::FixedGrid()
 {
-	_widthUnit = _heightUnit = 0;
-	_textureMapId = _mapWidth = _mapHeight = 0;
+	_mapWidth = _mapHeight = 0;
 	_numX = _numY = _numObj = 0;
 	_isLoaded = false;
 	_posWorld_PLAYER = Vec3();
@@ -12,23 +11,24 @@ FixedGrid::FixedGrid()
 
 void FixedGrid::init()
 {
-	FILE* file;
-	fopen_s(&file, _fileSavePath, "r");
+	std::ifstream file;
 
-	// File ko ton tai
-	if (file == NULL) {
+	file.open(_fileSavePath);
+
+	if (file.fail())
+	{
 		setIsLoaded(false);
 		return;
 	}
 
-	fclose(file);
+	setIsLoaded(true);
 
+	file.close();
 }
 
 void FixedGrid::load(const char* filePath)
 {
-
-#pragma region LOAD FILE TXT MAP || LUU LAI GRID TXT
+#pragma region LOAD FILE OBJ TXT || LUU LAI GRID TXT
 	FILE* file;
 	FILE* fileSave;
 
@@ -47,15 +47,22 @@ void FixedGrid::load(const char* filePath)
 	{
 		// Dong dau tien so OBJ
 		//
-		// numObj
+		// numObj - mapW - mapH
 		//
 
 		if (countline == 0)
 		{
 			// Doc info cua map
-			fscanf(file, "%d", &_numObj);
+			fscanf(file, "%d %d %d", &_numObj, &_mapWidth, &_mapHeight);
 
-			_RPT1(0, "[MAP TXT] NUM OBJ  %d \n", _numObj);
+			//_RPT1(0, "[GRID OBJ TXT] NUM OBJ  %d W: \n", _numObj, _mapWidth, _mapHeight);
+		}
+		else if (countline == 1)
+		{
+			int posx, posy;
+			fscanf(file, "%d %d", &posx, &posy);
+			//_RPT1(0, "[MAP TXT - PLAYER ] %d %d \n", posx, posy);
+			_posWorld_PLAYER = Vec3((float)posx, (float)posy, 0);
 		}
 		else
 		{
@@ -64,7 +71,7 @@ void FixedGrid::load(const char* filePath)
 			// Doc pos va idType cua cac obj
 			fscanf(file, "%d %d %d %d %d %d", &idTypeObj, &idObj, &posObj_X, &posObj_Y, &objW, &objH);
 
-			_RPT1(0, "[MAP TXT] Load OBJ: %d %d || ( %d , %d ) || w %d h %d \n", idTypeObj, idObj, posObj_X, posObj_Y, objW, objH);
+			//_RPT1(0, "[MAP TXT] Load OBJ: %d %d || ( %d , %d ) || w %d h %d \n", idTypeObj, idObj, posObj_X, posObj_Y, objW, objH);
 
 			//Tu idTypeObj = > RECT = > BOUNDING cua obj do
 
@@ -137,11 +144,11 @@ void FixedGrid::load(const char* filePath)
 			Vec3 posLEFT_T = Vec3(rect.left, rect.top, 0);
 			Vec3 posRIGHT_BT = Vec3(rect.right, rect.bottom, 0);
 
-			int min_CellX = posLEFT_T.x / _widthUnit;
-			int min_CellY = posLEFT_T.y / _heightUnit;
+			int min_CellX = posLEFT_T.x / UNIT_WIDTH;
+			int min_CellY = posLEFT_T.y / UNIT_HEIGHT;
 
-			int max_CellX = posRIGHT_BT.x / _widthUnit;
-			int max_CellY = posRIGHT_BT.y / _heightUnit;
+			int max_CellX = posRIGHT_BT.x / UNIT_WIDTH;
+			int max_CellY = posRIGHT_BT.y / UNIT_HEIGHT;
 
 			for (int x = min_CellX; x <= max_CellX; x++)
 			{
@@ -151,9 +158,9 @@ void FixedGrid::load(const char* filePath)
 
 					if (countline == _numObj + 1 && x == max_CellX && y == max_CellY)
 					{
-						fprintf(fileSave, "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d", x, y, idTypeObj, idObj, posObj_X, posObj_Y, objW, objH);
+						fprintf(fileSave, "%d\t%d\t%d", x, y, idObj);
 					}
-					else fprintf(fileSave, "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d\n", x, y, idTypeObj, idObj, posObj_X, posObj_Y, objW, objH);
+					else fprintf(fileSave, "%d\t%d\t%d\n", x, y, idObj);
 
 				}
 			}
@@ -174,12 +181,12 @@ void FixedGrid::load(const char* filePath)
 	{
 		for (int y = 0; y < _mapHeight; y += UNIT_HEIGHT)
 		{
-			cellX = x / UNIT_WIDTH;
-			cellY = y / UNIT_HEIGHT;
-			//_RPT1(0, "[INFO GRID] CELL x: %d y: %d \n", cellX, cellY);
-			this->_cell[cellX][cellY].setIndex(cellX, cellY);
-			this->_cell[cellX][cellY].setSize(UNIT_WIDTH, UNIT_HEIGHT);
-			this->_cell[cellX][cellY].setPosWorld(x, y);
+			/*	cellX = x / _widthUnit;
+				cellY = y / _heightUnit;*/
+				//_RPT1(0, "[INFO GRID] CELL x: %d y: %d \n", cellX, cellY);
+			/*	this->_cell[cellX][cellY].setIndex(cellX, cellY);
+				this->_cell[cellX][cellY].setSize(_widthUnit, _heightUnit);
+				this->_cell[cellX][cellY].setPosWorld(x, y);*/
 
 			count++;
 		}
@@ -188,32 +195,6 @@ void FixedGrid::load(const char* filePath)
 	_RPT1(0, "[MAP TXT] Num UNIT %d \n", count);
 
 #pragma endregion
-
-}
-
-int FixedGrid::getWidthUnit()
-{
-	return _widthUnit;
-}
-
-int FixedGrid::getHeightUnit()
-{
-	return _heightUnit;
-}
-
-int FixedGrid::getIdTextureMap()
-{
-	return this->_textureMapId;
-}
-
-int FixedGrid::getMapWidth()
-{
-	return this->_mapWidth;
-}
-
-int FixedGrid::getMapHeight()
-{
-	return this->_mapHeight;
 }
 
 Vec3 FixedGrid::getPosWorld_PLAYER()
@@ -248,11 +229,11 @@ std::vector<Unit> FixedGrid::getUnitsContain(RECT _view)
 	Vec3 posLEFT_T = Vec3(_view.left, _view.top, 0);
 	Vec3 posRIGHT_BT = Vec3(_view.right, _view.bottom, 0);
 
-	int min_CellX = posLEFT_T.x / _widthUnit;
-	int min_CellY = posLEFT_T.y / _heightUnit;
+	int min_CellX = posLEFT_T.x / UNIT_WIDTH;
+	int min_CellY = posLEFT_T.y / UNIT_HEIGHT;
 
-	int max_CellX = posRIGHT_BT.x / _widthUnit;
-	int max_CellY = posRIGHT_BT.y / _heightUnit;
+	int max_CellX = posRIGHT_BT.x / UNIT_WIDTH;
+	int max_CellY = posRIGHT_BT.y / UNIT_HEIGHT;
 
 	for (int x = min_CellX; x <= max_CellX; x++)
 	{
