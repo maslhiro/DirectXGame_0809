@@ -20,8 +20,23 @@ void FixedGrid::init()
 		setIsLoaded(false);
 		return;
 	}
+	while (!file.eof())
+	{
+		UnitTemp _cell;
+
+		file >> _cell.x;
+		file >> _cell.y;
+		file >> _cell.idObj;
+
+		_cellTemp.push_back(_cell);
+
+		_RPT1(0, "[INIT GRID] [%d,%d] - %d \n", _cell.x, _cell.y, _cell.idObj);
+
+	}
 
 	setIsLoaded(true);
+
+
 
 	file.close();
 }
@@ -31,14 +46,11 @@ void FixedGrid::load(const char* filePath)
 #pragma region LOAD FILE OBJ TXT || LUU LAI GRID TXT
 	FILE* file;
 	FILE* fileSave;
-
-	fopen_s(&fileSave, _fileSavePath, "w+");
 	fopen_s(&file, filePath, "r");
-
+	fopen_s(&fileSave, _fileSavePath, "w+");
 
 	if (file == NULL) {
-		fclose(fileSave);
-		return;
+		goto closeFile;
 	}
 
 	int countline = 0;
@@ -137,40 +149,68 @@ void FixedGrid::load(const char* filePath)
 			_obj->setScale(2.0f);
 			_obj->setPositionWorld(posObj_X, posObj_Y);
 
-			RECT rect = _obj->getBoundingBox();
-			//_RPT1(0, "[MAP TXT] RECT OBJ : %d %d %d %d \n", rect.left, rect.top, rect.right, rect.bottom);
-
-			// Kiem tra xem obj do nam o UNIT NAO
-			Vec3 posLEFT_T = Vec3(rect.left, rect.top, 0);
-			Vec3 posRIGHT_BT = Vec3(rect.right, rect.bottom, 0);
-
-			int min_CellX = posLEFT_T.x / UNIT_WIDTH;
-			int min_CellY = posLEFT_T.y / UNIT_HEIGHT;
-
-			int max_CellX = posRIGHT_BT.x / UNIT_WIDTH;
-			int max_CellY = posRIGHT_BT.y / UNIT_HEIGHT;
-
-			for (int x = min_CellX; x <= max_CellX; x++)
+#pragma region  WITHOUT GRID.TXT
+			if (!_isLoaded)
 			{
-				for (int y = min_CellY; y <= max_CellY; y++)
+				RECT rect = _obj->getBoundingBox();
+				//_RPT1(0, "[MAP TXT] RECT OBJ : %d %d %d %d \n", rect.left, rect.top, rect.right, rect.bottom);
+
+				// Kiem tra xem obj do nam o UNIT NAO
+				Vec3 posLEFT_T = Vec3(rect.left, rect.top, 0);
+				Vec3 posRIGHT_BT = Vec3(rect.right, rect.bottom, 0);
+
+				int min_CellX = posLEFT_T.x / UNIT_WIDTH;
+				int min_CellY = posLEFT_T.y / UNIT_HEIGHT;
+
+				int max_CellX = posRIGHT_BT.x / UNIT_WIDTH;
+				int max_CellY = posRIGHT_BT.y / UNIT_HEIGHT;
+
+				for (int x = min_CellX; x <= max_CellX; x++)
 				{
-					this->_cell[x][y].addGameObj(_obj);
-
-					if (countline == _numObj + 1 && x == max_CellX && y == max_CellY)
+					for (int y = min_CellY; y <= max_CellY; y++)
 					{
-						fprintf(fileSave, "%d\t%d\t%d", x, y, idObj);
-					}
-					else fprintf(fileSave, "%d\t%d\t%d\n", x, y, idObj);
+						this->_cell[x][y].addGameObj(_obj);
+						fprintf(fileSave, "%d\t%d\t%d\n", x, y, idObj);
 
+					}
 				}
 			}
+#pragma endregion
+#pragma region WITH GRID TXT
+			else
+			{
+				std::vector<UnitTemp> cellTemp;
+
+				// Tim tat ca cac cell co id == idObj
+				for (int i = 0; i < _cellTemp.size(); i++)
+				{
+					auto cell = _cellTemp[i];
+					if (cell.idObj == idObj) cellTemp.push_back(cell);
+				}
+
+				for (int i = 0; i < cellTemp.size(); i++)
+				{
+					auto cell = cellTemp[i];
+					this->_cell[cell.x][cell.y].addGameObj(_obj);
+				}
+			}
+#pragma endregion
 		}
 		countline += 1;
 	}
 
+	if (_isLoaded)
+	{
+		for (int i = 0; i < _cellTemp.size(); i++)
+		{
+			auto cell = _cellTemp[i];
+			fprintf(fileSave, "%d\t%d\t%d\n", cell.x, cell.y, cell.idObj);
+		}
+	}
+
+closeFile:
 	fclose(file);
 	fclose(fileSave);
-
 #pragma endregion
 
 #pragma region Chia Unit || Set Bounding Tung Unit

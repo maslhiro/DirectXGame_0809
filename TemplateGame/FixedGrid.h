@@ -18,6 +18,16 @@
 
 #define __STDC_WANT_LIB_EXT1__ 1
 
+#pragma region STRUCT UNIT TEMP
+// dung de luu id tu file grid.txt
+struct UnitTemp
+{
+	int x, y, idObj;
+};
+
+#pragma endregion
+
+
 class FixedGrid
 {
 private:
@@ -42,6 +52,9 @@ private:
 public:
 
 	Unit _cell[25][15];
+
+	// Mang tam de luu id cac ganobj tu grid.txt khi init
+	std::vector<UnitTemp> _cellTemp;
 
 	FixedGrid();
 
