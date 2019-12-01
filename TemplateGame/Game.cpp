@@ -50,10 +50,10 @@ void Game::loadResource()
 
 	_animationManager->load();
 
-	//_test = _animationManager->get(eIdAnimation::ROCK_VISIBLE);
+	//_test = _animationManager->get(eIdAnimation::ALADIN_IDLING_02);
 	//_test.setPosition(Vec3(300, 300, 0));
+	//_test.setIsLoop(false);
 	//_test.setScale(Vec2(2, 2));
-	//_test.setIsLoop(true);
 	//_test.setDrawingBound(true);
 
 	//RECT bb = _test.getBounding();

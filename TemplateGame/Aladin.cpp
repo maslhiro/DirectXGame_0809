@@ -45,7 +45,9 @@ void Aladin::setCamera(pCamera cam)
 void Aladin::loadResource()
 {
 
-	_listAnimation[eIdState::WAIT] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_IDLING_01);
+	_listAnimation[eIdState::WAIT_01] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_IDLING_01);
+
+	_listAnimation[eIdState::WAIT_02] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_IDLING_02);
 
 	_listAnimation[eIdState::STAND] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_STANDING);
 
@@ -294,7 +296,7 @@ void Aladin::update(float dt)
 	}
 
 updateAni:	_curAnimation.update(dt);
-	//if (_state == eIdState::WAIT) _RPT1(0, "[STATE UPDATE] %d \n", _isAnimated);
+	//if (_state == eIdState::WAIT_01) _RPT1(0, "[STATE UPDATE] %d \n", _isAnimated);
 
 	// Va chạm với apple va ball
 	for (size_t i = 0; i < listObj.size(); i++)
@@ -346,23 +348,21 @@ void Aladin::handlerInput(float dt)
 	//auto _device = DeviceManager::getInstance();
 	auto _input = InputHandler::getInstance();
 
-	if (_waitTime >= WAIT_TIME_ALADDIN && (_state & eIdState::WAIT) != eIdState::WAIT)
+	if (_waitTime >= WAIT_TIME_ALADDIN && (_state & eIdState::WAIT_01) != eIdState::WAIT_01)
 	{
 		this->setIsAnimated(true);
-		this->fixPosAnimation(eIdState::WAIT);
+		this->fixPosAnimation(eIdState::WAIT_01);
 
-		_curAnimation = _listAnimation[eIdState::WAIT];
-		_state = eIdState::WAIT | eIdState::STAND;
+		_curAnimation = _listAnimation[eIdState::WAIT_01];
+		_state = eIdState::WAIT_01 | eIdState::STAND;
 	}
 
-	// Xu ly phan di chuyen cua aladin
-	if ((_state & eIdState::WAIT) == eIdState::WAIT)
+	if ((_state & eIdState::WAIT_01) == eIdState::WAIT_01)
 	{
 		if (_curAnimation.getLoopCount() == 4)
 		{
-			this->fixPosAnimation(eIdState::STAND);
-			this->setState(eIdState::STAND);
-			_waitTime = 0.f;
+			this->fixPosAnimation(eIdState::WAIT_02);
+			_curAnimation = _listAnimation[eIdState::WAIT_02];
 		}
 	}
 
@@ -397,14 +397,15 @@ void Aladin::handlerInput(float dt)
 		}
 		//else if (_input->getMapKey()[KEY_Q]) {
 			// Test
-			//this->fixPosAnimation(eIdState::WAIT);
-			//this->setState(eIdState::WAIT);
+			//this->fixPosAnimation(eIdState::WAIT_01);
+			//this->setState(eIdState::WAIT_01);
 		//}
+
 		// Khong co su kien phim nao 
 		// Update waitTime
 		else {
 			_waitTime += dt;
-			//_RPT1(0, "[WAIT TIME] %f \n", _waitTime);
+			//_RPT1(0, "[WAIT_01 TIME] %f \n", _waitTime);
 		}
 	}
 

@@ -25,7 +25,7 @@ void AnimationManager::load() {
 	Animation _appleExplode;
 	_appleExplode.setTimePerFrame(0.08f);
 	_appleExplode.setIsLoop(true);
-	_appleExplode.setTypeFixPos(3);
+	_appleExplode.setTypeFixPos(eTypeFixPos::C_C);
 	//_apple.setIsReverse(true);
 	//_apple.setDrawingBound(true);
 	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_01);
@@ -45,7 +45,7 @@ void AnimationManager::load() {
 	Animation _wreckingBall;
 	_wreckingBall.setTimePerFrame(0.08f);
 	_wreckingBall.setIsLoop(true);
-	_wreckingBall.setTypeFixPos(2);
+	_wreckingBall.setTypeFixPos(eTypeFixPos::L_T);
 	//_wreckingBall.setIsReverse(true);
 	_wreckingBall.setScale(2.0f, 2.0f);
 	_wreckingBall.addSprite(eIdSprite::WRECKING_BALL_01);
@@ -84,7 +84,7 @@ void AnimationManager::load() {
 	Animation _rock;
 	_rock.setTimePerFrame(0.5f);
 	_rock.setIsLoop(true);
-	_rock.setTypeFixPos(2);
+	_rock.setTypeFixPos(eTypeFixPos::L_T);
 	//_rock.setIsReverse(true);
 	//_rock.setDrawingBound(true);
 	_rock.addSprite(eIdSprite::ROCK_01);
@@ -140,33 +140,79 @@ void AnimationManager::load() {
 	Animation _stand;
 	_stand.setTimePerFrame(1.0f);
 	_stand.setIsLoop(false);
-	_stand.setTypeFixPos(1);
+	_stand.setTypeFixPos(eTypeFixPos::L_BT);
 	_stand.setScale(2.0f, 2.0f);
 	_stand.addSprite(eIdSprite::ALADIN_STAND);
 
 	_listAnimation[eIdAnimation::ALADIN_STANDING] = _stand;
 
 
-	Animation _idle;
-	_idle.setTimePerFrame(0.18f);
-	_idle.setIsLoop(true);
-	_idle.setTypeFixPos(4);
-	_idle.setScale(2.0f, 2.0f);
-	_idle.addSprite(eIdSprite::ALADIN_IDLE_01);
-	_idle.addSprite(eIdSprite::ALADIN_IDLE_02);
-	_idle.addSprite(eIdSprite::ALADIN_IDLE_03);
-	_idle.addSprite(eIdSprite::ALADIN_IDLE_04);
-	_idle.addSprite(eIdSprite::ALADIN_IDLE_05);
-	_idle.addSprite(eIdSprite::ALADIN_IDLE_06);
-	_idle.addSprite(eIdSprite::ALADIN_IDLE_07);
-	_idle.addSprite(eIdSprite::ALADIN_IDLE_08);
+	Animation _idle01;
+	_idle01.setTimePerFrame(0.16f);
+	_idle01.setIsLoop(true);
+	_idle01.setTypeFixPos(eTypeFixPos::C_BT);
+	_idle01.setScale(2.0f, 2.0f);
+	_idle01.addSprite(eIdSprite::ALADIN_IDLE_1_01);
+	_idle01.addSprite(eIdSprite::ALADIN_IDLE_1_02);
+	_idle01.addSprite(eIdSprite::ALADIN_IDLE_1_03);
+	_idle01.addSprite(eIdSprite::ALADIN_IDLE_1_04);
+	_idle01.addSprite(eIdSprite::ALADIN_IDLE_1_05);
+	_idle01.addSprite(eIdSprite::ALADIN_IDLE_1_06);
+	_idle01.addSprite(eIdSprite::ALADIN_IDLE_1_07);
+	_idle01.addSprite(eIdSprite::ALADIN_IDLE_1_08);
 
-	_listAnimation[eIdAnimation::ALADIN_IDLING_01] = _idle;
+	_listAnimation[eIdAnimation::ALADIN_IDLING_01] = _idle01;
+
+	Animation _idle02;
+	_idle02.setTimePerFrame(0.08f);
+	_idle02.setIsLoop(true);
+	_idle02.setIndexStart(18);
+	_idle02.setTypeFixPos(eTypeFixPos::C_BT);
+	_idle02.setScale(2.0f, 2.0f);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_01);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_02);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_03);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_04);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_05);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_06);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_07);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_08);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_09);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_10);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_11);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_12);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_13);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_14);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_15);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_16);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_17);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_18);
+
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_19);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_20);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_21);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_22);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_23);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_24);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_25);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_26);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_27);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_28);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_29);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_30);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_31);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_32);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_33);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_34);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_35);
+	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_36);
+
+	_listAnimation[eIdAnimation::ALADIN_IDLING_02] = _idle02;
 
 	Animation _jump;
 	_jump.setTimePerFrame(0.092f);
 	_jump.setIsLoop(false);
-	_jump.setTypeFixPos(1);
+	_jump.setTypeFixPos(eTypeFixPos::L_BT);
 	_jump.setScale(2.0f, 2.0f);
 	_jump.addSprite(eIdSprite::ALADIN_JUMP_01);
 	_jump.addSprite(eIdSprite::ALADIN_JUMP_02);
@@ -187,7 +233,7 @@ void AnimationManager::load() {
 	Animation _run;
 	_run.setTimePerFrame(0.06f);
 	_run.setIsLoop(true);
-	_run.setTypeFixPos(1);
+	_run.setTypeFixPos(eTypeFixPos::L_BT);
 	_run.setIndexStart(3);
 	_run.setScale(2.0f, 2.0f);
 	_run.addSprite(eIdSprite::ALADIN_RUN_01);
@@ -209,7 +255,7 @@ void AnimationManager::load() {
 	Animation _damage;
 	_damage.setTimePerFrame(0.15f);
 	_damage.setIsLoop(true);
-	_damage.setTypeFixPos(1);
+	_damage.setTypeFixPos(eTypeFixPos::L_BT);
 	_damage.setScale(2.0f, 2.0f);
 	_damage.addSprite(eIdSprite::ALADIN_DAMAGE_01);
 	_damage.addSprite(eIdSprite::ALADIN_DAMAGE_02);
@@ -223,7 +269,7 @@ void AnimationManager::load() {
 	Animation _runJump;
 	_runJump.setTimePerFrame(0.15f);
 	_runJump.setIsLoop(false);
-	_runJump.setTypeFixPos(1);
+	_runJump.setTypeFixPos(eTypeFixPos::L_BT);
 	_runJump.setScale(2.0f, 2.0f);
 	_runJump.addSprite(eIdSprite::ALADIN_RUN_JUMP_01);
 	_runJump.addSprite(eIdSprite::ALADIN_RUN_JUMP_02);

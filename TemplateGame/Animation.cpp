@@ -174,7 +174,7 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 
 		switch (this->_typeFixPos)
 		{
-		case 1:
+		case eTypeFixPos::L_BT:
 		{
 			// LEFT BOTTOM	
 			// nếu lật sprite lại thì fix pos theo góc bottom right
@@ -183,19 +183,18 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 			_newPos -= Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
 			break;
 		}
-
-		case 2:
+		case eTypeFixPos::L_T:
 		{
 			// LEFT TOP
 			//_newPos += Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
 			break;
 		}
-		case 3:
+		case eTypeFixPos::C_C:
 		{
 			// center 
 			break;
 		}
-		case 4:
+		case eTypeFixPos::C_BT:
 		{
 			// Center // Bottom
 			_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
@@ -211,26 +210,26 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		//_RPT1(0, "[INFO] TYPE FIX POS %d \n", _typeFixPos);
 		switch (this->_typeFixPos)
 		{
-		case 1:
+		case eTypeFixPos::L_BT:
 		{
 			// LEFT BOTTOM
 			_newPos += Vec3(_fixPos.x*_scale.x, _fixPos.y*_scale.y, 0);
 			break;
 		}
 
-		case 2:
+		case eTypeFixPos::L_T:
 		{
 			// LEFT TOP
 			_newPos += Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
 			break;
 		}
-		case 3:
+		case eTypeFixPos::C_C:
 		{
 			// center 
 			// Khoi can xet newPos vi pos hien tai la trung tam roi 
 			break;
 		}
-		case 4:
+		case eTypeFixPos::C_BT:
 		{
 			// Center // Bottom
 			_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
@@ -426,7 +425,7 @@ RECT Animation::getCurrentBounding()
 			// chi xet TH nay
 			switch (this->_typeFixPos)
 			{
-			case 1:
+			case eTypeFixPos::L_BT:
 			{
 				// LEFT BOTTOM	
 				// nếu lật sprite lại thì fix pos theo góc bottom right
@@ -435,19 +434,18 @@ RECT Animation::getCurrentBounding()
 				_newPos -= Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
 				break;
 			}
-
-			case 2:
+			case eTypeFixPos::L_T:
 			{
 				// LEFT TOP
 				//_newPos += Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
 				break;
 			}
-			case 3:
+			case eTypeFixPos::C_C:
 			{
 				// center 
 				break;
 			}
-			case 4:
+			case eTypeFixPos::C_BT:
 			{
 				// Center // Bottom
 				_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
@@ -463,26 +461,25 @@ RECT Animation::getCurrentBounding()
 			//_RPT1(0, "[INFO] TYPE FIX POS %d \n", _typeFixPos);
 			switch (this->_typeFixPos)
 			{
-			case 1:
+			case eTypeFixPos::L_BT:
 			{
 				// LEFT BOTTOM
 				_newPos += Vec3(_fixPos.x*_scale.x, _fixPos.y*_scale.y, 0);
 				break;
 			}
-
-			case 2:
+			case eTypeFixPos::L_T:
 			{
 				// LEFT TOP
 				_newPos += Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
 				break;
 			}
-			case 3:
+			case eTypeFixPos::C_C:
 			{
 				// center 
 				// Khoi can xet newPos vi pos hien tai la trung tam roi 
 				break;
 			}
-			case 4:
+			case eTypeFixPos::C_BT:
 			{
 				// Center // Bottom
 				_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
