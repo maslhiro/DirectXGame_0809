@@ -16,7 +16,7 @@ void GameMap::init()
 	_input = InputHandler::getInstance();
 
 	_grid = nullptr;
-	_camera = nullptr;
+	_cam = nullptr;
 	_player = nullptr;
 
 	_scale = Vec2(1, 1);
@@ -32,8 +32,8 @@ void GameMap::setIdTextureMapAbove(int id)
 
 void GameMap::setCamera(pCamera camera)
 {
-	_camera = camera;
-	_camera->setSizeMap(_mapWidth, _mapHeight);
+	_cam = camera;
+	_cam->setSizeMap(_mapWidth, _mapHeight);
 
 }
 
@@ -70,7 +70,7 @@ pFixedGrid GameMap::getGrid()
 
 pCamera GameMap::getCamera()
 {
-	return _camera;
+	return _cam;
 }
 
 void GameMap::setPointerPlayer(pAladin val)
@@ -105,7 +105,7 @@ void GameMap::loadTileSet(const char *filePath)
 	int numTile = 0;
 	fileTile >> numTile;
 
-	//_RPT1(0, "[TILE TXT] Texture %d \n", idTexture);
+	//_RPT1(0, "[TILE TXT] Texture %d \n", _textureMapId);
 	//_RPT1(0, "[TILE TXT] NUM Tile %d \n", numTile);
 
 	int left = 0;
@@ -181,7 +181,7 @@ void GameMap::load(const char *filePath)
 
 		t.setPosWorld(numX*TILE_SIZE, numY*TILE_SIZE);
 
-		//_RPT1(0, "[MAP TXT] ID TILE %d NUM X %d || NUM Y L %d\n", id, t._x, t._y);
+		//_RPT1(0, "[MAP TXT] ID TILE %d NUM X %d || NUM Y %d\n", id, t._x, t._y);
 
 		_map.push_back(t);
 
@@ -212,11 +212,13 @@ std::vector<Tile> GameMap::getMapContain(RECT _view)
 	int max_CellX = posRIGHT_BT.x / TILE_SIZE;
 	int max_CellY = posRIGHT_BT.y / TILE_SIZE;
 
+	//_RPT0(0, "===========================\n");
+
 	for (size_t i = 0; i < _map.size(); i++)
 	{
 		if ((_map[i]._x >= min_CellX && _map[i]._x <= max_CellX) && (_map[i]._y >= min_CellY && _map[i]._y <= max_CellY))
 		{
-			//_RPT1(0, "[MAP CONTAIN] %d \n", i);
+			//_RPT1(0, "[MAP CONTAIN] %d \n", _map[i]._idTile);
 			listTile.push_back(_map[i]);
 		}
 	}
@@ -237,7 +239,7 @@ void GameMap::render()
 
 	auto _spriteHandler = _device->getSpriteHandler();
 
-	Vec2 trans(_device->getWidthWindow() / 2 - _camera->getPositionWorld().x, _device->getHeightWindow() / 2 - _camera->getPositionWorld().y);
+	Vec2 trans(_device->getWidthWindow() / 2 - _cam->getPositionWorld().x, _device->getHeightWindow() / 2 - _cam->getPositionWorld().y);
 
 	Vec2 centerMap = Vec2((float)_mapWidth / 2, (float)_mapHeight / 2);
 
@@ -249,9 +251,11 @@ void GameMap::render()
 
 	_spriteHandler->SetTransform(&matFinal);
 
+	RECT _viewPort;
 	// Render map
 
-	RECT _viewPort = _camera->getBounding();
+	_viewPort = _cam->getBounding();
+
 	auto mapContain = getMapContain(_viewPort);
 
 	for (size_t i = 0; i < mapContain.size(); i++)
@@ -267,25 +271,28 @@ void GameMap::render()
 
 	// Sau do ve entity
 	// tranh truong hon map ve tren entity
-	auto listObj = _grid->getListGameObjContain(_viewPort);
-
-	for (size_t i = 0; i < listObj.size(); i++)
+	if (_grid != nullptr)
 	{
-		int idType = listObj[i]->getIdType();
+		auto listObj = _grid->getListGameObjContain(_viewPort);
 
-		// Doi voi 4 cot da thi render sau khi ve aladin
-		if (idType == eIdObject::STONE_COLUMN_1 ||
-			idType == eIdObject::STONE_COLUMN_2 ||
-			idType == eIdObject::STONE_COLUMN_3 ||
-			idType == eIdObject::STONE_COLUMN_4)
+		for (size_t i = 0; i < listObj.size(); i++)
 		{
-			continue;
-		}
-		else listObj[i]->render();
-	}
+			int idType = listObj[i]->getIdType();
 
-	// Cuoi cung la ve thang aladdin
-	_player->render();
+			// Doi voi 4 cot da thi render sau khi ve aladin
+			if (idType == eIdObject::STONE_COLUMN_1 ||
+				idType == eIdObject::STONE_COLUMN_2 ||
+				idType == eIdObject::STONE_COLUMN_3 ||
+				idType == eIdObject::STONE_COLUMN_4)
+			{
+				continue;
+			}
+			else listObj[i]->render();
+		}
+
+		// Cuoi cung la ve thang aladdin
+		_player->render();
+	}
 
 	_spriteHandler->SetTransform(&matOld); // set lai matrix cu~ chi ap dung transfrom voi class nay
 }
@@ -299,7 +306,7 @@ void GameMap::renderAbove()
 
 	auto _spriteHandler = _device->getSpriteHandler();
 
-	Vec2 trans(_device->getWidthWindow() / 2 - _camera->getPositionWorld().x, _device->getHeightWindow() / 2 - _camera->getPositionWorld().y);
+	Vec2 trans(_device->getWidthWindow() / 2 - _cam->getPositionWorld().x, _device->getHeightWindow() / 2 - _cam->getPositionWorld().y);
 
 	Vec2 centerMap = Vec2((float)_mapWidth / 2, (float)_mapHeight / 2);
 
@@ -313,7 +320,7 @@ void GameMap::renderAbove()
 
 	// Render map above
 
-	RECT _viewPort = _camera->getBounding();
+	RECT _viewPort = _cam->getBounding();
 
 	auto listObj = _grid->getListGameObjContain(_viewPort);
 
@@ -336,8 +343,10 @@ void GameMap::renderAbove()
 
 void GameMap::update(float dt)
 {
+	if (_grid == nullptr) return;
+
 	// Update cac obj tinh apple , ball, ....
-	RECT _viewPort = _camera->getBounding();
+	RECT _viewPort = _cam->getBounding();
 
 	auto listObj = _grid->getListGameObjContain(_viewPort);
 

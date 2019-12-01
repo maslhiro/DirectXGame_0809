@@ -111,15 +111,20 @@ void Camera::setSizeMap(int _mW, int _mH)
 void Camera::update(float dt)
 {
 	if (_positionWorld == _nextPosWorld) return;
+	//_RPT1(0, "[CAM] %f\n", _nextPosWorld.x);
+
+	float distance_ = 60.;
 
 	// Không cho cam ra khỏi map
-	if (_nextPosWorld.x < ((_width * 2.0) / 3.0) - 34.)
+	if (_nextPosWorld.x < ((_width * 2.0) / 3.0) - distance_)
 	{
-		_nextPosWorld.x = ((float)_width) * 2.0 / 3.0 - 34.;
+		_nextPosWorld.x = ((float)_width) * 2.0 / 3.0 - distance_;
 	}
-	if (_nextPosWorld.x > (_mapWidth - _width / 2))
+	if (_nextPosWorld.x > (_mapWidth - distance_ - _width * 2. / 3.))
 	{
-		_nextPosWorld.x = (float)(_mapWidth - _width) / 2.0;
+		_nextPosWorld.x = (float)(_mapWidth)-distance_ - _width * 2 / 3.;
+		//_RPT0(0, "====================\n");
+		//_RPT1(0, "[FIX CAM] %f\n", _nextPosWorld.x);
 	}
 
 	if (_isMoving)
@@ -150,8 +155,6 @@ void Camera::update(float dt)
 	{
 		_isMoving = true;
 	}
-
-
 }
 
 D3DXVECTOR3 Camera::getPositionWorld()

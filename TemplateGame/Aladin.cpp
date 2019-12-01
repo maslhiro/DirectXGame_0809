@@ -360,6 +360,7 @@ void Aladin::handlerInput(float dt)
 	{
 		if (_curAnimation.getLoopCount() == 4)
 		{
+			this->fixPosAnimation(eIdState::STAND);
 			this->setState(eIdState::STAND);
 			_waitTime = 0.f;
 		}

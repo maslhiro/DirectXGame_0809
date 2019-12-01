@@ -32,7 +32,8 @@ private:
 	pDeviceManager _device;
 	pInputHandler _input;
 
-	pCamera _camera;
+	pCamera _cam;
+
 	pFixedGrid _grid;
 
 	Vec2 _scale;
@@ -56,7 +57,6 @@ public:
 	void setScale(Vec2);
 	void setScale(float);
 	void setGrid(pFixedGrid);
-
 	int getWidth();
 	int getHeight();
 

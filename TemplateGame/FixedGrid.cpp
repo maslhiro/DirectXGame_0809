@@ -30,7 +30,7 @@ void FixedGrid::init()
 
 		_cellTemp.push_back(_cell);
 
-		_RPT1(0, "[INIT GRID] [%d,%d] - %d \n", _cell.x, _cell.y, _cell.idObj);
+		//_RPT1(0, "[INIT GRID] [%d,%d] - %d \n", _cell.x, _cell.y, _cell.idObj);
 
 	}
 
@@ -211,29 +211,6 @@ void FixedGrid::load(const char* filePath)
 closeFile:
 	fclose(file);
 	fclose(fileSave);
-#pragma endregion
-
-#pragma region Chia Unit || Set Bounding Tung Unit
-	int count = 0;
-	int cellX = 0, cellY = 0;
-
-	for (int x = 0; x < _mapWidth; x += UNIT_WIDTH)
-	{
-		for (int y = 0; y < _mapHeight; y += UNIT_HEIGHT)
-		{
-			/*	cellX = x / _widthUnit;
-				cellY = y / _heightUnit;*/
-				//_RPT1(0, "[INFO GRID] CELL x: %d y: %d \n", cellX, cellY);
-			/*	this->_cell[cellX][cellY].setIndex(cellX, cellY);
-				this->_cell[cellX][cellY].setSize(_widthUnit, _heightUnit);
-				this->_cell[cellX][cellY].setPosWorld(x, y);*/
-
-			count++;
-		}
-	}
-
-	_RPT1(0, "[MAP TXT] Num UNIT %d \n", count);
-
 #pragma endregion
 }
 

@@ -9,8 +9,13 @@ class FirstScene :
 {
 private:
 
-	GameMap _map2;
-	pCamera _camera;
+	GameMap _map;
+
+	GameMap _mapAbove;
+
+	pCamera _cam;
+
+	pCamera _camAbove;
 
 	pFixedGrid _grid;
 	pAladin _player;
