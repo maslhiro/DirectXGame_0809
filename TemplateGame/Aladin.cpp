@@ -162,7 +162,7 @@ void Aladin::update(float dt)
 			//RECT t1 = getBoundingBox();
 			//_RPT1(0, "[IS ON GROUND] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
 
-			if ((!_isRunJump && _curAnimation.getCurrentFrame() == 12) || (_isRunJump && _curAnimation.getCurrentFrame() == 6))
+			if ((!_isRunJump && _curAnimation.getCurrentFrame() == 12) || (_isRunJump && _curAnimation.getLoopCount() > 0))
 			{
 				_isOnGround = false;
 				this->fixPosAnimation(eIdState::STAND);
@@ -178,9 +178,9 @@ void Aladin::update(float dt)
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
 
 				// Den frame nay la phai roi xuong
-				if ((!_isRunJump && _curAnimation.getCurrentFrame() == 10) || (_isRunJump && _curAnimation.getCurrentFrame() == 4))
+				if ((!_isRunJump && _curAnimation.getCurrentFrame() == 10) || (_isRunJump && _curAnimation.getCurrentFrame() == 3))
 				{
-					this->setIsAnimated(false);
+					if (!_isRunJump) this->setIsAnimated(false);
 					this->setDy(_gravity);
 				}
 			}
