@@ -22,7 +22,6 @@
 
 #pragma endregion
 
-
 class GameMap
 {
 

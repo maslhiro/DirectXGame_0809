@@ -10,7 +10,7 @@ Aladin::Aladin() : GameObject()
 	_camera = nullptr;
 
 	_isOnGround = false;
-
+	_isRunJump = false;
 	_isDamage = false;
 
 	_moveDirection = 0;
@@ -55,7 +55,7 @@ void Aladin::loadResource()
 
 	_listAnimation[eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_JUMPING);
 
-	_listAnimation[eIdState::RUN_JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADING_RUN_JUMP);
+	_listAnimation[eIdState::RUN || eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADING_RUN_JUMP);
 
 	_listAnimation[eIdState::DAMAGE] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_DAMAGE);
 
@@ -111,75 +111,6 @@ void Aladin::update(float dt)
 		}
 	}
 
-	if ((_state & eIdState::RUN_JUMP) == eIdState::RUN_JUMP)
-	{
-		// Qua frame thu 2 moi bat dau nhay len
-		if (_curAnimation.getCurrentFrame() <= 1) goto updateAni;
-
-		if (_isOnGround)
-		{
-			if (_curAnimation.getCurrentFrame() == 6)
-			{
-				_isOnGround = false;
-				this->fixPosAnimation(eIdState::STAND);
-				//_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
-				this->setState(eIdState::STAND);
-			}
-		}
-		else {
-			if (_dy < 0.f)
-			{
-				/*_jumpDistance += abs(_dy) * dt;
-				_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
-				this->updateAllPos(Vec3(0, _dy*dt, 0));
-
-				// Den frame nay la phai roi xuong
-				if (_curAnimation.getCurrentFrame() == 5) {
-					this->setIsAnimated(false);
-					this->setDy(_gravity);
-				}
-			}
-			else if (_dy > 0.f)
-			{
-				float timeUpdate = dt;
-
-				for (size_t i = 0; i < listObj.size(); i++)
-				{
-					auto obj = listObj[i];
-
-					// Va cham voi land
-					if (obj->getIdType() == eIdObject::GROUND)
-					{
-						int result = 0;
-						float check2 = this->checkCollision_SweptAABB(obj->getCurrentBoudingBox(), timeUpdate, 0.f, _dy, result);
-
-						//_RPT1(0, "[CHECK Collision] CHECK COLLISION : %f \n", check2);
-						//float check = this->checkCollision(obj->getBoundingBox());
-
-						//RECT t = obj->getBoundingBox();
-						//RECT t1 = getBoundingBox();
-
-						if (check2 < timeUpdate)
-						{
-							//_RPT1(0, "[AAAAAAAAAAA] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
-							//_RPT1(0, "[AAAAAAAAAAA] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
-							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
-							//_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
-							timeUpdate = check2;
-
-							_isOnGround = true;
-							this->setIsAnimated(true);
-						}
-					}
-
-				}
-
-				this->updateAllPos(Vec3(0, _dy*timeUpdate, 0));
-			}
-
-		}
-	}
-
 	if ((_state & eIdState::RUN) == eIdState::RUN)
 	{
 		// Ko co su kien tu A va D
@@ -219,15 +150,19 @@ void Aladin::update(float dt)
 
 	if ((_state & eIdState::JUMP) == eIdState::JUMP)
 	{
-		// Qua frame thu 2 moi bat dau nhay len
-		if (_curAnimation.getCurrentFrame() <= 2) goto updateAni;
+
+		if (!_isRunJump)
+		{
+			// Qua frame thu 2 moi bat dau nhay len
+			if (_curAnimation.getCurrentFrame() <= 2) goto updateAni;
+		}
 
 		if (_isOnGround)
 		{
 			//RECT t1 = getBoundingBox();
 			//_RPT1(0, "[IS ON GROUND] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
 
-			if (_curAnimation.getCurrentFrame() == 12)
+			if ((!_isRunJump && _curAnimation.getCurrentFrame() == 12) || (_isRunJump && _curAnimation.getCurrentFrame() == 6))
 			{
 				_isOnGround = false;
 				this->fixPosAnimation(eIdState::STAND);
@@ -243,7 +178,8 @@ void Aladin::update(float dt)
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
 
 				// Den frame nay la phai roi xuong
-				if (_curAnimation.getCurrentFrame() == 10) {
+				if ((!_isRunJump && _curAnimation.getCurrentFrame() == 10) || (_isRunJump && _curAnimation.getCurrentFrame() == 4))
+				{
 					this->setIsAnimated(false);
 					this->setDy(_gravity);
 				}
@@ -293,6 +229,7 @@ void Aladin::update(float dt)
 			}
 
 		}
+
 	}
 
 updateAni:	_curAnimation.update(dt);
@@ -392,6 +329,7 @@ void Aladin::handlerInput(float dt)
 		else if (_input->getMapKey()[KEY_W])
 		{
 			_waitTime = 0.f;
+			_isRunJump = false;
 			this->setState(eIdState::JUMP);
 			this->setDy(-_gravity);
 		}
@@ -406,38 +344,6 @@ void Aladin::handlerInput(float dt)
 		else {
 			_waitTime += dt;
 			//_RPT1(0, "[WAIT_01 TIME] %f \n", _waitTime);
-		}
-	}
-
-	if ((_state & eIdState::RUN) == eIdState::RUN)
-	{
-		// Ko co su kien tu A va D
-		if (!_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
-			_moveDirection = 0;
-		}
-		// Vừa bấm A vừa D
-		else if (_input->getMapKey()[KEY_A] && _input->getMapKey()[KEY_D]) {
-			_moveDirection = 0;
-		}
-		// A
-		else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
-			_moveDirection = -1;
-			/*	if (_input->getMapKey()[KEY_W])
-				{
-					_curAnimation = _listAnimation[eIdState::RUN_JUMP];
-					_state |= eIdState::RUN_JUMP;
-					_RPT0(0, "[RUN JUMP]\n");
-				}*/
-		}
-		// D
-		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
-		{
-			_moveDirection = 1;
-			/*	if (_input->getMapKey()[KEY_W])
-				{
-					_state |= eIdState::RUN_JUMP;
-					_RPT0(0, "[RUN JUMP]\n");
-				}*/
 		}
 	}
 
@@ -462,6 +368,41 @@ void Aladin::handlerInput(float dt)
 		else if (_input->getMapKey()[KEY_A] && _input->getMapKey()[KEY_D]) {
 			_state &= ~eIdState::RUN;
 			_moveDirection = 0;
+		}
+	}
+	else if ((_state & eIdState::RUN) == eIdState::RUN)
+	{
+		// Ko co su kien tu A va D
+		if (!_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+			_moveDirection = 0;
+		}
+		// Vừa bấm A vừa D
+		else if (_input->getMapKey()[KEY_A] && _input->getMapKey()[KEY_D]) {
+			_moveDirection = 0;
+		}
+		// A
+		else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+			_moveDirection = -1;
+			if (_input->getMapKey()[KEY_W])
+			{
+				_isRunJump = true;
+				_state |= eIdState::JUMP;
+				_curAnimation = _listAnimation[eIdState::RUN || eIdState::JUMP];
+				this->setDy(-_gravity);
+			}
+		}
+		// D
+		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
+		{
+			_moveDirection = 1;
+			if (_input->getMapKey()[KEY_W])
+			{
+				_isRunJump = true;
+				_state |= eIdState::JUMP;
+				_curAnimation = _listAnimation[eIdState::RUN || eIdState::JUMP];
+				this->setDy(-_gravity);
+				_RPT0(0, "[RUN JUMP]\n");
+			}
 		}
 	}
 }

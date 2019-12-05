@@ -164,7 +164,7 @@ int Game::render()
 
 		//_test01.render(_deviceManager, _texture);
 
-		//_test.render(_deviceManager, _texture);
+		_test.render(_deviceManager, _texture);
 
 		_firstScene.render();
 

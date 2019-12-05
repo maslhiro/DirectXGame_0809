@@ -26,6 +26,9 @@ private:
 	// Bien bool check Player da dung tren mat dat chua
 	bool _isOnGround;
 
+	// Bien bool check Player da dung tren mat dat chua
+	bool _isRunJump;
+
 	bool _isDamage;
 
 	float _waitTime;

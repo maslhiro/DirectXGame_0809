@@ -167,7 +167,7 @@ void AnimationManager::load() {
 	_idle02.setTimePerFrame(0.08f);
 	_idle02.setIsLoop(true);
 	_idle02.setIndexStart(18);
-	_idle02.setTypeFixPos(eTypeFixPos::C_BT);
+	_idle02.setTypeFixPos(eTypeFixPos::L_BT);
 	_idle02.setScale(2.0f, 2.0f);
 	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_01);
 	_idle02.addSprite(eIdSprite::ALADIN_IDLE_2_02);
