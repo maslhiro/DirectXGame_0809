@@ -2,7 +2,7 @@
 #include "Scene.h"
 #include "Apple.h"
 #include "GameMap.h"
-#include "Aladin.h"
+#include "Aladdin.h"
 
 class FirstScene :
 	public Scene
@@ -18,7 +18,7 @@ private:
 	pCamera _camAbove;
 
 	pFixedGrid _grid;
-	pAladin _player;
+	pAladdin _player;
 
 public:
 	FirstScene();

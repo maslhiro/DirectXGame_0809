@@ -22,7 +22,6 @@ private:
 
 	bool _isLoop;		// default : true , false => chay 1 lan va ko lap 
 	bool _isFlip;		// default : false, true => lật ảnh ngược lại
-	bool _isReverse;	// default : false, true => frame cuoi se chay quay lai frame dau 
 	bool _isAnimated;   // default : true, false => chi hien thi sprite dau tien
 	int _typeFixPos;	// default :	1 => fix pos Left BTom sprite dau tien, 
 						//				2 => fix pos left top
@@ -52,7 +51,6 @@ public:
 
 	void setIsLoop(bool);
 	void setIsFlip(bool);
-	void setIsReverse(bool);
 	void setIsAnimated(bool);
 	void setTypeFixPos(int);
 	void setIndexStart(int);

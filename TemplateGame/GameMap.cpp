@@ -73,7 +73,7 @@ pCamera GameMap::getCamera()
 	return _cam;
 }
 
-void GameMap::setPointerPlayer(pAladin val)
+void GameMap::setPointerPlayer(pAladdin val)
 {
 	this->_player = val;
 }

@@ -4,7 +4,7 @@
 FirstScene::FirstScene()
 {
 	_grid = new FixedGrid();
-	_player = new Aladin();
+	_player = new Aladdin();
 	_cam = new Camera();
 }
 

@@ -3,7 +3,7 @@
 #include "Camera.h"
 #include "FixedGrid.h"
 
-class Aladin :
+class Aladdin :
 	public GameObject
 {
 private:
@@ -34,7 +34,7 @@ private:
 	float _waitTime;
 
 public:
-	Aladin();
+	Aladdin();
 
 	void setPosView(Vec3);
 	void setPosView(int, int);
@@ -56,4 +56,4 @@ public:
 	void updateAllPos(Vec3);
 };
 
-typedef Aladin* pAladin;
+typedef Aladdin* pAladdin;

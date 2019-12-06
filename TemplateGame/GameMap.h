@@ -10,7 +10,7 @@
 
 #include "GameObject.h"
 
-#include "Aladin.h"
+#include "Aladdin.h"
 
 #include "Apple.h"
 #include "Ground.h"
@@ -36,7 +36,7 @@ private:
 	pFixedGrid _grid;
 
 	Vec2 _scale;
-	pAladin _player;
+	pAladdin _player;
 
 	// tileset cua map
 	std::unordered_map<int, RECT> _tiles;
@@ -63,7 +63,7 @@ public:
 
 	pCamera getCamera();
 
-	void setPointerPlayer(pAladin);
+	void setPointerPlayer(pAladdin);
 
 	void loadGameObj(const char*);
 

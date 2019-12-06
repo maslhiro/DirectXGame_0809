@@ -132,9 +132,6 @@
     <ClCompile Include="WreckingBall.cpp">
       <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Aladin.cpp">
-      <Filter>Source Files\Object\Player</Filter>
-    </ClCompile>
     <ClCompile Include="StoneColumn_1.cpp">
       <Filter>Source Files\Object\Map</Filter>
     </ClCompile>
@@ -161,6 +158,9 @@
     </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>Source Files\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Aladdin.cpp">
+      <Filter>Source Files\Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,9 +239,6 @@
     <ClInclude Include="StoneColumn_4.h">
       <Filter>Header Files\Object\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Aladin.h">
-      <Filter>Header Files\Object\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Rock.h">
       <Filter>Header Files\Object\Item</Filter>
     </ClInclude>
@@ -253,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>Header Files\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Aladdin.h">
+      <Filter>Header Files\Object\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

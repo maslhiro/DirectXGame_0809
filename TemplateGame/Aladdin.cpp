@@ -1,8 +1,8 @@
-﻿#include "Aladin.h"
+﻿#include "Aladdin.h"
 
-Aladin::Aladin() : GameObject()
+Aladdin::Aladdin() : GameObject()
 {
-	_idType = eIdObject::ALADIN;
+	_idType = eIdObject::ALADDIN;
 
 	_pos = Vec3();
 
@@ -17,52 +17,52 @@ Aladin::Aladin() : GameObject()
 	_waitTime = 0.f;
 }
 
-void Aladin::setPosView(Vec3 pos)
+void Aladdin::setPosView(Vec3 pos)
 {
 	_pos = pos;
 }
 
-void Aladin::setPosView(int x, int y)
+void Aladdin::setPosView(int x, int y)
 {
 	_pos = Vec3((float)x, (float)y, 0);
 }
 
-Vec3 Aladin::getPosView()
+Vec3 Aladdin::getPosView()
 {
 	return _pos;
 }
 
-void Aladin::setGrid(pFixedGrid grid)
+void Aladdin::setGrid(pFixedGrid grid)
 {
 	_grid = grid;
 }
 
-void Aladin::setCamera(pCamera cam)
+void Aladdin::setCamera(pCamera cam)
 {
 	_camera = cam;
 }
 
-void Aladin::loadResource()
+void Aladdin::loadResource()
 {
 
-	_listAnimation[eIdState::WAIT_01] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_IDLING_01);
+	_listAnimation[eIdState::WAIT_01] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_IDLING_01);
 
-	_listAnimation[eIdState::WAIT_02] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_IDLING_02);
+	_listAnimation[eIdState::WAIT_02] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_IDLING_02);
 
-	_listAnimation[eIdState::STAND] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_STANDING);
+	_listAnimation[eIdState::STAND] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_STANDING);
 
-	_listAnimation[eIdState::RUN] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_RUNNING);
+	_listAnimation[eIdState::RUN] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_RUNNING);
 
-	_listAnimation[eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_JUMPING);
+	_listAnimation[eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_JUMPING);
 
-	_listAnimation[eIdState::RUN || eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADING_RUN_JUMP);
+	_listAnimation[eIdState::RUN || eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDING_RUN_JUMP);
 
-	_listAnimation[eIdState::DAMAGE] = AnimationManager::getInstance()->get(eIdAnimation::ALADIN_DAMAGE);
+	_listAnimation[eIdState::DAMAGE] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_DAMAGE);
 
 	this->setState(eIdState::STAND);
 }
 
-void Aladin::render()
+void Aladdin::render()
 {
 	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setPosition(_posWorld);
@@ -72,7 +72,7 @@ void Aladin::render()
 	_curAnimation.render(_device, _texture);
 }
 
-void Aladin::update(float dt)
+void Aladdin::update(float dt)
 {
 	// Get list obj nam trong view port
 	auto listObj = _grid->getListGameObjContain(getBoundingBox());
@@ -280,7 +280,7 @@ updateAni:	_curAnimation.update(dt);
 
 }
 
-void Aladin::handlerInput(float dt)
+void Aladdin::handlerInput(float dt)
 {
 	//auto _device = DeviceManager::getInstance();
 	auto _input = InputHandler::getInstance();
@@ -407,7 +407,7 @@ void Aladin::handlerInput(float dt)
 	}
 }
 
-void Aladin::updateAllPos(Vec3 val)
+void Aladdin::updateAllPos(Vec3 val)
 {
 	_pos += val;
 	_posWorld += val;

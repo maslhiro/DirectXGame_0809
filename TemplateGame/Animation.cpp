@@ -10,7 +10,6 @@ Animation::Animation()
 
 	this->_isLoop = true;
 	this->_isFlip = false;
-	this->_isReverse = false;
 	this->_isAnimated = true;
 	this->_drawingBound = false;
 
@@ -53,11 +52,6 @@ void Animation::setTypeFixPos(int val)
 void Animation::setIndexStart(int index)
 {
 	this->_indexStart = index;
-}
-
-void Animation::setIsReverse(bool isReverse)
-{
-	this->_isReverse = isReverse;
 }
 
 void Animation::setTimePerFrame(float timePerFrame)
@@ -310,53 +304,26 @@ int Animation::update(float dt)
 		// Kiem tra co animated co cho phep ve sprite tiep ko ? 
 		if (!_isAnimated) return 0;
 
-		if (!_isReverse) {
-			// Lap binh thuong frame cuoi => frame dau
-			// Kiem tra phai frame cuoi ko ?
-			// Neu dung chuyen ve frame dau
-			if (_currentFrame == _listSpriteId.size() - 1)
-			{
-				// quay nguoc frame neu den frame cuoi
-				_currentFrame = _indexStart;
 
+		// Lap binh thuong frame cuoi => frame dau
+		// Kiem tra phai frame cuoi ko ?
+		// Neu dung chuyen ve frame dau
+		if (_currentFrame == _listSpriteId.size() - 1)
+		{
+			if (!_isLoop) {
 				_loopCount += 1;
+				return 0;
 			}
-			else
-			{
-				if (!_isLoop) {
-					if (_loopCount == 1) _currentFrame = _indexStart;
-					else _currentFrame += 1;
-				}
-				// TH cho phep lap ani
-				else _currentFrame += 1;
+			// quay nguoc frame neu den frame cuoi
+			_currentFrame = _indexStart;
 
-			}
+			_loopCount += 1;
 		}
-		else {
-			if (_currentFrame == _listSpriteId.size() - 1)
-			{
-				reverse = -1;
-				_currentFrame -= 1;
+		else
+		{
+			_currentFrame += 1;
 
-				_loopCount += 1;
-			}
-			else
-			{
-				if (!_isLoop) {
-					if (_loopCount == 1) _currentFrame = _indexStart;
-					else _currentFrame += 1;
-				}
-
-				// TH cho phep lap ani
-				else if (reverse < 0 && _currentFrame == _indexStart) {
-					reverse = 1;
-					_currentFrame += 1;
-				}
-				else _currentFrame += 1 * reverse;
-
-			}
 		}
-
 	}
 	else {
 		_totalTime += dt;

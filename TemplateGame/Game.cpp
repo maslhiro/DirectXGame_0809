@@ -37,14 +37,14 @@ void Game::loadResource()
 	_texture->add(eIdTexture::ITEM_MAP_TEX, L"Resource//Object//Item_Map.png", D3DCOLOR_XRGB(163, 73, 164));
 
 	// Aladdin
-	_texture->add(eIdTexture::ALADIN_TEX, L"Resource//Object//Aladin.png", D3DCOLOR_XRGB(106, 148, 189));
+	_texture->add(eIdTexture::ALADDIN_TEX, L"Resource//Object//Aladin.png", D3DCOLOR_XRGB(106, 148, 189));
 #pragma endregion
 
 #pragma region Load Sprite
 
 	_sprite->add(eIdTexture::ITEM_TEX, "Resource//Object//Item_Sprite.txt");
 	_sprite->add(eIdTexture::ITEM_MAP_TEX, "Resource//Object//Item_Map_Sprite.txt");
-	_sprite->add(eIdTexture::ALADIN_TEX, "Resource//Object//Aladin_Sprite.txt");
+	_sprite->add(eIdTexture::ALADDIN_TEX, "Resource//Object//Aladin_Sprite.txt");
 
 #pragma endregion
 
@@ -59,7 +59,7 @@ void Game::loadResource()
 	//RECT bb = _test.getBounding();
 	//_RPT1(0, "[INFO] %d %d %d %d \n", bb.left, bb.top, bb.right, bb.bottom);
 
-	//_test = _animationManager->get(eIdAnimation::ALADING_RUN_JUMP);
+	//_test = _animationManager->get(eIdAnimation::ALADDIN_ATTACK);
 	//_test.setPosition(Vec3(300, 300, 1));
 	//_test.setScale(Vec2(2, 2));
 	//_test.setDrawingBound(true);
@@ -164,7 +164,7 @@ int Game::render()
 
 		//_test01.render(_deviceManager, _texture);
 
-		_test.render(_deviceManager, _texture);
+		//_test.render(_deviceManager, _texture);
 
 		_firstScene.render();
 
