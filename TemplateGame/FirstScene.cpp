@@ -51,7 +51,7 @@ void FirstScene::loadResource()
 	_player->loadResource();
 	_player->setScale(2.0f);
 	_player->setSpeed(156.f);
-	_player->setGravity(195.f);
+	_player->setGravity(200.f);
 
 	_player->setGrid(_grid);
 

@@ -45,17 +45,23 @@ void Aladdin::setCamera(pCamera cam)
 void Aladdin::loadResource()
 {
 
-	_listAnimation[eIdState::WAIT_01] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_IDLING_01);
+	_listAnimation[eIdState::WAIT_01] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_IDLE_01);
 
-	_listAnimation[eIdState::WAIT_02] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_IDLING_02);
+	_listAnimation[eIdState::WAIT_02] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_IDLE_02);
 
-	_listAnimation[eIdState::STAND] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_STANDING);
+	_listAnimation[eIdState::STAND] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_STAND);
 
-	_listAnimation[eIdState::RUN] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_RUNNING);
+	_listAnimation[eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_ATTACK);
 
-	_listAnimation[eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_JUMPING);
+	_listAnimation[eIdState::RUN] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_RUN);
 
-	_listAnimation[eIdState::RUN || eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDING_RUN_JUMP);
+	_listAnimation[eIdState::RUN | eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_RUN_ATTACK);
+
+	_listAnimation[eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_JUMP);
+
+	_listAnimation[eIdState::JUMP | eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_JUMP_ATTACK);
+
+	_listAnimation[eIdState::RUN | eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_RUN_JUMP);
 
 	_listAnimation[eIdState::DAMAGE] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_DAMAGE);
 
@@ -111,6 +117,29 @@ void Aladdin::update(float dt)
 		}
 	}
 
+	if ((_state & eIdState::ATTACK) == eIdState::ATTACK)
+	{
+		this->setIsAnimated(true);
+		if (_curAnimation.getLoopCount() > 0)
+		{
+			if (_state == eIdState::ATTACK)
+			{
+				this->fixPosAnimation(eIdState::STAND);
+				this->setState(eIdState::STAND);
+			}
+			else if ((_state & (eIdState::JUMP)) == (eIdState::JUMP))
+			{
+				this->setDy(_gravity);
+				_state &= ~eIdState::ATTACK;
+			}
+			else
+			{
+				_state &= ~eIdState::ATTACK;
+				_curAnimation = _listAnimation[_state];
+			}
+		}
+	}
+
 	if ((_state & eIdState::RUN) == eIdState::RUN)
 	{
 		// Ko co su kien tu A va D
@@ -162,7 +191,7 @@ void Aladdin::update(float dt)
 			//RECT t1 = getBoundingBox();
 			//_RPT1(0, "[IS ON GROUND] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
 
-			if ((!_isRunJump && _curAnimation.getCurrentFrame() == 12) || (_isRunJump && _curAnimation.getLoopCount() > 0))
+			if (_curAnimation.getLoopCount() > 0)
 			{
 				_isOnGround = false;
 				this->fixPosAnimation(eIdState::STAND);
@@ -176,9 +205,8 @@ void Aladdin::update(float dt)
 				/*_jumpDistance += abs(_dy) * dt;
 				_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
-
 				// Den frame nay la phai roi xuong
-				if ((!_isRunJump && _curAnimation.getCurrentFrame() == 10) || (_isRunJump && _curAnimation.getCurrentFrame() == 3))
+				if ((!_isRunJump &&  _curAnimation.getCurrentFrame() == 10) || (_isRunJump && _curAnimation.getCurrentFrame() == 4))
 				{
 					if (!_isRunJump) this->setIsAnimated(false);
 					this->setDy(_gravity);
@@ -187,6 +215,7 @@ void Aladdin::update(float dt)
 			else if (_dy > 0.f)
 			{
 				float timeUpdate = dt;
+				_RPT1(0, "[CHECK Collision] JUMP DISTANCE: %f \n", _dy);
 
 				for (size_t i = 0; i < listObj.size(); i++)
 				{
@@ -233,7 +262,6 @@ void Aladdin::update(float dt)
 	}
 
 updateAni:	_curAnimation.update(dt);
-	//if (_state == eIdState::WAIT_01) _RPT1(0, "[STATE UPDATE] %d \n", _isAnimated);
 
 	// Va chạm với apple va ball
 	for (size_t i = 0; i < listObj.size(); i++)
@@ -333,11 +361,11 @@ void Aladdin::handlerInput(float dt)
 			this->setState(eIdState::JUMP);
 			this->setDy(-_gravity);
 		}
-		//else if (_input->getMapKey()[KEY_Q]) {
-			// Test
-			//this->fixPosAnimation(eIdState::WAIT_01);
-			//this->setState(eIdState::WAIT_01);
-		//}
+		else if (_input->getMapKey()[KEY_Q]) {
+			_waitTime = 0.f;
+			this->fixPosAnimation(eIdState::ATTACK);
+			this->setState(eIdState::ATTACK);
+		}
 
 		// Khong co su kien phim nao 
 		// Update waitTime
@@ -349,8 +377,11 @@ void Aladdin::handlerInput(float dt)
 
 	if ((_state & eIdState::JUMP) == eIdState::JUMP)
 	{
-
-		if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+		if (_input->getMapKey()[KEY_Q]) {
+			_state |= eIdState::ATTACK;
+			_curAnimation = _listAnimation[eIdState::JUMP | eIdState::ATTACK];
+		}
+		else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
 			_state |= eIdState::RUN;
 			_moveDirection = -1;
 		}
@@ -370,6 +401,7 @@ void Aladdin::handlerInput(float dt)
 			_moveDirection = 0;
 		}
 	}
+
 	else if ((_state & eIdState::RUN) == eIdState::RUN)
 	{
 		// Ko co su kien tu A va D
@@ -387,7 +419,7 @@ void Aladdin::handlerInput(float dt)
 			{
 				_isRunJump = true;
 				_state |= eIdState::JUMP;
-				_curAnimation = _listAnimation[eIdState::RUN || eIdState::JUMP];
+				_curAnimation = _listAnimation[eIdState::RUN | eIdState::JUMP];
 				this->setDy(-_gravity);
 			}
 		}
@@ -399,10 +431,15 @@ void Aladdin::handlerInput(float dt)
 			{
 				_isRunJump = true;
 				_state |= eIdState::JUMP;
-				_curAnimation = _listAnimation[eIdState::RUN || eIdState::JUMP];
+				_curAnimation = _listAnimation[eIdState::RUN | eIdState::JUMP];
 				this->setDy(-_gravity);
 				_RPT0(0, "[RUN JUMP]\n");
 			}
+		}
+
+		if (_input->getMapKey()[KEY_Q]) {
+			_state |= eIdState::ATTACK;
+			_curAnimation = _listAnimation[eIdState::RUN | eIdState::ATTACK];
 		}
 	}
 }

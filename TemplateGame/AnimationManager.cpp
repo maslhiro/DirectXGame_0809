@@ -142,9 +142,9 @@ void AnimationManager::load() {
 	_stand.setIsLoop(false);
 	_stand.setTypeFixPos(eTypeFixPos::L_BT);
 	_stand.setScale(2.0f, 2.0f);
-	_stand.addSprite(eIdSprite::ALADDIN_STAND);
+	_stand.addSprite(eIdSprite::ALADDIN_STAND_01);
 
-	_listAnimation[eIdAnimation::ALADDIN_STANDING] = _stand;
+	_listAnimation[eIdAnimation::ALADDIN_STAND] = _stand;
 
 
 	Animation _idle01;
@@ -161,7 +161,7 @@ void AnimationManager::load() {
 	_idle01.addSprite(eIdSprite::ALADDIN_IDLE_1_07);
 	_idle01.addSprite(eIdSprite::ALADDIN_IDLE_1_08);
 
-	_listAnimation[eIdAnimation::ALADDIN_IDLING_01] = _idle01;
+	_listAnimation[eIdAnimation::ALADDIN_IDLE_01] = _idle01;
 
 	Animation _idle02;
 	_idle02.setTimePerFrame(0.08f);
@@ -207,7 +207,7 @@ void AnimationManager::load() {
 	_idle02.addSprite(eIdSprite::ALADDIN_IDLE_2_35);
 	_idle02.addSprite(eIdSprite::ALADDIN_IDLE_2_36);
 
-	_listAnimation[eIdAnimation::ALADDIN_IDLING_02] = _idle02;
+	_listAnimation[eIdAnimation::ALADDIN_IDLE_02] = _idle02;
 
 	Animation _jump;
 	_jump.setTimePerFrame(0.092f);
@@ -228,7 +228,7 @@ void AnimationManager::load() {
 	_jump.addSprite(eIdSprite::ALADDIN_JUMP_12);
 	_jump.addSprite(eIdSprite::ALADDIN_JUMP_13);
 
-	_listAnimation[eIdAnimation::ALADDIN_JUMPING] = _jump;
+	_listAnimation[eIdAnimation::ALADDIN_JUMP] = _jump;
 
 	Animation _run;
 	_run.setTimePerFrame(0.06f);
@@ -250,7 +250,7 @@ void AnimationManager::load() {
 	_run.addSprite(eIdSprite::ALADDIN_RUN_12);
 	_run.addSprite(eIdSprite::ALADDIN_RUN_13);
 
-	_listAnimation[eIdAnimation::ALADDIN_RUNNING] = _run;
+	_listAnimation[eIdAnimation::ALADDIN_RUN] = _run;
 
 	Animation _damage;
 	_damage.setTimePerFrame(0.15f);
@@ -267,7 +267,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_DAMAGE] = _damage;
 
 	Animation _runJump;
-	_runJump.setTimePerFrame(0.15f);
+	_runJump.setTimePerFrame(0.12f);
 	_runJump.setIsLoop(false);
 	_runJump.setTypeFixPos(eTypeFixPos::L_BT);
 	_runJump.setScale(2.0f, 2.0f);
@@ -279,11 +279,26 @@ void AnimationManager::load() {
 	_runJump.addSprite(eIdSprite::ALADDIN_RUN_JUMP_06);
 	_runJump.addSprite(eIdSprite::ALADDIN_RUN_JUMP_07);
 
-	_listAnimation[eIdAnimation::ALADDING_RUN_JUMP] = _runJump;
+	_listAnimation[eIdAnimation::ALADDIN_RUN_JUMP] = _runJump;
+
+	Animation _jumpAttack;
+	_jumpAttack.setTimePerFrame(0.05f);
+	_jumpAttack.setIsLoop(false);
+	_jumpAttack.setTypeFixPos(eTypeFixPos::L_BT);
+	_jumpAttack.setScale(2.0f, 2.0f);
+	_jumpAttack.addSprite(eIdSprite::ALADDIN_JUMP_ATTACK_01);
+	_jumpAttack.addSprite(eIdSprite::ALADDIN_JUMP_ATTACK_02);
+	_jumpAttack.addSprite(eIdSprite::ALADDIN_JUMP_ATTACK_03);
+	_jumpAttack.addSprite(eIdSprite::ALADDIN_JUMP_ATTACK_04);
+	_jumpAttack.addSprite(eIdSprite::ALADDIN_JUMP_ATTACK_05);
+	_jumpAttack.addSprite(eIdSprite::ALADDIN_JUMP_ATTACK_06);
+	_jumpAttack.addSprite(eIdSprite::ALADDIN_JUMP_ATTACK_07);
+
+	_listAnimation[eIdAnimation::ALADDIN_JUMP_ATTACK] = _jumpAttack;
 
 	Animation _attack;
-	_attack.setTimePerFrame(0.85f);
-	_attack.setIsLoop(true);
+	_attack.setTimePerFrame(0.15f);
+	_attack.setIsLoop(false);
 	_attack.setTypeFixPos(eTypeFixPos::L_BT);
 	_attack.setScale(2.0f, 2.0f);
 	_attack.addSprite(eIdSprite::ALADDIN_ATTACK_01);
@@ -291,12 +306,23 @@ void AnimationManager::load() {
 	_attack.addSprite(eIdSprite::ALADDIN_ATTACK_03);
 	_attack.addSprite(eIdSprite::ALADDIN_ATTACK_04);
 	_attack.addSprite(eIdSprite::ALADDIN_ATTACK_05);
-	_attack.addSprite(eIdSprite::ALADDIN_ATTACK_06);
-	_attack.addSprite(eIdSprite::ALADDIN_ATTACK_07);
-	_attack.addSprite(eIdSprite::ALADDIN_ATTACK_08);
-	_attack.addSprite(eIdSprite::ALADDIN_ATTACK_09);
 
 	_listAnimation[eIdAnimation::ALADDIN_ATTACK] = _attack;
+
+	Animation _runAttack;
+	_runAttack.setTimePerFrame(0.1f);
+	_runAttack.setIsLoop(false);
+	_runAttack.setTypeFixPos(eTypeFixPos::L_BT);
+	_runAttack.setScale(2.0f, 2.0f);
+	_runAttack.addSprite(eIdSprite::ALADDIN_RUN_ATTACK_01);
+	_runAttack.addSprite(eIdSprite::ALADDIN_RUN_ATTACK_02);
+	_runAttack.addSprite(eIdSprite::ALADDIN_RUN_ATTACK_03);
+	_runAttack.addSprite(eIdSprite::ALADDIN_RUN_ATTACK_04);
+	_runAttack.addSprite(eIdSprite::ALADDIN_RUN_ATTACK_05);
+	_runAttack.addSprite(eIdSprite::ALADDIN_RUN_ATTACK_06);
+
+	_listAnimation[eIdAnimation::ALADDIN_RUN_ATTACK] = _runAttack;
+
 #pragma endregion
 
 }

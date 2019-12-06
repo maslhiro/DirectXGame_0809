@@ -116,15 +116,16 @@ void Camera::update(float dt)
 	float distance_ = 60.;
 
 	// Không cho cam ra khỏi map
-	if (_nextPosWorld.x < ((_width * 2.0) / 3.0) - distance_)
+	if (_nextPosWorld.x < ((_width * 2.0) / 3.0) - distance_ || (_nextPosWorld.x > (_mapWidth - distance_ - _width * 2. / 3.)))
 	{
-		_nextPosWorld.x = ((float)_width) * 2.0 / 3.0 - distance_;
-	}
-	if (_nextPosWorld.x > (_mapWidth - distance_ - _width * 2. / 3.))
-	{
-		_nextPosWorld.x = (float)(_mapWidth)-distance_ - _width * 2 / 3.;
-		//_RPT0(0, "====================\n");
 		//_RPT1(0, "[FIX CAM] %f\n", _nextPosWorld.x);
+		return;
+	}
+
+	if (_nextPosWorld.y < ((_height / 2.0) - distance_) || (_nextPosWorld.y > (_mapHeight - distance_ - _height / 3.0)))
+	{
+		//_RPT1(0, "[FIX CAM] %f\n", _nextPosWorld.x);
+		return;
 	}
 
 	if (_isMoving)
@@ -139,6 +140,14 @@ void Camera::update(float dt)
 			_positionWorld -= Vec2(_speed*dt, 0);
 		}
 
+		//if (_nextPosWorld.y > _positionWorld.y)
+		//{
+		//	_positionWorld += Vec2(0,_speed*dt);
+		//}
+		//else if (_nextPosWorld.y < _positionWorld.y)
+		//{
+		//	_positionWorld -= Vec2(0,_speed*dt);
+		//}
 		//_RPT0(0, "==================================\n");
 		//_RPT1(0, "[ CAM ] NEXT %f\n", _nextPosWorld.x);
 		//_RPT1(0, "[ CAM ] CUR %f\n", _positionWorld.x);
