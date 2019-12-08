@@ -195,7 +195,7 @@ void AnimationManager::load() {
 
 #pragma region SPIKE
 	Animation _spike;
-	_spike.setTimePerFrame(0.5f);
+	_spike.setTimePerFrame(0.05f);
 	_spike.setIsLoop(true);
 	_spike.setTypeFixPos(eTypeFixPos::L_T);
 	_spike.addSprite(eIdSprite::SPIKE_01);

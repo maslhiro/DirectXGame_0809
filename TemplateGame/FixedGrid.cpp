@@ -116,6 +116,11 @@ void FixedGrid::load(const char* filePath)
 				_obj = new Nahbi();
 				break;
 			}
+			case eIdObject::SKELETON:
+			{
+				_obj = new Skeleton();
+				break;
+			}
 			case eIdObject::WRECKING_BALL:
 			{
 				_obj = new WreckingBall();
@@ -144,6 +149,19 @@ void FixedGrid::load(const char* filePath)
 			case eIdObject::GROUND:
 			{
 				_obj = new Ground();
+
+				RECT rec;
+				rec.left = posObj_X;
+				rec.top = posObj_Y;
+				rec.right = objW;
+				rec.bottom = objH;
+				_obj->setRectWorld(rec);
+
+				break;
+			}
+			case eIdObject::ROPE:
+			{
+				_obj = new Rope();
 
 				RECT rec;
 				rec.left = posObj_X;
