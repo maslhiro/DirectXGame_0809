@@ -6,7 +6,9 @@
 #include "GameObject.h"
 
 #include "Apple.h"
+#include "AppleThrow.h"
 #include "Ground.h"
+#include "Spike.h"
 #include "Rock.h"
 #include "WreckingBall.h"
 #include "StoneColumn_1.h"

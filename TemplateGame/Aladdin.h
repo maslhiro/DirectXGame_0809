@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "AppleThrow.h"
 #include "Camera.h"
 #include "FixedGrid.h"
 
@@ -13,6 +14,9 @@ private:
 
 	pInputHandler _input;
 	std::unordered_map<int, bool> _keys;
+
+	std::vector<pAppleThrow> _listApple;
+	int _indexApple;
 
 	// Xet huong di chuyen
 	// 1 -> right
@@ -28,7 +32,7 @@ private:
 
 	// Bien bool check Player da dung tren mat dat chua
 	bool _isRunJump;
-
+	bool _isSit;
 	bool _isDamage;
 
 	float _waitTime;

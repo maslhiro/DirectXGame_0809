@@ -29,6 +29,9 @@ public:
 	int getWidth();
 	int getHeight();
 
+	int getMapWidth();
+	int getMapHeight();
+
 	void setSizeMap(int, int);
 
 	void update(float);
@@ -51,7 +54,8 @@ private:
 	// Vân tốc cam di chuyển
 	float _speed;
 
-	bool _isMoving;
+	bool _isMovingHorizontal;
+	bool _isMovingVertical;
 
 	int _width;
 	int _height;

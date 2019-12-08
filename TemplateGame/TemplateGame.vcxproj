@@ -127,6 +127,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Apple.cpp" />
+    <ClCompile Include="AppleThrow.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
     <ClCompile Include="FirstScene.cpp" />
@@ -144,6 +145,7 @@
     <ClCompile Include="RectSprite.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Spike.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StoneColumn_1.cpp" />
     <ClCompile Include="StoneColumn_2.cpp" />
@@ -159,6 +161,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Apple.h" />
+    <ClInclude Include="AppleThrow.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawDebug.h" />
     <ClInclude Include="FirstScene.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Spike.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StoneColumn_1.h" />
     <ClInclude Include="StoneColumn_2.h" />

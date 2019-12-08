@@ -13,7 +13,9 @@ Aladdin::Aladdin() : GameObject()
 	_isRunJump = false;
 	_isDamage = false;
 
+	_isSit = false;
 	_moveDirection = 0;
+	_indexApple = 0;
 	_waitTime = 0.f;
 }
 
@@ -53,6 +55,8 @@ void Aladdin::loadResource()
 
 	_listAnimation[eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_ATTACK);
 
+	_listAnimation[eIdState::THROW] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_THROW);
+
 	_listAnimation[eIdState::RUN] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_RUN);
 
 	_listAnimation[eIdState::RUN | eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_RUN_ATTACK);
@@ -60,6 +64,16 @@ void Aladdin::loadResource()
 	_listAnimation[eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_JUMP);
 
 	_listAnimation[eIdState::JUMP | eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_JUMP_ATTACK);
+
+	_listAnimation[eIdState::JUMP | eIdState::THROW] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_JUMP_THROW);
+
+	_listAnimation[eIdState::SIT] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_SIT);
+
+	_listAnimation[eIdState::SIT_] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_SIT_);
+
+	_listAnimation[eIdState::SIT | eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_SIT_ATTACK);
+
+	_listAnimation[eIdState::SIT | eIdState::THROW] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_SIT_THROW);
 
 	_listAnimation[eIdState::RUN | eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_RUN_JUMP);
 
@@ -76,12 +90,26 @@ void Aladdin::render()
 	//_curAnimation.setDrawingBound(true);
 	_curAnimation.setIsFlip(_isFlip);
 	_curAnimation.render(_device, _texture);
+
+	if (_indexApple != 0)
+	{
+		_RPT0(0, "[UPDATE APPLE]\n");
+		_listApple[_indexApple - 1]->render();
+	}
 }
 
 void Aladdin::update(float dt)
 {
+	RECT _viewPort = _camera->getBounding();
 	// Get list obj nam trong view port
 	auto listObj = _grid->getListGameObjContain(getBoundingBox());
+	auto listObj_Apple = _grid->getListGameObjContain(_viewPort);
+
+	if (_indexApple != 0)
+	{
+		_listApple[_indexApple - 1]->setListGameObj(listObj_Apple);
+		_listApple[_indexApple - 1]->update(dt);
+	}
 
 	if ((_state & eIdState::STAND) == eIdState::STAND)
 	{
@@ -132,10 +160,48 @@ void Aladdin::update(float dt)
 				this->setDy(_gravity);
 				_state &= ~eIdState::ATTACK;
 			}
-			else
+			else if ((_state & (eIdState::SIT)) == (eIdState::SIT))
 			{
+				this->fixPosAnimation(eIdState::SIT_);
+				_curAnimation = _listAnimation[eIdState::SIT_];
+				_state &= ~eIdState::ATTACK;
+			}
+			else if ((_state & (eIdState::RUN)) == (eIdState::RUN))
+			{
+				this->fixPosAnimation(eIdState::RUN);
+				_curAnimation = _listAnimation[eIdState::RUN];
+				_state &= ~eIdState::ATTACK;
+			}
+			/*else
+			{
+				int newState = _state & ~eIdState::ATTACK;
+				this->fixPosAnimation(newState);
 				_state &= ~eIdState::ATTACK;
 				_curAnimation = _listAnimation[_state];
+			}*/
+		}
+	}
+
+	if ((_state & eIdState::THROW) == eIdState::THROW)
+	{
+		this->setIsAnimated(true);
+		if (_curAnimation.getLoopCount() > 0)
+		{
+			if (_state == eIdState::THROW)
+			{
+				this->fixPosAnimation(eIdState::STAND);
+				this->setState(eIdState::STAND);
+			}
+			else if ((_state & (eIdState::SIT)) == (eIdState::SIT))
+			{
+				this->fixPosAnimation(eIdState::SIT_);
+				_curAnimation = _listAnimation[eIdState::SIT_];
+				_state &= ~eIdState::THROW;
+			}
+			else if ((_state & (eIdState::JUMP)) == (eIdState::JUMP))
+			{
+				this->setDy(_gravity);
+				_state &= ~eIdState::THROW;
 			}
 		}
 	}
@@ -177,6 +243,15 @@ void Aladdin::update(float dt)
 		}
 	}
 
+	if ((_state & eIdState::SIT) == eIdState::SIT)
+	{
+		if (!_isSit)
+		{
+			this->fixPosAnimation(eIdState::STAND);
+			this->setState(eIdState::STAND);
+		}
+	}
+
 	if ((_state & eIdState::JUMP) == eIdState::JUMP)
 	{
 
@@ -205,6 +280,12 @@ void Aladdin::update(float dt)
 				/*_jumpDistance += abs(_dy) * dt;
 				_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
+
+				if (_posWorld.y >= _device->getHeightWindow() / 2.)
+				{
+					_camera->addNextPositisonWorld(Vec3(0, _dy*dt, 0));
+				}
+
 				// Den frame nay la phai roi xuong
 				if ((!_isRunJump &&  _curAnimation.getCurrentFrame() == 10) || (_isRunJump && _curAnimation.getCurrentFrame() == 4))
 				{
@@ -212,24 +293,24 @@ void Aladdin::update(float dt)
 					this->setDy(_gravity);
 				}
 			}
-			else if (_dy > 0.f)
+			else if (_dy >= 0.f)
 			{
 				float timeUpdate = dt;
-				_RPT1(0, "[CHECK Collision] JUMP DISTANCE: %f \n", _dy);
+				//_RPT1(0, "[CHECK Collision] JUMP DISTANCE: %f \n", _dy);
 
 				for (size_t i = 0; i < listObj.size(); i++)
 				{
 					auto obj = listObj[i];
 
-					// Va cham voi land
+					// Va cham voi ground
 					if (obj->getIdType() == eIdObject::GROUND || obj->getIdType() == eIdObject::ROCK)
 					{
 						int direction = 0;
 
-						float check2 = this->checkCollision_SweptAABB(obj->getCurrentBoudingBox(), timeUpdate, _dx, _dy, direction);
+						float check2 = this->checkCollision_SweptAABB(obj->getBoundingBox(), timeUpdate, _dx, _dy, direction);
 
 						//if (obj->getIdType() == eIdObject::ROCK) {
-						//_RPT1(0, "[CHECK Collision] CHECK COLLISION : %d \n", direction);
+						//_RPT1(0, "[CHECK Collision] CHECK COLLISION id :%d -  %d \n", obj->getId(), direction);
 						//}
 						//float check = this->checkCollision(obj->getBoundingBox());
 
@@ -238,9 +319,8 @@ void Aladdin::update(float dt)
 
 						if (check2 < timeUpdate)
 						{
-							if (obj->getIdType() == eIdObject::ROCK) {
-								if (direction != eDirection::TOP) break;
-							}
+							if (obj->getIdType() == eIdObject::ROCK && direction != eDirection::TOP) goto updatePos;
+
 							//_RPT1(0, "[AAAAAAAAAAA] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
 							//_RPT1(0, "[AAAAAAAAAAA] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
 							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
@@ -253,8 +333,15 @@ void Aladdin::update(float dt)
 					}
 
 				}
+			updatePos:
 
 				this->updateAllPos(Vec3(0, _dy*timeUpdate, 0));
+
+				if (_posWorld.y < (_camera->getMapHeight() - _device->getHeightWindow() / 2))
+				{
+					_camera->addNextPositisonWorld(Vec3(0, _dy*timeUpdate, 0));
+				}
+
 			}
 
 		}
@@ -343,7 +430,6 @@ void Aladdin::handlerInput(float dt)
 			this->setState(eIdState::RUN);
 
 		}
-		// D
 		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
 		{
 			_moveDirection = 1;
@@ -353,18 +439,47 @@ void Aladdin::handlerInput(float dt)
 			this->setState(eIdState::RUN);
 
 		}
-		// W
 		else if (_input->getMapKey()[KEY_W])
 		{
 			_waitTime = 0.f;
 			_isRunJump = false;
 			this->setState(eIdState::JUMP);
+			this->setDx(0.f);
 			this->setDy(-_gravity);
 		}
 		else if (_input->getMapKey()[KEY_Q]) {
 			_waitTime = 0.f;
 			this->fixPosAnimation(eIdState::ATTACK);
 			this->setState(eIdState::ATTACK);
+		}
+		else if (_input->getMapKey()[KEY_S]) {
+			_waitTime = 0.f;
+			this->fixPosAnimation(eIdState::SIT);
+			this->setState(eIdState::SIT);
+		}
+		else if (_input->getMapKey()[KEY_E]) {
+			_waitTime = 0.f;
+			this->fixPosAnimation(eIdState::THROW);
+			this->setState(eIdState::THROW);
+			//_RPT0(0, "[THROW]\n");
+
+			pAppleThrow _apple = new AppleThrow();
+			_apple->loadResource();
+			_apple->setScale(2.0f);
+
+			_indexApple += 1;
+
+			if (_isFlip)
+			{
+				_apple->setPositionWorld(_posWorld + Vec3(-20, -40, 0));
+
+				_apple->moveLeft();
+			}
+			else {
+				_apple->setPositionWorld(_posWorld + Vec3(20, -40, 0));
+				_apple->moveRight();
+			}
+			_listApple.push_back(_apple);
 		}
 
 		// Khong co su kien phim nao 
@@ -375,11 +490,76 @@ void Aladdin::handlerInput(float dt)
 		}
 	}
 
+	if ((_state & eIdState::SIT) == eIdState::SIT)
+	{
+		// S
+		if (_input->getMapKey()[KEY_S]) {
+
+			_isSit = true;
+			if (_input->getMapKey()[KEY_Q])
+			{
+				this->fixPosAnimation(eIdState::SIT | eIdState::ATTACK);
+				_curAnimation = _listAnimation[eIdState::SIT | eIdState::ATTACK];
+				_state |= eIdState::ATTACK;
+			}
+			else if (_input->getMapKey()[KEY_E])
+			{
+				this->fixPosAnimation(eIdState::SIT | eIdState::THROW);
+				_curAnimation = _listAnimation[eIdState::SIT | eIdState::THROW];
+				_state |= eIdState::THROW;
+
+				pAppleThrow _apple = new AppleThrow();
+				_apple->loadResource();
+				_apple->setScale(2.0f);
+
+				_indexApple += 1;
+
+				if (_isFlip)
+				{
+					_apple->setPositionWorld(_posWorld + Vec3(-40, -30, 0));
+
+					_apple->moveLeft();
+				}
+				else {
+					_apple->setPositionWorld(_posWorld + Vec3(40, -30, 0));
+					_apple->moveRight();
+				}
+				_listApple.push_back(_apple);
+			}
+		}
+		else {
+			_isSit = false;
+		}
+	}
+
 	if ((_state & eIdState::JUMP) == eIdState::JUMP)
 	{
 		if (_input->getMapKey()[KEY_Q]) {
 			_state |= eIdState::ATTACK;
+			//this->setDy(10.f);
 			_curAnimation = _listAnimation[eIdState::JUMP | eIdState::ATTACK];
+		}
+		if (_input->getMapKey()[KEY_E]) {
+			_state |= eIdState::THROW;
+			_curAnimation = _listAnimation[eIdState::JUMP | eIdState::THROW];
+
+			pAppleThrow _apple = new AppleThrow();
+			_apple->loadResource();
+			_apple->setScale(2.0f);
+
+			_indexApple += 1;
+
+			if (_isFlip)
+			{
+				_apple->setPositionWorld(_posWorld + Vec3(-40, -40, 0));
+
+				_apple->moveLeft();
+			}
+			else {
+				_apple->setPositionWorld(_posWorld + Vec3(40, -40, 0));
+				_apple->moveRight();
+			}
+			_listApple.push_back(_apple);
 		}
 		else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
 			_state |= eIdState::RUN;
@@ -438,6 +618,7 @@ void Aladdin::handlerInput(float dt)
 		}
 
 		if (_input->getMapKey()[KEY_Q]) {
+			this->fixPosAnimation(eIdState::RUN | eIdState::ATTACK);
 			_state |= eIdState::ATTACK;
 			_curAnimation = _listAnimation[eIdState::RUN | eIdState::ATTACK];
 		}

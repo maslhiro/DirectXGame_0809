@@ -35,6 +35,9 @@ void Game::loadResource()
 	// Item game
 	_texture->add(eIdTexture::ITEM_TEX, L"Resource//Object//Item.png", D3DCOLOR_XRGB(255, 0, 255));
 	_texture->add(eIdTexture::ITEM_MAP_TEX, L"Resource//Object//Item_Map.png", D3DCOLOR_XRGB(163, 73, 164));
+	_texture->add(eIdTexture::BAT_TEX, L"Resource//Object//Bat.png", D3DCOLOR_XRGB(255, 0, 255));
+	_texture->add(eIdTexture::SKELETON_TEX, L"Resource//Object//Skeleton.png", D3DCOLOR_XRGB(255, 0, 255));
+
 
 	// Aladdin
 	_texture->add(eIdTexture::ALADDIN_TEX, L"Resource//Object//Aladin.png", D3DCOLOR_XRGB(106, 148, 189));
@@ -45,6 +48,7 @@ void Game::loadResource()
 	_sprite->add(eIdTexture::ITEM_TEX, "Resource//Object//Item_Sprite.txt");
 	_sprite->add(eIdTexture::ITEM_MAP_TEX, "Resource//Object//Item_Map_Sprite.txt");
 	_sprite->add(eIdTexture::ALADDIN_TEX, "Resource//Object//Aladin_Sprite.txt");
+	_sprite->add(eIdTexture::SKELETON_TEX, "Resource//Object//Skeleton_Sprite.txt");
 
 #pragma endregion
 
@@ -59,7 +63,7 @@ void Game::loadResource()
 	//RECT bb = _test.getBounding();
 	//_RPT1(0, "[INFO] %d %d %d %d \n", bb.left, bb.top, bb.right, bb.bottom);
 
-	//_test = _animationManager->get(eIdAnimation::ALADDIN_JUMP_ATTACK);
+	//_test = _animationManager->get(eIdAnimation::APPLE_THROW_EXPLODE);
 	//_test.setPosition(Vec3(300, 300, 1));
 	//_test.setScale(Vec2(2, 2));
 	//_test.setDrawingBound(true);

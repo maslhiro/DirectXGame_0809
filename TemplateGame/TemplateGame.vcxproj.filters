@@ -162,6 +162,12 @@
     <ClCompile Include="Aladdin.cpp">
       <Filter>Source Files\Object\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Spike.cpp">
+      <Filter>Source Files\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="AppleThrow.cpp">
+      <Filter>Source Files\Object\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -253,6 +259,12 @@
     </ClInclude>
     <ClInclude Include="Aladdin.h">
       <Filter>Header Files\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Spike.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleThrow.h">
+      <Filter>Header Files\Object\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

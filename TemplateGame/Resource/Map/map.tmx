@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="36" height="18" tilewidth="128" tileheight="128" infinite="0" nextlayerid="18" nextobjectid="38">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="36" height="18" tilewidth="128" tileheight="128" infinite="0" nextlayerid="18" nextobjectid="41">
  <tileset firstgid="1" name="70" tilewidth="128" tileheight="128" tilecount="650" columns="26">
   <image source="map.png" width="3328" height="3200"/>
  </tileset>
@@ -28,7 +28,7 @@
 603,604,605,606,607,608,609,610,611,612,613,614,615,616,617,618,619,620,621,622,623,624,625,626,627,628,629,630,631,632,633,634,635,636,637,638
 </data>
  </layer>
- <objectgroup id="12" name="6000" visible="0">
+ <objectgroup id="12" name="6000">
   <object id="65" name="600001" x="264.631" y="2179" width="1" height="1"/>
  </objectgroup>
  <objectgroup id="15" name="4500">
@@ -61,7 +61,7 @@
  <objectgroup id="11" name="4005" visible="0">
   <object id="15" name="400501" x="2402" y="2054" width="10" height="10"/>
  </objectgroup>
- <objectgroup id="17" name="4006" visible="0">
+ <objectgroup id="17" name="4006">
   <object id="34" name="400601" x="2657" y="2088" width="10" height="10"/>
   <object id="35" name="400602" x="2564" y="1991" width="10" height="10"/>
   <object id="36" name="400603" x="2753" y="1927" width="10" height="10"/>

@@ -37,7 +37,7 @@ void Apple::update(float dt)
 
 	if (_state == eIdState::EXPLODE)
 	{
-		if (_curAnimation.getLoopCount() == 1) _isTerminated = true;
+		if (_curAnimation.getLoopCount() > 0) _isTerminated = true;
 	}
 
 	_curAnimation.update(dt);

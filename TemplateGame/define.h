@@ -29,12 +29,12 @@
 
 #define TILE_SIZE 128
 
-#define UNIT_WIDTH 228
-#define UNIT_HEIGHT 227
+#define UNIT_WIDTH 500
+#define UNIT_HEIGHT 300
 
 // Khoang cach camera
 #define DISTANCE_X 5
-#define DISTANCE_Y 5
+#define DISTANCE_Y 50
 
 #define BBOX_WIDTH 5
 
@@ -42,9 +42,10 @@
 #define KEY_D 0x44
 #define KEY_S 0x53
 #define KEY_W 0x57
+#define KEY_E 0x45
+#define KEY_F 0x46
 #define KEY_Q 0x51
 
-// 2s de aladdin tu stand => wait
 #define WAIT_TIME_ALADDIN 5.f
 
 typedef D3DXVECTOR3 Vec3;

@@ -21,13 +21,42 @@ void AnimationManager::load() {
 
 #pragma endregion
 
+#pragma region Apple Throw
+
+	Animation _appleThrow;
+	_appleThrow.setTimePerFrame(0.07f);
+	_appleThrow.setIsLoop(true);
+	_appleThrow.setTypeFixPos(eTypeFixPos::C_C);
+	_appleThrow.addSprite(eIdSprite::APPLE_THROW_01);
+	_appleThrow.addSprite(eIdSprite::APPLE_THROW_02);
+	_appleThrow.addSprite(eIdSprite::APPLE_THROW_03);
+	_appleThrow.addSprite(eIdSprite::APPLE_THROW_04);
+
+	_listAnimation[eIdAnimation::APPLE_THROW] = _appleThrow;
+
+#pragma endregion
+
+#pragma region Apple Throw Explode
+	Animation _appleThrowExplode;
+	_appleThrowExplode.setTimePerFrame(0.08f);
+	_appleThrowExplode.setIsLoop(false);
+	_appleThrowExplode.setTypeFixPos(eTypeFixPos::C_C);
+	_appleThrowExplode.setScale(2.0f, 2.0f);
+	_appleThrowExplode.addSprite(eIdSprite::APPLE_THROW_EXPLODE_01);
+	_appleThrowExplode.addSprite(eIdSprite::APPLE_THROW_EXPLODE_02);
+	_appleThrowExplode.addSprite(eIdSprite::APPLE_THROW_EXPLODE_03);
+	_appleThrowExplode.addSprite(eIdSprite::APPLE_THROW_EXPLODE_04);
+	_appleThrowExplode.addSprite(eIdSprite::APPLE_THROW_EXPLODE_05);
+
+	_listAnimation[eIdAnimation::APPLE_THROW_EXPLODE] = _appleThrowExplode;
+#pragma endregion
+
 #pragma region Apple Explode
 	Animation _appleExplode;
 	_appleExplode.setTimePerFrame(0.08f);
-	_appleExplode.setIsLoop(true);
+	_appleExplode.setIsLoop(false);
 	_appleExplode.setTypeFixPos(eTypeFixPos::C_C);
-	//_apple.setIsReverse(true);
-	//_apple.setDrawingBound(true);
+	_appleExplode.setScale(2.0f, 2.0f);
 	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_01);
 	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_02);
 	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_03);
@@ -80,6 +109,36 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::WRECKING_BALL_VISIBLE] = _wreckingBall;
 #pragma endregion
 
+#pragma region SKELETON
+	Animation _skeleton;
+	_skeleton.setTimePerFrame(0.08f);
+	_skeleton.setIsLoop(true);
+	_skeleton.setTypeFixPos(eTypeFixPos::C_BT);
+	_skeleton.setScale(2.0f, 2.0f);
+	_skeleton.addSprite(eIdSprite::SKELETON_01);
+	_skeleton.addSprite(eIdSprite::SKELETON_02);
+	_skeleton.addSprite(eIdSprite::SKELETON_03);
+	_skeleton.addSprite(eIdSprite::SKELETON_04);
+	_skeleton.addSprite(eIdSprite::SKELETON_05);
+	_skeleton.addSprite(eIdSprite::SKELETON_06);
+	_skeleton.addSprite(eIdSprite::SKELETON_07);
+	_skeleton.addSprite(eIdSprite::SKELETON_08);
+	_skeleton.addSprite(eIdSprite::SKELETON_09);
+	_skeleton.addSprite(eIdSprite::SKELETON_10);
+	_skeleton.addSprite(eIdSprite::SKELETON_11);
+	_skeleton.addSprite(eIdSprite::SKELETON_12);
+	_skeleton.addSprite(eIdSprite::SKELETON_13);
+	_skeleton.addSprite(eIdSprite::SKELETON_14);
+	_skeleton.addSprite(eIdSprite::SKELETON_15);
+	_skeleton.addSprite(eIdSprite::SKELETON_16);
+	_skeleton.addSprite(eIdSprite::SKELETON_17);
+	_skeleton.addSprite(eIdSprite::SKELETON_18);
+	_skeleton.addSprite(eIdSprite::SKELETON_19);
+	_skeleton.addSprite(eIdSprite::SKELETON_20);
+
+	_listAnimation[eIdAnimation::SKELETON_VISIBLE] = _skeleton;
+#pragma endregion
+
 #pragma region ROCK
 	Animation _rock;
 	_rock.setTimePerFrame(0.5f);
@@ -95,7 +154,6 @@ void AnimationManager::load() {
 	_rock.addSprite(eIdSprite::ROCK_04);
 	_rock.addSprite(eIdSprite::ROCK_03);
 	_rock.addSprite(eIdSprite::ROCK_02);
-	_rock.addSprite(eIdSprite::ROCK_01);
 
 	_listAnimation[eIdAnimation::ROCK_VISIBLE] = _rock;
 #pragma endregion
@@ -133,6 +191,25 @@ void AnimationManager::load() {
 
 	_listAnimation[eIdAnimation::STONE_COLUMN_04_VISIBLE] = _column04;
 
+#pragma endregion
+
+#pragma region SPIKE
+	Animation _spike;
+	_spike.setTimePerFrame(0.5f);
+	_spike.setIsLoop(true);
+	_spike.setTypeFixPos(eTypeFixPos::L_T);
+	_spike.addSprite(eIdSprite::SPIKE_01);
+	_spike.addSprite(eIdSprite::SPIKE_02);
+	_spike.addSprite(eIdSprite::SPIKE_03);
+	_spike.addSprite(eIdSprite::SPIKE_04);
+	_spike.addSprite(eIdSprite::SPIKE_05);
+	_spike.addSprite(eIdSprite::SPIKE_06);
+	_spike.addSprite(eIdSprite::SPIKE_05);
+	_spike.addSprite(eIdSprite::SPIKE_04);
+	_spike.addSprite(eIdSprite::SPIKE_03);
+	_spike.addSprite(eIdSprite::SPIKE_02);
+
+	_listAnimation[eIdAnimation::SPIKE_VISIBLE] = _spike;
 #pragma endregion
 
 #pragma region Aladin
@@ -297,7 +374,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_JUMP_ATTACK] = _jumpAttack;
 
 	Animation _attack;
-	_attack.setTimePerFrame(0.15f);
+	_attack.setTimePerFrame(0.05f);
 	_attack.setIsLoop(false);
 	_attack.setTypeFixPos(eTypeFixPos::L_BT);
 	_attack.setScale(2.0f, 2.0f);
@@ -310,7 +387,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_ATTACK] = _attack;
 
 	Animation _runAttack;
-	_runAttack.setTimePerFrame(0.1f);
+	_runAttack.setTimePerFrame(0.05f);
 	_runAttack.setIsLoop(false);
 	_runAttack.setTypeFixPos(eTypeFixPos::L_BT);
 	_runAttack.setScale(2.0f, 2.0f);
@@ -322,6 +399,84 @@ void AnimationManager::load() {
 	_runAttack.addSprite(eIdSprite::ALADDIN_RUN_ATTACK_06);
 
 	_listAnimation[eIdAnimation::ALADDIN_RUN_ATTACK] = _runAttack;
+
+	Animation _sit;
+	_sit.setTimePerFrame(0.05f);
+	_sit.setIsLoop(false);
+	_sit.setTypeFixPos(eTypeFixPos::L_BT);
+	_sit.setScale(2.0f, 2.0f);
+	_sit.addSprite(eIdSprite::ALADDIN_SIT_01);
+	_sit.addSprite(eIdSprite::ALADDIN_SIT_02);
+	_sit.addSprite(eIdSprite::ALADDIN_SIT_03);
+	_sit.addSprite(eIdSprite::ALADDIN_SIT_04);
+
+	_listAnimation[eIdAnimation::ALADDIN_SIT] = _sit;
+
+	Animation _sit_;
+	_sit_.setTimePerFrame(0.05f);
+	_sit_.setIsLoop(false);
+	_sit_.setTypeFixPos(eTypeFixPos::L_BT);
+	_sit_.setScale(2.0f, 2.0f);
+	_sit_.addSprite(eIdSprite::ALADDIN_SIT_04);
+
+	_listAnimation[eIdAnimation::ALADDIN_SIT_] = _sit_;
+
+	Animation _sitAttack;
+	_sitAttack.setTimePerFrame(0.05f);
+	_sitAttack.setIsLoop(false);
+	_sitAttack.setTypeFixPos(eTypeFixPos::L_BT);
+	_sitAttack.setScale(2.0f, 2.0f);
+	_sitAttack.addSprite(eIdSprite::ALADDIN_SIT_ATTACK_01);
+	_sitAttack.addSprite(eIdSprite::ALADDIN_SIT_ATTACK_02);
+	_sitAttack.addSprite(eIdSprite::ALADDIN_SIT_ATTACK_03);
+	_sitAttack.addSprite(eIdSprite::ALADDIN_SIT_ATTACK_04);
+	_sitAttack.addSprite(eIdSprite::ALADDIN_SIT_ATTACK_05);
+
+	_listAnimation[eIdAnimation::ALADDIN_SIT_ATTACK] = _sitAttack;
+
+	Animation _throw;
+	_throw.setTimePerFrame(0.05f);
+	_throw.setIsLoop(false);
+	_throw.setTypeFixPos(eTypeFixPos::L_BT);
+	_throw.setScale(2.0f, 2.0f);
+	_throw.addSprite(eIdSprite::ALADDIN_THROW_01);
+	_throw.addSprite(eIdSprite::ALADDIN_THROW_02);
+	_throw.addSprite(eIdSprite::ALADDIN_THROW_03);
+	_throw.addSprite(eIdSprite::ALADDIN_THROW_04);
+	_throw.addSprite(eIdSprite::ALADDIN_THROW_05);
+	_throw.addSprite(eIdSprite::ALADDIN_THROW_06);
+	_throw.addSprite(eIdSprite::ALADDIN_THROW_07);
+
+	_listAnimation[eIdAnimation::ALADDIN_THROW] = _throw;
+
+	Animation _sitThrow;
+	_sitThrow.setTimePerFrame(0.05f);
+	_sitThrow.setIsLoop(false);
+	_sitThrow.setTypeFixPos(eTypeFixPos::L_BT);
+	_sitThrow.setScale(2.0f, 2.0f);
+	_sitThrow.addSprite(eIdSprite::ALADDIN_SIT_THROW_01);
+	_sitThrow.addSprite(eIdSprite::ALADDIN_SIT_THROW_02);
+	_sitThrow.addSprite(eIdSprite::ALADDIN_SIT_THROW_03);
+	_sitThrow.addSprite(eIdSprite::ALADDIN_SIT_THROW_04);
+	_sitThrow.addSprite(eIdSprite::ALADDIN_SIT_THROW_05);
+
+	_listAnimation[eIdAnimation::ALADDIN_SIT_THROW] = _sitThrow;
+
+	Animation _jumpThrow;
+	_jumpThrow.setTimePerFrame(0.05f);
+	_jumpThrow.setIsLoop(false);
+	_jumpThrow.setTypeFixPos(eTypeFixPos::L_BT);
+	_jumpThrow.setScale(2.0f, 2.0f);
+	_jumpThrow.addSprite(eIdSprite::ALADDIN_JUMP_THROW_01);
+	_jumpThrow.addSprite(eIdSprite::ALADDIN_JUMP_THROW_02);
+	_jumpThrow.addSprite(eIdSprite::ALADDIN_JUMP_THROW_03);
+	_jumpThrow.addSprite(eIdSprite::ALADDIN_JUMP_THROW_04);
+	_jumpThrow.addSprite(eIdSprite::ALADDIN_JUMP_THROW_05);
+	_jumpThrow.addSprite(eIdSprite::ALADDIN_JUMP_THROW_06);
+	_jumpThrow.addSprite(eIdSprite::ALADDIN_JUMP_THROW_07);
+	_jumpThrow.addSprite(eIdSprite::ALADDIN_JUMP_THROW_08);
+
+	_listAnimation[eIdAnimation::ALADDIN_JUMP_THROW] = _jumpThrow;
 
 #pragma endregion
 
