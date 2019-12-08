@@ -120,8 +120,9 @@ void Camera::setSizeMap(int _mW, int _mH)
 
 void Camera::update(float dt)
 {
+	_RPT1(0, "[CAM] %f\n", _nextPosWorld.y);
+	_RPT1(0, "[CAM XXXXXXXXXXXXXXX] %d\n", _mapHeight - _height / 2);
 	if (_positionWorld == _nextPosWorld) return;
-	//_RPT1(0, "[CAM] %f\n", _nextPosWorld.x);
 
 	float distance_ = 60.;
 
@@ -159,7 +160,7 @@ void Camera::update(float dt)
 
 	}
 
-	if (_nextPosWorld.y > -(_mapHeight - (_height * 2.0) / 3.0) - distance_)
+	if (_nextPosWorld.y < (_mapHeight - (_height / 2.)))
 	{
 		if (_isMovingVertical)
 		{

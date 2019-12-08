@@ -337,7 +337,7 @@ void Aladdin::update(float dt)
 
 				this->updateAllPos(Vec3(0, _dy*timeUpdate, 0));
 
-				if (_posWorld.y < (_camera->getMapHeight() - _device->getHeightWindow() / 2))
+				//if (_posWorld.y < (_camera->getMapHeight() - _device->getHeightWindow() / 2))
 				{
 					_camera->addNextPositisonWorld(Vec3(0, _dy*timeUpdate, 0));
 				}

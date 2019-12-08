@@ -273,7 +273,7 @@ std::vector<pGameObject> FixedGrid::getListGameObjContain(RECT r)
 	std::vector<Unit> listUnit = getUnitsContain(r);
 	std::vector<int> listId;
 	std::vector<pGameObject> listGameObj;
-	_RPT0(0, "==================================\n");
+	//_RPT0(0, "==================================\n");
 	for (size_t i = 0; i < listUnit.size(); i++)
 	{
 		auto listObj = listUnit[i].getListGameObj();
@@ -295,7 +295,7 @@ std::vector<pGameObject> FixedGrid::getListGameObjContain(RECT r)
 
 			if (!foundId)
 			{
-				_RPT1(0, "[ID OBJ] %d \n", listObj[j]->getId());
+				//_RPT1(0, "[ID OBJ] %d \n", listObj[j]->getId());
 				listGameObj.push_back(listObj[j]);
 
 				listId.push_back(listObj[j]->getId());
@@ -303,7 +303,7 @@ std::vector<pGameObject> FixedGrid::getListGameObjContain(RECT r)
 		}
 	}
 
-	_RPT0(0, "==================================\n");
+	//_RPT0(0, "==================================\n");
 
 	return listGameObj;
 }
