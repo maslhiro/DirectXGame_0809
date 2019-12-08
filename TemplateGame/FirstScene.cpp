@@ -42,7 +42,9 @@ void FirstScene::loadResource()
 	_cam->setPositisonWorld((_deviceManager->getWidthWindow() / 2 + 34), _map.getHeight() - 20 - _deviceManager->getHeightWindow() / 2);
 	//_cam->setPositisonWorld(_deviceManager->getWidthWindow() / 2, _deviceManager->getHeightWindow() / 2);
 	_cam->setSizeWindow(_deviceManager->getWidthWindow(), _deviceManager->getHeightWindow());
-	_cam->setSpeed(154.f);
+	_cam->setSpeedX(152.f);
+
+	_cam->setSpeedY(200.f);
 
 	//_mapAbove.setCamera(_cam);
 	_map.setCamera(_cam);

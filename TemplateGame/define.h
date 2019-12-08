@@ -30,11 +30,11 @@
 #define TILE_SIZE 128
 
 #define UNIT_WIDTH 500
-#define UNIT_HEIGHT 300
+#define UNIT_HEIGHT 500
 
 // Khoang cach camera
 #define DISTANCE_X 5
-#define DISTANCE_Y 50
+#define DISTANCE_Y 20
 
 #define BBOX_WIDTH 5
 

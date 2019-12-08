@@ -9,6 +9,8 @@
 #include "AppleThrow.h"
 #include "Ground.h"
 #include "Spike.h"
+#include "Bat.h"
+#include "Nahbi.h"
 #include "Rock.h"
 #include "WreckingBall.h"
 #include "StoneColumn_1.h"

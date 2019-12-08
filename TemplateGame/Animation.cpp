@@ -194,6 +194,12 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 			_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
 			break;
 		}
+		case eTypeFixPos::R_BT:
+		{
+			// Right // Bottom
+			_newPos += Vec3(_fixPos.x*_scale.x, _fixPos.y*_scale.y, 0);
+			break;
+		}
 		default:
 			break;
 		}
@@ -227,6 +233,12 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		{
 			// Center // Bottom
 			_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
+			break;
+		}
+		case eTypeFixPos::R_BT:
+		{
+			// Right // Bottom
+			_newPos -= Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
 			break;
 		}
 		default:
@@ -418,6 +430,12 @@ RECT Animation::getCurrentBounding()
 				_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
 				break;
 			}
+			case eTypeFixPos::R_BT:
+			{
+				// Right // Bottom
+				_newPos += Vec3(_fixPos.x*_scale.x, _fixPos.y*_scale.y, 0);
+				break;
+			}
 			default:
 				break;
 			}
@@ -450,6 +468,12 @@ RECT Animation::getCurrentBounding()
 			{
 				// Center // Bottom
 				_newPos += Vec3(0, _fixPos.y*_scale.y, 0);
+				break;
+			}
+			case eTypeFixPos::R_BT:
+			{
+				// Right // Bottom
+				_newPos -= Vec3(_fixPos.x*_scale.x, -_fixPos.y*_scale.y, 0);
 				break;
 			}
 			default:

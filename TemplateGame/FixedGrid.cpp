@@ -106,6 +106,16 @@ void FixedGrid::load(const char* filePath)
 				_obj = new Spike();
 				break;
 			}
+			case eIdObject::BAT:
+			{
+				_obj = new Bat();
+				break;
+			}
+			case eIdObject::NAHBI:
+			{
+				_obj = new Nahbi();
+				break;
+			}
 			case eIdObject::WRECKING_BALL:
 			{
 				_obj = new WreckingBall();

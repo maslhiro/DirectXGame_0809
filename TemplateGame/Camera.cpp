@@ -8,7 +8,7 @@ Camera::Camera()
 	_mapWidth = 0;
 	_mapHeight = 0;
 
-	_speed = 140.f;
+	_speedX = _speedY = 140.f;
 
 	_isMovingHorizontal = _isMovingVertical = false;
 
@@ -23,7 +23,7 @@ Camera::Camera(int width, int height)
 	_mapWidth = 0;
 	_mapHeight = 0;
 
-	_speed = 140.f;
+	_speedX = _speedY = 140.f;
 
 	_isMovingHorizontal = _isMovingVertical = false;
 
@@ -47,9 +47,14 @@ void Camera::setPositisonWorld(Vec3 pos)
 	_nextPosWorld = _positionWorld;
 }
 
-void Camera::setSpeed(float val)
+void Camera::setSpeedX(float val)
 {
-	_speed = val;
+	_speedX = val;
+}
+
+void Camera::setSpeedY(float val)
+{
+	_speedY = val;
 }
 
 void Camera::setNextPositisonWorld(int x, int y)
@@ -120,25 +125,25 @@ void Camera::setSizeMap(int _mW, int _mH)
 
 void Camera::update(float dt)
 {
-	_RPT1(0, "[CAM] %f\n", _nextPosWorld.y);
-	_RPT1(0, "[CAM XXXXXXXXXXXXXXX] %d\n", _mapHeight - _height / 2);
+	//_RPT1(0, "[CAM] %f\n", _nextPosWorld.y);
+	//_RPT1(0, "[CAM XXXXXXXXXXXXXXX] %d\n", _mapHeight - _height / 2);
 	if (_positionWorld == _nextPosWorld) return;
 
 	float distance_ = 60.;
 
 	// Không cho cam ra khỏi map
-	if (_nextPosWorld.x >= ((_width * 2.0) / 3.0) - distance_)
+	if (_nextPosWorld.x >= (_width / 2.) - distance_)
 	{
 		if (_isMovingHorizontal)
 		{
 
 			if (_nextPosWorld.x > _positionWorld.x)
 			{
-				_positionWorld += Vec2(_speed*dt, 0);
+				_positionWorld += Vec2(_speedX*dt, 0);
 			}
 			else if (_nextPosWorld.x < _positionWorld.x)
 			{
-				_positionWorld -= Vec2(_speed*dt, 0);
+				_positionWorld -= Vec2(_speedX*dt, 0);
 			}
 
 			//_RPT0(0, "==================================\n");
@@ -167,11 +172,11 @@ void Camera::update(float dt)
 
 			if (_nextPosWorld.y > _positionWorld.y)
 			{
-				_positionWorld += Vec2(0, _speed*dt);
+				_positionWorld += Vec2(0, _speedY*dt);
 			}
 			else if (_nextPosWorld.y < _positionWorld.y)
 			{
-				_positionWorld -= Vec2(0, _speed*dt);
+				_positionWorld -= Vec2(0, _speedY*dt);
 			}
 			//_RPT0(0, "==================================\n");
 			//_RPT1(0, "[ CAM ] NEXT %f\n", _nextPosWorld.x);

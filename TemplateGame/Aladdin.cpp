@@ -93,7 +93,7 @@ void Aladdin::render()
 
 	if (_indexApple != 0)
 	{
-		_RPT0(0, "[UPDATE APPLE]\n");
+		//_RPT0(0, "[UPDATE APPLE]\n");
 		_listApple[_indexApple - 1]->render();
 	}
 }
@@ -222,7 +222,7 @@ void Aladdin::update(float dt)
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
 
-			if (_posWorld.x >= _device->getWidthWindow() *2.0 / 3.0)
+			if (_posWorld.x >= _device->getWidthWindow() / 2.)
 			{
 				_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
 			}
@@ -236,7 +236,7 @@ void Aladdin::update(float dt)
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
 
-			if (_posWorld.x >= _device->getWidthWindow() *2.0 / 3.0)
+			if (_posWorld.x >= _device->getWidthWindow() / 2.)
 			{
 				_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
 			}
@@ -281,7 +281,7 @@ void Aladdin::update(float dt)
 				_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
 
-				if (_posWorld.y >= _device->getHeightWindow() / 2.)
+				//if (_posWorld.y >= _device->getHeightWindow() / 2.)
 				{
 					_camera->addNextPositisonWorld(Vec3(0, _dy*dt, 0));
 				}
@@ -339,7 +339,7 @@ void Aladdin::update(float dt)
 
 				//if (_posWorld.y < (_camera->getMapHeight() - _device->getHeightWindow() / 2))
 				{
-					_camera->addNextPositisonWorld(Vec3(0, _dy*timeUpdate, 0));
+					_camera->addNextPositisonWorld(Vec3(0, _dy*dt, 0));
 				}
 
 			}

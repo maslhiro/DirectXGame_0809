@@ -128,6 +128,7 @@
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Apple.cpp" />
     <ClCompile Include="AppleThrow.cpp" />
+    <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
     <ClCompile Include="FirstScene.cpp" />
@@ -142,6 +143,7 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
+    <ClCompile Include="Nahbi.cpp" />
     <ClCompile Include="RectSprite.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -162,6 +164,7 @@
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Apple.h" />
     <ClInclude Include="AppleThrow.h" />
+    <ClInclude Include="Bat.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DrawDebug.h" />
     <ClInclude Include="FirstScene.h" />
@@ -175,6 +178,7 @@
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="Nahbi.h" />
     <ClInclude Include="RectSprite.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Rock.h" />

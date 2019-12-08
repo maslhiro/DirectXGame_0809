@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="36" height="18" tilewidth="128" tileheight="128" infinite="0" nextlayerid="18" nextobjectid="41">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="36" height="18" tilewidth="128" tileheight="128" infinite="0" nextlayerid="21" nextobjectid="54">
  <tileset firstgid="1" name="70" tilewidth="128" tileheight="128" tilecount="650" columns="26">
   <image source="map.png" width="3328" height="3200"/>
  </tileset>
@@ -33,6 +33,15 @@
  </objectgroup>
  <objectgroup id="15" name="4500">
   <object id="1" name="450001" x="37.5" y="2218.55" width="4534.73" height="70.6667"/>
+  <object id="41" name="450002" x="2845.5" y="1877.67" width="161.333" height="33"/>
+  <object id="42" name="450003" x="2260.67" y="1846.83" width="237.333" height="12.3333"/>
+ </objectgroup>
+ <objectgroup id="20" name="4010">
+  <object id="53" name="401001" x="2855.33" y="2166.67" width="10" height="10"/>
+ </objectgroup>
+ <objectgroup id="18" name="4008" visible="0">
+  <object id="43" name="400801" x="2834.09" y="2005.67" width="10" height="10"/>
+  <object id="48" name="400802" x="1571.78" y="1936.36" width="10" height="10"/>
  </objectgroup>
  <objectgroup id="7" name="4002" visible="0">
   <object id="12" name="400201" x="426" y="1902" width="10" height="10"/>
@@ -61,10 +70,16 @@
  <objectgroup id="11" name="4005" visible="0">
   <object id="15" name="400501" x="2402" y="2054" width="10" height="10"/>
  </objectgroup>
- <objectgroup id="17" name="4006">
+ <objectgroup id="17" name="4006" visible="0">
   <object id="34" name="400601" x="2657" y="2088" width="10" height="10"/>
   <object id="35" name="400602" x="2564" y="1991" width="10" height="10"/>
   <object id="36" name="400603" x="2753" y="1927" width="10" height="10"/>
+ </objectgroup>
+ <objectgroup id="19" name="4007" visible="0">
+  <object id="49" name="400704" x="1490.23" y="2101.94" width="10" height="10"/>
+  <object id="50" name="400703" x="1546.33" y="2101.94" width="10" height="10"/>
+  <object id="51" name="400702" x="1489.92" y="2138.83" width="10" height="10"/>
+  <object id="52" name="400701" x="1546.33" y="2138.83" width="10" height="10"/>
  </objectgroup>
  <layer id="13" name="above" width="36" height="18" visible="0">
   <data encoding="csv">

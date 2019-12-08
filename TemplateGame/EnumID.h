@@ -11,7 +11,8 @@ enum eTypeFixPos
 	L_BT = 1,
 	L_T,
 	C_C,
-	C_BT
+	C_BT,
+	R_BT
 
 };
 
@@ -48,6 +49,8 @@ enum eIdObject
 	SPIKE,
 	BAT,
 	SKELETON,
+	NAHBI,
+
 
 	// Static Obj => ko render
 	GROUND = 4500,	// Dat
@@ -70,6 +73,7 @@ enum eIdTexture
 	ITEM_MAP_TEX,
 	BAT_TEX,
 	SKELETON_TEX,
+	GUARDS_TEX,
 
 	SCENE_DUNGEON_TEX = 70,
 	SCENE_ABOVE_TEX
@@ -178,6 +182,44 @@ enum eIdSprite
 	SKELETON_21,
 #pragma endregion
 
+#pragma region BAT || 1120
+	BAT_01 = 1120,
+	BAT_02,
+	BAT_03,
+	BAT_04,
+	BAT_05,
+	BAT_06,
+	BAT_07,
+	BAT_08,
+	BAT_09,
+	BAT_10,
+	BAT_11,
+#pragma endregion
+
+#pragma region NAHBI || 1140 1160
+	NAHBI_STAND_01 = 1140,
+	NAHBI_STAND_02,
+	NAHBI_STAND_03,
+	NAHBI_STAND_04,
+	NAHBI_STAND_05,
+	NAHBI_STAND_06,
+
+	NAHBI_RUN_01 = 1150,
+	NAHBI_RUN_02,
+	NAHBI_RUN_03,
+	NAHBI_RUN_04,
+	NAHBI_RUN_05,
+	NAHBI_RUN_06,
+	NAHBI_RUN_07,
+	NAHBI_RUN_08,
+
+	NAHBI_ATTACK_01 = 1160,
+	NAHBI_ATTACK_02,
+	NAHBI_ATTACK_03,
+	NAHBI_ATTACK_04,
+	NAHBI_ATTACK_05,
+	NAHBI_ATTACK_06,
+#pragma endregion
 
 #pragma region ALADDIN || 2000
 
@@ -341,7 +383,7 @@ enum eIdAnimation
 	APPLE_EXPLODE,
 
 	SKELETON_VISIBLE,
-
+	BAT_VISIBLE,
 	ROCK_VISIBLE,
 	SPIKE_VISIBLE,
 
@@ -368,4 +410,8 @@ enum eIdAnimation
 	ALADDIN_RUN_ATTACK,
 	ALADDIN_SIT_ATTACK,
 	ALADDIN_SIT_THROW,
+
+	NAHBI_STAND,
+	NAHBI_RUN,
+	NAHBI_ATTACK,
 };

@@ -12,7 +12,8 @@ public:
 	void setPositisonWorld(int, int);
 	void setPositisonWorld(Vec3);
 
-	void setSpeed(float);
+	void setSpeedX(float);
+	void setSpeedY(float);
 
 	// Xet vi tri tiep theo cua camera
 	void setNextPositisonWorld(int, int);
@@ -52,7 +53,8 @@ private:
 	Vec2 _nextPosWorld;
 
 	// Vân tốc cam di chuyển
-	float _speed;
+	float _speedX;
+	float _speedY;
 
 	bool _isMovingHorizontal;
 	bool _isMovingVertical;

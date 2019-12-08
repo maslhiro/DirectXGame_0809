@@ -50,7 +50,8 @@ void AppleThrow::update(float dt)
 	}
 
 	_posWorld.x += _dx * dt;
-	_posWorld.y += _gravity * dt;
+	//_posWorld.y += _gravity * dt;
+	_posWorld.y += pow(_dx * dt, 2) / 20;
 
 	// Ktra va cham 
 	for (size_t i = 0; i < _listGameObj.size(); i++)

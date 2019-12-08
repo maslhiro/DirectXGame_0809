@@ -212,6 +212,28 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::SPIKE_VISIBLE] = _spike;
 #pragma endregion
 
+#pragma region BAT
+	Animation _bat;
+	_bat.setTimePerFrame(0.08f);
+	_bat.setIsLoop(true);
+	_bat.setIndexStart(4);
+	_bat.setTypeFixPos(eTypeFixPos::C_C);
+	_bat.setScale(2.0f, 2.0f);
+	_bat.addSprite(eIdSprite::BAT_01);
+	_bat.addSprite(eIdSprite::BAT_02);
+	_bat.addSprite(eIdSprite::BAT_03);
+	_bat.addSprite(eIdSprite::BAT_04);
+	_bat.addSprite(eIdSprite::BAT_05);
+	_bat.addSprite(eIdSprite::BAT_06);
+	_bat.addSprite(eIdSprite::BAT_07);
+	_bat.addSprite(eIdSprite::BAT_08);
+	_bat.addSprite(eIdSprite::BAT_09);
+	_bat.addSprite(eIdSprite::BAT_10);
+	_bat.addSprite(eIdSprite::BAT_11);
+
+	_listAnimation[eIdAnimation::BAT_VISIBLE] = _bat;
+#pragma endregion
+
 #pragma region Aladin
 
 	Animation _stand;
@@ -478,6 +500,52 @@ void AnimationManager::load() {
 
 	_listAnimation[eIdAnimation::ALADDIN_JUMP_THROW] = _jumpThrow;
 
+#pragma endregion
+
+#pragma region NAHBI
+	Animation _nahbiStand;
+	_nahbiStand.setTimePerFrame(0.08f);
+	_nahbiStand.setIsLoop(true);
+	_nahbiStand.setTypeFixPos(eTypeFixPos::R_BT);
+	_nahbiStand.setScale(2.0f, 2.0f);
+	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_01);
+	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_02);
+	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_03);
+	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_04);
+	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_05);
+	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_06);
+
+	_listAnimation[eIdAnimation::NAHBI_STAND] = _nahbiStand;
+
+	Animation _nahbiAttack;
+	_nahbiAttack.setTimePerFrame(0.08f);
+	_nahbiAttack.setIsLoop(true);
+	_nahbiAttack.setTypeFixPos(eTypeFixPos::R_BT);
+	_nahbiAttack.setScale(2.0f, 2.0f);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_01);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_02);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_03);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_04);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_05);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_06);
+
+	_listAnimation[eIdAnimation::NAHBI_ATTACK] = _nahbiAttack;
+
+	Animation _nahbiRun;
+	_nahbiRun.setTimePerFrame(0.08f);
+	_nahbiRun.setIsLoop(true);
+	_nahbiRun.setTypeFixPos(eTypeFixPos::R_BT);
+	_nahbiRun.setScale(2.0f, 2.0f);
+	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_01);
+	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_02);
+	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_03);
+	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_04);
+	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_05);
+	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_06);
+	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_07);
+	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_08);
+
+	_listAnimation[eIdAnimation::NAHBI_RUN] = _nahbiRun;
 #pragma endregion
 
 }

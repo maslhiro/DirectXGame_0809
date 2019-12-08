@@ -14,6 +14,7 @@
 
 #include "Apple.h"
 #include "Ground.h"
+#include "Bat.h"
 #include "Spike.h"
 #include "WreckingBall.h"
 #include "StoneColumn_1.h"
