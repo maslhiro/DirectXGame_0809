@@ -40,7 +40,7 @@ void Nahbi::update(float dt)
 
 	if (_state == eIdState::STAND)
 	{
-		if (_curAnimation.getLoopCount() > 2) {
+		if (_curAnimation.getLoopCount() > 4) {
 			this->fixPosAnimation(eIdState::RUN);
 			this->setState(eIdState::RUN);
 		}
@@ -50,7 +50,7 @@ void Nahbi::update(float dt)
 	if (_state == eIdState::RUN)
 	{
 		_posWorld.x += _dx * dt;
-		if (_curAnimation.getLoopCount() > 2) {
+		if (_curAnimation.getLoopCount() > 7) {
 			this->fixPosAnimation(eIdState::ATTACK);
 			this->setState(eIdState::ATTACK);
 		}

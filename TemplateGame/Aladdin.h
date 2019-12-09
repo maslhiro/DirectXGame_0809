@@ -31,8 +31,10 @@ private:
 	bool _isOnGround;
 
 	// Bien bool check Player da dung tren mat dat chua
-	bool _isRunJump;
 	bool _isJump;
+	float _distanceJump;
+
+	bool _isRunJump;
 	bool _isClimbJump;
 	bool _isSit;
 	bool _isDamage;

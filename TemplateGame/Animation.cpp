@@ -402,6 +402,9 @@ RECT Animation::getCurrentBounding()
 		{
 			// Thuong chi co player va entity fix pos left bottom nen khi lat 
 			// chi xet TH nay
+
+			// Dao nay hoi thieu ngu? nen v =_=
+
 			switch (this->_typeFixPos)
 			{
 			case eTypeFixPos::L_BT:
@@ -452,6 +455,7 @@ RECT Animation::getCurrentBounding()
 				_newPos += Vec3(_fixPos.x*_scale.x, _fixPos.y*_scale.y, 0);
 				break;
 			}
+
 			case eTypeFixPos::L_T:
 			{
 				// LEFT TOP
@@ -479,7 +483,6 @@ RECT Animation::getCurrentBounding()
 			default:
 				break;
 			}
-
 		}
 
 		float width_Ani = this->getCurrentWidth() * _scale.x / 2.0;

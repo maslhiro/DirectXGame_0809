@@ -24,6 +24,25 @@ void Rock::render()
 	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
 
+	RECT rr = getBoundingBox();
+	RECT ty;
+	ty.top = ty.left = 0;
+	ty.bottom = rr.bottom - rr.top;
+	ty.right = rr.right - rr.left;
+
+	float posXX = rr.right - _curAnimation.getWidth();
+
+	float posYY = rr.bottom - _curAnimation.getHeight();
+
+	_device->getSpriteHandler()->Draw(
+		_texture->get(eIdTexture::BOX_GREEN_TEX),
+		&ty,
+		&Vec3(ty.right / 2, ty.bottom / 2, 0),
+		&Vec3(posXX, posYY, 0),
+		D3DCOLOR_XRGB(255, 255, 255)
+	);
+
+
 	_curAnimation.render(_device, _texture);
 }
 

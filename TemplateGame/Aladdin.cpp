@@ -17,6 +17,7 @@ Aladdin::Aladdin() : GameObject()
 	_isJump = false;
 
 	_isSit = false;
+	_distanceJump = 0.f;
 	_moveDirection = 0;
 	_indexApple = 0;
 	_waitTime = 0.f;
@@ -94,9 +95,30 @@ void Aladdin::render()
 	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
+
+	RECT rr = getCurrentBoudingBox();
+	RECT ty;
+	ty.top = ty.left = 0;
+	ty.bottom = rr.bottom - rr.top;
+	ty.right = rr.right - rr.left;
+
+	float posXX = rr.right - _curAnimation.getCurrentWidth();
+
+	float posYY = rr.bottom - _curAnimation.getCurrentHeight();
+
+	_device->getSpriteHandler()->Draw(
+		_texture->get(eIdTexture::BOX_GREEN_TEX),
+		&ty,
+		&Vec3(ty.right / 2, ty.bottom / 2, 0),
+		&Vec3(posXX, posYY, 0),
+		D3DCOLOR_XRGB(255, 255, 255)
+	);
+
+
 	//_curAnimation.setDrawingBound(true);
 	_curAnimation.setIsFlip(_isFlip);
 	_curAnimation.render(_device, _texture);
+
 
 	if (_indexApple != 0)
 	{
@@ -308,24 +330,32 @@ void Aladdin::update(float dt)
 				/*_jumpDistance += abs(_dy) * dt;
 				_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
-
+				_distanceJump += abs(_dy * dt);
 				if (_posWorld.y <= _camera->getMapHeight() - _device->getHeightWindow() / 2.)
 				{
 					_camera->addNextPositisonWorld(Vec3(0, _dy*dt, 0));
 				}
 
 				// Den frame nay la phai roi xuong
-				if ((_isJump &&  _curAnimation.getCurrentFrame() == 10) ||
+				if ((_isJump &&  _curAnimation.getCurrentFrame() == 6) ||
 					(_isRunJump && _curAnimation.getCurrentFrame() == 4) ||
 					(_isClimbJump && _curAnimation.getLoopCount() > 0))
 				{
-					if (!_isRunJump) this->setIsAnimated(false);
+					//if (!_isRunJump) 
+					this->setIsAnimated(false);
+					//this->setDy(_gravity);
+				}
+
+				if (_distanceJump > 145.f)
+				{
+					_distanceJump = 0.f;
 					this->setDy(_gravity);
 				}
 			}
 			else if (_dy >= 0.f)
 			{
 				float timeUpdate = dt;
+				//_RPT0(0, "==================================\n");
 				//_RPT1(0, "[CHECK Collision] JUMP DISTANCE: %f \n", _dy);
 
 				for (size_t i = 0; i < listObj.size(); i++)
@@ -337,11 +367,8 @@ void Aladdin::update(float dt)
 					{
 						int direction = 0;
 
-						float check2 = this->checkCollision_SweptAABB(obj->getBoundingBox(), timeUpdate, _dx, _dy, direction);
+						float check2 = this->checkCollision_SweptAABB(obj->getBoundingBox(), timeUpdate, direction);
 
-						//if (obj->getIdType() == eIdObject::ROCK) {
-						//_RPT1(0, "[CHECK Collision] CHECK COLLISION id :%d -  %d \n", obj->getId(), direction);
-						//}
 						//float check = this->checkCollision(obj->getBoundingBox());
 
 						//RECT t = obj->getBoundingBox();
@@ -349,12 +376,17 @@ void Aladdin::update(float dt)
 
 						if (check2 < timeUpdate)
 						{
-							if (obj->getIdType() == eIdObject::ROCK && direction != eDirection::TOP) goto updatePos;
+							_RPT1(0, "[AAAAAAAAAAA] VX : %f || VY  %f\n", _dx, _dy);
+
+							//if (direction != eDirection::TOP) goto updatePos;
 
 							//_RPT1(0, "[AAAAAAAAAAA] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
-							//_RPT1(0, "[AAAAAAAAAAA] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
 							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
 							//_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
+							//if (obj->getIdType() == eIdObject::ROCK) {
+							_RPT1(0, "[CHECK Collision] CHECK COLLISION id :%d -  %d \n", obj->getId(), direction);
+							//}
+
 							timeUpdate = check2;
 
 							_isOnGround = true;
