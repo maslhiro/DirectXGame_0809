@@ -12,6 +12,9 @@ Aladdin::Aladdin() : GameObject()
 	_isOnGround = false;
 	_isRunJump = false;
 	_isDamage = false;
+	_isClimbJump = false;
+	_checkClimb = false;
+	_isJump = false;
 
 	_isSit = false;
 	_moveDirection = 0;
@@ -62,6 +65,10 @@ void Aladdin::loadResource()
 	_listAnimation[eIdState::RUN | eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_RUN_ATTACK);
 
 	_listAnimation[eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_JUMP);
+
+	_listAnimation[eIdState::CLIMB] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_CLIMB);
+
+	_listAnimation[eIdState::CLIMB | eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_CLIMB_JUMP);
 
 	_listAnimation[eIdState::JUMP | eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_JUMP_ATTACK);
 
@@ -254,8 +261,29 @@ void Aladdin::update(float dt)
 
 	if ((_state & eIdState::JUMP) == eIdState::JUMP)
 	{
+		// Check Climb
+		if (_checkClimb)
+		{
+			for (size_t i = 0; i < listObj.size(); i++)
+			{
+				auto obj = listObj[i];
+				if (obj->getIdType() == eIdObject::ROPE)
+				{
+					bool check = checkCollision(obj->getBoundingBox());
 
-		if (!_isRunJump)
+					float ropeX = obj->getPosWorld().x;
+
+					if (check) {
+
+						this->setPositionWorld(ropeX, _posWorld.y);
+						this->setState(eIdState::CLIMB);
+						this->setIsAnimated(false);
+					}
+				}
+			}
+		}
+
+		if (_isJump)
 		{
 			// Qua frame thu 2 moi bat dau nhay len
 			if (_curAnimation.getCurrentFrame() <= 2) goto updateAni;
@@ -281,13 +309,15 @@ void Aladdin::update(float dt)
 				_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
 
-				//if (_posWorld.y >= _device->getHeightWindow() / 2.)
+				if (_posWorld.y <= _camera->getMapHeight() - _device->getHeightWindow() / 2.)
 				{
 					_camera->addNextPositisonWorld(Vec3(0, _dy*dt, 0));
 				}
 
 				// Den frame nay la phai roi xuong
-				if ((!_isRunJump &&  _curAnimation.getCurrentFrame() == 10) || (_isRunJump && _curAnimation.getCurrentFrame() == 4))
+				if ((_isJump &&  _curAnimation.getCurrentFrame() == 10) ||
+					(_isRunJump && _curAnimation.getCurrentFrame() == 4) ||
+					(_isClimbJump && _curAnimation.getLoopCount() > 0))
 				{
 					if (!_isRunJump) this->setIsAnimated(false);
 					this->setDy(_gravity);
@@ -409,6 +439,29 @@ void Aladdin::handlerInput(float dt)
 		_state = eIdState::WAIT_01 | eIdState::STAND;
 	}
 
+	if ((_state & eIdState::CLIMB) == eIdState::CLIMB)
+	{
+		// S
+		if (_input->getMapKey()[KEY_W]) {
+			this->setIsAnimated(true);
+			this->updateAllPos(Vec3(0, -_speed * dt, 0));
+		}
+		else if (_input->getMapKey()[KEY_S]) {
+			this->setIsAnimated(true);
+			this->updateAllPos(Vec3(0, _speed*dt, 0));
+		}
+		else if (_input->getMapKey()[KEY_F]) {
+			this->setIsAnimated(true);
+			this->setState(eIdState::JUMP);
+			_isClimbJump = true;
+			_curAnimation = _listAnimation[eIdState::CLIMB | eIdState::JUMP];
+			this->setDy(-_gravity);
+		}
+		else {
+			this->setIsAnimated(false);
+		}
+	}
+
 	if ((_state & eIdState::WAIT_01) == eIdState::WAIT_01)
 	{
 		if (_curAnimation.getLoopCount() == 4)
@@ -443,6 +496,8 @@ void Aladdin::handlerInput(float dt)
 		{
 			_waitTime = 0.f;
 			_isRunJump = false;
+			_isJump = true;
+			_isClimbJump = false;
 			this->setState(eIdState::JUMP);
 			this->setDx(0.f);
 			this->setDy(-_gravity);
@@ -534,51 +589,59 @@ void Aladdin::handlerInput(float dt)
 
 	if ((_state & eIdState::JUMP) == eIdState::JUMP)
 	{
-		if (_input->getMapKey()[KEY_Q]) {
-			_state |= eIdState::ATTACK;
-			//this->setDy(10.f);
-			_curAnimation = _listAnimation[eIdState::JUMP | eIdState::ATTACK];
+
+		if (_input->getMapKey()[KEY_X]) {
+			_checkClimb = true;
 		}
-		if (_input->getMapKey()[KEY_E]) {
-			_state |= eIdState::THROW;
-			_curAnimation = _listAnimation[eIdState::JUMP | eIdState::THROW];
+		else {
+			_checkClimb = false;
 
-			pAppleThrow _apple = new AppleThrow();
-			_apple->loadResource();
-			_apple->setScale(2.0f);
+			if (_input->getMapKey()[KEY_Q]) {
+				_state |= eIdState::ATTACK;
+				//this->setDy(10.f);
+				_curAnimation = _listAnimation[eIdState::JUMP | eIdState::ATTACK];
+			}
+			else if (_input->getMapKey()[KEY_E]) {
+				_state |= eIdState::THROW;
+				_curAnimation = _listAnimation[eIdState::JUMP | eIdState::THROW];
 
-			_indexApple += 1;
+				pAppleThrow _apple = new AppleThrow();
+				_apple->loadResource();
+				_apple->setScale(2.0f);
 
-			if (_isFlip)
+				_indexApple += 1;
+
+				if (_isFlip)
+				{
+					_apple->setPositionWorld(_posWorld + Vec3(-40, -40, 0));
+
+					_apple->moveLeft();
+				}
+				else {
+					_apple->setPositionWorld(_posWorld + Vec3(40, -40, 0));
+					_apple->moveRight();
+				}
+				_listApple.push_back(_apple);
+			}
+			else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+				_state |= eIdState::RUN;
+				_moveDirection = -1;
+			}
+			else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
 			{
-				_apple->setPositionWorld(_posWorld + Vec3(-40, -40, 0));
-
-				_apple->moveLeft();
+				_state |= eIdState::RUN;
+				_moveDirection = 1;
 			}
-			else {
-				_apple->setPositionWorld(_posWorld + Vec3(40, -40, 0));
-				_apple->moveRight();
+			// Ko co su kien tu A va D
+			else if (!_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
+				_state &= ~eIdState::RUN;
+				_moveDirection = 0;
 			}
-			_listApple.push_back(_apple);
-		}
-		else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
-			_state |= eIdState::RUN;
-			_moveDirection = -1;
-		}
-		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
-		{
-			_state |= eIdState::RUN;
-			_moveDirection = 1;
-		}
-		// Ko co su kien tu A va D
-		else if (!_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
-			_state &= ~eIdState::RUN;
-			_moveDirection = 0;
-		}
-		// Vừa bấm A vừa D
-		else if (_input->getMapKey()[KEY_A] && _input->getMapKey()[KEY_D]) {
-			_state &= ~eIdState::RUN;
-			_moveDirection = 0;
+			// Vừa bấm A vừa D
+			else if (_input->getMapKey()[KEY_A] && _input->getMapKey()[KEY_D]) {
+				_state &= ~eIdState::RUN;
+				_moveDirection = 0;
+			}
 		}
 	}
 
@@ -598,6 +661,8 @@ void Aladdin::handlerInput(float dt)
 			if (_input->getMapKey()[KEY_W])
 			{
 				_isRunJump = true;
+				_isJump = false;
+				_isClimbJump = false;
 				_state |= eIdState::JUMP;
 				_curAnimation = _listAnimation[eIdState::RUN | eIdState::JUMP];
 				this->setDy(-_gravity);
@@ -610,6 +675,8 @@ void Aladdin::handlerInput(float dt)
 			if (_input->getMapKey()[KEY_W])
 			{
 				_isRunJump = true;
+				_isJump = false;
+				_isClimbJump = false;
 				_state |= eIdState::JUMP;
 				_curAnimation = _listAnimation[eIdState::RUN | eIdState::JUMP];
 				this->setDy(-_gravity);

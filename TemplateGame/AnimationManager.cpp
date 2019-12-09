@@ -214,7 +214,7 @@ void AnimationManager::load() {
 
 #pragma region BAT
 	Animation _bat;
-	_bat.setTimePerFrame(0.08f);
+	_bat.setTimePerFrame(0.12f);
 	_bat.setIsLoop(true);
 	_bat.setIndexStart(4);
 	_bat.setTypeFixPos(eTypeFixPos::C_C);
@@ -500,6 +500,38 @@ void AnimationManager::load() {
 
 	_listAnimation[eIdAnimation::ALADDIN_JUMP_THROW] = _jumpThrow;
 
+	Animation _climb;
+	_climb.setTimePerFrame(0.08f);
+	_climb.setIsLoop(true);
+	_climb.setTypeFixPos(eTypeFixPos::C_C);
+	_climb.setScale(2.0f, 2.0f);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_01);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_02);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_03);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_04);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_05);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_06);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_07);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_08);
+
+	_listAnimation[eIdAnimation::ALADDIN_CLIMB] = _climb;
+
+	Animation _climbJump;
+	_climbJump.setTimePerFrame(0.05f);
+	_climbJump.setIsLoop(false);
+	_climbJump.setTypeFixPos(eTypeFixPos::C_BT);
+	_climbJump.setScale(2.0f, 2.0f);
+	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_01);
+	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_02);
+	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_03);
+	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_04);
+	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_05);
+	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_06);
+	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_07);
+	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_08);
+	//	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_09);
+
+	_listAnimation[eIdAnimation::ALADDIN_CLIMB_JUMP] = _climbJump;
 #pragma endregion
 
 #pragma region NAHBI

@@ -40,14 +40,14 @@ void Game::loadResource()
 	_texture->add(eIdTexture::GUARDS_TEX, L"Resource//Object//Guards.png", D3DCOLOR_XRGB(120, 193, 152));
 
 	// Aladdin
-	_texture->add(eIdTexture::ALADDIN_TEX, L"Resource//Object//Aladin.png", D3DCOLOR_XRGB(106, 148, 189));
+	_texture->add(eIdTexture::ALADDIN_TEX, L"Resource//Object//Aladdin.png", D3DCOLOR_XRGB(106, 148, 189));
 #pragma endregion
 
 #pragma region Load Sprite
 
 	_sprite->add(eIdTexture::ITEM_TEX, "Resource//Object//Item_Sprite.txt");
 	_sprite->add(eIdTexture::ITEM_MAP_TEX, "Resource//Object//Item_Map_Sprite.txt");
-	_sprite->add(eIdTexture::ALADDIN_TEX, "Resource//Object//Aladin_Sprite.txt");
+	_sprite->add(eIdTexture::ALADDIN_TEX, "Resource//Object//Aladdin_Sprite.txt");
 	_sprite->add(eIdTexture::BAT_TEX, "Resource//Object//Bat_Sprite.txt");
 	_sprite->add(eIdTexture::SKELETON_TEX, "Resource//Object//Skeleton_Sprite.txt");
 	_sprite->add(eIdTexture::GUARDS_TEX, "Resource//Object//Guards.txt");
@@ -65,10 +65,10 @@ void Game::loadResource()
 	//RECT bb = _test.getBounding();
 	//_RPT1(0, "[INFO] %d %d %d %d \n", bb.left, bb.top, bb.right, bb.bottom);
 
-	//_test = _animationManager->get(eIdAnimation::NAHBI_STAND);
-	//_test.setPosition(Vec3(300, 300, 1));
-	//_test.setScale(Vec2(2, 2));
-	//_test.setDrawingBound(true);
+	_test = _animationManager->get(eIdAnimation::ALADDIN_CLIMB_JUMP);
+	_test.setPosition(Vec3(300, 300, 1));
+	_test.setScale(Vec2(2, 2));
+	_test.setDrawingBound(true);
 
 	_firstScene.loadResource();
 

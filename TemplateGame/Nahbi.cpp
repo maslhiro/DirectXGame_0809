@@ -4,7 +4,7 @@ Nahbi::Nahbi() : GameObject()
 {
 	_idType = eIdObject::NAHBI;
 	_isTerminated = false;
-	_dx = -10.f;
+	_dx = -30.f;
 }
 
 Nahbi::Nahbi(int id) : GameObject(id)
