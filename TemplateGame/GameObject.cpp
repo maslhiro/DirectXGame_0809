@@ -132,8 +132,8 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 	}
 	else
 	{
-		txEntry = dxEntry / (_dx);
-		txExit = dxExit / (_dx);
+		txEntry = dxEntry / abs(_dx);
+		txExit = dxExit / abs(_dx);
 	}
 
 	if (_dy == 0.0f)
@@ -143,14 +143,16 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 	}
 	else
 	{
-		tyEntry = dyEntry / (_dy);
-		tyExit = dyExit / (_dy);
+		tyEntry = dyEntry / abs(_dy);
+		tyExit = dyExit / abs(_dy);
 	}
 
 	_RPT0(0, "===================\n");
 	_RPT1(0, "[SWEPT AABB] Vx : %f Vy %f \n", _dx, _dy);
 	_RPT1(0, "[SWEPT AABB] DELTA TIME : %f \n", dt);
 	_RPT1(0, "[SWEPT AABB] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
+	_RPT1(0, "[SWEPT AABB] DX Entry : %d DX Exit %d \n", dxEntry, dxExit);
+	_RPT1(0, "[SWEPT AABB] DY Entry : %d DY Exit %d \n", dyEntry, dyExit);
 	_RPT1(0, "[SWEPT AABB] TX Entry : %f TX Exit %f \n", txEntry, txExit);
 	_RPT1(0, "[SWEPT AABB] TY Entry : %f TY Exit %f \n", tyEntry, tyExit);
 	_RPT1(0, "[SWEPT AABB] CUR : %d %d %d %d \n", _rectObj.left, _rectObj.top, _rectObj.right, _rectObj.bottom);
@@ -167,6 +169,9 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 	{
 		return dt;
 	}
+
+	// Check them neu dxEntry or dyEntry infinity
+	if ((dxEntry < 0.0f && dxExit < 0.0f) || (dyEntry < 0.0f && dyExit < 0.0f)) return dt;
 
 	//Kiem tra xem time theo chieu x hay y se dung obj truoc
 	if (txEntry > tyEntry)

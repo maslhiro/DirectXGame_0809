@@ -125,6 +125,32 @@ void Aladdin::render()
 		//_RPT0(0, "[UPDATE APPLE]\n");
 		_listApple[_indexApple - 1]->render();
 	}
+
+	RECT _viewPort = _camera->getBounding();
+	// Get list obj nam trong view port
+
+	/*auto listObj = _grid->getListGameObjContain(_viewPort);
+	for (size_t i = 0; i < listObj.size(); i++)
+	{
+		auto obj = listObj[i];
+		if (obj->getIdType() == eIdObject::GROUND)
+		{
+			RECT bound;
+
+			bound.left = 0;
+			bound.right = obj->getBoundingBox().right - obj->getBoundingBox().left;
+			bound.top = 0;
+			bound.bottom = obj->getBoundingBox().bottom - obj->getBoundingBox().top;
+
+			_device->getSpriteHandler()->Draw(_texture->get(eIdTexture::BOX_RED_TEX),
+				&bound,
+				&Vec3(bound.right / 2., bound.bottom / 2., 0),
+				&Vec3(obj->getBoundingBox().right - (bound.right) / 2., obj->getBoundingBox().bottom - (bound.bottom / 2), 0.),
+				D3DCOLOR_ARGB(255, 255, 255, 255));
+
+		}
+	}*/
+
 }
 
 void Aladdin::update(float dt)
