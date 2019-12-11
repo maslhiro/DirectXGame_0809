@@ -40,6 +40,8 @@ private:
 	bool _isDamage;
 	bool _checkClimb;
 
+	int _idGroundObj;
+
 	float _waitTime;
 
 public:
@@ -51,6 +53,7 @@ public:
 	Vec3 getPosView();
 
 	void setGrid(pFixedGrid);
+
 	void setCamera(pCamera);
 
 	void loadResource();

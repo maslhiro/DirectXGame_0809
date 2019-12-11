@@ -4,7 +4,7 @@ AppleThrow::AppleThrow() : GameObject()
 {
 	_idType = eIdObject::APPLE;
 	_isTerminated = false;
-	_speed = 250.f;
+	_speed = 450.f;
 	_gravity = 60.f;
 }
 
