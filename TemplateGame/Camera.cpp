@@ -69,16 +69,6 @@ void Camera::setNextPositisonWorld(Vec3 pos)
 	_nextPosWorld = Vec2(pos.x, pos.y);
 }
 
-void Camera::addNextPositisonWorld(Vec3 pos)
-{
-	_nextPosWorld += Vec2(pos.x, pos.y);
-}
-
-void Camera::addNextPositisonWorld(int x, int y)
-{
-	_nextPosWorld += Vec2((float)x, (float)y);
-}
-
 void Camera::setPositionWorld_X(int x)
 {
 	_positionWorld = Vec2((float)x, _positionWorld.y);
@@ -125,18 +115,18 @@ void Camera::setSizeMap(int _mW, int _mH)
 
 void Camera::update(float dt)
 {
-	//_RPT1(0, "[CAM] %f\n", _nextPosWorld.y);
-	//_RPT1(0, "[CAM XXXXXXXXXXXXXXX] %d\n", _mapHeight - _height / 2);
+	// Cam ko di chuyen
 	if (_positionWorld == _nextPosWorld) return;
 
+	// Check cam có đang ở 4 cạnh của map ko ?
+
+	// do map  t cat bi du -_- 1 khoang nên mới có cái distance này bù vào
 	float distance_ = 60.;
 
-	// Không cho cam ra khỏi map
-	if (_nextPosWorld.x >= (_width / 2.) + distance_)
+	if ((_nextPosWorld.x > _width / 2. + distance_) && (_nextPosWorld.x < (_mapWidth - _width / 2 - distance_)))
 	{
 		if (_isMovingHorizontal)
 		{
-
 			if (_nextPosWorld.x > _positionWorld.x)
 			{
 				_positionWorld += Vec2(_speedX*dt, 0);
@@ -155,18 +145,18 @@ void Camera::update(float dt)
 			{
 				_isMovingHorizontal = false;
 				//_RPT1(0, "== [ CAM ] == MOVING DONE %f\n", _nextPosWorld.x);
-				_nextPosWorld = _positionWorld;
+				_nextPosWorld.x = _positionWorld.x;
 			}
 		}
 		else if (abs(_nextPosWorld.x - _positionWorld.x) > DISTANCE_X)
 		{
 			_isMovingHorizontal = true;
 		}
-
 	}
 
-	if (_nextPosWorld.y < (_mapHeight - (_height / 2.)))
+	if ((_nextPosWorld.y > _height / 2.) && (_nextPosWorld.y < (_mapHeight - _height / 2)))
 	{
+
 		if (_isMovingVertical)
 		{
 
@@ -187,7 +177,7 @@ void Camera::update(float dt)
 			{
 				_isMovingVertical = false;
 				//_RPT1(0, "== [ CAM ] == MOVING DONE %f\n", _nextPosWorld.x);
-				_nextPosWorld = _positionWorld;
+				_nextPosWorld.y = _positionWorld.y;
 			}
 		}
 		else if (abs(_nextPosWorld.y - _positionWorld.y) > DISTANCE_Y)
@@ -195,8 +185,6 @@ void Camera::update(float dt)
 			_isMovingVertical = true;
 		}
 	}
-
-
 }
 
 D3DXVECTOR3 Camera::getPositionWorld()

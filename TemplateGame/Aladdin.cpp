@@ -204,6 +204,7 @@ void Aladdin::update(float dt)
 			//}
 		}
 	}
+
 	if ((_state & eIdState::STAND) == eIdState::STAND)
 	{
 		// Kiem tra co dang dung tren ground
@@ -286,10 +287,6 @@ void Aladdin::update(float dt)
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
 
-			//if (_posWorld.x >= _device->getWidthWindow() / 2.)
-			{
-				_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
-			}
 		}
 		// Move right
 		else if (_moveDirection == 1)
@@ -300,10 +297,6 @@ void Aladdin::update(float dt)
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
 
-			//if (_posWorld.x >= _device->getWidthWindow() / 2.)
-			{
-				_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
-			}
 		}
 	}
 
@@ -354,6 +347,7 @@ void Aladdin::update(float dt)
 			if (_curAnimation.getLoopCount() > 0)
 			{
 				_isOnGround = false;
+				_distanceJump = 0.f;
 				this->fixPosAnimation(eIdState::STAND);
 				_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
 				this->setState(eIdState::STAND);
@@ -363,28 +357,23 @@ void Aladdin::update(float dt)
 			if (_dy < 0.f)
 			{
 				_idGroundObj = 0;
-				/*_jumpDistance += abs(_dy) * dt;
-				_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
+				//_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
+
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
+
 				_distanceJump += abs(_dy * dt);
-				if (_posWorld.y <= _camera->getMapHeight() - _device->getHeightWindow() / 2.)
-				{
-					_camera->addNextPositisonWorld(Vec3(0, _dy*dt, 0));
-				}
 
 				// Den frame nay la phai roi xuong
 				if ((_isJump &&  _curAnimation.getCurrentFrame() == 6) ||
 					(_isRunJump && _curAnimation.getCurrentFrame() == 4) ||
 					(_isClimbJump && _curAnimation.getLoopCount() > 0))
 				{
-					//if (!_isRunJump) 
 					this->setIsAnimated(false);
-					//this->setDy(_gravity);
 				}
 
 				if (_distanceJump > ALTITUDE_JUMP)
 				{
-					_distanceJump = 0.f;
+					//_distanceJump = 0.f;
 					this->setDy(_gravity);
 				}
 			}
@@ -393,9 +382,10 @@ void Aladdin::update(float dt)
 				float timeUpdate = dt;
 				//_RPT0(0, "==================================\n");
 				//_RPT1(0, "[CHECK Collision] JUMP DISTANCE: %f \n", _dy);
-				if ((_isJump &&  _curAnimation.getCurrentFrame() == 10))
+
+				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated)
 				{
-					this->setIsAnimated(false);
+					this->setIsAnimated(true);
 				}
 
 				for (size_t i = 0; i < listObj.size(); i++)
@@ -437,12 +427,7 @@ void Aladdin::update(float dt)
 			updatePos:
 
 				this->updateAllPos(Vec3(0, _dy*timeUpdate, 0));
-
-				//if (_posWorld.y < (_camera->getMapHeight() - _device->getHeightWindow() / 2))
-				{
-					_camera->addNextPositisonWorld(Vec3(0, _dy*dt, 0));
-				}
-
+				_distanceJump -= abs(_dy * timeUpdate);
 			}
 
 		}
@@ -494,6 +479,7 @@ updateAni:	_curAnimation.update(dt);
 		}
 	}
 
+	_camera->setNextPositisonWorld(_posWorld);
 }
 
 void Aladdin::handlerInput(float dt)
