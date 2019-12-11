@@ -32,6 +32,7 @@ private:
 
 	// Bien bool check Player da dung tren mat dat chua
 	bool _isJump;
+	bool _isFall;
 	float _distanceJump;
 
 	bool _isRunJump;

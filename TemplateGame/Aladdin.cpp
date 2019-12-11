@@ -9,6 +9,7 @@ Aladdin::Aladdin() : GameObject()
 	_grid = nullptr;
 	_camera = nullptr;
 
+	_isFall = false;
 	_isOnGround = false;
 	_isRunJump = false;
 	_isDamage = false;
@@ -66,6 +67,8 @@ void Aladdin::loadResource()
 	_listAnimation[eIdState::RUN | eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_RUN_ATTACK);
 
 	_listAnimation[eIdState::JUMP] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_JUMP);
+
+	_listAnimation[eIdState::FALL] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_FALL);
 
 	_listAnimation[eIdState::CLIMB] = AnimationManager::getInstance()->get(eIdAnimation::ALADDIN_CLIMB);
 
@@ -157,18 +160,17 @@ void Aladdin::update(float dt)
 {
 	RECT _viewPort = _camera->getBounding();
 	// Get list obj nam trong view port
-	auto listObj = _grid->getListGameObjContain(getBoundingBox());
-	auto listObj_Apple = _grid->getListGameObjContain(_viewPort);
+	auto listObj = _grid->getListGameObjContain(_viewPort);
 
 	if (_indexApple != 0)
 	{
-		_listApple[_indexApple - 1]->setListGameObj(listObj_Apple);
+		_listApple[_indexApple - 1]->setListGameObj(listObj);
 		_listApple[_indexApple - 1]->update(dt);
 	}
 
 	if ((_state & eIdState::JUMP) != eIdState::JUMP) {
 
-		_RPT1(0, "[STATE] %d \n", _state);
+		//_RPT1(0, "[STATE] %d \n", _state);
 		for (size_t i = 0; i < listObj.size(); i++)
 		{
 			auto obj = listObj[i];
@@ -180,12 +182,15 @@ void Aladdin::update(float dt)
 				//int objID = obj->getId();
 				float check = this->checkCollision_SweptAABB(obj->getBoundingBox(), dt, di);
 
-				_RPT1(0, "[ID OBJ] %d - %d\n", _idGroundObj, di);
+				//_RPT1(0, "[ID OBJ] %d - %d\n", _idGroundObj, di);
 				// Neu va cham va dang dung tren obj 
 				if (di != eDirection::BOTTOM)
 				{
 					this->setDy(_gravity);
+					this->setDx(0.f);
 					this->setState(eIdState::JUMP);
+					_isFall = true;
+					_curAnimation = _listAnimation[eIdState::FALL];
 					//this->setIsAnimated(false);
 				}
 			}
@@ -347,7 +352,10 @@ void Aladdin::update(float dt)
 			if (_curAnimation.getLoopCount() > 0)
 			{
 				_isOnGround = false;
+				_isJump = _isRunJump = _isClimbJump = _isFall = false;
 				_distanceJump = 0.f;
+				_dx = 0.f;
+
 				this->fixPosAnimation(eIdState::STAND);
 				_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
 				this->setState(eIdState::STAND);
@@ -381,11 +389,16 @@ void Aladdin::update(float dt)
 			{
 				float timeUpdate = dt;
 				//_RPT0(0, "==================================\n");
-				//_RPT1(0, "[CHECK Collision] JUMP DISTANCE: %f \n", _dy);
 
-				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated)
+				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && _isFall)
 				{
 					this->setIsAnimated(true);
+				}
+
+
+				if (_isFall && _curAnimation.getCurrentFrame() == 5)
+				{
+					this->setIsAnimated(false);
 				}
 
 				for (size_t i = 0; i < listObj.size(); i++)

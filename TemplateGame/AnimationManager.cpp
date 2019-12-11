@@ -329,6 +329,22 @@ void AnimationManager::load() {
 
 	_listAnimation[eIdAnimation::ALADDIN_JUMP] = _jump;
 
+	Animation _fall;
+	_fall.setTimePerFrame(0.062f);
+	_fall.setIsLoop(false);
+	_fall.setTypeFixPos(eTypeFixPos::L_BT);
+	_fall.setScale(2.0f, 2.0f);
+	_fall.addSprite(eIdSprite::ALADDIN_JUMP_06);
+	_fall.addSprite(eIdSprite::ALADDIN_JUMP_07);
+	_fall.addSprite(eIdSprite::ALADDIN_JUMP_08);
+	_fall.addSprite(eIdSprite::ALADDIN_JUMP_09);
+	_fall.addSprite(eIdSprite::ALADDIN_JUMP_10);
+	_fall.addSprite(eIdSprite::ALADDIN_JUMP_11);
+	_fall.addSprite(eIdSprite::ALADDIN_JUMP_12);
+	_fall.addSprite(eIdSprite::ALADDIN_JUMP_13);
+
+	_listAnimation[eIdAnimation::ALADDIN_FALL] = _fall;
+
 	Animation _run;
 	_run.setTimePerFrame(0.0677f);
 	_run.setIsLoop(true);

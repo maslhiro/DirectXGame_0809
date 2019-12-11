@@ -21,18 +21,19 @@ enum eTypeFixPos
 enum eIdState
 {
 	NONE = 0,
-	STAND = 1 << 1,
-	RUN = 1 << 2,
-	JUMP = 1 << 3,
-	EXPLODE = 1 << 4,
-	ATTACK = 1 << 5,
-	WAIT_01 = 1 << 6,
-	WAIT_02 = 1 << 7,
-	DAMAGE = 1 << 8,
-	THROW = 1 << 9,
-	SIT = 1 << 10,
-	SIT_ = 1 << 11,
-	CLIMB = 1 << 12,
+	STAND = (1 << 1),
+	RUN = (1 << 2),
+	JUMP = (1 << 3),
+	EXPLODE = (1 << 4),
+	ATTACK = (1 << 5),
+	WAIT_01 = (1 << 6),
+	WAIT_02 = (1 << 7),
+	DAMAGE = (1 << 8),
+	THROW = (1 << 9),
+	SIT = (1 << 10),
+	SIT_ = (1 << 11),
+	CLIMB = (1 << 12),
+	FALL = (1 << 13),
 };
 
 // Object >= 4000
