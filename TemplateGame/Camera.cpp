@@ -132,7 +132,7 @@ void Camera::update(float dt)
 	float distance_ = 60.;
 
 	// Không cho cam ra khỏi map
-	if (_nextPosWorld.x >= (_width / 2.) - distance_)
+	if (_nextPosWorld.x >= (_width / 2.) + distance_)
 	{
 		if (_isMovingHorizontal)
 		{

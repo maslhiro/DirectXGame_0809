@@ -15,7 +15,7 @@ Aladdin::Aladdin() : GameObject()
 	_isClimbJump = false;
 	_checkClimb = false;
 	_isJump = false;
-
+	_idGroundObj = 0;
 	_isSit = false;
 	_distanceJump = 0.f;
 	_moveDirection = 0;
@@ -96,7 +96,7 @@ void Aladdin::render()
 	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
 
-	RECT rr = getCurrentBoudingBox();
+	/*RECT rr = getCurrentBoudingBox();
 	RECT ty;
 	ty.top = ty.left = 0;
 	ty.bottom = rr.bottom - rr.top;
@@ -112,7 +112,7 @@ void Aladdin::render()
 		&Vec3(ty.right / 2, ty.bottom / 2, 0),
 		&Vec3(posXX, posYY, 0),
 		D3DCOLOR_XRGB(255, 255, 255)
-	);
+	);*/
 
 
 	//_curAnimation.setDrawingBound(true);
@@ -166,24 +166,29 @@ void Aladdin::update(float dt)
 		_listApple[_indexApple - 1]->update(dt);
 	}
 
-	if ((_state & eIdState::STAND) == eIdState::STAND)
-	{
-		// Kiem tra co dang dung tren ground
+	if ((_state & eIdState::JUMP) != eIdState::JUMP) {
+
+		_RPT1(0, "[STATE] %d \n", _state);
 		for (size_t i = 0; i < listObj.size(); i++)
 		{
 			auto obj = listObj[i];
 
 			// Kiem tra va cham voi ground
-			//if (obj->getIdType() == eIdObject::GROUND)
-			//{
-			//	//int objID = obj->getId();
-			//	//_RPT1(0, "[ID OBJ] %d \n", objID);
-			//	float check = this->checkCollision(obj->getBoundingBox());
-			//	if (!check) {
-			//		this->setDy(_gravity);
-			//		this->setState(eIdState::JUMP);
-			//	}
-			//}
+			if (obj->getId() == _idGroundObj)
+			{
+				int di = 0;
+				//int objID = obj->getId();
+				float check = this->checkCollision_SweptAABB(obj->getBoundingBox(), dt, di);
+
+				_RPT1(0, "[ID OBJ] %d - %d\n", _idGroundObj, di);
+				// Neu va cham va dang dung tren obj 
+				if (di != eDirection::BOTTOM)
+				{
+					this->setDy(_gravity);
+					this->setState(eIdState::JUMP);
+					//this->setIsAnimated(false);
+				}
+			}
 
 			// Kiem tra co dang dung tren rock ko
 			//if (obj->getIdType() == eIdObject::ROCK)
@@ -198,6 +203,10 @@ void Aladdin::update(float dt)
 			//	}
 			//}
 		}
+	}
+	if ((_state & eIdState::STAND) == eIdState::STAND)
+	{
+		// Kiem tra co dang dung tren ground
 	}
 
 	if ((_state & eIdState::ATTACK) == eIdState::ATTACK)
@@ -277,7 +286,7 @@ void Aladdin::update(float dt)
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
 
-			if (_posWorld.x >= _device->getWidthWindow() / 2.)
+			//if (_posWorld.x >= _device->getWidthWindow() / 2.)
 			{
 				_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
 			}
@@ -291,7 +300,7 @@ void Aladdin::update(float dt)
 
 			this->updateAllPos(Vec3(_dx * dt, 0, 0));
 
-			if (_posWorld.x >= _device->getWidthWindow() / 2.)
+			//if (_posWorld.x >= _device->getWidthWindow() / 2.)
 			{
 				_camera->addNextPositisonWorld(Vec3(_dx * dt, 0, 0));
 			}
@@ -353,6 +362,7 @@ void Aladdin::update(float dt)
 		else {
 			if (_dy < 0.f)
 			{
+				_idGroundObj = 0;
 				/*_jumpDistance += abs(_dy) * dt;
 				_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
 				this->updateAllPos(Vec3(0, _dy*dt, 0));
@@ -372,7 +382,7 @@ void Aladdin::update(float dt)
 					//this->setDy(_gravity);
 				}
 
-				if (_distanceJump > 145.f)
+				if (_distanceJump > ALTITUDE_JUMP)
 				{
 					_distanceJump = 0.f;
 					this->setDy(_gravity);
@@ -383,6 +393,10 @@ void Aladdin::update(float dt)
 				float timeUpdate = dt;
 				//_RPT0(0, "==================================\n");
 				//_RPT1(0, "[CHECK Collision] JUMP DISTANCE: %f \n", _dy);
+				if ((_isJump &&  _curAnimation.getCurrentFrame() == 10))
+				{
+					this->setIsAnimated(false);
+				}
 
 				for (size_t i = 0; i < listObj.size(); i++)
 				{
@@ -400,9 +414,9 @@ void Aladdin::update(float dt)
 						//RECT t = obj->getBoundingBox();
 						//RECT t1 = getBoundingBox();
 
-						if (check2 < timeUpdate)
+						if (check2 < timeUpdate && direction == eDirection::BOTTOM)
 						{
-							_RPT1(0, "[AAAAAAAAAAA] VX : %f || VY  %f\n", _dx, _dy);
+							//_RPT1(0, "[AAAAAAAAAAA] VX : %f || VY  %f\n", _dx, _dy);
 
 							//if (direction != eDirection::TOP) goto updatePos;
 
@@ -410,11 +424,10 @@ void Aladdin::update(float dt)
 							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
 							//_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
 							//if (obj->getIdType() == eIdObject::ROCK) {
-							_RPT1(0, "[CHECK Collision] CHECK COLLISION id :%d -  %d \n", obj->getId(), direction);
+							//_RPT1(0, "[CHECK Collision] CHECK COLLISION id :%d -  %d \n", obj->getId(), direction);
 							//}
-
+							_idGroundObj = obj->getId();
 							timeUpdate = check2;
-
 							_isOnGround = true;
 							this->setIsAnimated(true);
 						}
