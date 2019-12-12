@@ -529,6 +529,12 @@ void AnimationManager::load() {
 	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_06);
 	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_07);
 	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_08);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_09);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_10);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_11);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_12);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_13);
+	_climb.addSprite(eIdSprite::ALADDIN_CLIMB_14);
 
 	_listAnimation[eIdAnimation::ALADDIN_CLIMB] = _climb;
 

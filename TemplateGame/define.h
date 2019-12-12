@@ -33,8 +33,8 @@
 #define UNIT_HEIGHT 500
 
 // Khoang cach camera
-#define DISTANCE_X 5
-#define DISTANCE_Y 25
+#define DISTANCE_X 10
+#define DISTANCE_Y 30
 
 #define ALTITUDE_JUMP 130.f
 
@@ -49,7 +49,12 @@
 #define KEY_F 0x46
 #define KEY_Q 0x51
 
-#define WAIT_TIME_ALADDIN 5.f
+// Chuyen tu stand => wait
+#define WAIT_TIME_ALADDIN 500.f
+
+// Thoi gian dung  
+#define WAIT_TIME_SPIKE 3.f
+#define WAIT_TIME_ROCK 6.f
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

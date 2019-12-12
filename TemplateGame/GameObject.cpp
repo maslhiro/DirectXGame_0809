@@ -101,6 +101,11 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 		dxEntry = _rectOther.left - _rectObj.right;
 		dxExit = _rectOther.right - _rectObj.left;
 	}
+	else if (_dx < 0.0f)
+	{
+		dxEntry = _rectObj.left - _rectOther.right;
+		dxExit = _rectObj.right - _rectOther.left;
+	}
 	else
 	{
 		dxEntry = _rectObj.left - _rectOther.right;
@@ -112,6 +117,11 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 	{
 		dyEntry = _rectOther.top - _rectObj.bottom;
 		dyExit = _rectOther.bottom - _rectObj.top;
+	}
+	else if (_dy > 0.0f)
+	{
+		dyEntry = _rectObj.top - _rectOther.bottom;
+		dyExit = _rectObj.bottom - _rectOther.top;
 	}
 	else
 	{
@@ -147,16 +157,20 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 		tyExit = dyExit / abs(_dy);
 	}
 
-	_RPT0(0, "===================\n");
-	_RPT1(0, "[SWEPT AABB] Vx : %f Vy %f \n", _dx, _dy);
-	_RPT1(0, "[SWEPT AABB] DELTA TIME : %f \n", dt);
-	_RPT1(0, "[SWEPT AABB] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
-	_RPT1(0, "[SWEPT AABB] DX Entry : %d DX Exit %d \n", dxEntry, dxExit);
-	_RPT1(0, "[SWEPT AABB] DY Entry : %d DY Exit %d \n", dyEntry, dyExit);
-	_RPT1(0, "[SWEPT AABB] TX Entry : %f TX Exit %f \n", txEntry, txExit);
-	_RPT1(0, "[SWEPT AABB] TY Entry : %f TY Exit %f \n", tyEntry, tyExit);
-	_RPT1(0, "[SWEPT AABB] CUR : %d %d %d %d \n", _rectObj.left, _rectObj.top, _rectObj.right, _rectObj.bottom);
-	_RPT1(0, "[SWEPT AABB] OTHER : %d %d %d %d \n", _rectOther.left, _rectOther.top, _rectOther.right, _rectOther.bottom);
+	if (_dx == 0.f)
+	{
+		_RPT0(0, "===================\n");
+		_RPT1(0, "[SWEPT AABB] Vx : %f Vy %f \n", _dx, _dy);
+		_RPT1(0, "[SWEPT AABB] DELTA TIME : %f \n", dt);
+		_RPT1(0, "[SWEPT AABB] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
+		_RPT1(0, "[SWEPT AABB] DX Entry : %d DX Exit %d \n", dxEntry, dxExit);
+		_RPT1(0, "[SWEPT AABB] DY Entry : %d DY Exit %d \n", dyEntry, dyExit);
+		_RPT1(0, "[SWEPT AABB] TX Entry : %f TX Exit %f \n", txEntry, txExit);
+		_RPT1(0, "[SWEPT AABB] TY Entry : %f TY Exit %f \n", tyEntry, tyExit);
+		_RPT1(0, "[SWEPT AABB] CUR : %d %d %d %d \n", _rectObj.left, _rectObj.top, _rectObj.right, _rectObj.bottom);
+		_RPT1(0, "[SWEPT AABB] OTHER : %d %d %d %d \n", _rectOther.left, _rectOther.top, _rectOther.right, _rectOther.bottom);
+
+	}
 
 
 	// thời gian va chạm là thời gian lớn nhất của 2 trục (2 trục phải cùng tiếp xúc thì mới va chạm)
@@ -171,7 +185,13 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 	}
 
 	// Check them neu dxEntry or dyEntry infinity
-	if ((dxEntry < 0.0f && dxExit < 0.0f) || (dyEntry < 0.0f && dyExit < 0.0f)) return dt;
+	//if ((dxEntry < 0.0f && dxExit < 0.0f) || (dyEntry < 0.0f && dyExit < 0.0f)) return dt;
+
+	if (_dx == 0.f)
+	{
+		// Ktra obj nam phia ben nao cua obj
+		if (_rectOther.left > _rectObj.right || _rectOther.right < _rectObj.left) return dt;
+	}
 
 	//Kiem tra xem time theo chieu x hay y se dung obj truoc
 	if (txEntry > tyEntry)

@@ -5,7 +5,7 @@ class Spike :
 	public GameObject
 {
 private:
-
+	float _waitTime;
 public:
 	Spike();
 	Spike(int);

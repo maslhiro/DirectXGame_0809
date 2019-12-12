@@ -5,7 +5,7 @@ class Rock :
 	public GameObject
 {
 private:
-
+	float _waitTime;
 public:
 	Rock();
 	Rock(int);

@@ -95,7 +95,6 @@ void Aladdin::loadResource()
 
 void Aladdin::render()
 {
-	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
 
@@ -158,6 +157,8 @@ void Aladdin::render()
 
 void Aladdin::update(float dt)
 {
+	_curAnimation.setIsAnimated(_isAnimated);
+
 	RECT _viewPort = _camera->getBounding();
 	// Get list obj nam trong view port
 	auto listObj = _grid->getListGameObjContain(_viewPort);
@@ -390,7 +391,7 @@ void Aladdin::update(float dt)
 				float timeUpdate = dt;
 				//_RPT0(0, "==================================\n");
 
-				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && _isFall)
+				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && !_isFall)
 				{
 					this->setIsAnimated(true);
 				}
@@ -427,7 +428,7 @@ void Aladdin::update(float dt)
 							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
 							//_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
 							//if (obj->getIdType() == eIdObject::ROCK) {
-							//_RPT1(0, "[CHECK Collision] CHECK COLLISION id :%d -  %d \n", obj->getId(), direction);
+							_RPT1(0, "[CHECK Collision] CHECK COLLISION id :%d -  %d \n", obj->getId(), direction);
 							//}
 							_idGroundObj = obj->getId();
 							timeUpdate = check2;

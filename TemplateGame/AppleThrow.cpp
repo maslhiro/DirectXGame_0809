@@ -31,7 +31,6 @@ void AppleThrow::render()
 {
 	if (_isTerminated) return;
 
-	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
 
@@ -40,6 +39,8 @@ void AppleThrow::render()
 
 void AppleThrow::update(float dt)
 {
+	_curAnimation.setIsAnimated(_isAnimated);
+
 	if (_isTerminated) return;
 
 	if (_state == eIdState::EXPLODE)

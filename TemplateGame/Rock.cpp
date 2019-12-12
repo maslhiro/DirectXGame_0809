@@ -4,6 +4,7 @@ Rock::Rock() : GameObject()
 {
 	_idType = eIdObject::ROCK;
 	_isTerminated = false;
+	_waitTime = 0.f;
 }
 
 Rock::Rock(int id) : GameObject(id)
@@ -20,27 +21,26 @@ void Rock::loadResource()
 
 void Rock::render()
 {
-	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
 
-	RECT rr = getBoundingBox();
-	RECT ty;
-	ty.top = ty.left = 0;
-	ty.bottom = rr.bottom - rr.top;
-	ty.right = rr.right - rr.left;
+	//RECT rr = getBoundingBox();
+	//RECT ty;
+	//ty.top = ty.left = 0;
+	//ty.bottom = rr.bottom - rr.top;
+	//ty.right = rr.right - rr.left;
 
-	float posXX = rr.right - _curAnimation.getWidth();
+	//float posXX = rr.right - _curAnimation.getWidth();
 
-	float posYY = rr.bottom - _curAnimation.getHeight();
+	//float posYY = rr.bottom - _curAnimation.getHeight();
 
-	_device->getSpriteHandler()->Draw(
-		_texture->get(eIdTexture::BOX_GREEN_TEX),
-		&ty,
-		&Vec3(ty.right / 2, ty.bottom / 2, 0),
-		&Vec3(posXX, posYY, 0),
-		D3DCOLOR_XRGB(255, 255, 255)
-	);
+	//_device->getSpriteHandler()->Draw(
+	//	_texture->get(eIdTexture::BOX_GREEN_TEX),
+	//	&ty,
+	//	&Vec3(ty.right / 2, ty.bottom / 2, 0),
+	//	&Vec3(posXX, posYY, 0),
+	//	D3DCOLOR_XRGB(255, 255, 255)
+	//);
 
 
 	_curAnimation.render(_device, _texture);
@@ -48,8 +48,19 @@ void Rock::render()
 
 void Rock::update(float dt)
 {
-	if (_isTerminated) return;
+	if (_curAnimation.getCurrentFrame() == 4 && _waitTime < WAIT_TIME_ROCK)
+	{
+		_waitTime += dt;
+		_isAnimated = false;
+	}
 
+	if (_waitTime >= WAIT_TIME_ROCK && _isAnimated == false)
+	{
+		_waitTime = 0.f;
+		_isAnimated = true;
+	}
+
+	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.update(dt);
 }
 
