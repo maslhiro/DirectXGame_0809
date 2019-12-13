@@ -48,6 +48,7 @@ void FirstScene::loadResource()
 
 	//_mapAbove.setCamera(_cam);
 	_map.setCamera(_cam);
+	//_mapAbove.setCamera(_cam);
 
 	_player->setCamera(_cam);
 	_player->loadResource();
@@ -76,6 +77,7 @@ void FirstScene::render()
 	_map.render();
 	_map.renderAbove();
 	//_mapAbove.render();
+
 	//_drawDebug->drawLineHorizontal(_device->getHeightWindow() / 2, 500);
 	//_drawDebug->drawLineVertical(_device->getWidthWindow() / 2, 500);
 

@@ -9,6 +9,7 @@
 #include "AppleThrow.h"
 #include "Ground.h"
 #include "Spike.h"
+#include "Column.h"
 #include "Bat.h"
 #include "Rope.h"
 #include "Nahbi.h"

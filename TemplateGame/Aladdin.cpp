@@ -9,6 +9,8 @@ Aladdin::Aladdin() : GameObject()
 	_grid = nullptr;
 	_camera = nullptr;
 
+	_isClimb = 0;
+	_isThrow = false;
 	_isFall = false;
 	_isOnGround = false;
 	_isRunJump = false;
@@ -124,35 +126,13 @@ void Aladdin::render()
 
 	if (_indexApple != 0)
 	{
-		//_RPT0(0, "[UPDATE APPLE]\n");
-		_listApple[_indexApple - 1]->render();
-	}
-
-	RECT _viewPort = _camera->getBounding();
-	// Get list obj nam trong view port
-
-	/*auto listObj = _grid->getListGameObjContain(_viewPort);
-	for (size_t i = 0; i < listObj.size(); i++)
-	{
-		auto obj = listObj[i];
-		if (obj->getIdType() == eIdObject::GROUND)
+		for (int i = 0; i < _listApple.size(); i++)
 		{
-			RECT bound;
-
-			bound.left = 0;
-			bound.right = obj->getBoundingBox().right - obj->getBoundingBox().left;
-			bound.top = 0;
-			bound.bottom = obj->getBoundingBox().bottom - obj->getBoundingBox().top;
-
-			_device->getSpriteHandler()->Draw(_texture->get(eIdTexture::BOX_RED_TEX),
-				&bound,
-				&Vec3(bound.right / 2., bound.bottom / 2., 0),
-				&Vec3(obj->getBoundingBox().right - (bound.right) / 2., obj->getBoundingBox().bottom - (bound.bottom / 2), 0.),
-				D3DCOLOR_ARGB(255, 255, 255, 255));
+			_listApple[i]->render();
 
 		}
-	}*/
-
+		//_RPT0(0, "[UPDATE APPLE]\n");
+	}
 }
 
 void Aladdin::update(float dt)
@@ -165,8 +145,16 @@ void Aladdin::update(float dt)
 
 	if (_indexApple != 0)
 	{
-		_listApple[_indexApple - 1]->setListGameObj(listObj);
-		_listApple[_indexApple - 1]->update(dt);
+		if (_indexApple != 0)
+		{
+			for (int i = 0; i < _listApple.size(); i++)
+			{
+				_listApple[i]->setListGameObj(listObj);
+				_listApple[i]->update(dt);
+			}
+			//_RPT0(0, "[UPDATE APPLE]\n");
+		}
+
 	}
 
 	if ((_state & eIdState::JUMP) != eIdState::JUMP) {
@@ -255,7 +243,27 @@ void Aladdin::update(float dt)
 
 	if ((_state & eIdState::THROW) == eIdState::THROW)
 	{
+		if (_indexApple > _listApple.size())
+		{
+			pAppleThrow _apple = new AppleThrow();
+			_apple->loadResource();
+			_apple->setScale(2.0f);
+
+			if (_isFlip)
+			{
+				_apple->setPositionWorld(_posWorld + Vec3(-40, -30, 0));
+
+				_apple->moveLeft();
+			}
+			else {
+				_apple->setPositionWorld(_posWorld + Vec3(40, -30, 0));
+				_apple->moveRight();
+			}
+			_listApple.push_back(_apple);
+		}
+
 		this->setIsAnimated(true);
+
 		if (_curAnimation.getLoopCount() > 0)
 		{
 			if (_state == eIdState::THROW)
@@ -286,22 +294,50 @@ void Aladdin::update(float dt)
 			this->setState(eIdState::STAND);
 		}
 		// Move Left
-		else if (_moveDirection == -1) {
-			_isFlip = true;
-
-			this->setDx(-_speed);
-
-			this->updateAllPos(Vec3(_dx * dt, 0, 0));
-
-		}
-		// Move right
-		else if (_moveDirection == 1)
+		else
 		{
-			_isFlip = false;
+			float timeUpdate = dt;
 
-			this->setDx(_speed);
+			if (_moveDirection == -1) {
+				_isFlip = true;
+				this->setDx(-_speed);
+			}
+			// Move right
+			else if (_moveDirection == 1)
+			{
+				_isFlip = false;
+				this->setDx(_speed);
+			}
 
-			this->updateAllPos(Vec3(_dx * dt, 0, 0));
+			//_RPT0(0, "========================\n");
+
+			for (size_t i = 0; i < listObj.size(); i++)
+			{
+				auto obj = listObj[i];
+
+				if (obj->getIdType() == eIdObject::COLUMN)
+				{
+					int direction = 0;
+
+					float check = this->checkCollision_SweptAABB(obj->getBoundingBox(), timeUpdate, direction);
+
+					_RPT1(0, "[CHECK RUN COLLISION] ID :%d -  %d  \n", obj->getId(), direction);
+
+					//float check = this->checkCollision(obj->getBoundingBox());
+
+					//RECT t = obj->getBoundingBox();
+					//RECT t1 = getBoundingBox();
+
+					if (check < timeUpdate && (direction == eDirection::RIGHT || direction == eDirection::LEFT))
+					{
+						timeUpdate = check;
+					}
+				}
+
+			}
+
+			this->updateAllPos(Vec3(_dx * timeUpdate, 0, 0));
+
 
 		}
 	}
@@ -317,6 +353,8 @@ void Aladdin::update(float dt)
 
 	if ((_state & eIdState::JUMP) == eIdState::JUMP)
 	{
+		float timeUpdate = dt;
+
 		// Check Climb
 		if (_checkClimb)
 		{
@@ -325,14 +363,20 @@ void Aladdin::update(float dt)
 				auto obj = listObj[i];
 				if (obj->getIdType() == eIdObject::ROPE)
 				{
-					bool check = checkCollision(obj->getBoundingBox());
+					RECT ropeRECT = obj->getBoundingBox();
+
+					RECT curRECT = getCurrentBoudingBox();
+
+					bool check = checkCollision(ropeRECT);
 
 					float ropeX = obj->getPosWorld().x;
 
-					if (check) {
+					// Check them aladin co va cham vao tam cua rope ko
+					if (check && curRECT.bottom <= ropeRECT.bottom && curRECT.top >= ropeRECT.top) {
 
 						this->setPositionWorld(ropeX, _posWorld.y);
 						this->setState(eIdState::CLIMB);
+						_idRopeObj = obj->getId();
 						this->setIsAnimated(false);
 					}
 				}
@@ -388,7 +432,6 @@ void Aladdin::update(float dt)
 			}
 			else if (_dy >= 0.f)
 			{
-				float timeUpdate = dt;
 				//_RPT0(0, "==================================\n");
 
 				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && !_isFall)
@@ -411,14 +454,14 @@ void Aladdin::update(float dt)
 					{
 						int direction = 0;
 
-						float check2 = this->checkCollision_SweptAABB(obj->getBoundingBox(), timeUpdate, direction);
+						float check = this->checkCollision_SweptAABB(obj->getBoundingBox(), timeUpdate, direction);
 
 						//float check = this->checkCollision(obj->getBoundingBox());
 
 						//RECT t = obj->getBoundingBox();
 						//RECT t1 = getBoundingBox();
 
-						if (check2 < timeUpdate && direction == eDirection::BOTTOM)
+						if (check < timeUpdate && direction == eDirection::BOTTOM)
 						{
 							//_RPT1(0, "[AAAAAAAAAAA] VX : %f || VY  %f\n", _dx, _dy);
 
@@ -428,16 +471,17 @@ void Aladdin::update(float dt)
 							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
 							//_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
 							//if (obj->getIdType() == eIdObject::ROCK) {
-							_RPT1(0, "[CHECK Collision] CHECK COLLISION id :%d -  %d \n", obj->getId(), direction);
+							_RPT1(0, "[CHECK JUMP COLLISION] id :%d -  %d \n", obj->getId(), direction);
 							//}
 							_idGroundObj = obj->getId();
-							timeUpdate = check2;
+							timeUpdate = check;
 							_isOnGround = true;
 							this->setIsAnimated(true);
 						}
 					}
 
 				}
+
 			updatePos:
 
 				this->updateAllPos(Vec3(0, _dy*timeUpdate, 0));
@@ -446,6 +490,47 @@ void Aladdin::update(float dt)
 
 		}
 
+	}
+
+	if ((_state & eIdState::CLIMB) == eIdState::CLIMB)
+	{
+		if (_isClimb != 0)
+		{
+			for (size_t i = 0; i < listObj.size(); i++)
+			{
+				auto obj = listObj[i];
+				if (obj->getId() == _idRopeObj)
+				{
+					RECT ropeRECT = obj->getBoundingBox();
+
+					RECT curRECT = getCurrentBoudingBox();
+
+					bool check = checkCollision(ropeRECT);
+
+					float ropeX = obj->getPosWorld().x;
+
+					// Check them aladin co va cham vao tam cua rope ko
+					if (check && curRECT.bottom <= ropeRECT.bottom && curRECT.top >= ropeRECT.top) {
+						this->updateAllPos(Vec3(0, _speed *_isClimb * 2. / 3. * dt, 0));
+					}
+					else if (check && curRECT.top <= ropeRECT.top && _isClimb < 0)
+					{
+						// neu leo len dung top cua rope
+					}
+					else
+					{
+						// chan ra khoi rope
+						this->setDy(_gravity);
+						this->setDx(0.f);
+						this->setState(eIdState::JUMP);
+						_idRopeObj = 0;
+						_isFall = true;
+						_curAnimation = _listAnimation[eIdState::FALL];
+
+					}
+				}
+			}
+		}
 	}
 
 updateAni:	_curAnimation.update(dt);
@@ -512,23 +597,27 @@ void Aladdin::handlerInput(float dt)
 
 	if ((_state & eIdState::CLIMB) == eIdState::CLIMB)
 	{
-		// S
 		if (_input->getMapKey()[KEY_W]) {
 			this->setIsAnimated(true);
-			this->updateAllPos(Vec3(0, -_speed * dt, 0));
+			_isClimb = -1;
 		}
 		else if (_input->getMapKey()[KEY_S]) {
 			this->setIsAnimated(true);
-			this->updateAllPos(Vec3(0, _speed*dt, 0));
+			_isClimb = 1;
 		}
-		else if (_input->getMapKey()[KEY_F]) {
+		else if (_input->getMapKey()[KEY_J]) {
 			this->setIsAnimated(true);
 			this->setState(eIdState::JUMP);
+
+			_isClimb = 0;
+			_idRopeObj = 0;
 			_isClimbJump = true;
 			_curAnimation = _listAnimation[eIdState::CLIMB | eIdState::JUMP];
+			this->setDx(0.f);
 			this->setDy(-_gravity);
 		}
 		else {
+			_isClimb = 0;
 			this->setIsAnimated(false);
 		}
 	}
@@ -563,7 +652,7 @@ void Aladdin::handlerInput(float dt)
 			this->setState(eIdState::RUN);
 
 		}
-		else if (_input->getMapKey()[KEY_W])
+		else if (_input->getMapKey()[KEY_J])
 		{
 			_waitTime = 0.f;
 			_isRunJump = false;
@@ -573,7 +662,7 @@ void Aladdin::handlerInput(float dt)
 			this->setDx(0.f);
 			this->setDy(-_gravity);
 		}
-		else if (_input->getMapKey()[KEY_Q]) {
+		else if (_input->getMapKey()[KEY_H]) {
 			_waitTime = 0.f;
 			this->fixPosAnimation(eIdState::ATTACK);
 			this->setState(eIdState::ATTACK);
@@ -583,29 +672,14 @@ void Aladdin::handlerInput(float dt)
 			this->fixPosAnimation(eIdState::SIT);
 			this->setState(eIdState::SIT);
 		}
-		else if (_input->getMapKey()[KEY_E]) {
+		else if (_input->getMapKey()[KEY_K]) {
+
 			_waitTime = 0.f;
-			this->fixPosAnimation(eIdState::THROW);
-			this->setState(eIdState::THROW);
-			//_RPT0(0, "[THROW]\n");
-
-			pAppleThrow _apple = new AppleThrow();
-			_apple->loadResource();
-			_apple->setScale(2.0f);
-
 			_indexApple += 1;
 
-			if (_isFlip)
-			{
-				_apple->setPositionWorld(_posWorld + Vec3(-20, -40, 0));
-
-				_apple->moveLeft();
-			}
-			else {
-				_apple->setPositionWorld(_posWorld + Vec3(20, -40, 0));
-				_apple->moveRight();
-			}
-			_listApple.push_back(_apple);
+			this->fixPosAnimation(eIdState::THROW);
+			this->setState(eIdState::THROW);
+			_RPT0(0, "[THROW]\n");
 		}
 
 		// Khong co su kien phim nao 
@@ -622,35 +696,22 @@ void Aladdin::handlerInput(float dt)
 		if (_input->getMapKey()[KEY_S]) {
 
 			_isSit = true;
-			if (_input->getMapKey()[KEY_Q])
+			if (_input->getMapKey()[KEY_H])
 			{
 				this->fixPosAnimation(eIdState::SIT | eIdState::ATTACK);
 				_curAnimation = _listAnimation[eIdState::SIT | eIdState::ATTACK];
 				_state |= eIdState::ATTACK;
 			}
-			else if (_input->getMapKey()[KEY_E])
+			else if (_input->getMapKey()[KEY_K])
 			{
-				this->fixPosAnimation(eIdState::SIT | eIdState::THROW);
-				_curAnimation = _listAnimation[eIdState::SIT | eIdState::THROW];
-				_state |= eIdState::THROW;
-
-				pAppleThrow _apple = new AppleThrow();
-				_apple->loadResource();
-				_apple->setScale(2.0f);
-
-				_indexApple += 1;
-
-				if (_isFlip)
+				if ((_state & eIdState::THROW) != eIdState::THROW)
 				{
-					_apple->setPositionWorld(_posWorld + Vec3(-40, -30, 0));
+					this->fixPosAnimation(eIdState::SIT | eIdState::THROW);
+					_curAnimation = _listAnimation[eIdState::SIT | eIdState::THROW];
+					_state |= eIdState::THROW;
 
-					_apple->moveLeft();
+					_indexApple += 1;
 				}
-				else {
-					_apple->setPositionWorld(_posWorld + Vec3(40, -30, 0));
-					_apple->moveRight();
-				}
-				_listApple.push_back(_apple);
 			}
 		}
 		else {
@@ -661,38 +722,25 @@ void Aladdin::handlerInput(float dt)
 	if ((_state & eIdState::JUMP) == eIdState::JUMP)
 	{
 
-		if (_input->getMapKey()[KEY_X]) {
+		if (_input->getMapKey()[KEY_W]) {
 			_checkClimb = true;
 		}
 		else {
 			_checkClimb = false;
 
-			if (_input->getMapKey()[KEY_Q]) {
+			if (_input->getMapKey()[KEY_H]) {
 				_state |= eIdState::ATTACK;
 				//this->setDy(10.f);
 				_curAnimation = _listAnimation[eIdState::JUMP | eIdState::ATTACK];
 			}
-			else if (_input->getMapKey()[KEY_E]) {
-				_state |= eIdState::THROW;
-				_curAnimation = _listAnimation[eIdState::JUMP | eIdState::THROW];
-
-				pAppleThrow _apple = new AppleThrow();
-				_apple->loadResource();
-				_apple->setScale(2.0f);
-
-				_indexApple += 1;
-
-				if (_isFlip)
+			else if (_input->getMapKey()[KEY_K]) {
+				if ((_state & eIdState::THROW) != eIdState::THROW)
 				{
-					_apple->setPositionWorld(_posWorld + Vec3(-40, -40, 0));
+					_state |= eIdState::THROW;
+					_curAnimation = _listAnimation[eIdState::JUMP | eIdState::THROW];
 
-					_apple->moveLeft();
+					_indexApple += 1;
 				}
-				else {
-					_apple->setPositionWorld(_posWorld + Vec3(40, -40, 0));
-					_apple->moveRight();
-				}
-				_listApple.push_back(_apple);
 			}
 			else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
 				_state |= eIdState::RUN;
@@ -729,7 +777,7 @@ void Aladdin::handlerInput(float dt)
 		// A
 		else if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
 			_moveDirection = -1;
-			if (_input->getMapKey()[KEY_W])
+			if (_input->getMapKey()[KEY_J])
 			{
 				_isRunJump = true;
 				_isJump = false;
@@ -743,7 +791,7 @@ void Aladdin::handlerInput(float dt)
 		else if (_input->getMapKey()[KEY_D] && !_input->getMapKey()[KEY_A])
 		{
 			_moveDirection = 1;
-			if (_input->getMapKey()[KEY_W])
+			if (_input->getMapKey()[KEY_J])
 			{
 				_isRunJump = true;
 				_isJump = false;
@@ -755,7 +803,7 @@ void Aladdin::handlerInput(float dt)
 			}
 		}
 
-		if (_input->getMapKey()[KEY_Q]) {
+		if (_input->getMapKey()[KEY_H]) {
 			this->fixPosAnimation(eIdState::RUN | eIdState::ATTACK);
 			_state |= eIdState::ATTACK;
 			_curAnimation = _listAnimation[eIdState::RUN | eIdState::ATTACK];

@@ -88,7 +88,6 @@ bool GameObject::checkCollision(RECT r)
 		_cur.bottom < r.top);
 }
 
-// dt dx dy
 float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direction)
 {
 	int dxEntry, dxExit;
@@ -101,40 +100,28 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 		dxEntry = _rectOther.left - _rectObj.right;
 		dxExit = _rectOther.right - _rectObj.left;
 	}
-	else if (_dx < 0.0f)
-	{
-		dxEntry = _rectObj.left - _rectOther.right;
-		dxExit = _rectObj.right - _rectOther.left;
-	}
 	else
 	{
 		dxEntry = _rectObj.left - _rectOther.right;
 		dxExit = _rectObj.right - _rectOther.left;
 	}
-
 
 	if (_dy > 0.0f)
 	{
 		dyEntry = _rectOther.top - _rectObj.bottom;
 		dyExit = _rectOther.bottom - _rectObj.top;
 	}
-	else if (_dy > 0.0f)
-	{
-		dyEntry = _rectObj.top - _rectOther.bottom;
-		dyExit = _rectObj.bottom - _rectOther.top;
-	}
 	else
 	{
 		dyEntry = _rectObj.top - _rectOther.bottom;
 		dyExit = _rectObj.bottom - _rectOther.top;
 	}
 
-
 	float txEntry, txExit;
 	float tyEntry, tyExit;
 
 	//// tim thoi gian va cham
-	if (_dx == 0.0f)
+	if (_dx == 0.f)
 	{
 		// đang đứng yên thì bằng vô cực (chia cho  0)
 		txEntry = -std::numeric_limits<float>::infinity();
@@ -146,7 +133,7 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 		txExit = dxExit / abs(_dx);
 	}
 
-	if (_dy == 0.0f)
+	if (_dy == 0.f)
 	{
 		tyEntry = -std::numeric_limits<float>::infinity();
 		tyExit = std::numeric_limits<float>::infinity();
@@ -157,21 +144,19 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 		tyExit = dyExit / abs(_dy);
 	}
 
-	if (_dx == 0.f)
-	{
-		_RPT0(0, "===================\n");
-		_RPT1(0, "[SWEPT AABB] Vx : %f Vy %f \n", _dx, _dy);
-		_RPT1(0, "[SWEPT AABB] DELTA TIME : %f \n", dt);
-		_RPT1(0, "[SWEPT AABB] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
-		_RPT1(0, "[SWEPT AABB] DX Entry : %d DX Exit %d \n", dxEntry, dxExit);
-		_RPT1(0, "[SWEPT AABB] DY Entry : %d DY Exit %d \n", dyEntry, dyExit);
-		_RPT1(0, "[SWEPT AABB] TX Entry : %f TX Exit %f \n", txEntry, txExit);
-		_RPT1(0, "[SWEPT AABB] TY Entry : %f TY Exit %f \n", tyEntry, tyExit);
-		_RPT1(0, "[SWEPT AABB] CUR : %d %d %d %d \n", _rectObj.left, _rectObj.top, _rectObj.right, _rectObj.bottom);
-		_RPT1(0, "[SWEPT AABB] OTHER : %d %d %d %d \n", _rectOther.left, _rectOther.top, _rectOther.right, _rectOther.bottom);
-
-	}
-
+	//if (_dx != 0.f)
+	//{
+	//	_RPT0(0, "===================\n");
+	//	_RPT1(0, "[SWEPT AABB] Vx : %f Vy %f \n", _dx, _dy);
+	//	_RPT1(0, "[SWEPT AABB] DELTA TIME : %f \n", dt);
+	//	_RPT1(0, "[SWEPT AABB] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
+	//	_RPT1(0, "[SWEPT AABB] DX Entry : %d DX Exit %d \n", dxEntry, dxExit);
+	//	_RPT1(0, "[SWEPT AABB] DY Entry : %d DY Exit %d \n", dyEntry, dyExit);
+	//	_RPT1(0, "[SWEPT AABB] TX Entry : %f TX Exit %f \n", txEntry, txExit);
+	//	_RPT1(0, "[SWEPT AABB] TY Entry : %f TY Exit %f \n", tyEntry, tyExit);
+	//	_RPT1(0, "[SWEPT AABB] CUR : %d %d %d %d \n", _rectObj.left, _rectObj.top, _rectObj.right, _rectObj.bottom);
+	//	_RPT1(0, "[SWEPT AABB] OTHER : %d %d %d %d \n", _rectOther.left, _rectOther.top, _rectOther.right, _rectOther.bottom);
+	//}
 
 	// thời gian va chạm là thời gian lớn nhất của 2 trục (2 trục phải cùng tiếp xúc thì mới va chạm)
 	float entryTime = max(txEntry, tyEntry);
@@ -184,24 +169,20 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 		return dt;
 	}
 
-	// Check them neu dxEntry or dyEntry infinity
-	//if ((dxEntry < 0.0f && dxExit < 0.0f) || (dyEntry < 0.0f && dyExit < 0.0f)) return dt;
-
 	if (_dx == 0.f)
 	{
-		// Ktra obj nam phia ben nao cua obj
+		// Ktra obj 2 obj co va cham ko ? 
 		if (_rectOther.left > _rectObj.right || _rectOther.right < _rectObj.left) return dt;
 	}
 
 	//Kiem tra xem time theo chieu x hay y se dung obj truoc
 	if (txEntry > tyEntry)
 	{
-		// va cham theo truc x
-		if (dxEntry >= 0.0f)
+		if (_dx > 0.f)
 		{
+
 			direction = eDirection::RIGHT;
 		}
-		// dx co the am neu object  va cham voi other
 		else
 		{
 			direction = eDirection::LEFT;
@@ -209,7 +190,7 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dt, int &direc
 	}
 	else
 	{
-		if (dyEntry >= 0.0f)
+		if (_dy >= 0.0f)
 		{
 			direction = eDirection::BOTTOM;
 		}

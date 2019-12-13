@@ -26,7 +26,6 @@ Camera::Camera(int width, int height)
 	_speedX = _speedY = 140.f;
 
 	_isMovingHorizontal = _isMovingVertical = false;
-
 	_positionWorld = _nextPosWorld = Vec2();
 
 }
@@ -67,18 +66,6 @@ void Camera::setNextPositisonWorld(int x, int y)
 void Camera::setNextPositisonWorld(Vec3 pos)
 {
 	_nextPosWorld = Vec2(pos.x, pos.y);
-}
-
-void Camera::setPositionWorld_X(int x)
-{
-	_positionWorld = Vec2((float)x, _positionWorld.y);
-	_nextPosWorld = _positionWorld;
-}
-
-void Camera::setPositionWorld_Y(int y)
-{
-	_positionWorld = Vec2(_positionWorld.x, (float)y);
-	_nextPosWorld = _positionWorld;
 }
 
 void Camera::setSizeWindow(int width, int height)

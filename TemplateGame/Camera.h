@@ -19,9 +19,6 @@ public:
 	void setNextPositisonWorld(int, int);
 	void setNextPositisonWorld(Vec3);
 
-	void setPositionWorld_X(int);
-	void setPositionWorld_Y(int);
-
 	void setSizeWindow(int, int);
 
 	int getWidth();

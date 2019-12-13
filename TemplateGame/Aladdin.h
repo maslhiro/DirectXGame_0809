@@ -24,6 +24,12 @@ private:
 	// -1 -> left
 	int _moveDirection;
 
+	// Xet huong di chuyen
+	// -1 -> up
+	// 0 -> none
+	// 1 -> down
+
+	int _isClimb;
 	// Pos voi viewPort
 	Vec3 _pos;
 
@@ -32,6 +38,9 @@ private:
 
 	// Bien bool check Player da dung tren mat dat chua
 	bool _isJump;
+
+	bool _isThrow;
+
 	bool _isFall;
 	float _distanceJump;
 
@@ -42,6 +51,7 @@ private:
 	bool _checkClimb;
 
 	int _idGroundObj;
+	int _idRopeObj;
 
 	float _waitTime;
 

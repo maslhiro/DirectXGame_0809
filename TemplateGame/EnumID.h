@@ -53,10 +53,9 @@ enum eIdObject
 	SKELETON,
 	NAHBI,
 
-
 	// Static Obj => ko render
 	GROUND = 4500,	// Dat
-	PILLAR,			// Cot go - sat
+	COLUMN,			// Cot go - sat
 	PLANKS,			// Thanh go - sat
 	ROPE,			// Day thung
 

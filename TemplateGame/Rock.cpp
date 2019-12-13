@@ -48,18 +48,18 @@ void Rock::render()
 
 void Rock::update(float dt)
 {
-	if (_curAnimation.getCurrentFrame() == 4 && _waitTime < WAIT_TIME_ROCK)
+	if (_curAnimation.getCurrentFrame() == 4)
 	{
 		_waitTime += dt;
 		_isAnimated = false;
 	}
 
-	if (_waitTime >= WAIT_TIME_ROCK && _isAnimated == false)
+	if (_waitTime > WAIT_TIME_ROCK)
 	{
-		_waitTime = 0.f;
 		_isAnimated = true;
+		if (_curAnimation.getCurrentFrame() != 4) _waitTime = 0.f;
 	}
-
+	//_RPT1(0, "[WAIT TIME] %f\n", _waitTime);
 	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.update(dt);
 }

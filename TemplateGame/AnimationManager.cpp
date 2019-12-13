@@ -141,7 +141,7 @@ void AnimationManager::load() {
 
 #pragma region ROCK
 	Animation _rock;
-	_rock.setTimePerFrame(0.5f);
+	_rock.setTimePerFrame(0.1f);
 	_rock.setIsLoop(true);
 	_rock.setTypeFixPos(eTypeFixPos::L_T);
 	//_rock.setIsReverse(true);
@@ -346,7 +346,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_FALL] = _fall;
 
 	Animation _run;
-	_run.setTimePerFrame(0.0677f);
+	_run.setTimePerFrame(0.064f);
 	_run.setIsLoop(true);
 	_run.setTypeFixPos(eTypeFixPos::L_BT);
 	_run.setIndexStart(4);
@@ -551,7 +551,14 @@ void AnimationManager::load() {
 	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_06);
 	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_07);
 	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_08);
-	//	_climbJump.addSprite(eIdSprite::ALADDIN_CLIMB_JUMP_09);
+	_climbJump.addSprite(eIdSprite::ALADDIN_JUMP_06);
+	_climbJump.addSprite(eIdSprite::ALADDIN_JUMP_07);
+	_climbJump.addSprite(eIdSprite::ALADDIN_JUMP_08);
+	_climbJump.addSprite(eIdSprite::ALADDIN_JUMP_09);
+	_climbJump.addSprite(eIdSprite::ALADDIN_JUMP_10);
+	_climbJump.addSprite(eIdSprite::ALADDIN_JUMP_11);
+	_climbJump.addSprite(eIdSprite::ALADDIN_JUMP_12);
+	_climbJump.addSprite(eIdSprite::ALADDIN_JUMP_13);
 
 	_listAnimation[eIdAnimation::ALADDIN_CLIMB_JUMP] = _climbJump;
 #pragma endregion

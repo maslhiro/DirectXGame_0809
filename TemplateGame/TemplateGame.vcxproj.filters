@@ -180,6 +180,9 @@
     <ClCompile Include="Rope.cpp">
       <Filter>Source Files\Object\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Column.cpp">
+      <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -288,6 +291,9 @@
       <Filter>Header Files\Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Rope.h">
+      <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Column.h">
       <Filter>Header Files\Object\Map</Filter>
     </ClInclude>
   </ItemGroup>

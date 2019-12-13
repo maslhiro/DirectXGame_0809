@@ -4,8 +4,9 @@ AppleThrow::AppleThrow() : GameObject()
 {
 	_idType = eIdObject::APPLE;
 	_isTerminated = false;
-	_speed = 450.f;
-	_gravity = 60.f;
+	_speed = 480.f;
+	_gravity = 80.f;
+	_timeUp = 0.f;
 }
 
 AppleThrow::AppleThrow(int id) : GameObject(id)
@@ -41,8 +42,10 @@ void AppleThrow::update(float dt)
 {
 	_curAnimation.setIsAnimated(_isAnimated);
 
-	if (_isTerminated) return;
-
+	if (_isTerminated) {
+		_timeUp = 0.f;
+		return;
+	}
 	if (_state == eIdState::EXPLODE)
 	{
 		if (_curAnimation.getLoopCount() > 0)
@@ -51,8 +54,19 @@ void AppleThrow::update(float dt)
 	}
 
 	_posWorld.x += _dx * dt;
-	//_posWorld.y += _gravity * dt;
-	_posWorld.y += pow(_dx * dt, 2) / 20;
+
+	_timeUp += dt;
+
+	if (_timeUp >= 0.2f)
+	{
+		//_RPT1(0, "TIME UP %f \n", _timeUp);
+		_posWorld.y += _gravity * dt;
+	}
+	else
+	{
+		_posWorld.y -= _gravity / 2. *dt;
+	}
+
 
 	// Ktra va cham 
 	for (size_t i = 0; i < _listGameObj.size(); i++)

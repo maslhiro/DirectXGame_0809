@@ -6,6 +6,8 @@ class AppleThrow :
 {
 private:
 	std::vector<pGameObject> _listGameObj;
+
+	float _timeUp;
 public:
 	AppleThrow();
 	AppleThrow(int);

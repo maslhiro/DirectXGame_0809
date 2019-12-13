@@ -130,6 +130,7 @@
     <ClCompile Include="AppleThrow.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Column.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
     <ClCompile Include="FirstScene.cpp" />
     <ClCompile Include="FixedGrid.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="AppleThrow.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Column.h" />
     <ClInclude Include="DrawDebug.h" />
     <ClInclude Include="FirstScene.h" />
     <ClInclude Include="FixedGrid.h" />

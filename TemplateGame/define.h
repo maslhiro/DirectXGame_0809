@@ -29,8 +29,8 @@
 
 #define TILE_SIZE 128
 
-#define UNIT_WIDTH 500
-#define UNIT_HEIGHT 500
+#define UNIT_WIDTH 250
+#define UNIT_HEIGHT 250
 
 // Khoang cach camera
 #define DISTANCE_X 10
@@ -43,18 +43,21 @@
 #define KEY_A 0x41
 #define KEY_D 0x44
 #define KEY_S 0x53
-#define KEY_X 0x58
 #define KEY_W 0x57
-#define KEY_E 0x45
-#define KEY_F 0x46
-#define KEY_Q 0x51
+
+// attack
+#define KEY_H 0x48
+// jump
+#define KEY_J 0x4A
+// throw
+#define KEY_K 0x4B
 
 // Chuyen tu stand => wait
 #define WAIT_TIME_ALADDIN 500.f
 
 // Thoi gian dung  
 #define WAIT_TIME_SPIKE 3.f
-#define WAIT_TIME_ROCK 6.f
+#define WAIT_TIME_ROCK 7.f
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

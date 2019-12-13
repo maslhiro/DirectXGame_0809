@@ -251,10 +251,7 @@ void GameMap::render()
 
 	_spriteHandler->SetTransform(&matFinal);
 
-	RECT _viewPort;
-	// Render map
-
-	_viewPort = _cam->getBounding();
+	RECT _viewPort = _cam->getBounding();
 
 	auto mapContain = getMapContain(_viewPort);
 
@@ -299,7 +296,6 @@ void GameMap::render()
 
 void GameMap::renderAbove()
 {
-
 	D3DXMATRIX matFinal;
 	D3DXMATRIX matTransformed;
 	D3DXMATRIX matOld;

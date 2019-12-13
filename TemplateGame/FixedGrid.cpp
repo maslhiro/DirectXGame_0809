@@ -34,9 +34,7 @@ void FixedGrid::init()
 
 	}
 
-	setIsLoaded(true);
-
-
+	//setIsLoaded(true);
 
 	file.close();
 }
@@ -172,6 +170,19 @@ void FixedGrid::load(const char* filePath)
 
 				break;
 			}
+			case eIdObject::COLUMN:
+			{
+				_obj = new Column();
+
+				RECT rec;
+				rec.left = posObj_X;
+				rec.top = posObj_Y;
+				rec.right = objW;
+				rec.bottom = objH;
+				_obj->setRectWorld(rec);
+
+				break;
+			}
 			default:
 				_obj = new Apple();
 				break;
@@ -279,16 +290,20 @@ std::vector<Unit> FixedGrid::getUnitsContain(RECT _view)
 	Vec3 posLEFT_T = Vec3(_view.left, _view.top, 0);
 	Vec3 posRIGHT_BT = Vec3(_view.right, _view.bottom, 0);
 
-	int min_CellX = posLEFT_T.x / UNIT_WIDTH;
-	int min_CellY = posLEFT_T.y / UNIT_HEIGHT;
+	int min_CellX = (posLEFT_T.x / UNIT_WIDTH);
+	int min_CellY = (posLEFT_T.y / UNIT_HEIGHT);
 
 	int max_CellX = posRIGHT_BT.x / UNIT_WIDTH;
 	int max_CellY = posRIGHT_BT.y / UNIT_HEIGHT;
+	//_RPT0(0, "==================================\n");
+	//_RPT1(0, "MAX X %d MAX Y %d \n", max_CellX, max_CellY);
 
 	for (int x = min_CellX; x <= max_CellX; x++)
 	{
 		for (int y = min_CellY; y <= max_CellY; y++)
 		{
+			//_RPT1(0, "X %d Y %d \n", x, y);
+
 			listUnit.push_back(_cell[x][y]);
 		}
 	}
