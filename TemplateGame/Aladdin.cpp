@@ -576,6 +576,13 @@ updateAni:	_curAnimation.update(dt);
 				//_state &= ~eIdState::DAMAGE;
 			}
 		}
+
+		if (obj->getIdType() == eIdObject::NAHBI)
+		{
+			pNahbi na = dynamic_cast<pNahbi>(obj);
+
+			na->setPosXPlayer(_posWorld.x);
+		}
 	}
 
 	_camera->setNextPositisonWorld(_posWorld);

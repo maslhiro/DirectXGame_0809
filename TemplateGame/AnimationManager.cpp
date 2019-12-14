@@ -70,6 +70,25 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::APPLE_EXPLODE] = _appleExplode;
 #pragma endregion
 
+#pragma region Enermy Explode
+	Animation _enermyExplode;
+	_enermyExplode.setTimePerFrame(0.08f);
+	_enermyExplode.setIsLoop(false);
+	_enermyExplode.setTypeFixPos(eTypeFixPos::C_BT);
+	_enermyExplode.setScale(2.0f, 2.0f);
+	_enermyExplode.addSprite(eIdSprite::EMERMY_EXPLODE_01);
+	_enermyExplode.addSprite(eIdSprite::EMERMY_EXPLODE_02);
+	_enermyExplode.addSprite(eIdSprite::EMERMY_EXPLODE_03);
+	_enermyExplode.addSprite(eIdSprite::EMERMY_EXPLODE_04);
+	_enermyExplode.addSprite(eIdSprite::EMERMY_EXPLODE_05);
+	_enermyExplode.addSprite(eIdSprite::EMERMY_EXPLODE_06);
+	_enermyExplode.addSprite(eIdSprite::EMERMY_EXPLODE_07);
+	_enermyExplode.addSprite(eIdSprite::EMERMY_EXPLODE_08);
+	_enermyExplode.addSprite(eIdSprite::EMERMY_EXPLODE_09);
+
+	_listAnimation[eIdAnimation::ENERMY_EXPLODE] = _enermyExplode;
+#pragma endregion
+
 #pragma region WreckingBall
 	Animation _wreckingBall;
 	_wreckingBall.setTimePerFrame(0.08f);
@@ -566,22 +585,30 @@ void AnimationManager::load() {
 #pragma region NAHBI
 	Animation _nahbiStand;
 	_nahbiStand.setTimePerFrame(0.08f);
-	_nahbiStand.setIsLoop(true);
-	_nahbiStand.setTypeFixPos(eTypeFixPos::R_BT);
+	_nahbiStand.setIsLoop(false);
+	_nahbiStand.setTypeFixPos(eTypeFixPos::L_BT);
 	_nahbiStand.setScale(2.0f, 2.0f);
 	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_01);
-	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_02);
-	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_03);
-	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_04);
-	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_05);
-	_nahbiStand.addSprite(eIdSprite::NAHBI_STAND_06);
 
 	_listAnimation[eIdAnimation::NAHBI_STAND] = _nahbiStand;
+
+	Animation _nahbiWait;
+	_nahbiWait.setTimePerFrame(0.08f);
+	_nahbiWait.setIsLoop(true);
+	_nahbiWait.setTypeFixPos(eTypeFixPos::L_BT);
+	_nahbiWait.setScale(2.0f, 2.0f);
+	_nahbiWait.addSprite(eIdSprite::NAHBI_STAND_02);
+	_nahbiWait.addSprite(eIdSprite::NAHBI_STAND_03);
+	_nahbiWait.addSprite(eIdSprite::NAHBI_STAND_04);
+	_nahbiWait.addSprite(eIdSprite::NAHBI_STAND_05);
+	_nahbiWait.addSprite(eIdSprite::NAHBI_STAND_06);
+
+	_listAnimation[eIdAnimation::NAHBI_WAIT] = _nahbiWait;
 
 	Animation _nahbiAttack;
 	_nahbiAttack.setTimePerFrame(0.08f);
 	_nahbiAttack.setIsLoop(true);
-	_nahbiAttack.setTypeFixPos(eTypeFixPos::R_BT);
+	_nahbiAttack.setTypeFixPos(eTypeFixPos::L_BT);
 	_nahbiAttack.setScale(2.0f, 2.0f);
 	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_01);
 	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_02);
@@ -595,7 +622,7 @@ void AnimationManager::load() {
 	Animation _nahbiRun;
 	_nahbiRun.setTimePerFrame(0.08f);
 	_nahbiRun.setIsLoop(true);
-	_nahbiRun.setTypeFixPos(eTypeFixPos::R_BT);
+	_nahbiRun.setTypeFixPos(eTypeFixPos::L_BT);
 	_nahbiRun.setScale(2.0f, 2.0f);
 	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_01);
 	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_02);

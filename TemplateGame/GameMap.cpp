@@ -350,9 +350,13 @@ void GameMap::update(float dt)
 	for (size_t i = 0; i < listObj.size(); i++)
 	{
 		int idType = listObj[i]->getIdType();
-		//if (idType == eIdObject::WRECKING_BALL || idType == eIdObject::APPLE || idType == eIdObject::ROCK || idType == eIdObject::SPIKE) {
-		listObj[i]->update(dt);
-		//}
+		if (idType != eIdObject::GROUND &&
+			idType != eIdObject::ROPE
+			//idType != eIdObject::ROCK || 
+			//idType != eIdObject::SPIKE
+			) {
+			listObj[i]->update(dt);
+		}
 	}
 	//_RPT0(0, "============================================\n");
 

@@ -20,6 +20,8 @@ public:
 
 	void addGameObj(pGameObject);
 	std::vector<pGameObject> getListGameObj();
+
+
 private:
 	// So thu tu cua Unit
 	int _x, _y;

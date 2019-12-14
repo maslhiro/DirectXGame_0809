@@ -297,6 +297,8 @@ std::vector<Unit> FixedGrid::getUnitsContain(RECT _view)
 	int max_CellY = posRIGHT_BT.y / UNIT_HEIGHT;
 	//_RPT0(0, "==================================\n");
 	//_RPT1(0, "MAX X %d MAX Y %d \n", max_CellX, max_CellY);
+	//_RPT1(0, "MIN X %d MIN Y %d \n", min_CellX, min_CellY);
+	//_RPT1(0, "VIEW PORT :%d %d %d %d \n", _view.left, _view.top, _view.right, _view.bottom);
 
 	for (int x = min_CellX; x <= max_CellX; x++)
 	{

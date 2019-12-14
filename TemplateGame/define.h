@@ -29,12 +29,12 @@
 
 #define TILE_SIZE 128
 
-#define UNIT_WIDTH 250
-#define UNIT_HEIGHT 250
+#define UNIT_WIDTH 384
+#define UNIT_HEIGHT 384
 
 // Khoang cach camera
-#define DISTANCE_X 10
-#define DISTANCE_Y 30
+#define DISTANCE_X 15
+#define DISTANCE_Y 40
 
 #define ALTITUDE_JUMP 130.f
 
@@ -58,6 +58,12 @@
 // Thoi gian dung  
 #define WAIT_TIME_SPIKE 3.f
 #define WAIT_TIME_ROCK 7.f
+#define WAIT_TIME_NAHBI 5.f
+
+// Khoang cach de enermy di chuyen den khi aladdin den gan
+// Doi voi cac enermy di chuyen dc
+#define ATTACK_DISTANCE 70
+#define MOVE_DISTANCE 300
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

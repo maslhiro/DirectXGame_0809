@@ -5,12 +5,25 @@ class Nahbi :
 	public GameObject
 {
 private:
+	float _posX;
+	float _waitTime;
+
+	// chi cho di qua trai va qua phai 1 lan 
+	bool _isMovedLeft;
+	bool _isMovedRight;
+
+	// quang duong ma nahbi da di
+	float _distanceMove;
 
 public:
 	Nahbi();
 	Nahbi(int);
 
+	void setPosXPlayer(float);
+
 	void loadResource();
+
+	int getState();
 
 	void render();
 
@@ -18,4 +31,6 @@ public:
 
 	void handlerInput(float);
 };
+
+typedef Nahbi* pNahbi;
 
