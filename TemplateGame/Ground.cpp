@@ -24,7 +24,6 @@ void Ground::render()
 	//bound.bottom = getBoundingBox().bottom - getBoundingBox().top;
 
 	//_device->getSpriteHandler()->Draw(_texture->get(eIdTexture::BOX_RED_TEX), &bound, NULL, &Vec3(getBoundingBox().left, getBoundingBox().top, 0), D3DCOLOR_ARGB(255, 255, 255, 255));
-
 }
 
 void Ground::update(float dt)

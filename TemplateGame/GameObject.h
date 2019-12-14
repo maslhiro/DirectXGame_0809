@@ -91,7 +91,9 @@ public:
 
 	bool checkCollision(RECT);
 
-	float checkCollision_SweptAABB(RECT, float, int&);
+	float checkCollision_SweptAABB(RECT, float, float, int&);
+
+	float checkCollision_SweptAABB_(RECT, float, float, int&);
 
 	// Fix pos khi chuyển animation
 	void fixPosAnimation(int);

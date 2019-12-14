@@ -75,7 +75,7 @@ void FirstScene::render()
 	//auto _device = DeviceManager::getInstance();
 
 	_map.render();
-	_map.renderAbove();
+	//_map.renderAbove();
 	//_mapAbove.render();
 
 	//_drawDebug->drawLineHorizontal(_device->getHeightWindow() / 2, 500);

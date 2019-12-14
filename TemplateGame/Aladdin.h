@@ -50,6 +50,9 @@ private:
 	bool _isDamage;
 	bool _checkClimb;
 
+	bool _canMoveRight;
+	bool _canMoveLeft;
+
 	int _idGroundObj;
 	int _idRopeObj;
 

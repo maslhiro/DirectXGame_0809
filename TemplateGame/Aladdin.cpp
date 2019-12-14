@@ -17,6 +17,9 @@ Aladdin::Aladdin() : GameObject()
 	_isDamage = false;
 	_isClimbJump = false;
 	_checkClimb = false;
+	_canMoveRight = true;
+	_canMoveLeft = true;
+
 	_isJump = false;
 	_idGroundObj = 0;
 	_isSit = false;
@@ -163,13 +166,14 @@ void Aladdin::update(float dt)
 		for (size_t i = 0; i < listObj.size(); i++)
 		{
 			auto obj = listObj[i];
+			if (obj->getIdType() != eIdObject::GROUND && obj->getIdType() != eIdObject::ROCK) continue;
 
 			// Kiem tra va cham voi ground
 			if (obj->getId() == _idGroundObj)
 			{
 				int di = 0;
 				//int objID = obj->getId();
-				float check = this->checkCollision_SweptAABB(obj->getBoundingBox(), dt, di);
+				float check = this->checkCollision_SweptAABB(obj->getBoundingBox(), _gravity, dt, di);
 
 				//_RPT1(0, "[ID OBJ] %d - %d\n", _idGroundObj, di);
 				// Neu va cham va dang dung tren obj 
@@ -196,6 +200,144 @@ void Aladdin::update(float dt)
 			//		this->setState(eIdState::JUMP);
 			//	}
 			//}
+		}
+	}
+	else if ((_state & eIdState::JUMP) == eIdState::JUMP)
+	{
+		float timeUpdate = dt;
+
+		// Check Climb
+		if (_checkClimb)
+		{
+			for (size_t i = 0; i < listObj.size(); i++)
+			{
+				auto obj = listObj[i];
+				if (obj->getIdType() == eIdObject::ROPE)
+				{
+					RECT ropeRECT = obj->getBoundingBox();
+
+					RECT curRECT = getCurrentBoudingBox();
+
+					bool check = checkCollision(ropeRECT);
+
+					float ropeX = obj->getPosWorld().x;
+
+					// Check them aladin co va cham vao tam cua rope ko
+					if (check && curRECT.bottom <= ropeRECT.bottom && curRECT.top >= ropeRECT.top) {
+
+						this->setPositionWorld(ropeX, _posWorld.y);
+						this->setState(eIdState::CLIMB);
+						_idRopeObj = obj->getId();
+						this->setIsAnimated(false);
+					}
+				}
+			}
+		}
+
+		if (_isJump)
+		{
+			// Qua frame thu 2 moi bat dau nhay len
+			if (_curAnimation.getCurrentFrame() <= 2) goto updateAni;
+		}
+
+		if (_isOnGround)
+		{
+			//RECT t1 = getBoundingBox();
+			//_RPT1(0, "[IS ON GROUND] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
+
+			if (_curAnimation.getLoopCount() > 0)
+			{
+				_isOnGround = false;
+				_isJump = _isRunJump = _isClimbJump = _isFall = false;
+				_distanceJump = 0.f;
+				_dx = 0.f;
+				_dy = 0.f;
+				this->fixPosAnimation(eIdState::STAND);
+				_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
+				this->setState(eIdState::STAND);
+			}
+		}
+		else {
+			if (_dy < 0.f)
+			{
+				_idGroundObj = 0;
+				//_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
+
+				this->updateAllPos(Vec3(0, _dy*dt, 0));
+
+				_distanceJump += abs(_dy * dt);
+
+				// Den frame nay la phai roi xuong
+				if ((_isJump &&  _curAnimation.getCurrentFrame() == 6) ||
+					(_isRunJump && _curAnimation.getCurrentFrame() == 4) ||
+					(_isClimbJump && _curAnimation.getLoopCount() > 0))
+				{
+					this->setIsAnimated(false);
+				}
+
+				if (_distanceJump > ALTITUDE_JUMP)
+				{
+					//_distanceJump = 0.f;
+					this->setDy(_gravity);
+				}
+			}
+			else if (_dy >= 0.f)
+			{
+				//_RPT0(0, "==================================\n");
+
+				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && !_isFall)
+				{
+					this->setIsAnimated(true);
+				}
+
+
+				if (_isFall && _curAnimation.getCurrentFrame() == 5)
+				{
+					this->setIsAnimated(false);
+				}
+
+				for (size_t i = 0; i < listObj.size(); i++)
+				{
+					auto obj = listObj[i];
+
+					// Va cham voi ground
+					if (obj->getIdType() == eIdObject::GROUND || obj->getIdType() == eIdObject::ROCK)
+					{
+						int direction = 0;
+
+						float check = this->checkCollision_SweptAABB(obj->getBoundingBox(), _dy, timeUpdate, direction);
+
+						//float check = this->checkCollision(obj->getBoundingBox());
+
+						//RECT t = obj->getBoundingBox();
+						//RECT t1 = getBoundingBox();
+
+						if (check < timeUpdate && direction == eDirection::BOTTOM)
+						{
+							//_RPT1(0, "[AAAAAAAAAAA] VX : %f || VY  %f\n", _dx, _dy);
+
+							//if (direction != eDirection::TOP) goto updatePos;
+
+							//_RPT1(0, "[AAAAAAAAAAA] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
+							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
+							//_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
+							//if (obj->getIdType() == eIdObject::ROCK) {
+							_RPT1(0, "[CHECK JUMP COLLISION] id :%d -  %d \n", obj->getId(), direction);
+							//}
+							_idGroundObj = obj->getId();
+							timeUpdate = check;
+							_isOnGround = true;
+							this->setIsAnimated(true);
+						}
+					}
+
+				}
+
+			updatePos:
+
+				this->updateAllPos(Vec3(0, _dy*timeUpdate, 0));
+				_distanceJump -= abs(_dy * timeUpdate);
+			}
 		}
 	}
 
@@ -298,44 +440,62 @@ void Aladdin::update(float dt)
 		{
 			float timeUpdate = dt;
 
-			if (_moveDirection == -1) {
-				_isFlip = true;
-				this->setDx(-_speed);
-			}
-			// Move right
-			else if (_moveDirection == 1)
+			if (_moveDirection != 0)
 			{
-				_isFlip = false;
-				this->setDx(_speed);
-			}
-
-			//_RPT0(0, "========================\n");
-
-			for (size_t i = 0; i < listObj.size(); i++)
-			{
-				auto obj = listObj[i];
-
-				if (obj->getIdType() == eIdObject::COLUMN)
+				if (_moveDirection == -1 && _canMoveLeft) {
+					_isFlip = true;
+					this->setDx(-_speed);
+				}
+				// Move right
+				else if (_moveDirection == 1 && _canMoveRight)
 				{
-					int direction = 0;
-
-					float check = this->checkCollision_SweptAABB(obj->getBoundingBox(), timeUpdate, direction);
-
-					_RPT1(0, "[CHECK RUN COLLISION] ID :%d -  %d  \n", obj->getId(), direction);
-
-					//float check = this->checkCollision(obj->getBoundingBox());
-
-					//RECT t = obj->getBoundingBox();
-					//RECT t1 = getBoundingBox();
-
-					if (check < timeUpdate && (direction == eDirection::RIGHT || direction == eDirection::LEFT))
-					{
-						timeUpdate = check;
-					}
+					_isFlip = false;
+					this->setDx(_speed);
 				}
 
+				for (size_t i = 0; i < listObj.size(); i++)
+				{
+					auto obj = listObj[i];
+
+					if (obj->getIdType() == eIdObject::COLUMN)
+					{
+						if (obj->getIdType() != eIdObject::COLUMN) continue;
+
+						int direction = 0;
+
+						float check = this->checkCollision_SweptAABB_(obj->getBoundingBox(), 0.f, timeUpdate, direction);
+
+						_RPT1(0, "[CHECK RUN COLLISION] ID :%d -  %d  \n", obj->getId(), direction);
+
+						if (check < timeUpdate && (direction == eDirection::RIGHT || direction == eDirection::LEFT))
+						{
+							timeUpdate = check;
+							if (_dx > 0.f)
+							{
+								_canMoveRight = false;
+								//_cantMoveRight = false;
+							}
+							if (_dx < 0.f) {
+								_canMoveLeft = false;
+								//_cantMoveRight = true;
+							}
+							goto updatePosRun;
+						}
+						else
+						{
+							_canMoveRight = true;
+							_canMoveLeft = true;
+						}
+					}
+				}
 			}
 
+
+			_RPT0(0, "========================\n");
+			_RPT1(0, "Bool cantMove : L:%d R: %d \n", _canMoveLeft, _canMoveRight);
+			_RPT1(0, "DT : %f\n", timeUpdate);
+
+		updatePosRun:
 			this->updateAllPos(Vec3(_dx * timeUpdate, 0, 0));
 
 
@@ -349,147 +509,6 @@ void Aladdin::update(float dt)
 			this->fixPosAnimation(eIdState::STAND);
 			this->setState(eIdState::STAND);
 		}
-	}
-
-	if ((_state & eIdState::JUMP) == eIdState::JUMP)
-	{
-		float timeUpdate = dt;
-
-		// Check Climb
-		if (_checkClimb)
-		{
-			for (size_t i = 0; i < listObj.size(); i++)
-			{
-				auto obj = listObj[i];
-				if (obj->getIdType() == eIdObject::ROPE)
-				{
-					RECT ropeRECT = obj->getBoundingBox();
-
-					RECT curRECT = getCurrentBoudingBox();
-
-					bool check = checkCollision(ropeRECT);
-
-					float ropeX = obj->getPosWorld().x;
-
-					// Check them aladin co va cham vao tam cua rope ko
-					if (check && curRECT.bottom <= ropeRECT.bottom && curRECT.top >= ropeRECT.top) {
-
-						this->setPositionWorld(ropeX, _posWorld.y);
-						this->setState(eIdState::CLIMB);
-						_idRopeObj = obj->getId();
-						this->setIsAnimated(false);
-					}
-				}
-			}
-		}
-
-		if (_isJump)
-		{
-			// Qua frame thu 2 moi bat dau nhay len
-			if (_curAnimation.getCurrentFrame() <= 2) goto updateAni;
-		}
-
-		if (_isOnGround)
-		{
-			//RECT t1 = getBoundingBox();
-			//_RPT1(0, "[IS ON GROUND] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
-
-			if (_curAnimation.getLoopCount() > 0)
-			{
-				_isOnGround = false;
-				_isJump = _isRunJump = _isClimbJump = _isFall = false;
-				_distanceJump = 0.f;
-				_dx = 0.f;
-
-				this->fixPosAnimation(eIdState::STAND);
-				_RPT1(0, "[CHECK Collision] POS WORLD FIX: %f %f \n", _posWorld.x, _posWorld.y);
-				this->setState(eIdState::STAND);
-			}
-		}
-		else {
-			if (_dy < 0.f)
-			{
-				_idGroundObj = 0;
-				//_RPT1(0, "[CHECK Collision] JUMP DISTANCE : %f \n", _jumpDistance);*/
-
-				this->updateAllPos(Vec3(0, _dy*dt, 0));
-
-				_distanceJump += abs(_dy * dt);
-
-				// Den frame nay la phai roi xuong
-				if ((_isJump &&  _curAnimation.getCurrentFrame() == 6) ||
-					(_isRunJump && _curAnimation.getCurrentFrame() == 4) ||
-					(_isClimbJump && _curAnimation.getLoopCount() > 0))
-				{
-					this->setIsAnimated(false);
-				}
-
-				if (_distanceJump > ALTITUDE_JUMP)
-				{
-					//_distanceJump = 0.f;
-					this->setDy(_gravity);
-				}
-			}
-			else if (_dy >= 0.f)
-			{
-				//_RPT0(0, "==================================\n");
-
-				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && !_isFall)
-				{
-					this->setIsAnimated(true);
-				}
-
-
-				if (_isFall && _curAnimation.getCurrentFrame() == 5)
-				{
-					this->setIsAnimated(false);
-				}
-
-				for (size_t i = 0; i < listObj.size(); i++)
-				{
-					auto obj = listObj[i];
-
-					// Va cham voi ground
-					if (obj->getIdType() == eIdObject::GROUND || obj->getIdType() == eIdObject::ROCK)
-					{
-						int direction = 0;
-
-						float check = this->checkCollision_SweptAABB(obj->getBoundingBox(), timeUpdate, direction);
-
-						//float check = this->checkCollision(obj->getBoundingBox());
-
-						//RECT t = obj->getBoundingBox();
-						//RECT t1 = getBoundingBox();
-
-						if (check < timeUpdate && direction == eDirection::BOTTOM)
-						{
-							//_RPT1(0, "[AAAAAAAAAAA] VX : %f || VY  %f\n", _dx, _dy);
-
-							//if (direction != eDirection::TOP) goto updatePos;
-
-							//_RPT1(0, "[AAAAAAAAAAA] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
-							//_RPT1(0, "[AAAAAAAAAAA] OTHER : %d %d %d %d \n", t.left, t.top, t.right, t.bottom);
-							//_RPT1(0, "[AAAAAAAAAAA] POS WORLD : %f %f \n", _posWorld.x, _posWorld.y);
-							//if (obj->getIdType() == eIdObject::ROCK) {
-							_RPT1(0, "[CHECK JUMP COLLISION] id :%d -  %d \n", obj->getId(), direction);
-							//}
-							_idGroundObj = obj->getId();
-							timeUpdate = check;
-							_isOnGround = true;
-							this->setIsAnimated(true);
-						}
-					}
-
-				}
-
-			updatePos:
-
-				this->updateAllPos(Vec3(0, _dy*timeUpdate, 0));
-				_distanceJump -= abs(_dy * timeUpdate);
-			}
-
-		}
-
 	}
 
 	if ((_state & eIdState::CLIMB) == eIdState::CLIMB)
