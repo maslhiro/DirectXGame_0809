@@ -50,7 +50,6 @@ void Game::loadResource()
 	_sprite->add(eIdTexture::ALADDIN_TEX, "Resource//Object//Aladdin_Sprite.txt");
 	_sprite->add(eIdTexture::BAT_TEX, "Resource//Object//Bat_Sprite.txt");
 	_sprite->add(eIdTexture::SKELETON_TEX, "Resource//Object//Skeleton_Sprite.txt");
-	//_sprite->add(eIdTexture::SKELETON_TEX, "Resource//Object//Skeleton_Sprite.txt");
 	_sprite->add(eIdTexture::GUARDS_TEX, "Resource//Object//Guards.txt");
 
 #pragma endregion

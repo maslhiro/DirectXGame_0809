@@ -25,7 +25,7 @@ public:
 
 	void loadResource();
 
-
+	void getDamaged(int);
 
 	int getState();
 

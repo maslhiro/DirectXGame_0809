@@ -40,9 +40,21 @@ void Nahbi::loadResource()
 
 	_listAnimation[eIdState::ATTACK] = AnimationManager::getInstance()->get(eIdAnimation::NAHBI_ATTACK);
 
+	_listAnimation[eIdState::DAMAGE] = AnimationManager::getInstance()->get(eIdAnimation::NAHBI_DAMAGE);
+
 	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::ENERMY_EXPLODE);
 
 	this->setState(eIdState::STAND);
+}
+
+void Nahbi::getDamaged(int val)
+{
+	_numBlood -= val;
+	if (_state != eIdState::DAMAGE && _numBlood > 0)
+	{
+		this->fixPosAnimation(eIdState::DAMAGE);
+		this->setState(eIdState::DAMAGE);
+	}
 }
 
 int Nahbi::getState()
@@ -64,97 +76,119 @@ void Nahbi::update(float dt)
 {
 	if (_isTerminated) return;
 
-
-	if (_state == eIdState::STAND || _state == eIdState::WAIT_01)
+	if (_numBlood <= 0 && _state != eIdState::EXPLODE)
 	{
-		// Kiem tra phia aladdin so voi obj
-		if (_posX < _posWorld.x)
-		{
-			_isFlip = true;
-		}
-		else {
-			_isFlip = false;
-		}
-
-		if (_state == eIdState::WAIT_01)
-		{
-			if (_curAnimation.getLoopCount() > 2)
-			{
-				this->fixPosAnimation(eIdState::STAND);
-				this->setState(eIdState::STAND);
-			}
-		}
-		else
-		{
-			_waitTime += dt;
-			if (_waitTime >= WAIT_TIME_NAHBI)
-			{
-				_waitTime = 0.f;
-				this->fixPosAnimation(eIdState::WAIT_01);
-				this->setState(eIdState::WAIT_01);
-			}
-		}
-		_RPT1(0, "[NAHBI] %f \n", (abs(_posWorld.x - _posX)));
-		// Kiem tra khaong cach hien tai
-		if ((abs(_posWorld.x - _posX) <= MOVE_DISTANCE) && (abs(_posWorld.x - _posX) >= ATTACK_DISTANCE))
-		{
-
-			if (_posX < _posWorld.x && !_isMovedLeft)
-			{
-				this->setState(eIdState::RUN);
-				_isMovedLeft = true;
-				this->setDx(-_speed);
-			}
-			else if (_posX > _posWorld.x && !_isMovedRight)
-			{
-				this->setState(eIdState::RUN);
-				_isMovedRight = true;
-				this->setDx(_speed);
-			}
-		}
-		else if (abs(_posWorld.x - _posX) < ATTACK_DISTANCE)
-		{
-			this->setState(eIdState::ATTACK);
-		}
+		this->setState(eIdState::EXPLODE);
 	}
 
-	if (_state == eIdState::ATTACK)
+	if (_state != eIdState::EXPLODE && _state != eIdState::DAMAGE)
 	{
-		if (_curAnimation.getLoopCount() > 2) {
-			_waitTime = 0.f;
-
-			// set lai de _curAnimation dc reset
-			this->setState(eIdState::STAND);
-		}
-		goto updateAni;
-	}
-	else if (_state == eIdState::RUN)
-	{
-		_posWorld += Vec3(_dx*dt, 0, 0);
-		_distanceMove += abs(_dx*dt);
-
-		if (_posX < _posWorld.x)
+		if (_state == eIdState::STAND || _state == eIdState::WAIT_01)
 		{
-			if (!_isFlip)
+			// Kiem tra phia aladdin so voi obj
+			if (_posX < _posWorld.x)
 			{
 				_isFlip = true;
-				this->setState(eIdState::STAND);
 			}
-		}
-		else {
-			if (_isFlip)
-			{
+			else {
 				_isFlip = false;
-				this->setState(eIdState::STAND);
+			}
+
+			if (_state == eIdState::WAIT_01)
+			{
+				if (_curAnimation.getLoopCount() > 2)
+				{
+					this->fixPosAnimation(eIdState::STAND);
+					this->setState(eIdState::STAND);
+				}
+			}
+			else
+			{
+				_waitTime += dt;
+				if (_waitTime >= WAIT_TIME_NAHBI)
+				{
+					_waitTime = 0.f;
+					this->fixPosAnimation(eIdState::WAIT_01);
+					this->setState(eIdState::WAIT_01);
+				}
+			}
+			//_RPT1(0, "[NAHBI] %f \n", (abs(_posWorld.x - _posX)));
+			// Kiem tra khaong cach hien tai
+			if ((abs(_posWorld.x - _posX) <= MOVE_DISTANCE) && (abs(_posWorld.x - _posX) >= ATTACK_DISTANCE))
+			{
+
+				if (_posX < _posWorld.x && !_isMovedLeft)
+				{
+					this->setState(eIdState::RUN);
+					_isMovedLeft = true;
+					this->setDx(-_speed);
+				}
+				else if (_posX > _posWorld.x && !_isMovedRight)
+				{
+					this->setState(eIdState::RUN);
+					_isMovedRight = true;
+					this->setDx(_speed);
+				}
+			}
+			else if (abs(_posWorld.x - _posX) < ATTACK_DISTANCE)
+			{
+				this->setState(eIdState::ATTACK);
 			}
 		}
 
-		if (_distanceMove >= MOVE_DISTANCE * 2. / 3.)
+		if (_state == eIdState::ATTACK)
 		{
-			_distanceMove = 0.f;
+			if (_curAnimation.getLoopCount() > 2) {
+				_waitTime = 0.f;
+
+				// set lai de _curAnimation dc reset
+				this->setState(eIdState::STAND);
+			}
+			goto updateAni;
+		}
+		else if (_state == eIdState::RUN)
+		{
+			_posWorld += Vec3(_dx*dt, 0, 0);
+			_distanceMove += abs(_dx*dt);
+
+			if (_posX < _posWorld.x)
+			{
+				if (!_isFlip)
+				{
+					_isFlip = true;
+					this->setState(eIdState::STAND);
+				}
+			}
+			else {
+				if (_isFlip)
+				{
+					_isFlip = false;
+					this->setState(eIdState::STAND);
+				}
+			}
+
+			if (_distanceMove >= MOVE_DISTANCE * 2. / 3.)
+			{
+				_distanceMove = 0.f;
+				this->setState(eIdState::STAND);
+			}
+			goto updateAni;
+		}
+	}
+	else if (_state == eIdState::EXPLODE)
+	{
+		if (_curAnimation.getLoopCount() > 0)
+		{
+			_isTerminated = true;
+		}
+	}
+	else if (_state == eIdState::DAMAGE)
+	{
+		if (_curAnimation.getLoopCount() > 0)
+		{
+			this->fixPosAnimation(eIdState::STAND);
 			this->setState(eIdState::STAND);
 		}
-		goto updateAni;
 	}
 
 updateAni:

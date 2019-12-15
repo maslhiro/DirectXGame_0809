@@ -192,19 +192,19 @@ float GameObject::checkCollision_SweptAABB(RECT _rectOther, float dy, float dt, 
 		}
 	}
 
-	if (direction != 0 && _dx != 0.f)
-	{
-		_RPT0(0, "===================\n");
-		_RPT1(0, "[SWEPT AABB] Vx : %f Vy %f \n", _dx, dy);
-		_RPT1(0, "[SWEPT AABB] DELTA TIME : %f \n", dt);
-		_RPT1(0, "[SWEPT AABB] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
-		_RPT1(0, "[SWEPT AABB] DX Entry : %d DX Exit %d \n", dxEntry, dxExit);
-		_RPT1(0, "[SWEPT AABB] DY Entry : %d DY Exit %d \n", dyEntry, dyExit);
-		_RPT1(0, "[SWEPT AABB] TX Entry : %f TX Exit %f \n", txEntry, txExit);
-		_RPT1(0, "[SWEPT AABB] TY Entry : %f TY Exit %f \n", tyEntry, tyExit);
-		_RPT1(0, "[SWEPT AABB] CUR : %d %d %d %d \n", _rectObj.left, _rectObj.top, _rectObj.right, _rectObj.bottom);
-		_RPT1(0, "[SWEPT AABB] OTHER : %d %d %d %d \n", _rectOther.left, _rectOther.top, _rectOther.right, _rectOther.bottom);
-	}
+	//if (direction != 0 && _dx != 0.f)
+	//{
+	//	_RPT0(0, "===================\n");
+	//	_RPT1(0, "[SWEPT AABB] Vx : %f Vy %f \n", _dx, dy);
+	//	_RPT1(0, "[SWEPT AABB] DELTA TIME : %f \n", dt);
+	//	_RPT1(0, "[SWEPT AABB] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
+	//	_RPT1(0, "[SWEPT AABB] DX Entry : %d DX Exit %d \n", dxEntry, dxExit);
+	//	_RPT1(0, "[SWEPT AABB] DY Entry : %d DY Exit %d \n", dyEntry, dyExit);
+	//	_RPT1(0, "[SWEPT AABB] TX Entry : %f TX Exit %f \n", txEntry, txExit);
+	//	_RPT1(0, "[SWEPT AABB] TY Entry : %f TY Exit %f \n", tyEntry, tyExit);
+	//	_RPT1(0, "[SWEPT AABB] CUR : %d %d %d %d \n", _rectObj.left, _rectObj.top, _rectObj.right, _rectObj.bottom);
+	//	_RPT1(0, "[SWEPT AABB] OTHER : %d %d %d %d \n", _rectOther.left, _rectOther.top, _rectOther.right, _rectOther.bottom);
+	//}
 	//_RPT1(0, "[INFO] ENTRY TIME : %f \n", entryTime);
 
 	return entryTime;
@@ -314,19 +314,19 @@ float GameObject::checkCollision_SweptAABB_(RECT _rectOther, float dy, float dt,
 		}
 	}
 
-	if (direction != 0 && _dx != 0.f)
-	{
-		_RPT0(0, "===================\n");
-		_RPT1(0, "[SWEPT AABB] Vx : %f Vy %f \n", _dx, dy);
-		_RPT1(0, "[SWEPT AABB] DELTA TIME : %f \n", dt);
-		_RPT1(0, "[SWEPT AABB] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
-		_RPT1(0, "[SWEPT AABB] DX Entry : %d DX Exit %d \n", dxEntry, dxExit);
-		_RPT1(0, "[SWEPT AABB] DY Entry : %d DY Exit %d \n", dyEntry, dyExit);
-		_RPT1(0, "[SWEPT AABB] TX Entry : %f TX Exit %f \n", txEntry, txExit);
-		_RPT1(0, "[SWEPT AABB] TY Entry : %f TY Exit %f \n", tyEntry, tyExit);
-		_RPT1(0, "[SWEPT AABB] CUR : %d %d %d %d \n", _rectObj.left, _rectObj.top, _rectObj.right, _rectObj.bottom);
-		_RPT1(0, "[SWEPT AABB] OTHER : %d %d %d %d \n", _rectOther.left, _rectOther.top, _rectOther.right, _rectOther.bottom);
-	}
+	//if (direction != 0 && _dx != 0.f)
+	//{
+	//	_RPT0(0, "===================\n");
+	//	_RPT1(0, "[SWEPT AABB] Vx : %f Vy %f \n", _dx, dy);
+	//	_RPT1(0, "[SWEPT AABB] DELTA TIME : %f \n", dt);
+	//	_RPT1(0, "[SWEPT AABB] CURRENT FRAME : %d \n", _curAnimation.getCurrentFrame());
+	//	_RPT1(0, "[SWEPT AABB] DX Entry : %d DX Exit %d \n", dxEntry, dxExit);
+	//	_RPT1(0, "[SWEPT AABB] DY Entry : %d DY Exit %d \n", dyEntry, dyExit);
+	//	_RPT1(0, "[SWEPT AABB] TX Entry : %f TX Exit %f \n", txEntry, txExit);
+	//	_RPT1(0, "[SWEPT AABB] TY Entry : %f TY Exit %f \n", tyEntry, tyExit);
+	//	_RPT1(0, "[SWEPT AABB] CUR : %d %d %d %d \n", _rectObj.left, _rectObj.top, _rectObj.right, _rectObj.bottom);
+	//	_RPT1(0, "[SWEPT AABB] OTHER : %d %d %d %d \n", _rectOther.left, _rectOther.top, _rectOther.right, _rectOther.bottom);
+	//}
 	//_RPT1(0, "[INFO] ENTRY TIME : %f \n", entryTime);
 
 	return entryTime;

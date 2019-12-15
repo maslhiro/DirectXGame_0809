@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "Nahbi.h"
+#include "Fazal.h"
 
 class AppleThrow :
 	public GameObject

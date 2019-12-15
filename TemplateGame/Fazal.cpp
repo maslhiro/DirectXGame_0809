@@ -40,6 +40,11 @@ void Fazal::loadResource()
 void Fazal::getDamaged(int val)
 {
 	_numBlood -= val;
+	if (_state != eIdState::DAMAGE && _numBlood > 0)
+	{
+		this->fixPosAnimation(eIdState::DAMAGE);
+		this->setState(eIdState::DAMAGE);
+	}
 }
 
 int Fazal::getState()
@@ -59,9 +64,11 @@ void Fazal::render()
 
 void Fazal::update(float dt)
 {
+	//_RPT1(0, "BLOOD %d \n", _numBlood);
+
 	if (_isTerminated) return;
 
-	if (_numBlood <= 0)
+	if (_numBlood <= 0 && _state != eIdState::EXPLODE)
 	{
 		this->setState(eIdState::EXPLODE);
 	}
@@ -73,7 +80,7 @@ void Fazal::update(float dt)
 	else {
 		_isFlip = false;
 	}
-	if (_state != eIdState::EXPLODE)
+	if (_state != eIdState::EXPLODE && _state != eIdState::DAMAGE)
 	{
 		if (abs(_posWorld.x - _posX) <= ATTACK_DISTANCE & _state != eIdState::ATTACK)
 		{
@@ -87,13 +94,22 @@ void Fazal::update(float dt)
 		}
 
 	}
-	else
+	else if (_state == eIdState::EXPLODE)
 	{
 		if (_curAnimation.getLoopCount() > 0)
 		{
 			_isTerminated = true;
 		}
 	}
+	else if (_state == eIdState::DAMAGE)
+	{
+		if (_curAnimation.getLoopCount() > 0)
+		{
+			this->fixPosAnimation(eIdState::STAND);
+			this->setState(eIdState::STAND);
+		}
+	}
+
 
 	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setIsFlip(_isFlip);

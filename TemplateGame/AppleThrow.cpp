@@ -76,6 +76,18 @@ void AppleThrow::update(float dt)
 		int id = _listGameObj[i]->getIdType();
 		if (id == eIdObject::STONE_COLUMN_1 || id == eIdObject::STONE_COLUMN_2 || id == eIdObject::STONE_COLUMN_3 || id == eIdObject::STONE_COLUMN_4) continue;
 		if (check) {
+			if (id == eIdObject::NAHBI)
+			{
+				pNahbi obj = dynamic_cast<pNahbi>(_listGameObj[i]);
+
+				obj->getDamaged(THROW_DAMAGE_ALADDIN);
+			}
+			else if (id == eIdObject::FAZAL)
+			{
+				pFazal obj = dynamic_cast<pFazal>(_listGameObj[i]);
+
+				obj->getDamaged(THROW_DAMAGE_ALADDIN);
+			}
 			this->setState(eIdState::EXPLODE);
 			goto updateAni;
 		}

@@ -48,6 +48,7 @@ private:
 	bool _isClimbJump;
 	bool _isSit;
 	bool _isDamage;
+	bool _isAttack;
 	bool _checkClimb;
 
 	bool _canMoveRight;
