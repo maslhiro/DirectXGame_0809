@@ -387,7 +387,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_RUN] = _run;
 
 	Animation _damage;
-	_damage.setTimePerFrame(0.15f);
+	_damage.setTimePerFrame(0.05f);
 	_damage.setIsLoop(true);
 	_damage.setTypeFixPos(eTypeFixPos::L_BT);
 	_damage.setScale(2.0f, 2.0f);
@@ -444,7 +444,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_ATTACK] = _attack;
 
 	Animation _runAttack;
-	_runAttack.setTimePerFrame(0.05f);
+	_runAttack.setTimePerFrame(0.02f);
 	_runAttack.setIsLoop(false);
 	_runAttack.setTypeFixPos(eTypeFixPos::L_BT);
 	_runAttack.setScale(2.0f, 2.0f);
@@ -634,6 +634,62 @@ void AnimationManager::load() {
 	_nahbiRun.addSprite(eIdSprite::NAHBI_RUN_08);
 
 	_listAnimation[eIdAnimation::NAHBI_RUN] = _nahbiRun;
+
+	Animation _nahbiDamage;
+	_nahbiDamage.setTimePerFrame(0.08f);
+	_nahbiDamage.setIsLoop(false);
+	_nahbiDamage.setTypeFixPos(eTypeFixPos::C_BT);
+	_nahbiDamage.setScale(2.0f, 2.0f);
+	_nahbiDamage.addSprite(eIdSprite::NAHBI_DAMAGE_01);
+	_nahbiDamage.addSprite(eIdSprite::NAHBI_DAMAGE_02);
+	_nahbiDamage.addSprite(eIdSprite::NAHBI_DAMAGE_03);
+	_nahbiDamage.addSprite(eIdSprite::NAHBI_DAMAGE_04);
+	_nahbiDamage.addSprite(eIdSprite::NAHBI_DAMAGE_05);
+	_nahbiDamage.addSprite(eIdSprite::NAHBI_DAMAGE_06);
+
+	_listAnimation[eIdAnimation::NAHBI_DAMAGE] = _nahbiDamage;
+#pragma endregion
+
+#pragma region FAZAL
+	Animation _fazalStand;
+	_fazalStand.setTimePerFrame(0.08f);
+	_fazalStand.setIsLoop(false);
+	_fazalStand.setTypeFixPos(eTypeFixPos::L_BT);
+	_fazalStand.setScale(2.0f, 2.0f);
+	_fazalStand.addSprite(eIdSprite::FAZAL_DAMAGE_01);
+
+	_listAnimation[eIdAnimation::FAZAL_STAND] = _fazalStand;
+
+	Animation _fazalAttack;
+	_fazalAttack.setTimePerFrame(0.08f);
+	_fazalAttack.setIsLoop(true);
+	_fazalAttack.setTypeFixPos(eTypeFixPos::L_BT);
+	_fazalAttack.setScale(2.0f, 2.0f);
+	_fazalAttack.addSprite(eIdSprite::FAZAL_ATTACK_01);
+	_fazalAttack.addSprite(eIdSprite::FAZAL_ATTACK_02);
+	_fazalAttack.addSprite(eIdSprite::FAZAL_ATTACK_03);
+	_fazalAttack.addSprite(eIdSprite::FAZAL_ATTACK_04);
+	_fazalAttack.addSprite(eIdSprite::FAZAL_ATTACK_05);
+	_fazalAttack.addSprite(eIdSprite::FAZAL_ATTACK_06);
+
+	_listAnimation[eIdAnimation::FAZAL_ATTACK] = _fazalAttack;
+
+	Animation _fazalDamage;
+	_fazalDamage.setTimePerFrame(0.08f);
+	_fazalDamage.setIsLoop(false);
+	_fazalDamage.setTypeFixPos(eTypeFixPos::C_BT);
+	_fazalDamage.setScale(2.0f, 2.0f);
+	_fazalDamage.addSprite(eIdSprite::FAZAL_DAMAGE_01);
+	_fazalDamage.addSprite(eIdSprite::FAZAL_DAMAGE_02);
+	_fazalDamage.addSprite(eIdSprite::FAZAL_DAMAGE_03);
+	_fazalDamage.addSprite(eIdSprite::FAZAL_DAMAGE_04);
+	_fazalDamage.addSprite(eIdSprite::FAZAL_DAMAGE_05);
+	_fazalDamage.addSprite(eIdSprite::FAZAL_DAMAGE_06);
+	_fazalDamage.addSprite(eIdSprite::FAZAL_DAMAGE_07);
+	_fazalDamage.addSprite(eIdSprite::FAZAL_DAMAGE_08);
+	_fazalDamage.addSprite(eIdSprite::FAZAL_DAMAGE_09);
+
+	_listAnimation[eIdAnimation::FAZAL_DAMAGE] = _fazalDamage;
 #pragma endregion
 
 }

@@ -13,6 +13,7 @@
 #include "Bat.h"
 #include "Rope.h"
 #include "Nahbi.h"
+#include "Fazal.h"
 #include "Skeleton.h"
 #include "Rock.h"
 #include "WreckingBall.h"

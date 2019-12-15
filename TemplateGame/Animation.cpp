@@ -8,6 +8,7 @@ Animation::Animation()
 	this->_currentFrame = 0;
 	this->_loopCount = 0;
 
+	this->_isFlash = false;
 	this->_isLoop = true;
 	this->_isFlip = false;
 	this->_isAnimated = true;
@@ -52,6 +53,11 @@ void Animation::setTypeFixPos(int val)
 void Animation::setIndexStart(int index)
 {
 	this->_indexStart = index;
+}
+
+void Animation::setIsFlash(bool val)
+{
+	this->_isFlash = val;
 }
 
 void Animation::setTimePerFrame(float timePerFrame)
@@ -298,7 +304,7 @@ int Animation::render(pDeviceManager device, pTexture texture) {
 		&r,
 		&_listOrigin[_currentFrame],
 		&_newPos,
-		D3DCOLOR_XRGB(255, 255, 255));
+		_isFlash ? D3DCOLOR_ARGB(150, 255, 255, 255) : D3DCOLOR_XRGB(255, 255, 255));
 
 
 	// Set lại old matrix texture

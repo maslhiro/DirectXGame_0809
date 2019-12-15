@@ -183,6 +183,9 @@
     <ClCompile Include="Column.cpp">
       <Filter>Source Files\Object\Map</Filter>
     </ClCompile>
+    <ClCompile Include="Fazal.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="Column.h">
       <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Fazal.h">
+      <Filter>Header Files\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -57,6 +57,9 @@ private:
 	int _idRopeObj;
 
 	float _waitTime;
+	float _flashTime;
+
+	bool _isFlash;
 
 public:
 	Aladdin();

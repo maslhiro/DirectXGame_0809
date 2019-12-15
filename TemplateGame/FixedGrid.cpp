@@ -114,6 +114,11 @@ void FixedGrid::load(const char* filePath)
 				_obj = new Nahbi();
 				break;
 			}
+			case eIdObject::FAZAL:
+			{
+				_obj = new Fazal();
+				break;
+			}
 			case eIdObject::SKELETON:
 			{
 				_obj = new Skeleton();

@@ -132,6 +132,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Column.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
+    <ClCompile Include="Fazal.cpp" />
     <ClCompile Include="FirstScene.cpp" />
     <ClCompile Include="FixedGrid.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Column.h" />
     <ClInclude Include="DrawDebug.h" />
+    <ClInclude Include="Fazal.h" />
     <ClInclude Include="FirstScene.h" />
     <ClInclude Include="FixedGrid.h" />
     <ClInclude Include="Game.h" />

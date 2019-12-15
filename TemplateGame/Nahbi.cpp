@@ -15,6 +15,8 @@ Nahbi::Nahbi() : GameObject()
 
 	_isMovedLeft = _isMovedRight = false;
 	_distanceMove = 0.f;
+
+	_numBlood = BLOOD_NAHBI;
 }
 
 Nahbi::Nahbi(int id) : GameObject(id)

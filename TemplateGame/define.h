@@ -55,6 +55,8 @@
 // Chuyen tu stand => wait
 #define WAIT_TIME_ALADDIN 500.f
 
+#define FLASH_TIME_ALADDIN 1.f
+
 // Thoi gian dung  
 #define WAIT_TIME_SPIKE 3.f
 #define WAIT_TIME_ROCK 7.f
@@ -62,8 +64,12 @@
 
 // Khoang cach de enermy di chuyen den khi aladdin den gan
 // Doi voi cac enermy di chuyen dc
-#define ATTACK_DISTANCE 70
-#define MOVE_DISTANCE 300
+#define ATTACK_DISTANCE 150
+#define MOVE_DISTANCE 400
+
+#define BLOOD_NAHBI 40
+#define BLOOD_FAZAL 40
+
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

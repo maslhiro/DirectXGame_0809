@@ -16,6 +16,8 @@ private:
 	DWORD  _colorBound;
 	ID3DXLine *_lineDraw;
 
+	bool _isFlash;
+
 	// index frame hien tai va frame cuoi
 	int _currentFrame;
 	int _loopCount;
@@ -54,6 +56,8 @@ public:
 	void setIsAnimated(bool);
 	void setTypeFixPos(int);
 	void setIndexStart(int);
+
+	void setIsFlash(bool);
 
 	void setPosition(Vec3);
 	void setScale(Vec2);
