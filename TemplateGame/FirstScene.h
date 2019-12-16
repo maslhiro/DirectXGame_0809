@@ -3,6 +3,7 @@
 #include "Apple.h"
 #include "GameMap.h"
 #include "Aladdin.h"
+#include "HeathHud.h"
 
 class FirstScene :
 	public Scene
@@ -17,6 +18,8 @@ private:
 
 	pFixedGrid _grid;
 	pAladdin _player;
+
+	pHeathHud _hud;
 
 public:
 	FirstScene();

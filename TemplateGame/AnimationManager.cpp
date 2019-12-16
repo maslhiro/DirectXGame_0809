@@ -91,7 +91,7 @@ void AnimationManager::load() {
 
 #pragma region WreckingBall
 	Animation _wreckingBall;
-	_wreckingBall.setTimePerFrame(0.08f);
+	_wreckingBall.setTimePerFrame(0.1f);
 	_wreckingBall.setIsLoop(true);
 	_wreckingBall.setTypeFixPos(eTypeFixPos::L_T);
 	//_wreckingBall.setIsReverse(true);
@@ -690,6 +690,140 @@ void AnimationManager::load() {
 	_fazalDamage.addSprite(eIdSprite::FAZAL_DAMAGE_09);
 
 	_listAnimation[eIdAnimation::FAZAL_DAMAGE] = _fazalDamage;
+#pragma endregion
+
+#pragma region GENIE HEAD
+	Animation _genieHead;
+	_genieHead.setTimePerFrame(0.08f);
+	_genieHead.setIsLoop(true);
+	_genieHead.setTypeFixPos(eTypeFixPos::L_BT);
+	_genieHead.setScale(2.0f, 2.0f);
+	_genieHead.addSprite(eIdSprite::GENIES_HEAD_01);
+
+	_listAnimation[eIdAnimation::GENIE_HEAD_VISIBLE] = _genieHead;
+
+	Animation _genieHeadExplode;
+	_genieHeadExplode.setTimePerFrame(0.08f);
+	_genieHeadExplode.setIsLoop(false);
+	_genieHeadExplode.setTypeFixPos(eTypeFixPos::C_C);
+	_genieHeadExplode.setScale(2.0f, 2.0f);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_02);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_03);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_04);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_01);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_02);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_03);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_04);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_05);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_06);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_07);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_08);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_09);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_10);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_11);
+	_genieHeadExplode.addSprite(eIdSprite::GENIES_HEAD_EXPLODE_12);
+
+	_listAnimation[eIdAnimation::GENIE_HEAD_EXPLODE] = _genieHeadExplode;
+#pragma endregion
+
+#pragma region HEATH HUD
+	Animation _health01;
+	_health01.setTimePerFrame(0.05f);
+	_health01.setIsLoop(true);
+	_health01.setTypeFixPos(eTypeFixPos::L_T);
+	_health01.addSprite(eIdSprite::HEALTH_01_01);
+	_health01.addSprite(eIdSprite::HEALTH_01_02);
+	_health01.addSprite(eIdSprite::HEALTH_01_03);
+	_health01.addSprite(eIdSprite::HEALTH_01_04);
+
+	_listAnimation[eIdAnimation::HEALTH_01] = _health01;
+
+	Animation _health02;
+	_health02.setTimePerFrame(0.05f);
+	_health02.setIsLoop(true);
+	_health02.setTypeFixPos(eTypeFixPos::L_T);
+	_health02.addSprite(eIdSprite::HEALTH_02_01);
+	_health02.addSprite(eIdSprite::HEALTH_02_02);
+	_health02.addSprite(eIdSprite::HEALTH_02_03);
+	_health02.addSprite(eIdSprite::HEALTH_02_04);
+
+	_listAnimation[eIdAnimation::HEALTH_02] = _health02;
+
+	Animation _health03;
+	_health03.setTimePerFrame(0.05f);
+	_health03.setIsLoop(true);
+	_health03.setTypeFixPos(eTypeFixPos::L_T);
+	_health03.addSprite(eIdSprite::HEALTH_03_01);
+	_health03.addSprite(eIdSprite::HEALTH_03_02);
+	_health03.addSprite(eIdSprite::HEALTH_03_03);
+	_health03.addSprite(eIdSprite::HEALTH_03_04);
+
+	_listAnimation[eIdAnimation::HEALTH_03] = _health03;
+
+	Animation _health04;
+	_health04.setTimePerFrame(0.05f);
+	_health04.setIsLoop(true);
+	_health04.setTypeFixPos(eTypeFixPos::L_T);
+	_health04.addSprite(eIdSprite::HEALTH_04_01);
+	_health04.addSprite(eIdSprite::HEALTH_04_02);
+	_health04.addSprite(eIdSprite::HEALTH_04_03);
+	_health04.addSprite(eIdSprite::HEALTH_04_04);
+
+	_listAnimation[eIdAnimation::HEALTH_04] = _health04;
+
+
+	Animation _health05;
+	_health05.setTimePerFrame(0.05f);
+	_health05.setIsLoop(true);
+	_health05.setTypeFixPos(eTypeFixPos::L_T);
+	_health05.addSprite(eIdSprite::HEALTH_05_01);
+	_health05.addSprite(eIdSprite::HEALTH_05_02);
+	_health05.addSprite(eIdSprite::HEALTH_05_03);
+	_health05.addSprite(eIdSprite::HEALTH_05_04);
+
+	_listAnimation[eIdAnimation::HEALTH_05] = _health05;
+
+	Animation _health06;
+	_health06.setTimePerFrame(0.05f);
+	_health06.setIsLoop(true);
+	_health06.setTypeFixPos(eTypeFixPos::L_T);
+	_health06.addSprite(eIdSprite::HEALTH_06_01);
+	_health06.addSprite(eIdSprite::HEALTH_06_02);
+	_health06.addSprite(eIdSprite::HEALTH_06_03);
+	_health06.addSprite(eIdSprite::HEALTH_06_04);
+
+	_listAnimation[eIdAnimation::HEALTH_06] = _health06;
+
+	Animation _health07;
+	_health07.setTimePerFrame(0.05f);
+	_health07.setIsLoop(true);
+	_health07.setTypeFixPos(eTypeFixPos::L_T);
+	_health07.addSprite(eIdSprite::HEALTH_07_01);
+	_health07.addSprite(eIdSprite::HEALTH_07_02);
+	_health07.addSprite(eIdSprite::HEALTH_07_03);
+	_health07.addSprite(eIdSprite::HEALTH_07_04);
+
+	_listAnimation[eIdAnimation::HEALTH_07] = _health07;
+
+	Animation _health08;
+	_health08.setTimePerFrame(0.05f);
+	_health08.setIsLoop(true);
+	_health08.setTypeFixPos(eTypeFixPos::L_T);
+	_health08.addSprite(eIdSprite::HEALTH_08_01);
+	_health08.addSprite(eIdSprite::HEALTH_08_02);
+	_health08.addSprite(eIdSprite::HEALTH_08_03);
+	_health08.addSprite(eIdSprite::HEALTH_08_04);
+
+	_listAnimation[eIdAnimation::HEALTH_08] = _health08;
+
+	Animation _health09;
+	_health09.setTimePerFrame(0.05f);
+	_health09.setIsLoop(true);
+	_health09.setTypeFixPos(eTypeFixPos::L_T);
+	_health09.addSprite(eIdSprite::HEALTH_09_01);
+
+	_listAnimation[eIdAnimation::HEALTH_09] = _health09;
+
 #pragma endregion
 
 }

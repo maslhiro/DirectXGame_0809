@@ -4,7 +4,10 @@ Bat::Bat() : GameObject()
 {
 	_idType = eIdObject::BAT;
 	_isTerminated = false;
-	_dx = -10.f;
+	_isAnimated = false;
+	_dx = -100.f;
+
+	_posX = 0.f;
 }
 
 Bat::Bat(int id) : GameObject(id)
@@ -16,16 +19,25 @@ void Bat::loadResource()
 {
 	_listAnimation[eIdState::NONE] = AnimationManager::getInstance()->get(eIdAnimation::BAT_VISIBLE);
 
-	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_EXPLODE);
+	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::ENERMY_EXPLODE);
 
 	this->setState(eIdState::NONE);
+}
+
+void Bat::setPosXPlayer(Vec3 val)
+{
+	_posX = val.x;
+	_posY = val.y;
+}
+
+void Bat::getDamaged(int)
+{
 }
 
 void Bat::render()
 {
 	if (_isTerminated) return;
 
-	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
 
@@ -36,6 +48,11 @@ void Bat::update(float dt)
 {
 	if (_isTerminated) return;
 
+	if (abs(_posWorld.x - _posX) <= ATTACK_DISTANCE && !_isAnimated)
+	{
+		_isAnimated = true;
+	}
+
 	if (_state == eIdState::EXPLODE)
 	{
 		if (_curAnimation.getLoopCount() > 0) {
@@ -43,13 +60,15 @@ void Bat::update(float dt)
 		}
 		goto updateAni;
 	}
-
-
-	_posWorld.x += _dx * dt;
-	//_posWorld.y += _gravity * dt;
-	_posWorld.y += abs(_dx) * dt;
+	else if (_isAnimated)
+	{
+		_posWorld.x += _dx * dt;
+		//_posWorld.y += _gravity * dt;
+		_posWorld.y += abs(_dx) * dt;
+	}
 
 updateAni:
+	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.update(dt);
 }
 

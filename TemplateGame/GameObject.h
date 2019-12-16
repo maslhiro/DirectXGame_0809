@@ -79,6 +79,8 @@ public:
 	void setIsAnimated(bool);
 	void setIsTerminated(bool);
 
+	bool getIsTerminated();
+
 	// Load Animation từ Animation Manager vao map Animation
 	virtual void loadResource() = 0;
 

@@ -70,6 +70,12 @@
     <Filter Include="Source Files\Map">
       <UniqueIdentifier>{55106005-4794-4954-b20e-24745ee8cf41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Hud">
+      <UniqueIdentifier>{834a7ee6-e204-4183-8a02-5dda58231bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Hud">
+      <UniqueIdentifier>{9badff6c-df03-41b4-8062-c9f49f0c688f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -186,6 +192,12 @@
     <ClCompile Include="Fazal.cpp">
       <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="GenieHead.cpp">
+      <Filter>Source Files\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="HeathHud.cpp">
+      <Filter>Source Files\Hud</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -301,6 +313,12 @@
     </ClInclude>
     <ClInclude Include="Fazal.h">
       <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GenieHead.h">
+      <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="HeathHud.h">
+      <Filter>Header Files\Hud</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

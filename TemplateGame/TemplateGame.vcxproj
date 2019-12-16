@@ -141,6 +141,8 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="EnumID.h" />
+    <ClCompile Include="GenieHead.cpp" />
+    <ClCompile Include="HeathHud.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="main.cpp" />
@@ -181,7 +183,9 @@
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameTime.h" />
+    <ClInclude Include="GenieHead.h" />
     <ClInclude Include="Graphic.h" />
+    <ClInclude Include="HeathHud.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Nahbi.h" />

@@ -6,6 +6,7 @@ FirstScene::FirstScene()
 	_grid = new FixedGrid();
 	_player = new Aladdin();
 	_cam = new Camera();
+	_hud = new HeathHud();
 }
 
 
@@ -58,6 +59,8 @@ void FirstScene::loadResource()
 
 	_player->setGrid(_grid);
 
+	_hud->loadResource();
+
 }
 
 void FirstScene::update(float dt)
@@ -67,6 +70,9 @@ void FirstScene::update(float dt)
 	_cam->update(dt);
 
 	_map.update(dt);
+
+	_hud->setHealth(_player->getNumBlood());
+	_hud->update(dt);
 }
 
 void FirstScene::render()
@@ -75,11 +81,9 @@ void FirstScene::render()
 	//auto _device = DeviceManager::getInstance();
 
 	_map.render();
-	//_map.renderAbove();
-	//_mapAbove.render();
+	_map.renderAbove();
 
-	//_drawDebug->drawLineHorizontal(_device->getHeightWindow() / 2, 500);
-	//_drawDebug->drawLineVertical(_device->getWidthWindow() / 2, 500);
+	_hud->render();
 
 }
 

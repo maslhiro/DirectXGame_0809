@@ -1,21 +1,16 @@
 #pragma once
 #include "GameObject.h"
 
-class Bat :
+class GenieHead :
 	public GameObject
 {
 private:
-	float _posX;
-	float _posY;
+	float _moveTime;
 public:
-	Bat();
-	Bat(int);
+	GenieHead();
+	GenieHead(int);
 
 	void loadResource();
-
-	void setPosXPlayer(Vec3);
-
-	void getDamaged(int);
 
 	void render();
 
@@ -24,4 +19,3 @@ public:
 	void handlerInput(float);
 };
 
-typedef Bat* pBat;

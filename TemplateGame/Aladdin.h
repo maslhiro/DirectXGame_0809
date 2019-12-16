@@ -62,6 +62,8 @@ private:
 
 	bool _isFlash;
 
+	int _numBlood;
+
 public:
 	Aladdin();
 
@@ -69,6 +71,8 @@ public:
 	void setPosView(int, int);
 
 	Vec3 getPosView();
+
+	int getNumBlood();
 
 	void setGrid(pFixedGrid);
 

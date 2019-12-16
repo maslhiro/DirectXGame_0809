@@ -71,6 +71,8 @@ void AppleThrow::update(float dt)
 	// Ktra va cham 
 	for (size_t i = 0; i < _listGameObj.size(); i++)
 	{
+		if (_listGameObj[i]->getIsTerminated()) continue;
+
 		bool check = this->checkCollision(_listGameObj[i]->getBoundingBox());
 
 		int id = _listGameObj[i]->getIdType();
@@ -88,6 +90,14 @@ void AppleThrow::update(float dt)
 
 				obj->getDamaged(THROW_DAMAGE_ALADDIN);
 			}
+			else if (id == eIdObject::BAT)
+			{
+				pBat bat = dynamic_cast<pBat>(_listGameObj[i]);
+
+				bat->setState(eIdState::EXPLODE);
+			}
+
+
 			this->setState(eIdState::EXPLODE);
 			goto updateAni;
 		}

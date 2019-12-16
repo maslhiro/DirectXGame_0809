@@ -55,7 +55,7 @@
 // Chuyen tu stand => wait
 #define WAIT_TIME_ALADDIN 500.f
 
-#define FLASH_TIME_ALADDIN 1.f
+#define FLASH_TIME_ALADDIN 1.5f
 
 // Thoi gian dung  
 #define WAIT_TIME_SPIKE 3.f
@@ -67,6 +67,7 @@
 #define ATTACK_DISTANCE 150
 #define MOVE_DISTANCE 400
 
+#define BLOOD_ALADDIN 80
 #define BLOOD_NAHBI 20
 #define BLOOD_FAZAL 20
 

@@ -455,6 +455,11 @@ void GameObject::setIsTerminated(bool val)
 	_isTerminated = val;
 }
 
+bool GameObject::getIsTerminated()
+{
+	return _isTerminated;
+}
+
 void GameObject::setScale(float scale)
 {
 	this->setScale(Vec2(scale, scale));
