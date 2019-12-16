@@ -36,7 +36,7 @@
 #define DISTANCE_X 15
 #define DISTANCE_Y 40
 
-#define ALTITUDE_JUMP 130.f
+#define ALTITUDE_JUMP 140.f
 
 #define BBOX_WIDTH 5
 

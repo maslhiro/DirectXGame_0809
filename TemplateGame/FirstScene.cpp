@@ -44,9 +44,9 @@ void FirstScene::loadResource()
 	_cam->setPositisonWorld((_deviceManager->getWidthWindow() / 2 + 34), _map.getHeight() - 20 - _deviceManager->getHeightWindow() / 2);
 	//_cam->setPositisonWorld(_deviceManager->getWidthWindow() / 2, _deviceManager->getHeightWindow() / 2);
 	_cam->setSizeWindow(_deviceManager->getWidthWindow(), _deviceManager->getHeightWindow());
-	_cam->setSpeedX(170.f);
+	_cam->setSpeedX(300.f);
 
-	_cam->setSpeedY(200.f);
+	_cam->setSpeedY(400.f);
 
 	//_mapAbove.setCamera(_cam);
 	_map.setCamera(_cam);
@@ -55,8 +55,8 @@ void FirstScene::loadResource()
 	_player->setCamera(_cam);
 	_player->loadResource();
 	_player->setScale(2.0f);
-	_player->setSpeed(170.f);
-	_player->setGravity(200.f);
+	_player->setSpeed(300.f);
+	_player->setGravity(400.f);
 
 	_player->setGrid(_grid);
 

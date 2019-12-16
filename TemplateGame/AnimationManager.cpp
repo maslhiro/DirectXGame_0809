@@ -349,7 +349,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_IDLE_02] = _idle02;
 
 	Animation _jump;
-	_jump.setTimePerFrame(0.062f);
+	_jump.setTimePerFrame(0.042f);
 	_jump.setIsLoop(false);
 	_jump.setTypeFixPos(eTypeFixPos::L_BT);
 	_jump.setScale(2.0f, 2.0f);
@@ -386,7 +386,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_FALL] = _fall;
 
 	Animation _run;
-	_run.setTimePerFrame(0.064f);
+	_run.setTimePerFrame(0.05f);
 	_run.setIsLoop(true);
 	_run.setTypeFixPos(eTypeFixPos::L_BT);
 	_run.setIndexStart(4);

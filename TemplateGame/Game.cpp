@@ -56,9 +56,9 @@ void Game::loadResource()
 
 	_animationManager->load();
 
-	//_test = _animationManager->get(eIdAnimation::ALADIN_IDLING_02);
+	//_test = _animationManager->get(eIdAnimation::ALADDIN_RUN);
 	//_test.setPosition(Vec3(300, 300, 0));
-	//_test.setIsLoop(false);
+	//_test.setIsLoop(true);
 	//_test.setScale(Vec2(2, 2));
 	//_test.setDrawingBound(true);
 

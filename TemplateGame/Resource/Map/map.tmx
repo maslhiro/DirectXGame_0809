@@ -34,11 +34,11 @@
  <objectgroup id="25" name="4012" visible="0">
   <object id="214" name="401201" x="2369.79" y="1563.33" width="10" height="10"/>
  </objectgroup>
- <objectgroup id="21" name="4009">
+ <objectgroup id="21" name="4009" visible="0">
   <object id="54" name="400901" x="2393" y="1829" width="10" height="10"/>
   <object id="216" name="400902" x="509.969" y="2142.31" width="10" height="10"/>
  </objectgroup>
- <objectgroup id="15" name="4500">
+ <objectgroup id="15" name="4500" visible="0">
   <object id="1" name="450001" x="1.07576" y="2208.55" width="4607.4" height="70.6667"/>
   <object id="41" name="450002" x="2845.5" y="1877.67" width="161.333" height="33"/>
   <object id="42" name="450003" x="2260.67" y="1846.83" width="237.333" height="12.3333"/>
@@ -236,7 +236,7 @@
   <object id="165" name="400701" x="1600.15" y="2097.05" width="10" height="10"/>
   <object id="166" name="400702" x="1599.85" y="2154.94" width="10" height="10"/>
  </objectgroup>
- <layer id="13" name="above" width="36" height="18" visible="0">
+ <layer id="13" name="above" width="36" height="18">
   <data encoding="csv">
 663,653,664,652,665,661,662,653,663,653,664,652,665,661,662,653,663,653,664,652,665,661,662,653,663,653,664,652,665,661,662,653,663,653,664,652,
 666,664,652,653,668,662,653,669,666,664,652,653,668,662,653,669,666,664,652,653,668,662,653,669,666,664,652,653,668,662,653,669,666,664,652,653,
