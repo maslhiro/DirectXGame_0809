@@ -16,6 +16,8 @@ private:
 	std::unordered_map<int, bool> _keys;
 
 	std::vector<pAppleThrow> _listApple;
+	int _numApple;
+
 	int _indexApple;
 
 	// Xet huong di chuyen
@@ -73,6 +75,8 @@ public:
 	Vec3 getPosView();
 
 	int getNumBlood();
+
+	int getNumApple();
 
 	void setGrid(pFixedGrid);
 

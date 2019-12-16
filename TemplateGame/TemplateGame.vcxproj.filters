@@ -198,6 +198,9 @@
     <ClCompile Include="HeathHud.cpp">
       <Filter>Source Files\Hud</Filter>
     </ClCompile>
+    <ClCompile Include="AppleHud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -318,6 +321,9 @@
       <Filter>Header Files\Object\Item</Filter>
     </ClInclude>
     <ClInclude Include="HeathHud.h">
+      <Filter>Header Files\Hud</Filter>
+    </ClInclude>
+    <ClInclude Include="AppleHud.h">
       <Filter>Header Files\Hud</Filter>
     </ClInclude>
   </ItemGroup>

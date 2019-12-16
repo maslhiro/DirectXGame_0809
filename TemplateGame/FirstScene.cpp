@@ -7,6 +7,7 @@ FirstScene::FirstScene()
 	_player = new Aladdin();
 	_cam = new Camera();
 	_hud = new HeathHud();
+	_hudApple = new AppleHud();
 }
 
 
@@ -60,7 +61,7 @@ void FirstScene::loadResource()
 	_player->setGrid(_grid);
 
 	_hud->loadResource();
-
+	_hudApple->loadResource();
 }
 
 void FirstScene::update(float dt)
@@ -73,6 +74,9 @@ void FirstScene::update(float dt)
 
 	_hud->setHealth(_player->getNumBlood());
 	_hud->update(dt);
+
+	_hudApple->setNumApple(_player->getNumApple());
+	_hudApple->update(dt);
 }
 
 void FirstScene::render()
@@ -84,7 +88,7 @@ void FirstScene::render()
 	_map.renderAbove();
 
 	_hud->render();
-
+	_hudApple->render();
 }
 
 void FirstScene::handlerInput(float dt)

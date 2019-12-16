@@ -1,17 +1,19 @@
 #pragma once
 #include "GameObject.h"
 
-class HeathHud : GameObject
+class AppleHud : GameObject
 {
 private:
+	int _numApple;
+	Animation _cha01, _cha02;
 public:
 
-	HeathHud();
-	~HeathHud();
+	AppleHud();
+	~AppleHud();
 
 	void loadResource();
 
-	void setHealth(int);
+	void setNumApple(int);
 
 	void render();
 
@@ -20,4 +22,4 @@ public:
 	void handlerInput(float) {};
 };
 
-typedef HeathHud* pHeathHud;
+typedef AppleHud* pAppleHud;

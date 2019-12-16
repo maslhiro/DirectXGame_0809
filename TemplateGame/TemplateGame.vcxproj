@@ -127,6 +127,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Apple.cpp" />
+    <ClCompile Include="AppleHud.cpp" />
     <ClCompile Include="AppleThrow.cpp" />
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Apple.h" />
+    <ClInclude Include="AppleHud.h" />
     <ClInclude Include="AppleThrow.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="Camera.h" />

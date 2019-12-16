@@ -4,6 +4,7 @@
 #include "GameMap.h"
 #include "Aladdin.h"
 #include "HeathHud.h"
+#include "AppleHud.h"
 
 class FirstScene :
 	public Scene
@@ -20,6 +21,7 @@ private:
 	pAladdin _player;
 
 	pHeathHud _hud;
+	pAppleHud _hudApple;
 
 public:
 	FirstScene();

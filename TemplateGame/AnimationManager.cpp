@@ -19,6 +19,12 @@ void AnimationManager::load() {
 
 	_listAnimation[eIdAnimation::APPLE_VISIBLE] = _apple;
 
+	Animation _appleCollection;
+	_appleCollection.setTimePerFrame(1.0f);
+	_appleCollection.setIsLoop(false);
+	_appleCollection.addSprite(eIdSprite::ITEM_APPLE_BIG);
+
+	_listAnimation[eIdAnimation::APPLE_COLLECTION] = _appleCollection;
 #pragma endregion
 
 #pragma region Apple Throw
@@ -730,7 +736,7 @@ void AnimationManager::load() {
 	Animation _health01;
 	_health01.setTimePerFrame(0.05f);
 	_health01.setIsLoop(true);
-	_health01.setTypeFixPos(eTypeFixPos::L_T);
+	_health01.setTypeFixPos(eTypeFixPos::L_BT);
 	_health01.addSprite(eIdSprite::HEALTH_01_01);
 	_health01.addSprite(eIdSprite::HEALTH_01_02);
 	_health01.addSprite(eIdSprite::HEALTH_01_03);
@@ -741,7 +747,7 @@ void AnimationManager::load() {
 	Animation _health02;
 	_health02.setTimePerFrame(0.05f);
 	_health02.setIsLoop(true);
-	_health02.setTypeFixPos(eTypeFixPos::L_T);
+	_health02.setTypeFixPos(eTypeFixPos::L_BT);
 	_health02.addSprite(eIdSprite::HEALTH_02_01);
 	_health02.addSprite(eIdSprite::HEALTH_02_02);
 	_health02.addSprite(eIdSprite::HEALTH_02_03);
@@ -752,7 +758,7 @@ void AnimationManager::load() {
 	Animation _health03;
 	_health03.setTimePerFrame(0.05f);
 	_health03.setIsLoop(true);
-	_health03.setTypeFixPos(eTypeFixPos::L_T);
+	_health03.setTypeFixPos(eTypeFixPos::L_BT);
 	_health03.addSprite(eIdSprite::HEALTH_03_01);
 	_health03.addSprite(eIdSprite::HEALTH_03_02);
 	_health03.addSprite(eIdSprite::HEALTH_03_03);
@@ -763,7 +769,7 @@ void AnimationManager::load() {
 	Animation _health04;
 	_health04.setTimePerFrame(0.05f);
 	_health04.setIsLoop(true);
-	_health04.setTypeFixPos(eTypeFixPos::L_T);
+	_health04.setTypeFixPos(eTypeFixPos::L_BT);
 	_health04.addSprite(eIdSprite::HEALTH_04_01);
 	_health04.addSprite(eIdSprite::HEALTH_04_02);
 	_health04.addSprite(eIdSprite::HEALTH_04_03);
@@ -775,7 +781,7 @@ void AnimationManager::load() {
 	Animation _health05;
 	_health05.setTimePerFrame(0.05f);
 	_health05.setIsLoop(true);
-	_health05.setTypeFixPos(eTypeFixPos::L_T);
+	_health05.setTypeFixPos(eTypeFixPos::L_BT);
 	_health05.addSprite(eIdSprite::HEALTH_05_01);
 	_health05.addSprite(eIdSprite::HEALTH_05_02);
 	_health05.addSprite(eIdSprite::HEALTH_05_03);
@@ -786,7 +792,7 @@ void AnimationManager::load() {
 	Animation _health06;
 	_health06.setTimePerFrame(0.05f);
 	_health06.setIsLoop(true);
-	_health06.setTypeFixPos(eTypeFixPos::L_T);
+	_health06.setTypeFixPos(eTypeFixPos::L_BT);
 	_health06.addSprite(eIdSprite::HEALTH_06_01);
 	_health06.addSprite(eIdSprite::HEALTH_06_02);
 	_health06.addSprite(eIdSprite::HEALTH_06_03);
@@ -797,7 +803,7 @@ void AnimationManager::load() {
 	Animation _health07;
 	_health07.setTimePerFrame(0.05f);
 	_health07.setIsLoop(true);
-	_health07.setTypeFixPos(eTypeFixPos::L_T);
+	_health07.setTypeFixPos(eTypeFixPos::L_BT);
 	_health07.addSprite(eIdSprite::HEALTH_07_01);
 	_health07.addSprite(eIdSprite::HEALTH_07_02);
 	_health07.addSprite(eIdSprite::HEALTH_07_03);
@@ -808,7 +814,7 @@ void AnimationManager::load() {
 	Animation _health08;
 	_health08.setTimePerFrame(0.05f);
 	_health08.setIsLoop(true);
-	_health08.setTypeFixPos(eTypeFixPos::L_T);
+	_health08.setTypeFixPos(eTypeFixPos::L_BT);
 	_health08.addSprite(eIdSprite::HEALTH_08_01);
 	_health08.addSprite(eIdSprite::HEALTH_08_02);
 	_health08.addSprite(eIdSprite::HEALTH_08_03);
@@ -819,11 +825,83 @@ void AnimationManager::load() {
 	Animation _health09;
 	_health09.setTimePerFrame(0.05f);
 	_health09.setIsLoop(true);
-	_health09.setTypeFixPos(eTypeFixPos::L_T);
+	_health09.setTypeFixPos(eTypeFixPos::L_BT);
 	_health09.addSprite(eIdSprite::HEALTH_09_01);
 
 	_listAnimation[eIdAnimation::HEALTH_09] = _health09;
 
+#pragma endregion
+
+#pragma region TEXT COLLECTION
+	Animation _textCol00;
+	_textCol00.setTimePerFrame(1.0f);
+	_textCol00.setIsLoop(false);
+	_textCol00.addSprite(eIdSprite::TEXT_COL_00);
+
+	_listAnimation[eIdAnimation::TEXT_COLLECTION_00] = _textCol00;
+
+	Animation _textCol01;
+	_textCol01.setTimePerFrame(1.0f);
+	_textCol01.setIsLoop(false);
+	_textCol01.addSprite(eIdSprite::TEXT_COL_01);
+
+	_listAnimation[eIdAnimation::TEXT_COLLECTION_01] = _textCol01;
+
+	Animation _textCol02;
+	_textCol02.setTimePerFrame(1.0f);
+	_textCol02.setIsLoop(false);
+	_textCol02.addSprite(eIdSprite::TEXT_COL_02);
+
+	_listAnimation[eIdAnimation::TEXT_COLLECTION_02] = _textCol02;
+
+	Animation _textCol03;
+	_textCol03.setTimePerFrame(1.0f);
+	_textCol03.setIsLoop(false);
+	_textCol03.addSprite(eIdSprite::TEXT_COL_03);
+
+	_listAnimation[eIdAnimation::TEXT_COLLECTION_03] = _textCol03;
+
+	Animation _textCol04;
+	_textCol04.setTimePerFrame(1.0f);
+	_textCol04.setIsLoop(false);
+	_textCol04.addSprite(eIdSprite::TEXT_COL_04);
+
+	_listAnimation[eIdAnimation::TEXT_COLLECTION_04] = _textCol04;
+
+	Animation _textCol05;
+	_textCol05.setTimePerFrame(1.0f);
+	_textCol05.setIsLoop(false);
+	_textCol05.addSprite(eIdSprite::TEXT_COL_05);
+
+	_listAnimation[eIdAnimation::TEXT_COLLECTION_05] = _textCol05;
+
+	Animation _textCol06;
+	_textCol06.setTimePerFrame(1.0f);
+	_textCol06.setIsLoop(false);
+	_textCol06.addSprite(eIdSprite::TEXT_COL_06);
+
+	_listAnimation[eIdAnimation::TEXT_COLLECTION_06] = _textCol06;
+
+	Animation _textCol07;
+	_textCol07.setTimePerFrame(1.0f);
+	_textCol07.setIsLoop(false);
+	_textCol07.addSprite(eIdSprite::TEXT_COL_07);
+
+	_listAnimation[eIdAnimation::TEXT_COLLECTION_07] = _textCol07;
+
+	Animation _textCol08;
+	_textCol08.setTimePerFrame(1.0f);
+	_textCol08.setIsLoop(false);
+	_textCol08.addSprite(eIdSprite::TEXT_COL_08);
+
+	_listAnimation[eIdAnimation::TEXT_COLLECTION_08] = _textCol08;
+
+	Animation _textCol09;
+	_textCol09.setTimePerFrame(1.0f);
+	_textCol09.setIsLoop(false);
+	_textCol09.addSprite(eIdSprite::TEXT_COL_09);
+
+	_listAnimation[eIdAnimation::TEXT_COLLECTION_09] = _textCol09;
 #pragma endregion
 
 }

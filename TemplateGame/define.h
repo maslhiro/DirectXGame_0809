@@ -57,6 +57,8 @@
 
 #define FLASH_TIME_ALADDIN 1.5f
 
+#define NUM_APPLE_DEFAULT 10
+
 // Thoi gian dung  
 #define WAIT_TIME_SPIKE 3.f
 #define WAIT_TIME_ROCK 7.f
@@ -73,6 +75,7 @@
 
 #define ATTACK_DAMAGE_ALADDIN 10
 #define THROW_DAMAGE_ALADDIN 10
+#define DAMAGE_ENERMY 10
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

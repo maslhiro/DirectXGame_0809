@@ -3,6 +3,7 @@
 HeathHud::HeathHud() : GameObject()
 {
 	_posWorld = Vec3(150, 50, 0);
+	_scale = Vec2(2.f, 2.f);
 }
 
 HeathHud::~HeathHud()
@@ -29,16 +30,22 @@ void HeathHud::setHealth(int val)
 {
 	if (val == _state) return;
 
-	if (val <= 0) this->setHealth(0);
-
-	this->fixPosAnimation(val);
-	this->setState(val);
+	if (val < 0)
+	{
+		this->fixPosAnimation(0);
+		this->setState(0);
+	}
+	else {
+		this->fixPosAnimation(val);
+		this->setState(val);
+	}
 }
 
 void HeathHud::render()
 {
 	_curAnimation.setPosition(_posWorld);
-	_curAnimation.setScale(2.f, 2.f);
+	//_curAnimation.setDrawingBound(true);
+	_curAnimation.setScale(_scale);
 	_curAnimation.render(_device, _texture);
 }
 

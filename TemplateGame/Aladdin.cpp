@@ -5,7 +5,7 @@ Aladdin::Aladdin() : GameObject()
 	_idType = eIdObject::ALADDIN;
 
 	_pos = Vec3();
-
+	_numApple = NUM_APPLE_DEFAULT;
 	_grid = nullptr;
 	_camera = nullptr;
 	_isFlash = false;
@@ -49,6 +49,11 @@ Vec3 Aladdin::getPosView()
 int Aladdin::getNumBlood()
 {
 	return _numBlood;
+}
+
+int Aladdin::getNumApple()
+{
+	return _numApple - _indexApple;
 }
 
 void Aladdin::setGrid(pFixedGrid grid)
@@ -420,7 +425,7 @@ void Aladdin::update(float dt)
 	}
 	else if ((_state & eIdState::THROW) == eIdState::THROW)
 	{
-		if (_indexApple > _listApple.size())
+		if (_indexApple > _listApple.size() && _indexApple < _numApple)
 		{
 			pAppleThrow _apple = new AppleThrow();
 			_apple->loadResource();
@@ -611,6 +616,7 @@ void Aladdin::update(float dt)
 				if (obj->getState() != eIdState::EXPLODE)
 				{
 					obj->setState(eIdState::EXPLODE);
+					if (obj->getIdType() == eIdObject::APPLE) _numApple += 1;
 					//obj->setIsTerminated(true);
 				}
 			}
@@ -626,8 +632,10 @@ void Aladdin::update(float dt)
 				(
 				(obj->getCurrentFrame() <= 14 && obj->getCurrentFrame() >= 12 && obj->getIdType() == eIdObject::WRECKING_BALL) ||
 					(obj->getCurrentFrame() <= 6 && obj->getCurrentFrame() >= 4 && obj->getIdType() == eIdObject::SPIKE))
-				&& (_state & eIdState::DAMAGE) != eIdState::DAMAGE)
+				&& ((_state & eIdState::DAMAGE) != eIdState::DAMAGE) && !_isFlash)
 			{
+				_numBlood -= DAMAGE_ENERMY;
+
 				if (_state == eIdState::STAND)
 				{
 
@@ -658,7 +666,7 @@ void Aladdin::update(float dt)
 			else if (check && !_isFlash && ((_state & eIdState::ATTACK) != eIdState::ATTACK) && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE))
 			{
 				_RPT0(0, "GET DAM NAHBI\n");
-				_numBlood -= 10;
+				_numBlood -= DAMAGE_ENERMY;
 
 				if (_state == eIdState::STAND)
 				{
@@ -691,7 +699,7 @@ void Aladdin::update(float dt)
 			else if (check && !_isFlash && ((_state & eIdState::ATTACK) != eIdState::ATTACK) && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE))
 			{
 				_RPT0(0, "GET DAM FAZAL\n");
-				_numBlood -= 10;
+				_numBlood -= DAMAGE_ENERMY;
 				if (_state == eIdState::STAND)
 				{
 
@@ -719,8 +727,10 @@ void Aladdin::update(float dt)
 				_isAttack = false;
 				bat->setState(eIdState::EXPLODE);
 			}
-			else if (check && (_state & eIdState::ATTACK) != eIdState::ATTACK)
+			else if (check && ((_state & eIdState::ATTACK) != eIdState::ATTACK) && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE))
 			{
+				_numBlood -= DAMAGE_ENERMY;
+
 				bat->setState(eIdState::EXPLODE);
 				//_RPT0(0, "GET DAM\n");
 				if (_state == eIdState::STAND)
