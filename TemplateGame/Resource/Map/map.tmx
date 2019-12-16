@@ -34,9 +34,9 @@
  <objectgroup id="25" name="4012" visible="0">
   <object id="214" name="401201" x="2369.79" y="1563.33" width="10" height="10"/>
  </objectgroup>
- <objectgroup id="21" name="4009" visible="0">
+ <objectgroup id="21" name="4009">
   <object id="54" name="400901" x="2393" y="1829" width="10" height="10"/>
-  <object id="216" name="400902" x="250.333" y="2140.67" width="10" height="10"/>
+  <object id="216" name="400902" x="509.969" y="2142.31" width="10" height="10"/>
  </objectgroup>
  <objectgroup id="15" name="4500">
   <object id="1" name="450001" x="1.07576" y="2208.55" width="4607.4" height="70.6667"/>
