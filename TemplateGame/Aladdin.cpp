@@ -181,6 +181,50 @@ void Aladdin::update(float dt)
 			_flashTime = 0.f;
 		}
 	}
+	if ((_state & eIdState::CLIMB) == eIdState::CLIMB)
+	{
+		if (_isClimb != 0)
+		{
+			for (size_t i = 0; i < listObj.size(); i++)
+			{
+				auto obj = listObj[i];
+				if (obj->getId() == _idRopeObj)
+				{
+					RECT ropeRECT = obj->getBoundingBox();
+
+					RECT curRECT = getCurrentBoudingBox();
+
+					bool check = checkCollision(ropeRECT);
+
+					float ropeX = obj->getPosWorld().x;
+
+					// Check them aladin co va cham vao tam cua rope ko
+					if (check && curRECT.bottom <= ropeRECT.bottom && curRECT.top >= ropeRECT.top) {
+						this->updateAllPos(Vec3(0, _speed *_isClimb * 2. / 3. * dt, 0));
+					}
+					else if (check && curRECT.top <= ropeRECT.top && _isClimb < 0)
+					{
+						// neu leo len dung top cua rope
+					}
+					else if (check && curRECT.top <= ropeRECT.top && curRECT.bottom >= ropeRECT.top &&  _isClimb > 0)
+					{
+						this->updateAllPos(Vec3(0, _speed *_isClimb * 2. / 3. * dt, 0));
+					}
+					else
+					{
+						// chan ra khoi rope
+						this->setDy(_gravity);
+						this->setDx(0.f);
+						this->setState(eIdState::JUMP);
+						_idRopeObj = 0;
+						_isFall = true;
+						_curAnimation = _listAnimation[eIdState::FALL];
+
+					}
+				}
+			}
+		}
+	}
 
 	if ((_state & eIdState::DAMAGE) == eIdState::DAMAGE)
 	{
@@ -243,7 +287,7 @@ void Aladdin::update(float dt)
 			}
 		}
 	}
-	if ((_state & eIdState::JUMP) == eIdState::JUMP)
+	else if ((_state & eIdState::JUMP) == eIdState::JUMP)
 	{
 		float timeUpdate = dt;
 
@@ -317,6 +361,8 @@ void Aladdin::update(float dt)
 					(_isClimbJump && _curAnimation.getCurrentFrame() == 9))
 				{
 					this->setIsAnimated(false);
+					_RPT1(0, "[CHECK Collision] FALSE %d %d %d \n", _isClimbJump, _isJump, _isRunJump);
+
 				}
 
 				if (_distanceJump > ALTITUDE_JUMP)
@@ -331,6 +377,7 @@ void Aladdin::update(float dt)
 
 				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && !_isFall && !_isClimbJump)
 				{
+					_RPT0(0, "[CHECK Collision] TRUE \n");
 					this->setIsAnimated(true);
 				}
 
@@ -555,47 +602,6 @@ void Aladdin::update(float dt)
 		}
 	}
 
-	if ((_state & eIdState::CLIMB) == eIdState::CLIMB)
-	{
-		if (_isClimb != 0)
-		{
-			for (size_t i = 0; i < listObj.size(); i++)
-			{
-				auto obj = listObj[i];
-				if (obj->getId() == _idRopeObj)
-				{
-					RECT ropeRECT = obj->getBoundingBox();
-
-					RECT curRECT = getCurrentBoudingBox();
-
-					bool check = checkCollision(ropeRECT);
-
-					float ropeX = obj->getPosWorld().x;
-
-					// Check them aladin co va cham vao tam cua rope ko
-					if (check && curRECT.bottom <= ropeRECT.bottom && curRECT.top >= ropeRECT.top) {
-						this->updateAllPos(Vec3(0, _speed *_isClimb * 2. / 3. * dt, 0));
-					}
-					else if (check && curRECT.top <= ropeRECT.top && _isClimb < 0)
-					{
-						// neu leo len dung top cua rope
-					}
-					else
-					{
-						// chan ra khoi rope
-						this->setDy(_gravity);
-						this->setDx(0.f);
-						this->setState(eIdState::JUMP);
-						_idRopeObj = 0;
-						_isFall = true;
-						_curAnimation = _listAnimation[eIdState::FALL];
-
-					}
-				}
-			}
-		}
-	}
-
 	for (size_t i = 0; i < listObj.size(); i++)
 	{
 		auto obj = listObj[i];
@@ -607,7 +613,7 @@ void Aladdin::update(float dt)
 		{
 			//int objID = obj->getId();
 			//_RPT1(0, "[ID OBJ] %d \n", objID);
-			float check = this->checkCollision(obj->getCurrentBoudingBox());
+			float check = this->checkCollision(obj->getBoundingBox());
 			if (check) {
 				if (obj->getState() != eIdState::EXPLODE)
 				{
@@ -626,8 +632,8 @@ void Aladdin::update(float dt)
 			if (
 				check &&
 				(
-				(obj->getCurrentFrame() <= 14 && obj->getCurrentFrame() >= 12 && obj->getIdType() == eIdObject::WRECKING_BALL) ||
-					(obj->getCurrentFrame() <= 6 && obj->getCurrentFrame() >= 4 && obj->getIdType() == eIdObject::SPIKE))
+				(obj->getCurrentFrame() < 14 && obj->getCurrentFrame() > 12 && obj->getIdType() == eIdObject::WRECKING_BALL) ||
+					(obj->getCurrentFrame() < 6 && obj->getCurrentFrame() > 4 && obj->getIdType() == eIdObject::SPIKE))
 				&& ((_state & eIdState::DAMAGE) != eIdState::DAMAGE) && !_isFlash)
 			{
 				_numBlood -= DAMAGE_ENERMY;
@@ -654,27 +660,31 @@ void Aladdin::update(float dt)
 
 			bool check = this->checkCollision(obj->getCurrentBoudingBox());
 
-			if (check && (_state & eIdState::ATTACK) == eIdState::ATTACK && _isAttack)
+			if (check)
 			{
-				_isAttack = false;
-				na->getDamaged(ATTACK_DAMAGE_ALADDIN);
-			}
-			else if (check && !_isFlash && ((_state & eIdState::ATTACK) != eIdState::ATTACK) && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE))
-			{
-				_RPT0(0, "GET DAM NAHBI\n");
-				_numBlood -= DAMAGE_ENERMY;
-
-				if (_state == eIdState::STAND)
+				if ((_state & eIdState::ATTACK) == eIdState::ATTACK && _isAttack)
 				{
 
-					this->fixPosAnimation(eIdState::DAMAGE);
-					_curAnimation = _listAnimation[eIdState::DAMAGE];
-					_state |= eIdState::DAMAGE;
-					_isFlash = false;
+					_isAttack = false;
+					na->getDamaged(ATTACK_DAMAGE_ALADDIN);
 				}
-				else
+				else if (!_isFlash && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE))
 				{
-					_isFlash = true;
+					_RPT0(0, "GET DAM NAHBI\n");
+					_numBlood -= DAMAGE_ENERMY;
+
+					if (_state == eIdState::STAND)
+					{
+
+						this->fixPosAnimation(eIdState::DAMAGE);
+						_curAnimation = _listAnimation[eIdState::DAMAGE];
+						_state |= eIdState::DAMAGE;
+						_isFlash = false;
+					}
+					else
+					{
+						_isFlash = true;
+					}
 				}
 			}
 
@@ -687,28 +697,34 @@ void Aladdin::update(float dt)
 
 			bool check = this->checkCollision(obj->getCurrentBoudingBox());
 
-			if (check && _isAttack && (_state & eIdState::ATTACK) == eIdState::ATTACK)
+			if (check)
 			{
-				_isAttack = false;
-				fa->getDamaged(ATTACK_DAMAGE_ALADDIN);
-			}
-			else if (check && !_isFlash && ((_state & eIdState::ATTACK) != eIdState::ATTACK) && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE))
-			{
-				_RPT0(0, "GET DAM FAZAL\n");
-				_numBlood -= DAMAGE_ENERMY;
-				if (_state == eIdState::STAND)
+				if ((_state & eIdState::ATTACK) == eIdState::ATTACK && _isAttack)
 				{
 
-					this->fixPosAnimation(eIdState::DAMAGE);
-					_curAnimation = _listAnimation[eIdState::DAMAGE];
-					_state |= eIdState::DAMAGE;
-					_isFlash = false;
+					_isAttack = false;
+					fa->getDamaged(ATTACK_DAMAGE_ALADDIN);
 				}
-				else
+				else if (!_isFlash && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE))
 				{
-					_isFlash = true;
+					_RPT0(0, "GET DAM NAHBI\n");
+					_numBlood -= DAMAGE_ENERMY;
+
+					if (_state == eIdState::STAND)
+					{
+
+						this->fixPosAnimation(eIdState::DAMAGE);
+						_curAnimation = _listAnimation[eIdState::DAMAGE];
+						_state |= eIdState::DAMAGE;
+						_isFlash = false;
+					}
+					else
+					{
+						_isFlash = true;
+					}
 				}
 			}
+
 		}
 		else if (obj->getIdType() == eIdObject::BAT && obj->getState() != eIdState::EXPLODE)
 		{
@@ -746,7 +762,13 @@ void Aladdin::update(float dt)
 		else if (obj->getIdType() == eIdObject::SKELETON)
 		{
 			pSkeleton ke = dynamic_cast<pSkeleton>(obj);
+			ke->setPosPlayer(_posWorld);
 			ke->setListObj(listObj);
+		}
+		else if (obj->getIdType() == eIdObject::PEDDLER)
+		{
+			pPeddler pe = dynamic_cast<pPeddler>(obj);
+			pe->setPosPlayer(_posWorld);
 		}
 
 	}
@@ -895,6 +917,7 @@ void Aladdin::handlerInput(float dt)
 			_isRunJump = false;
 			_isJump = false;
 			_isFall = false;
+
 			_curAnimation = _listAnimation[eIdState::CLIMB | eIdState::JUMP];
 			this->setDx(0.f);
 			this->setDy(-_gravity);
@@ -913,7 +936,7 @@ void Aladdin::handlerInput(float dt)
 		else {
 			_checkClimb = false;
 
-			if (_input->getMapKey()[KEY_H] && (_state & eIdState::ATTACK) != eIdState::ATTACK)
+			if (_input->getMapKey()[KEY_H] && (_state & eIdState::ATTACK) != eIdState::ATTACK && !_isOnGround)
 			{
 				_state |= eIdState::ATTACK;
 				//this->setDy(10.f);
@@ -922,7 +945,7 @@ void Aladdin::handlerInput(float dt)
 				_isAttack = true;
 
 			}
-			else if (_input->getMapKey()[KEY_K] && (_state & eIdState::THROW) != eIdState::THROW)
+			else if (_input->getMapKey()[KEY_K] && (_state & eIdState::THROW) != eIdState::THROW && !_isOnGround)
 			{
 				_isAnimated = true;
 				_state |= eIdState::THROW;
@@ -987,7 +1010,7 @@ void Aladdin::handlerInput(float dt)
 			}
 		}
 
-		if (_input->getMapKey()[KEY_H]) {
+		if (_input->getMapKey()[KEY_H] && !_isOnGround) {
 			this->fixPosAnimation(eIdState::RUN | eIdState::ATTACK);
 			_state |= eIdState::ATTACK;
 			_curAnimation = _listAnimation[eIdState::RUN | eIdState::ATTACK];

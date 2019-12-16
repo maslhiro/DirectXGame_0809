@@ -150,6 +150,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="Nahbi.cpp" />
+    <ClCompile Include="Peddler.cpp" />
     <ClCompile Include="RectSprite.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Rope.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Nahbi.h" />
+    <ClInclude Include="Peddler.h" />
     <ClInclude Include="RectSprite.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Rock.h" />

@@ -4,6 +4,7 @@ Skeleton::Skeleton() : GameObject()
 {
 	_idType = eIdObject::SKELETON;
 	_isTerminated = false;
+	_isAnimated = false;
 }
 
 Skeleton::Skeleton(int id) : GameObject(id)
@@ -22,9 +23,12 @@ void Skeleton::loadResource()
 
 	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::ENERMY_EXPLODE);
 
-	//_listAnimation[99] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_EXPLODE);
-
 	this->setState(eIdState::NONE);
+}
+
+void Skeleton::setPosPlayer(Vec3 val)
+{
+	posPlayer = val;
 }
 
 void Skeleton::render()
@@ -50,6 +54,11 @@ void Skeleton::update(float dt)
 {
 	if (_isTerminated) return;
 
+	if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE && abs(_posWorld.y - posPlayer.y) <= ATTACK_DISTANCE)
+	{
+		_isAnimated = true;
+	}
+
 	if (_state == eIdState::EXPLODE)
 	{
 		if (_curAnimation.getLoopCount() > 0) _isTerminated = true;
@@ -59,15 +68,28 @@ void Skeleton::update(float dt)
 		if (_curAnimation.getLoopCount() > 0)
 		{
 			this->setState(99);
-			int i = -3;
-			while (i < 5)
+			int i = -7;
+
+			srand(time(NULL));
+			while (i < 8)
 			{
 				pBone bone = new Bone();
-				bone->setPositionWorld(_posWorld);
+				bone->setPositionWorld(_posWorld + Vec3(5 * i, 5 * i, 0));
 				bone->setListObj(_listObj);
-				bone->setDx(80 * i);
+
+				bone->setDx(i == 0 ? 250 : i < 0 ? -270 : 270);
+
+				int gravity = -30;
+
+				int a = rand() % 50 + 1;
+
+				if (i == 0) bone->setGravity(gravity * 10);
+				else bone->setGravity(gravity * abs(i) * 2 + a - 20);
+
+				//int gravity = rand() % 200 + 1;
 				bone->loadResource();
 				_listBone.push_back(bone);
+
 				i += 1;
 			}
 
@@ -76,8 +98,6 @@ void Skeleton::update(float dt)
 	// Skeleton da no ? chi update bone
 	else if (_state == 99)
 	{
-		if (_curAnimation.getLoopCount() > 0) _curAnimation = _listAnimation[100];
-
 		for (size_t i = 0; i < _listBone.size(); i++)
 		{
 			_listBone[i]->update(dt);

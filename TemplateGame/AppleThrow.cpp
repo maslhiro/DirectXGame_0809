@@ -73,10 +73,18 @@ void AppleThrow::update(float dt)
 	{
 		if (_listGameObj[i]->getIsTerminated()) continue;
 
+		int id = _listGameObj[i]->getIdType();
+		if (id == eIdObject::STONE_COLUMN_1 ||
+			id == eIdObject::WRECKING_BALL ||
+			id == eIdObject::SPIKE ||
+			id == eIdObject::ROCK ||
+			id == eIdObject::APPLE ||
+			id == eIdObject::STONE_COLUMN_2 ||
+			id == eIdObject::STONE_COLUMN_3 ||
+			id == eIdObject::STONE_COLUMN_4) continue;
+
 		bool check = this->checkCollision(_listGameObj[i]->getBoundingBox());
 
-		int id = _listGameObj[i]->getIdType();
-		if (id == eIdObject::STONE_COLUMN_1 || id == eIdObject::STONE_COLUMN_2 || id == eIdObject::STONE_COLUMN_3 || id == eIdObject::STONE_COLUMN_4) continue;
 		if (check) {
 			if (id == eIdObject::NAHBI)
 			{

@@ -6,8 +6,7 @@ Bone::Bone() : GameObject()
 	_isTerminated = false;
 	_isAnimated = true;
 	_scale = Vec2(2.f, 2.f);
-	_timeUp = 0.f;
-	_gravity = 150.f;
+	_gravity = 100.f;
 }
 
 Bone::Bone(int id) : GameObject(id)
@@ -24,7 +23,7 @@ void Bone::loadResource()
 {
 	_listAnimation[eIdState::NONE] = AnimationManager::getInstance()->get(eIdAnimation::BONE_VISIBLE);
 
-	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_EXPLODE);
+	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_THROW_EXPLODE);
 
 	this->setState(eIdState::NONE);
 }
@@ -54,17 +53,7 @@ void Bone::update(float dt)
 	{
 		_posWorld.x += _dx * dt;
 
-		_timeUp += dt;
-
-		if (_timeUp >= 2.5f)
-		{
-			//_RPT1(0, "TIME UP %f \n", _timeUp);
-			_posWorld.y += _gravity * dt;
-		}
-		else
-		{
-			_posWorld.y -= _gravity * 1.5 * dt;
-		}
+		_posWorld.y += _gravity * dt;
 
 		for (size_t i = 0; i < _listObj.size(); i++)
 		{
@@ -78,6 +67,7 @@ void Bone::update(float dt)
 				|| id == eIdObject::STONE_COLUMN_3
 				|| id == eIdObject::STONE_COLUMN_4
 				|| id == eIdObject::APPLE
+				|| id == eIdObject::ROPE
 				|| id == eIdObject::GENIE_HEAD) continue;
 			if (check) {
 				this->setState(eIdState::EXPLODE);

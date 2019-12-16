@@ -204,6 +204,9 @@
     <ClCompile Include="Bone.cpp">
       <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Peddler.cpp">
+      <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -331,6 +334,9 @@
     </ClInclude>
     <ClInclude Include="Bone.h">
       <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Peddler.h">
+      <Filter>Header Files\Object\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

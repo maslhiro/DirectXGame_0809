@@ -78,7 +78,7 @@ void AnimationManager::load() {
 
 #pragma region Enermy Explode
 	Animation _enermyExplode;
-	_enermyExplode.setTimePerFrame(0.08f);
+	_enermyExplode.setTimePerFrame(0.04f);
 	_enermyExplode.setIsLoop(false);
 	_enermyExplode.setTypeFixPos(eTypeFixPos::C_BT);
 	_enermyExplode.setScale(2.0f, 2.0f);
@@ -185,7 +185,7 @@ void AnimationManager::load() {
 
 #pragma region BONE
 	Animation _bone;
-	_bone.setTimePerFrame(0.03f);
+	_bone.setTimePerFrame(0.012f);
 	_bone.setIsLoop(true);
 	_bone.setTypeFixPos(eTypeFixPos::C_C);
 	//_rock.setIsReverse(true);
@@ -349,7 +349,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_IDLE_02] = _idle02;
 
 	Animation _jump;
-	_jump.setTimePerFrame(0.042f);
+	_jump.setTimePerFrame(0.014f);
 	_jump.setIsLoop(false);
 	_jump.setTypeFixPos(eTypeFixPos::L_BT);
 	_jump.setScale(2.0f, 2.0f);
@@ -370,7 +370,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_JUMP] = _jump;
 
 	Animation _fall;
-	_fall.setTimePerFrame(0.062f);
+	_fall.setTimePerFrame(0.017f);
 	_fall.setIsLoop(false);
 	_fall.setTypeFixPos(eTypeFixPos::L_BT);
 	_fall.setScale(2.0f, 2.0f);
@@ -422,7 +422,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_DAMAGE] = _damage;
 
 	Animation _runJump;
-	_runJump.setTimePerFrame(0.094f);
+	_runJump.setTimePerFrame(0.054f);
 	_runJump.setIsLoop(false);
 	_runJump.setTypeFixPos(eTypeFixPos::L_BT);
 	_runJump.setScale(2.0f, 2.0f);
@@ -541,7 +541,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_SIT_THROW] = _sitThrow;
 
 	Animation _jumpThrow;
-	_jumpThrow.setTimePerFrame(0.05f);
+	_jumpThrow.setTimePerFrame(0.02f);
 	_jumpThrow.setIsLoop(false);
 	_jumpThrow.setTypeFixPos(eTypeFixPos::L_BT);
 	_jumpThrow.setScale(2.0f, 2.0f);
@@ -579,7 +579,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ALADDIN_CLIMB] = _climb;
 
 	Animation _climbJump;
-	_climbJump.setTimePerFrame(0.05f);
+	_climbJump.setTimePerFrame(0.014f);
 	_climbJump.setIsLoop(false);
 	_climbJump.setTypeFixPos(eTypeFixPos::C_BT);
 	_climbJump.setScale(2.0f, 2.0f);
@@ -917,6 +917,111 @@ void AnimationManager::load() {
 	_textCol09.addSprite(eIdSprite::TEXT_COL_09);
 
 	_listAnimation[eIdAnimation::TEXT_COLLECTION_09] = _textCol09;
+#pragma endregion
+
+#pragma region PEDDLER 
+	Animation _prepare;
+	_prepare.setTimePerFrame(0.05f);
+	_prepare.setIsLoop(false);
+	_prepare.setTypeFixPos(eTypeFixPos::L_BT);
+	_prepare.setScale(2.0f, 2.0f);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_01);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_02);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_03);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_04);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_05);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_06);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_07);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_08);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_09);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_10);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_11);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_12);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_13);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_14);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_15);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_16);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_17);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_18);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_19);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_20);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_21);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_22);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_23);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_24);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_25);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_26);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_27);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_28);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_29);
+	_prepare.addSprite(eIdSprite::PEDDLER_PREPARE_30);
+
+	_listAnimation[eIdAnimation::PEDDLER_PREPARE] = _prepare;
+
+	Animation _sell;
+	_sell.setTimePerFrame(0.05f);
+	_sell.setIsLoop(true);
+	_sell.setTypeFixPos(eTypeFixPos::L_BT);
+	_sell.setScale(2.0f, 2.0f);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_01);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_02);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_03);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_04);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_05);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_06);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_07);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_08);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_09);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_10);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_11);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_12);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_13);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_14);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_15);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_16);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_17);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_18);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_19);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_20);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_21);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_22);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_23);
+	_sell.addSprite(eIdSprite::PEDDLER_SELL_24);
+
+	_listAnimation[eIdAnimation::PEDDLER_SELL] = _sell;
+
+	Animation _idle;
+	_idle.setTimePerFrame(0.05f);
+	_idle.setIsLoop(false);
+	_idle.setTypeFixPos(eTypeFixPos::L_BT);
+	_idle.setScale(2.0f, 2.0f);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_01);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_02);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_03);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_04);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_05);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_06);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_07);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_08);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_09);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_10);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_11);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_12);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_13);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_14);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_15);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_16);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_17);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_18);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_19);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_20);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_21);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_22);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_23);
+	_idle.addSprite(eIdSprite::PEDDLER_IDLE_24);
+
+	_listAnimation[eIdAnimation::PEDDLER_IDLE] = _idle;
+
 #pragma endregion
 
 }

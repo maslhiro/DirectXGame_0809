@@ -9,6 +9,7 @@
 #include "AppleThrow.h"
 #include "Ground.h"
 #include "Spike.h"
+#include "Peddler.h"
 #include "Column.h"
 #include "Bat.h"
 #include "Rope.h"
@@ -60,7 +61,7 @@ private:
 
 public:
 
-	Unit _cell[25][15];
+	Unit _cell[25][17];
 
 	// Mang tam de luu id cac ganobj tu grid.txt khi init
 	std::vector<UnitTemp> _cellTemp;

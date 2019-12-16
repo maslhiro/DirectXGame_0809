@@ -351,10 +351,8 @@ void GameMap::update(float dt)
 	{
 		int idType = listObj[i]->getIdType();
 		if (idType != eIdObject::GROUND &&
-			idType != eIdObject::ROPE
-			//idType != eIdObject::ROCK || 
-			//idType != eIdObject::SPIKE
-			) {
+			idType != eIdObject::ROPE &&
+			idType != eIdObject::COLUMN) {
 			listObj[i]->update(dt);
 		}
 	}

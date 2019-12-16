@@ -13,6 +13,7 @@
 #include <malloc.h>
 #include <crtdbg.h>
 #include <algorithm>
+#include <ctime>
 
 #include "RectSprite.h"
 #include "EnumID.h"

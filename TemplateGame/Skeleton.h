@@ -9,6 +9,8 @@ private:
 	std::vector<pGameObject> _listObj;
 	std::vector<pBone> _listBone;
 
+	Vec3 posPlayer;
+
 public:
 	Skeleton();
 	Skeleton(int);
@@ -16,6 +18,8 @@ public:
 	void setListObj(std::vector<pGameObject>);
 
 	void loadResource();
+
+	void setPosPlayer(Vec3);
 
 	void render();
 

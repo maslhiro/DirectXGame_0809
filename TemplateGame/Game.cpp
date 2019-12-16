@@ -38,6 +38,7 @@ void Game::loadResource()
 	_texture->add(eIdTexture::BAT_TEX, L"Resource//Object//Bat.png", D3DCOLOR_XRGB(255, 0, 255));
 	_texture->add(eIdTexture::SKELETON_TEX, L"Resource//Object//Skeleton.png", D3DCOLOR_XRGB(255, 255, 255));
 	_texture->add(eIdTexture::GUARDS_TEX, L"Resource//Object//Guards.png", D3DCOLOR_XRGB(120, 193, 152));
+	_texture->add(eIdTexture::PEDDLER_TEX, L"Resource//Object//Peddler.png", D3DCOLOR_XRGB(255, 0, 255));
 
 	// Aladdin
 	_texture->add(eIdTexture::ALADDIN_TEX, L"Resource//Object//Aladdin.png", D3DCOLOR_XRGB(106, 148, 189));
@@ -51,12 +52,14 @@ void Game::loadResource()
 	_sprite->add(eIdTexture::BAT_TEX, "Resource//Object//Bat_Sprite.txt");
 	_sprite->add(eIdTexture::SKELETON_TEX, "Resource//Object//Skeleton_Sprite.txt");
 	_sprite->add(eIdTexture::GUARDS_TEX, "Resource//Object//Guards.txt");
+	_sprite->add(eIdTexture::PEDDLER_TEX, "Resource//Object//Peddler_Sprite.txt");
+
 
 #pragma endregion
 
 	_animationManager->load();
 
-	//_test = _animationManager->get(eIdAnimation::ALADDIN_RUN);
+	//_test = _animationManager->get(eIdAnimation::PEDDLER_IDLE);
 	//_test.setPosition(Vec3(300, 300, 0));
 	//_test.setIsLoop(true);
 	//_test.setScale(Vec2(2, 2));

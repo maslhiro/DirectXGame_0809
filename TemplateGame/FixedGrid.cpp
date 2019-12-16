@@ -124,6 +124,11 @@ void FixedGrid::load(const char* filePath)
 				_obj = new Fazal();
 				break;
 			}
+			case eIdObject::PEDDLER:
+			{
+				_obj = new Peddler();
+				break;
+			}
 			case eIdObject::SKELETON:
 			{
 				_obj = new Skeleton();
@@ -310,9 +315,9 @@ std::vector<Unit> FixedGrid::getUnitsContain(RECT _view)
 	//_RPT1(0, "MIN X %d MIN Y %d \n", min_CellX, min_CellY);
 	//_RPT1(0, "VIEW PORT :%d %d %d %d \n", _view.left, _view.top, _view.right, _view.bottom);
 
-	for (int x = min_CellX; x <= max_CellX; x++)
+	for (int x = min_CellX; x <= max_CellX + 1; x++)
 	{
-		for (int y = min_CellY; y <= max_CellY; y++)
+		for (int y = min_CellY; y <= max_CellY + 1; y++)
 		{
 			//_RPT1(0, "X %d Y %d \n", x, y);
 

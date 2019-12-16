@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="36" height="18" tilewidth="128" tileheight="128" infinite="0" nextlayerid="26" nextobjectid="217">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="36" height="18" tilewidth="128" tileheight="128" infinite="0" nextlayerid="27" nextobjectid="220">
  <tileset firstgid="1" name="70" tilewidth="128" tileheight="128" tilecount="650" columns="26">
   <image source="map.png" width="3328" height="3200"/>
  </tileset>
@@ -44,7 +44,7 @@
   <object id="42" name="450003" x="2260.67" y="1846.83" width="237.333" height="12.3333"/>
   <object id="60" name="450004" x="2878.33" y="1749.67" width="133" height="32.5758"/>
   <object id="61" name="450005" x="2668.83" y="1653.74" width="209" height="31.7576"/>
-  <object id="62" name="450006" x="2514" y="1525.12" width="316.5" height="31.7576"/>
+  <object id="62" name="450006" x="2536.5" y="1525.12" width="294" height="31.7576"/>
   <object id="63" name="450007" x="2261.67" y="1397.25" width="331" height="14.7576"/>
   <object id="64" name="450008" x="2813.5" y="1237.12" width="197" height="31.7576"/>
   <object id="65" name="450009" x="2160" y="980.121" width="339.5" height="15.7576"/>
@@ -63,9 +63,9 @@
   <object id="80" name="450022" x="507.417" y="1748.79" width="243.166" height="33.7576"/>
   <object id="81" name="450023" x="270.417" y="1527.12" width="279.166" height="15.7576"/>
   <object id="82" name="450024" x="0.128111" y="1432.45" width="322.121" height="13.0909"/>
-  <object id="83" name="450025" x="313.462" y="1125.58" width="261.757" height="14.2576"/>
+  <object id="83" name="450025" x="313.462" y="1125.58" width="236.257" height="14.2576"/>
   <object id="84" name="450026" x="0.0836667" y="1014.79" width="241.833" height="13.0909"/>
-  <object id="85" name="450027" x="309.417" y="726.788" width="227.166" height="14.4243"/>
+  <object id="85" name="450027" x="309.417" y="726.788" width="206.166" height="14.4243"/>
   <object id="86" name="450028" x="-1.24967" y="596.788" width="241.833" height="15.7576"/>
   <object id="87" name="450029" x="288.417" y="484.727" width="290.166" height="15.394"/>
   <object id="88" name="450030" x="543.417" y="564.121" width="269.499" height="32.7576"/>
@@ -82,7 +82,7 @@
   <object id="99" name="450041" x="2226" y="439.121" width="332.999" height="14.4243"/>
   <object id="100" name="450042" x="2638" y="534.121" width="224.666" height="30.4243"/>
   <object id="101" name="450043" x="2274.58" y="663.788" width="287.666" height="13.7576"/>
-  <object id="102" name="450044" x="2497" y="760.621" width="969.666" height="10.2576"/>
+  <object id="102" name="450044" x="2497" y="760.621" width="959.999" height="10.2576"/>
   <object id="103" name="450045" x="653.334" y="756.121" width="256.666" height="35.7576"/>
   <object id="104" name="450046" x="2797" y="440.121" width="352.999" height="28.7576"/>
   <object id="105" name="450047" x="3043" y="600.621" width="91.499" height="11.2576"/>
@@ -101,23 +101,23 @@
   <object id="118" name="450060" x="4092.83" y="917.871" width="512.332" height="31.3409"/>
   <object id="119" name="450061" x="3618.67" y="755.955" width="320.499" height="18.5909"/>
   <object id="120" name="450062" x="3773.75" y="504.705" width="528.499" height="30.0909"/>
-  <object id="121" name="450063" x="4189.08" y="435.371" width="418.499" height="18.5909"/>
+  <object id="121" name="450063" x="4194.45" y="438.621" width="413.124" height="15.3409"/>
  </objectgroup>
  <objectgroup id="23" name="4501" visible="0">
   <object id="122" name="450101" x="3008.5" y="820.667" width="160.833" height="1469.7"/>
-  <object id="125" name="450102" x="2690.5" y="1556" width="31" height="99.5"/>
-  <object id="127" name="450103" x="2532.21" y="1426.13" width="31" height="99.5"/>
-  <object id="128" name="450104" x="2272.5" y="996.917" width="34" height="849.75"/>
+  <object id="125" name="450102" x="2674.25" y="1556" width="47.25" height="99.5"/>
+  <object id="127" name="450103" x="2515.54" y="1426.13" width="47.6667" height="99.5"/>
+  <object id="128" name="450104" x="2259" y="996.917" width="47.5" height="849.75"/>
   <object id="129" name="450105" x="1954.5" y="945.25" width="31" height="99.5"/>
   <object id="130" name="450106" x="1821.17" y="1072.92" width="31" height="120"/>
   <object id="131" name="450107" x="896.5" y="947.583" width="40.25" height="501.227"/>
   <object id="132" name="450199" x="0.5" y="-0.25" width="39.875" height="2304.21"/>
   <object id="133" name="450199" x="4561.99" y="0.25" width="45.5114" height="2303.32"/>
-  <object id="134" name="450108" x="1568.83" y="1445.92" width="31" height="51.5303"/>
-  <object id="135" name="450109" x="1761.5" y="1442.73" width="31" height="51.5303"/>
-  <object id="136" name="450110" x="1921.5" y="1379.23" width="31" height="51.5303"/>
-  <object id="137" name="450111" x="1859.17" y="1720.23" width="31.5" height="127.78"/>
-  <object id="138" name="450112" x="993.5" y="1683.23" width="39.1818" height="163.864"/>
+  <object id="134" name="450108" x="1560.5" y="1431.92" width="39.3333" height="65.5303"/>
+  <object id="135" name="450109" x="1761.5" y="1430.98" width="38.125" height="63.2803"/>
+  <object id="136" name="450110" x="1921.5" y="1366.5" width="45.5455" height="64.2576"/>
+  <object id="137" name="450111" x="1845.17" y="1688.73" width="57.5" height="159.28"/>
+  <object id="138" name="450112" x="983.167" y="1683.23" width="53.8485" height="163.864"/>
   <object id="139" name="450113" x="509.583" y="1153.73" width="46.6667" height="596.03"/>
   <object id="141" name="450114" x="928.5" y="500.235" width="31" height="432.197"/>
   <object id="142" name="450115" x="1281.83" y="884.902" width="31" height="51.5303"/>
@@ -135,13 +135,13 @@
   <object id="154" name="450127" x="2819.56" y="473.423" width="30.875" height="61.155"/>
   <object id="155" name="450128" x="3072.4" y="612.089" width="30.875" height="149.655"/>
   <object id="156" name="450129" x="3104.56" y="19.4225" width="34.5417" height="422.155"/>
-  <object id="157" name="450131" x="3584.56" y="16.0892" width="30.875" height="1224.15"/>
+  <object id="157" name="450131" x="3586.92" y="16.0892" width="33.0568" height="1224.15"/>
   <object id="158" name="450130" x="3456.26" y="260.65" width="30.875" height="500.155"/>
   <object id="159" name="450132" x="3328.06" y="1490.92" width="30.875" height="66.655"/>
   <object id="160" name="450133" x="3873.06" y="1256.67" width="30.875" height="465.655"/>
   <object id="163" name="450134" x="2212.31" y="929.922" width="30.875" height="66.655"/>
  </objectgroup>
- <objectgroup id="22" name="4503" visible="0">
+ <objectgroup id="22" name="4503">
   <object id="55" name="450301" x="973.083" y="948.25" width="9.8333" height="402.667"/>
   <object id="177" name="450302" x="589.417" y="610" width="9.8333" height="620.667"/>
   <object id="178" name="450303" x="205.856" y="1048.18" width="9.8333" height="298"/>
@@ -152,6 +152,10 @@
   <object id="185" name="450308" x="3884.92" y="779.5" width="9.8333" height="375"/>
   <object id="186" name="450309" x="4173.75" y="534.667" width="9.8333" height="292.334"/>
   <object id="187" name="450310" x="205.583" y="621.667" width="9.8333" height="328.167"/>
+ </objectgroup>
+ <objectgroup id="26" name="4014">
+  <object id="218" name="401401" x="795" y="694" width="10" height="10"/>
+  <object id="219" name="401402" x="645.667" y="2128.82" width="10" height="10"/>
  </objectgroup>
  <objectgroup id="20" name="4010" visible="0">
   <object id="53" name="401001" x="2855.33" y="2166.67" width="10" height="10"/>
@@ -236,7 +240,7 @@
   <object id="165" name="400701" x="1600.15" y="2097.05" width="10" height="10"/>
   <object id="166" name="400702" x="1599.85" y="2154.94" width="10" height="10"/>
  </objectgroup>
- <layer id="13" name="above" width="36" height="18">
+ <layer id="13" name="above" width="36" height="18" visible="0">
   <data encoding="csv">
 663,653,664,652,665,661,662,653,663,653,664,652,665,661,662,653,663,653,664,652,665,661,662,653,663,653,664,652,665,661,662,653,663,653,664,652,
 666,664,652,653,668,662,653,669,666,664,652,653,668,662,653,669,666,664,652,653,668,662,653,669,666,664,652,653,668,662,653,669,666,664,652,653,

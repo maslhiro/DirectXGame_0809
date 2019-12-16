@@ -1,21 +1,22 @@
 #pragma once
 #include "GameObject.h"
 
-class Bone :
+class Peddler :
 	public GameObject
 {
 private:
+	Vec3 posPlayer;
 
-	std::vector<pGameObject> _listObj;
-
-
+	int _numBlood;
 public:
-	Bone();
-	Bone(int);
+	Peddler();
+	Peddler(int);
 
-	void setListObj(std::vector<pGameObject>);
+	void setPosPlayer(Vec3);
 
 	void loadResource();
+
+	int getState();
 
 	void render();
 
@@ -24,4 +25,4 @@ public:
 	void handlerInput(float);
 };
 
-typedef Bone* pBone;
+typedef Peddler* pPeddler;
