@@ -199,7 +199,10 @@
       <Filter>Source Files\Hud</Filter>
     </ClCompile>
     <ClCompile Include="AppleHud.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Hud</Filter>
+    </ClCompile>
+    <ClCompile Include="Bone.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="AppleHud.h">
       <Filter>Header Files\Hud</Filter>
+    </ClInclude>
+    <ClInclude Include="Bone.h">
+      <Filter>Header Files\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

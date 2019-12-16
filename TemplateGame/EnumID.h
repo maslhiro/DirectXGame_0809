@@ -54,6 +54,7 @@ enum eIdObject
 	NAHBI,
 	FAZAL,
 	GENIE_HEAD,
+	BONE,
 
 	// Static Obj => ko render
 	GROUND = 4500,	// Dat
@@ -350,6 +351,14 @@ enum eIdSprite
 
 #pragma endregion
 
+#pragma region BONE 1300
+	BONE_01 = 1300,
+	BONE_02,
+	BONE_03,
+	BONE_04,
+#pragma endregion
+
+
 #pragma region ALADDIN || 2000
 
 	ALADDIN_IDLE_1_01 = 2000,
@@ -602,4 +611,6 @@ enum eIdAnimation
 	TEXT_COLLECTION_07,
 	TEXT_COLLECTION_08,
 	TEXT_COLLECTION_09,
+
+	BONE_VISIBLE,
 };

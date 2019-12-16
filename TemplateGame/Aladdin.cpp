@@ -289,9 +289,6 @@ void Aladdin::update(float dt)
 
 		if (_isOnGround)
 		{
-			//RECT t1 = getBoundingBox();
-			//_RPT1(0, "[IS ON GROUND] RECT : %d %d %d %d \n", t1.left, t1.top, t1.right, t1.bottom);
-
 			if (_curAnimation.getLoopCount() > 0)
 			{
 				_isOnGround = false;
@@ -317,7 +314,7 @@ void Aladdin::update(float dt)
 				// Den frame nay la phai roi xuong
 				if ((_isJump &&  _curAnimation.getCurrentFrame() == 6) ||
 					(_isRunJump && _curAnimation.getCurrentFrame() == 4) ||
-					(_isClimbJump && _curAnimation.getLoopCount() > 0))
+					(_isClimbJump && _curAnimation.getCurrentFrame() == 9))
 				{
 					this->setIsAnimated(false);
 				}
@@ -332,7 +329,7 @@ void Aladdin::update(float dt)
 			{
 				//_RPT0(0, "==================================\n");
 
-				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && !_isFall)
+				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && !_isFall && !_isClimbJump)
 				{
 					this->setIsAnimated(true);
 				}
@@ -599,7 +596,6 @@ void Aladdin::update(float dt)
 		}
 	}
 
-	// Va chạm với apple va ball
 	for (size_t i = 0; i < listObj.size(); i++)
 	{
 		auto obj = listObj[i];
@@ -747,6 +743,11 @@ void Aladdin::update(float dt)
 				}
 			}
 		}
+		else if (obj->getIdType() == eIdObject::SKELETON)
+		{
+			pSkeleton ke = dynamic_cast<pSkeleton>(obj);
+			ke->setListObj(listObj);
+		}
 
 	}
 
@@ -893,6 +894,7 @@ void Aladdin::handlerInput(float dt)
 			_isClimbJump = true;
 			_isRunJump = false;
 			_isJump = false;
+			_isFall = false;
 			_curAnimation = _listAnimation[eIdState::CLIMB | eIdState::JUMP];
 			this->setDx(0.f);
 			this->setDy(-_gravity);

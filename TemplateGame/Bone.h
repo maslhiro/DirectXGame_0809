@@ -1,17 +1,18 @@
 #pragma once
 #include "GameObject.h"
-#include "Bone.h"
 
-class Skeleton :
+class Bone :
 	public GameObject
 {
 private:
+
 	std::vector<pGameObject> _listObj;
-	std::vector<pBone> _listBone;
+
+	float _timeUp;
 
 public:
-	Skeleton();
-	Skeleton(int);
+	Bone();
+	Bone(int);
 
 	void setListObj(std::vector<pGameObject>);
 
@@ -24,4 +25,4 @@ public:
 	void handlerInput(float);
 };
 
-typedef Skeleton* pSkeleton;
+typedef Bone* pBone;

@@ -183,6 +183,21 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::ROCK_VISIBLE] = _rock;
 #pragma endregion
 
+#pragma region BONE
+	Animation _bone;
+	_bone.setTimePerFrame(0.03f);
+	_bone.setIsLoop(true);
+	_bone.setTypeFixPos(eTypeFixPos::C_C);
+	//_rock.setIsReverse(true);
+	//_rock.setDrawingBound(true);
+	_bone.addSprite(eIdSprite::BONE_01);
+	_bone.addSprite(eIdSprite::BONE_02);
+	_bone.addSprite(eIdSprite::BONE_03);
+	_bone.addSprite(eIdSprite::BONE_04);
+
+	_listAnimation[eIdAnimation::BONE_VISIBLE] = _bone;
+#pragma endregion
+
 #pragma region STONE COLUMN
 	Animation _column01;
 	_column01.setTimePerFrame(1.0f);

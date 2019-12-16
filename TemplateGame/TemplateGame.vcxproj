@@ -130,6 +130,7 @@
     <ClCompile Include="AppleHud.cpp" />
     <ClCompile Include="AppleThrow.cpp" />
     <ClCompile Include="Bat.cpp" />
+    <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Column.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="AppleHud.h" />
     <ClInclude Include="AppleThrow.h" />
     <ClInclude Include="Bat.h" />
+    <ClInclude Include="Bone.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Column.h" />
     <ClInclude Include="DrawDebug.h" />
