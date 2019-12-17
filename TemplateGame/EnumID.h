@@ -59,6 +59,7 @@ enum eIdObject
 	GENIE_HEAD,
 	BONE,
 	PEDDLER,
+	COIN,
 
 	// Static Obj => ko render
 	GROUND = 4500,	// Dat
@@ -363,7 +364,7 @@ enum eIdSprite
 	BONE_04,
 #pragma endregion
 
-#pragma region PEDDLER 1310
+#pragma region PEDDLER 1310 1390
 	PEDDLER_PREPARE_01 = 1310,
 	PEDDLER_PREPARE_02,
 	PEDDLER_PREPARE_03,
@@ -445,6 +446,18 @@ enum eIdSprite
 	PEDDLER_SELL_23,
 	PEDDLER_SELL_24,
 
+#pragma endregion
+
+#pragma region COIN 1400
+	COIN_01 = 1400,
+	COIN_02,
+	COIN_03,
+	COIN_04,
+	COIN_05,
+	COIN_06,
+	COIN_07,
+	COIN_08,
+	COIN_09,
 #pragma endregion
 
 #pragma region ALADDIN || 2000
@@ -630,7 +643,7 @@ enum eIdAnimation
 	APPLE_VISIBLE = 100,
 	APPLE_THROW,
 	APPLE_THROW_EXPLODE,
-	APPLE_EXPLODE,
+	ITEM_EXPLODE,
 
 	SKELETON_VISIBLE,
 	BAT_VISIBLE,
@@ -704,6 +717,9 @@ enum eIdAnimation
 	PEDDLER_PREPARE,
 	PEDDLER_SELL,
 	PEDDLER_IDLE,
+
+	COIN_COLLECTION,
+	COIN_VISIBLE,
 
 
 };

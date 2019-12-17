@@ -59,7 +59,7 @@ void Game::loadResource()
 
 	_animationManager->load();
 
-	//_test = _animationManager->get(eIdAnimation::PEDDLER_IDLE);
+	//_test = _animationManager->get(eIdAnimation::PEDDLER_SELL);
 	//_test.setPosition(Vec3(300, 300, 0));
 	//_test.setIsLoop(true);
 	//_test.setScale(Vec2(2, 2));

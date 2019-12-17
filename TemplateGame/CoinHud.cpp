@@ -1,19 +1,19 @@
-#include "AppleHud.h"
+#include "CoinHud.h"
 
-AppleHud::AppleHud() : GameObject()
+CoinHud::CoinHud() : GameObject()
 {
-	_posWorld = Vec3(520, 460, 0);
+	_posWorld = Vec3(400, 460, 0);
 	_scale = Vec2(2.f, 2.f);
-	_numApple = NUM_APPLE_DEFAULT;
+	_numCoin = NUM_COIN_DEFAULT;
 }
 
-AppleHud::~AppleHud()
+CoinHud::~CoinHud()
 {
 }
 
-void AppleHud::loadResource()
+void CoinHud::loadResource()
 {
-	_listAnimation[99] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_COLLECTION);
+	_listAnimation[99] = AnimationManager::getInstance()->get(eIdAnimation::COIN_COLLECTION);
 
 	_listAnimation[0] = AnimationManager::getInstance()->get(eIdAnimation::TEXT_COLLECTION_00);
 	_listAnimation[1] = AnimationManager::getInstance()->get(eIdAnimation::TEXT_COLLECTION_01);
@@ -28,16 +28,16 @@ void AppleHud::loadResource()
 
 	this->setState(99);
 
-	_cha01 = _listAnimation[_numApple / 10];
-	_cha02 = _listAnimation[_numApple % 10];
+	_cha01 = _listAnimation[_numCoin / 10];
+	_cha02 = _listAnimation[_numCoin % 10];
 
 }
 
-void AppleHud::setNumApple(int val)
+void CoinHud::setNumApple(int val)
 {
-	if (val == _numApple) return;
+	if (val == _numCoin) return;
 
-	_numApple = val;
+	_numCoin = val;
 	if (val <= 0)
 	{
 		_cha01 = _listAnimation[0];
@@ -45,14 +45,14 @@ void AppleHud::setNumApple(int val)
 	}
 	else
 	{
-		_cha01 = _listAnimation[_numApple / 10];
-		_cha02 = _listAnimation[_numApple % 10];
+		_cha01 = _listAnimation[_numCoin / 10];
+		_cha02 = _listAnimation[_numCoin % 10];
 	}
 
 
 }
 
-void AppleHud::render()
+void CoinHud::render()
 {
 	_curAnimation.setPosition(_posWorld);
 	//_curAnimation.setDrawingBound(true);
@@ -68,10 +68,9 @@ void AppleHud::render()
 	_cha02.render(_device, _texture);
 
 
-
 }
 
-void AppleHud::update(float dt)
+void CoinHud::update(float dt)
 {
 	_curAnimation.update(dt);
 }

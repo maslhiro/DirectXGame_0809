@@ -207,6 +207,12 @@
     <ClCompile Include="Peddler.cpp">
       <Filter>Source Files\Object\Map</Filter>
     </ClCompile>
+    <ClCompile Include="CoinHud.cpp">
+      <Filter>Source Files\Hud</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Source Files\Object\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -337,6 +343,12 @@
     </ClInclude>
     <ClInclude Include="Peddler.h">
       <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="CoinHud.h">
+      <Filter>Header Files\Hud</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Object\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

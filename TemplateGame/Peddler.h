@@ -20,6 +20,8 @@ public:
 
 	void render();
 
+	void fixPosBottom(int);
+
 	void update(float);
 
 	void handlerInput(float);

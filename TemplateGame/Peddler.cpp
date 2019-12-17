@@ -45,11 +45,19 @@ void Peddler::render()
 	_curAnimation.render(_device, _texture);
 }
 
+void Peddler::fixPosBottom(int nextState)
+{
+	float fixBottom = this->fixPosHeight(nextState);
+	float fixLeft = (nextState == eIdState::PREPARE ? 0 : 40);
+
+	this->setPositionWorld(_posWorld.x + fixLeft, _posWorld.y + fixBottom * _scale.y);
+}
+
 void Peddler::update(float dt)
 {
 	if (_isTerminated) return;
 
-	if (abs(_posWorld.x - posPlayer.x) <= 50 && abs(_posWorld.y - posPlayer.y) <= 50)
+	if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE && abs(_posWorld.y - posPlayer.y) <= ATTACK_DISTANCE)
 	{
 		_isAnimated = true;
 	}
@@ -58,7 +66,7 @@ void Peddler::update(float dt)
 	{
 		if (_curAnimation.getLoopCount() > 0)
 		{
-			//this->fixPosAnimation(eIdState::PREPARE);
+			this->fixPosBottom(eIdState::PREPARE);
 			this->setState(eIdState::PREPARE);
 		}
 	}
@@ -66,13 +74,13 @@ void Peddler::update(float dt)
 	{
 		if (_curAnimation.getLoopCount() > 0)
 		{
-			//this->fixPosAnimation(eIdState::SELL);
+			this->fixPosBottom(eIdState::SELL);
 			this->setState(eIdState::SELL);
 		}
 	}
 
 	_curAnimation.setIsAnimated(_isAnimated);
-	_curAnimation.setDrawingBound(true);
+	_curAnimation.setDrawingBound(false);
 	_curAnimation.update(dt);
 }
 

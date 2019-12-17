@@ -18,6 +18,7 @@
 #include "Skeleton.h"
 #include "Rock.h"
 #include "GenieHead.h"
+#include "Coin.h"
 #include "WreckingBall.h"
 #include "StoneColumn_1.h"
 #include "StoneColumn_2.h"

@@ -1,26 +1,26 @@
-#include "Apple.h"
+#include "Coin.h"
 
-Apple::Apple() : GameObject()
+Coin::Coin() : GameObject()
 {
-	_idType = eIdObject::APPLE;
+	_idType = eIdObject::COIN;
 	_isTerminated = false;
 }
 
-Apple::Apple(int id) : GameObject(id)
+Coin::Coin(int id) : GameObject(id)
 {
-	_idType = eIdObject::APPLE;
+	_idType = eIdObject::COIN;
 }
 
-void Apple::loadResource()
+void Coin::loadResource()
 {
-	_listAnimation[eIdState::NONE] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_VISIBLE);
+	_listAnimation[eIdState::NONE] = AnimationManager::getInstance()->get(eIdAnimation::COIN_VISIBLE);
 
 	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::ITEM_EXPLODE);
 
 	this->setState(eIdState::NONE);
 }
 
-void Apple::render()
+void Coin::render()
 {
 	if (_isTerminated) return;
 
@@ -30,7 +30,7 @@ void Apple::render()
 	_curAnimation.render(_device, _texture);
 }
 
-void Apple::update(float dt)
+void Coin::update(float dt)
 {
 	_curAnimation.setIsAnimated(_isAnimated);
 
@@ -44,6 +44,6 @@ void Apple::update(float dt)
 	_curAnimation.update(dt);
 }
 
-void Apple::handlerInput(float)
+void Coin::handlerInput(float)
 {
 }

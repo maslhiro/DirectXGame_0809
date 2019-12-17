@@ -91,7 +91,12 @@ void FixedGrid::load(const char* filePath)
 			{
 			case eIdObject::APPLE:
 			{
-				_obj = new Apple();
+				_obj = new Coin();
+				break;
+			}
+			case eIdObject::COIN:
+			{
+				_obj = new Coin();
 				break;
 			}
 			case eIdObject::GENIE_HEAD:

@@ -132,6 +132,8 @@
     <ClCompile Include="Bat.cpp" />
     <ClCompile Include="Bone.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Coin.cpp" />
+    <ClCompile Include="CoinHud.cpp" />
     <ClCompile Include="Column.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
     <ClCompile Include="Fazal.cpp" />
@@ -177,6 +179,8 @@
     <ClInclude Include="Bat.h" />
     <ClInclude Include="Bone.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Coin.h" />
+    <ClInclude Include="CoinHud.h" />
     <ClInclude Include="Column.h" />
     <ClInclude Include="DrawDebug.h" />
     <ClInclude Include="Fazal.h" />

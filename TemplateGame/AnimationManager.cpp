@@ -27,6 +27,31 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::APPLE_COLLECTION] = _appleCollection;
 #pragma endregion
 
+#pragma region Coin
+
+	Animation _coinColl;
+	_coinColl.setTimePerFrame(1.0f);
+	_coinColl.setIsLoop(false);
+	_coinColl.addSprite(eIdSprite::COIN_09);
+
+	_listAnimation[eIdAnimation::COIN_COLLECTION] = _coinColl;
+
+	Animation _coin;
+	_coin.setTimePerFrame(0.05f);
+	_coin.setTypeFixPos(eTypeFixPos::L_BT);
+	_coin.setIsLoop(true);
+	_coin.addSprite(eIdSprite::COIN_01);
+	_coin.addSprite(eIdSprite::COIN_02);
+	_coin.addSprite(eIdSprite::COIN_03);
+	_coin.addSprite(eIdSprite::COIN_04);
+	_coin.addSprite(eIdSprite::COIN_05);
+	_coin.addSprite(eIdSprite::COIN_06);
+	_coin.addSprite(eIdSprite::COIN_07);
+	_coin.addSprite(eIdSprite::COIN_08);
+	_coin.addSprite(eIdSprite::COIN_09);
+
+	_listAnimation[eIdAnimation::COIN_VISIBLE] = _coin;
+#pragma endregion
 #pragma region Apple Throw
 
 	Animation _appleThrow;
@@ -73,7 +98,7 @@ void AnimationManager::load() {
 	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_08);
 	_appleExplode.addSprite(eIdSprite::APPLE_EXPLODE_09);
 
-	_listAnimation[eIdAnimation::APPLE_EXPLODE] = _appleExplode;
+	_listAnimation[eIdAnimation::ITEM_EXPLODE] = _appleExplode;
 #pragma endregion
 
 #pragma region Enermy Explode
@@ -959,7 +984,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::PEDDLER_PREPARE] = _prepare;
 
 	Animation _sell;
-	_sell.setTimePerFrame(0.05f);
+	_sell.setTimePerFrame(0.08f);
 	_sell.setIsLoop(true);
 	_sell.setTypeFixPos(eTypeFixPos::L_BT);
 	_sell.setScale(2.0f, 2.0f);
