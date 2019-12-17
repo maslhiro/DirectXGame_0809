@@ -620,7 +620,7 @@ void Aladdin::update(float dt)
 	for (size_t i = 0; i < listObj.size(); i++)
 	{
 		auto obj = listObj[i];
-
+		if (obj->getIdType() == eIdObject::COLUMN || obj->getIdType() == eIdObject::GROUND) continue;
 		if (obj->getIsTerminated()) continue;
 
 		// Kiem tra va cham voi apple
@@ -675,7 +675,7 @@ void Aladdin::update(float dt)
 
 			bool check = this->checkCollision(obj->getCurrentBoudingBox());
 
-			if (check)
+			if (check && obj->getState() != eIdState::EXPLODE)
 			{
 				if ((_state & eIdState::ATTACK) == eIdState::ATTACK && _isAttack)
 				{
@@ -712,7 +712,7 @@ void Aladdin::update(float dt)
 
 			bool check = this->checkCollision(obj->getCurrentBoudingBox());
 
-			if (check)
+			if (check && obj->getState() != eIdState::EXPLODE)
 			{
 				if ((_state & eIdState::ATTACK) == eIdState::ATTACK && _isAttack)
 				{
@@ -779,6 +779,53 @@ void Aladdin::update(float dt)
 			pSkeleton ke = dynamic_cast<pSkeleton>(obj);
 			ke->setPosPlayer(_posWorld);
 			ke->setListObj(listObj);
+
+			bool check = this->checkCollision(obj->getCurrentBoudingBox());
+			// Kiem tra khi alladin chem
+			if (check)
+			{
+				if ((_state & eIdState::ATTACK) == eIdState::ATTACK && _isAttack)
+				{
+
+					_isAttack = false;
+					ke->setState(eIdState::EXPLODE);
+				}
+			}
+
+			// Kiem tra xuong vang ra co cham aladdin ko ?
+			auto listBone = ke->getListBone();
+
+			for (size_t j = 0; j < listBone.size(); j++)
+			{
+				if (listBone[j]->getIsTerminated()) continue;
+
+				bool check = this->checkCollision(listBone[j]->getCurrentBoudingBox());
+				if (check  && listBone[j]->getState() != eIdState::EXPLODE)
+				{
+					listBone[j]->setState(eIdState::EXPLODE);
+					if ((_state & eIdState::ATTACK) != eIdState::ATTACK)
+					{
+						_numBlood -= DAMAGE_ENERMY;
+
+						if (_state == eIdState::STAND)
+						{
+
+							this->fixPosAnimation(eIdState::DAMAGE);
+							_curAnimation = _listAnimation[eIdState::DAMAGE];
+							_state |= eIdState::DAMAGE;
+							_isFlash = false;
+						}
+						else
+						{
+							_isFlash = true;
+						}
+					}
+					break;
+				}
+
+			}
+
+
 		}
 		else if (obj->getIdType() == eIdObject::PEDDLER)
 		{

@@ -17,6 +17,11 @@ void Skeleton::setListObj(std::vector<pGameObject> list)
 	_listObj = list;
 }
 
+std::vector<pBone> Skeleton::getListBone()
+{
+	return _listBone;
+}
+
 void Skeleton::loadResource()
 {
 	_listAnimation[eIdState::NONE] = AnimationManager::getInstance()->get(eIdAnimation::SKELETON_VISIBLE);
@@ -77,7 +82,7 @@ void Skeleton::update(float dt)
 				bone->setPositionWorld(_posWorld + Vec3(5 * i, 5 * i, 0));
 				bone->setListObj(_listObj);
 
-				bone->setDx(i == 0 ? 250 : i < 0 ? -270 : 270);
+				bone->setDx(i == 0 ? 200 : i < 0 ? -240 : 270);
 
 				int gravity = -30;
 

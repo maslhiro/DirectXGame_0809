@@ -17,6 +17,8 @@ public:
 
 	void setListObj(std::vector<pGameObject>);
 
+	std::vector<pBone> getListBone();
+
 	void loadResource();
 
 	void setPosPlayer(Vec3);
