@@ -60,7 +60,9 @@
 
 #define NUM_APPLE_DEFAULT 10
 
-#define NUM_COIN_DEFAULT 10
+#define NUM_COIN_DEFAULT 5
+
+#define NUM_LIFE_DEFAULT 3
 
 // Thoi gian dung  
 #define WAIT_TIME_SPIKE 3.f

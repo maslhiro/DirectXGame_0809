@@ -18,6 +18,7 @@ pGameTime Game::getGameTime() {
 
 Game::Game()
 {
+
 }
 
 void Game::loadResource()
@@ -58,6 +59,7 @@ void Game::loadResource()
 #pragma endregion
 
 	_animationManager->load();
+	_sceneManager->load();
 
 	//_test = _animationManager->get(eIdAnimation::PEDDLER_SELL);
 	//_test.setPosition(Vec3(300, 300, 0));
@@ -73,7 +75,6 @@ void Game::loadResource()
 	//_test.setScale(Vec2(2, 2));
 	//_test.setDrawingBound(true);
 
-	_firstScene.loadResource();
 
 	_RPT0(0, "[INFO] Load Resource DONE ;\n");
 
@@ -88,6 +89,8 @@ Game::Game(HINSTANCE hInstance, int nCmdShow)
 	_texture = Texture::getInstance();
 	_sprite = Sprite::getInstance();
 	_animationManager = AnimationManager::getInstance();
+	_sceneManager = SceneManager::getInstance();
+	_indexScene = 0;
 
 }
 
@@ -98,7 +101,6 @@ int Game::init()
 	_deviceManager->init(_hWindow);
 	_drawDebug->init();
 	_texture->init();
-	_firstScene.init();
 	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
 }
@@ -175,7 +177,7 @@ int Game::render()
 
 		//_test.render(_deviceManager, _texture);
 
-		_firstScene.render();
+		_sceneManager->get(_indexScene)->render();
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -191,9 +193,9 @@ int Game::update(float dt)
 {
 	//_test.update(dt);
 	//_test.update(dt);
-	_firstScene.handlerInput(dt);
+	_sceneManager->get(_indexScene)->handlerInput(dt);
 
-	_firstScene.update(dt);
+	_sceneManager->get(_indexScene)->update(dt);
 
 
 	return 1;
@@ -211,8 +213,6 @@ void Game::release()
 	if (_texture != nullptr) _texture->release();
 	if (_gameTime != nullptr) _gameTime->release();
 	if (_drawDebug != nullptr) _drawDebug->release();
-
-	_firstScene.release();
 }
 
 Game::~Game()

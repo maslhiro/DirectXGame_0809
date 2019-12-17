@@ -213,6 +213,15 @@
     <ClCompile Include="Coin.cpp">
       <Filter>Source Files\Object\Item</Filter>
     </ClCompile>
+    <ClCompile Include="LifeHud.cpp">
+      <Filter>Source Files\Hud</Filter>
+    </ClCompile>
+    <ClCompile Include="DyingScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\BaseClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -349,6 +358,15 @@
     </ClInclude>
     <ClInclude Include="Coin.h">
       <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="LifeHud.h">
+      <Filter>Header Files\Hud</Filter>
+    </ClInclude>
+    <ClInclude Include="DyingScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header Files\BaseClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

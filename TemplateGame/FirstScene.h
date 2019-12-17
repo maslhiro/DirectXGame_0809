@@ -6,6 +6,7 @@
 #include "HeathHud.h"
 #include "AppleHud.h"
 #include "CoinHud.h"
+#include "LifeHud.h"
 
 class FirstScene :
 	public Scene
@@ -24,6 +25,7 @@ private:
 	pHeathHud _hud;
 	pAppleHud _hudApple;
 	pCoinHud _hudCoin;
+	pLifeHud _hudLife;
 
 public:
 	FirstScene();

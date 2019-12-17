@@ -22,3 +22,4 @@ protected:
 	bool _isInit;
 };
 
+typedef Scene* pScene;

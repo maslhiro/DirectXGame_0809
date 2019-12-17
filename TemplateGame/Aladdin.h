@@ -17,6 +17,8 @@ private:
 
 	std::vector<pAppleThrow> _listApple;
 	int _numApple;
+	int _numCoin;
+	int _numLife;
 
 	int _indexApple;
 
@@ -77,6 +79,10 @@ public:
 	int getNumBlood();
 
 	int getNumApple();
+
+	int getNumCoin();
+
+	int getNumLife();
 
 	void setGrid(pFixedGrid);
 

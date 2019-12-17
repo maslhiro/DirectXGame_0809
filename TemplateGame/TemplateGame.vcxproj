@@ -136,6 +136,7 @@
     <ClCompile Include="CoinHud.cpp" />
     <ClCompile Include="Column.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
+    <ClCompile Include="DyingScene.cpp" />
     <ClCompile Include="Fazal.cpp" />
     <ClCompile Include="FirstScene.cpp" />
     <ClCompile Include="FixedGrid.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="HeathHud.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="LifeHud.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
     <ClCompile Include="Nahbi.cpp" />
@@ -157,6 +159,7 @@
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Rope.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Spike.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -183,6 +186,7 @@
     <ClInclude Include="CoinHud.h" />
     <ClInclude Include="Column.h" />
     <ClInclude Include="DrawDebug.h" />
+    <ClInclude Include="DyingScene.h" />
     <ClInclude Include="Fazal.h" />
     <ClInclude Include="FirstScene.h" />
     <ClInclude Include="FixedGrid.h" />
@@ -197,6 +201,7 @@
     <ClInclude Include="HeathHud.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="LifeHud.h" />
     <ClInclude Include="Nahbi.h" />
     <ClInclude Include="Peddler.h" />
     <ClInclude Include="RectSprite.h" />
@@ -204,6 +209,7 @@
     <ClInclude Include="Rock.h" />
     <ClInclude Include="Rope.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Spike.h" />
     <ClInclude Include="Sprite.h" />

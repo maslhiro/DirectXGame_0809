@@ -1,19 +1,19 @@
 #pragma once
 #include "GameObject.h"
 
-class CoinHud : GameObject
+class LifeHud : GameObject
 {
 private:
-	int _numCoin;
+	int _numLife;
 	Animation _cha01, _cha02;
 public:
 
-	CoinHud();
-	~CoinHud();
+	LifeHud();
+	~LifeHud();
 
 	void loadResource();
 
-	void setNumCoin(int);
+	void setNumLife(int);
 
 	void render();
 
@@ -22,4 +22,4 @@ public:
 	void handlerInput(float) {};
 };
 
-typedef CoinHud* pCoinHud;
+typedef LifeHud* pLifeHud;

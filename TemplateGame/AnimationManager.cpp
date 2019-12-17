@@ -52,6 +52,18 @@ void AnimationManager::load() {
 
 	_listAnimation[eIdAnimation::COIN_VISIBLE] = _coin;
 #pragma endregion
+
+#pragma region Life
+
+	Animation _life;
+	_life.setTimePerFrame(1.0f);
+	_life.setIsLoop(false);
+	_life.addSprite(eIdSprite::LIFE_01);
+
+	_listAnimation[eIdAnimation::LIFE_COLLECTION] = _life;
+
+#pragma endregion
+
 #pragma region Apple Throw
 
 	Animation _appleThrow;

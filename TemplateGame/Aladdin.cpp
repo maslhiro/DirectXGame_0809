@@ -5,7 +5,10 @@ Aladdin::Aladdin() : GameObject()
 	_idType = eIdObject::ALADDIN;
 
 	_pos = Vec3();
+	_numCoin = NUM_COIN_DEFAULT;
 	_numApple = NUM_APPLE_DEFAULT;
+	_numLife = NUM_LIFE_DEFAULT;
+
 	_grid = nullptr;
 	_camera = nullptr;
 	_isFlash = false;
@@ -54,6 +57,16 @@ int Aladdin::getNumBlood()
 int Aladdin::getNumApple()
 {
 	return _numApple - _indexApple;
+}
+
+int Aladdin::getNumCoin()
+{
+	return _numCoin;
+}
+
+int Aladdin::getNumLife()
+{
+	return _numLife;
 }
 
 void Aladdin::setGrid(pFixedGrid grid)
@@ -609,7 +622,7 @@ void Aladdin::update(float dt)
 		if (obj->getIsTerminated()) continue;
 
 		// Kiem tra va cham voi apple
-		if (obj->getIdType() == eIdObject::APPLE || obj->getIdType() == eIdObject::GENIE_HEAD)
+		if (obj->getIdType() == eIdObject::APPLE || obj->getIdType() == eIdObject::GENIE_HEAD || obj->getIdType() == eIdObject::COIN)
 		{
 			//int objID = obj->getId();
 			//_RPT1(0, "[ID OBJ] %d \n", objID);
@@ -619,6 +632,7 @@ void Aladdin::update(float dt)
 				{
 					obj->setState(eIdState::EXPLODE);
 					if (obj->getIdType() == eIdObject::APPLE) _numApple += 1;
+					if (obj->getIdType() == eIdObject::COIN) _numCoin += 1;
 					//obj->setIsTerminated(true);
 				}
 			}

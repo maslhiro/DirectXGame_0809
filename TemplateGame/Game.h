@@ -9,8 +9,7 @@
 #include "Sprite.h"
 #include "DrawDebug.h"
 #include "AnimationManager.h"
-
-#include "FirstScene.h"
+#include "SceneManager.h"
 
 class Game {
 private:
@@ -23,8 +22,9 @@ private:
 	pTexture _texture;
 	pSprite _sprite;
 	pAnimationManager _animationManager;
+	pSceneManager _sceneManager;
 
-	FirstScene _firstScene;
+	int _indexScene;
 
 public:
 	static pGraphic _hWindow;

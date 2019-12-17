@@ -460,6 +460,10 @@ enum eIdSprite
 	COIN_09,
 #pragma endregion
 
+#pragma region LIFE 1410
+	LIFE_01 = 1410,
+#pragma endregion
+
 #pragma region ALADDIN || 2000
 
 	ALADDIN_IDLE_1_01 = 2000,
@@ -720,6 +724,8 @@ enum eIdAnimation
 
 	COIN_COLLECTION,
 	COIN_VISIBLE,
+
+	LIFE_COLLECTION,
 
 
 };

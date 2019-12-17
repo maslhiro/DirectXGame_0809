@@ -1,19 +1,19 @@
-#include "CoinHud.h"
+#include "LifeHud.h"
 
-CoinHud::CoinHud() : GameObject()
+LifeHud::LifeHud() : GameObject()
 {
-	_posWorld = Vec3(400, 460, 0);
+	_posWorld = Vec3(40, 460, 0);
 	_scale = Vec2(2.f, 2.f);
-	_numCoin = NUM_COIN_DEFAULT;
+	_numLife = NUM_LIFE_DEFAULT;
 }
 
-CoinHud::~CoinHud()
+LifeHud::~LifeHud()
 {
 }
 
-void CoinHud::loadResource()
+void LifeHud::loadResource()
 {
-	_listAnimation[99] = AnimationManager::getInstance()->get(eIdAnimation::COIN_COLLECTION);
+	_listAnimation[99] = AnimationManager::getInstance()->get(eIdAnimation::LIFE_COLLECTION);
 
 	_listAnimation[0] = AnimationManager::getInstance()->get(eIdAnimation::TEXT_COLLECTION_00);
 	_listAnimation[1] = AnimationManager::getInstance()->get(eIdAnimation::TEXT_COLLECTION_01);
@@ -28,16 +28,16 @@ void CoinHud::loadResource()
 
 	this->setState(99);
 
-	_cha01 = _listAnimation[_numCoin / 10];
-	_cha02 = _listAnimation[_numCoin % 10];
+	_cha01 = _listAnimation[_numLife / 10];
+	_cha02 = _listAnimation[_numLife % 10];
 
 }
 
-void CoinHud::setNumCoin(int val)
+void LifeHud::setNumLife(int val)
 {
-	if (val == _numCoin) return;
+	if (val == _numLife) return;
 
-	_numCoin = val;
+	_numLife = val;
 	if (val <= 0)
 	{
 		_cha01 = _listAnimation[0];
@@ -45,32 +45,32 @@ void CoinHud::setNumCoin(int val)
 	}
 	else
 	{
-		_cha01 = _listAnimation[_numCoin / 10];
-		_cha02 = _listAnimation[_numCoin % 10];
+		_cha01 = _listAnimation[_numLife / 10];
+		_cha02 = _listAnimation[_numLife % 10];
 	}
 
 
 }
 
-void CoinHud::render()
+void LifeHud::render()
 {
 	_curAnimation.setPosition(_posWorld);
 	//_curAnimation.setDrawingBound(true);
 	_curAnimation.setScale(_scale);
 	_curAnimation.render(_device, _texture);
 
-	_cha01.setPosition(_posWorld + Vec3(40, 0, 0));
+	_cha01.setPosition(_posWorld + Vec3(40, 10, 0));
 	_cha01.setScale(Vec2(1.5f, 1.5f));
 	_cha01.render(_device, _texture);
 
-	_cha02.setPosition(_posWorld + Vec3(60, 0, 0));
+	_cha02.setPosition(_posWorld + Vec3(60, 10, 0));
 	_cha02.setScale(Vec2(1.5f, 1.5f));
 	_cha02.render(_device, _texture);
 
 
 }
 
-void CoinHud::update(float dt)
+void LifeHud::update(float dt)
 {
 	_curAnimation.update(dt);
 }

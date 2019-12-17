@@ -9,6 +9,7 @@ FirstScene::FirstScene()
 	_hud = new HeathHud();
 	_hudApple = new AppleHud();
 	_hudCoin = new CoinHud();
+	_hudLife = new LifeHud();
 }
 
 
@@ -64,6 +65,7 @@ void FirstScene::loadResource()
 	_hud->loadResource();
 	_hudApple->loadResource();
 	_hudCoin->loadResource();
+	_hudLife->loadResource();
 }
 
 void FirstScene::update(float dt)
@@ -80,8 +82,11 @@ void FirstScene::update(float dt)
 	_hudApple->setNumApple(_player->getNumApple());
 	_hudApple->update(dt);
 
-	//_hudCoin->setNumApple(_player->getNumApple());
+	_hudCoin->setNumCoin(_player->getNumCoin());
 	_hudCoin->update(dt);
+
+	_hudLife->setNumLife(_player->getNumLife());
+	_hudLife->update(dt);
 }
 
 void FirstScene::render()
@@ -95,6 +100,7 @@ void FirstScene::render()
 	_hud->render();
 	_hudApple->render();
 	_hudCoin->render();
+	_hudLife->render();
 }
 
 void FirstScene::handlerInput(float dt)
