@@ -52,15 +52,17 @@
 #define KEY_J 0x4A
 // throw
 #define KEY_K 0x4B
+// buy
+#define KEY_F 0x46
 
 // Chuyen tu stand => wait
 #define WAIT_TIME_ALADDIN 500.f
 
-#define FLASH_TIME_ALADDIN 1.5f
+#define FLASH_TIME_ALADDIN 0.5f
 
 #define NUM_APPLE_DEFAULT 10
 
-#define NUM_COIN_DEFAULT 5
+#define NUM_COIN_DEFAULT 15
 
 #define NUM_LIFE_DEFAULT 3
 

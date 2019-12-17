@@ -1061,6 +1061,197 @@ void AnimationManager::load() {
 
 #pragma endregion
 
+#pragma region TEXT PEDDLER
+	Animation _text01;
+	_text01.setTimePerFrame(1.0f);
+	_text01.setIsLoop(false);
+	_text01.addSprite(eIdSprite::CHAR_01);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_01] = _text01;
+
+	Animation _text02;
+	_text02.setTimePerFrame(1.0f);
+	_text02.setIsLoop(false);
+	_text02.addSprite(eIdSprite::CHAR_02);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_02] = _text02;
+
+	Animation _text03;
+	_text03.setTimePerFrame(1.0f);
+	_text03.setIsLoop(false);
+	_text03.addSprite(eIdSprite::CHAR_03);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_03] = _text03;
+
+	Animation _text04;
+	_text04.setTimePerFrame(1.0f);
+	_text04.setIsLoop(false);
+	_text04.addSprite(eIdSprite::CHAR_04);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_04] = _text04;
+
+	Animation _text05;
+	_text05.setTimePerFrame(1.0f);
+	_text05.setIsLoop(false);
+	_text05.addSprite(eIdSprite::CHAR_05);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_05] = _text05;
+
+	Animation _text06;
+	_text06.setTimePerFrame(1.0f);
+	_text06.setIsLoop(false);
+	_text06.addSprite(eIdSprite::CHAR_06);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_06] = _text06;
+
+	Animation _text07;
+	_text07.setTimePerFrame(1.0f);
+	_text07.setIsLoop(false);
+	_text07.addSprite(eIdSprite::CHAR_07);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_07] = _text07;
+
+	Animation _text08;
+	_text08.setTimePerFrame(1.0f);
+	_text08.setIsLoop(false);
+	_text08.addSprite(eIdSprite::CHAR_08);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_08] = _text08;
+
+	Animation _text09;
+	_text09.setTimePerFrame(1.0f);
+	_text09.setIsLoop(false);
+	_text09.addSprite(eIdSprite::CHAR_09);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_09] = _text09;
+
+	Animation _text10;
+	_text10.setTimePerFrame(1.0f);
+	_text10.setIsLoop(false);
+	_text10.addSprite(eIdSprite::CHAR_10);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_10] = _text10;
+
+	Animation _text11;
+	_text11.setTimePerFrame(1.0f);
+	_text11.setIsLoop(false);
+	_text11.addSprite(eIdSprite::CHAR_11);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_11] = _text11;
+
+	Animation _text12;
+	_text12.setTimePerFrame(1.0f);
+	_text12.setIsLoop(false);
+	_text12.addSprite(eIdSprite::CHAR_12);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_12] = _text12;
+
+	Animation _text13;
+	_text13.setTimePerFrame(1.0f);
+	_text13.setIsLoop(false);
+	_text13.addSprite(eIdSprite::CHAR_13);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_13] = _text13;
+
+	Animation _text14;
+	_text14.setTimePerFrame(1.0f);
+	_text14.setIsLoop(false);
+	_text14.addSprite(eIdSprite::CHAR_14);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_14] = _text14;
+
+	Animation _text15;
+	_text15.setTimePerFrame(1.0f);
+	_text15.setIsLoop(false);
+	_text15.addSprite(eIdSprite::CHAR_15);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_15] = _text15;
+
+	Animation _text16;
+	_text16.setTimePerFrame(1.0f);
+	_text16.setIsLoop(false);
+	_text16.addSprite(eIdSprite::CHAR_16);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_16] = _text16;
+
+	Animation _text17;
+	_text17.setTimePerFrame(1.0f);
+	_text17.setIsLoop(false);
+	_text17.addSprite(eIdSprite::CHAR_17);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_17] = _text17;
+
+	Animation _text18;
+	_text18.setTimePerFrame(1.0f);
+	_text18.setIsLoop(false);
+	_text18.addSprite(eIdSprite::CHAR_18);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_18] = _text18;
+
+	Animation _text19;
+	_text19.setTimePerFrame(1.0f);
+	_text19.setIsLoop(false);
+	_text19.addSprite(eIdSprite::CHAR_19);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_19] = _text19;
+
+	Animation _text20;
+	_text20.setTimePerFrame(1.0f);
+	_text20.setIsLoop(false);
+	_text20.addSprite(eIdSprite::CHAR_20);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_20] = _text20;
+
+	Animation _text21;
+	_text21.setTimePerFrame(1.0f);
+	_text21.setIsLoop(false);
+	_text21.addSprite(eIdSprite::CHAR_21);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_21] = _text21;
+
+	Animation _text22;
+	_text22.setTimePerFrame(1.0f);
+	_text22.setIsLoop(false);
+	_text22.addSprite(eIdSprite::CHAR_22);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_22] = _text22;
+
+	Animation _text23;
+	_text23.setTimePerFrame(1.0f);
+	_text23.setIsLoop(false);
+	_text23.addSprite(eIdSprite::CHAR_23);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_23] = _text23;
+
+	Animation _text24;
+	_text24.setTimePerFrame(1.0f);
+	_text24.setIsLoop(false);
+	_text24.addSprite(eIdSprite::CHAR_24);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_24] = _text24;
+
+	Animation _text25;
+	_text25.setTimePerFrame(1.0f);
+	_text25.setIsLoop(false);
+	_text25.addSprite(eIdSprite::CHAR_25);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_25] = _text25;
+
+	Animation _text26;
+	_text26.setTimePerFrame(1.0f);
+	_text26.setIsLoop(false);
+	_text26.addSprite(eIdSprite::CHAR_26);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_26] = _text26;
+
+	Animation _text27;
+	_text27.setTimePerFrame(1.0f);
+	_text27.setIsLoop(false);
+	_text27.addSprite(eIdSprite::CHAR_27);
+
+	_listAnimation[eIdAnimation::TEXT_PEDDLER_27] = _text27;
+#pragma endregion
+
 }
 
 pAnimationManager AnimationManager::getInstance() {

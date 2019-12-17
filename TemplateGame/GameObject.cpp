@@ -4,7 +4,6 @@ RECT GameObject::getBoundingBox()
 {
 	if (_isStaticObj == false) {
 		if (_listAnimation.size() > 0) {
-
 			_curAnimation.setPosition(_posWorld);
 			RECT bounding = _curAnimation.getBounding();
 

@@ -54,6 +54,7 @@ private:
 	bool _isDamage;
 	bool _isAttack;
 	bool _checkClimb;
+	int _isBuy;
 
 	bool _canMoveRight;
 	bool _canMoveLeft;

@@ -91,7 +91,7 @@ void FixedGrid::load(const char* filePath)
 			{
 			case eIdObject::APPLE:
 			{
-				_obj = new Coin();
+				_obj = new Apple();
 				break;
 			}
 			case eIdObject::COIN:

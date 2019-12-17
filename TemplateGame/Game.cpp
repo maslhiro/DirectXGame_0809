@@ -192,7 +192,6 @@ int Game::render()
 int Game::update(float dt)
 {
 	//_test.update(dt);
-	//_test.update(dt);
 	_sceneManager->get(_indexScene)->handlerInput(dt);
 
 	_sceneManager->get(_indexScene)->update(dt);

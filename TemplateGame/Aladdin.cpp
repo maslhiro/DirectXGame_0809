@@ -27,6 +27,7 @@ Aladdin::Aladdin() : GameObject()
 	_isJump = false;
 	_idGroundObj = 0;
 	_isSit = false;
+	_isBuy = 0;
 	_distanceJump = 0.f;
 	_moveDirection = 0;
 	_indexApple = 0;
@@ -194,6 +195,7 @@ void Aladdin::update(float dt)
 			_flashTime = 0.f;
 		}
 	}
+
 	if ((_state & eIdState::CLIMB) == eIdState::CLIMB)
 	{
 		if (_isClimb != 0)
@@ -643,26 +645,25 @@ void Aladdin::update(float dt)
 			//_RPT1(0, "[ID OBJ] %d \n", objID);
 			bool check = this->checkCollision(obj->getCurrentBoudingBox());
 
-			if (
-				check &&
-				(
-				(obj->getCurrentFrame() < 14 && obj->getCurrentFrame() > 12 && obj->getIdType() == eIdObject::WRECKING_BALL) ||
-					(obj->getCurrentFrame() < 6 && obj->getCurrentFrame() > 4 && obj->getIdType() == eIdObject::SPIKE))
-				&& ((_state & eIdState::DAMAGE) != eIdState::DAMAGE) && !_isFlash)
+			if (check && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE) && !_isFlash)
 			{
-				_numBlood -= DAMAGE_ENERMY;
-
-				if (_state == eIdState::STAND)
+				if (obj->getCurrentFrame() < 14 && obj->getCurrentFrame() > 12 && obj->getIdType() == eIdObject::WRECKING_BALL ||
+					(obj->getCurrentFrame() < 6 && obj->getCurrentFrame() > 4 && obj->getIdType() == eIdObject::SPIKE))
 				{
+					_numBlood -= DAMAGE_ENERMY;
 
-					this->fixPosAnimation(eIdState::DAMAGE);
-					_curAnimation = _listAnimation[eIdState::DAMAGE];
-					_state |= eIdState::DAMAGE;
-					_isFlash = false;
-				}
-				else
-				{
-					_isFlash = true;
+					if (_state == eIdState::STAND)
+					{
+
+						this->fixPosAnimation(eIdState::DAMAGE);
+						_curAnimation = _listAnimation[eIdState::DAMAGE];
+						_state |= eIdState::DAMAGE;
+						_isFlash = false;
+					}
+					else
+					{
+						_isFlash = true;
+					}
 				}
 			}
 		}
@@ -783,10 +784,44 @@ void Aladdin::update(float dt)
 		{
 			pPeddler pe = dynamic_cast<pPeddler>(obj);
 			pe->setPosPlayer(_posWorld);
+
+			bool check = this->checkCollision(obj->getCurrentBoudingBox());
+
+			if (check && _isBuy == 1 && (_state & eIdState::STAND) == eIdState::STAND)
+			{
+				if (_posWorld.x < pe->getPosWorld().x - 50)
+				{
+					_RPT0(0, "BUY LEFT\n");
+					if (_numCoin >= 5)
+					{
+						pe->buySuccess();
+						_numCoin -= 5;
+						_numLife += 1;
+					}
+					else
+					{
+						pe->buyFail();
+					}
+				}
+				else if (_posWorld.x >= pe->getPosWorld().x - 50 && _posWorld.x <= pe->getPosWorld().x)
+				{
+					if (_numCoin >= 10)
+					{
+						pe->buySuccess();
+						_numCoin -= 10;
+						int randomLife = rand() % 3 + 1;
+						_numLife += randomLife;
+					}
+					else
+					{
+						pe->buyFail();
+					}
+				}
+				_isBuy += 1;
+			}
 		}
 
 	}
-
 updateAni:
 	_curAnimation.setIsAnimated(_isAnimated);
 
@@ -825,6 +860,7 @@ void Aladdin::handlerInput(float dt)
 
 			_moveDirection = -1;
 			_waitTime = 0.f;
+			_isBuy = 0;
 			_isFlip = true;
 			this->fixPosAnimation(eIdState::RUN);
 			this->setState(eIdState::RUN);
@@ -834,6 +870,7 @@ void Aladdin::handlerInput(float dt)
 		{
 			_moveDirection = 1;
 			_waitTime = 0.f;
+			_isBuy = 0;
 			_isFlip = false;
 			this->fixPosAnimation(eIdState::RUN);
 			this->setState(eIdState::RUN);
@@ -844,12 +881,14 @@ void Aladdin::handlerInput(float dt)
 			_waitTime = 0.f;
 			_isRunJump = false;
 			_isJump = true;
+			_isBuy = 0;
 			_isClimbJump = false;
 			this->setState(eIdState::JUMP);
 			this->setDx(0.f);
 			this->setDy(-_gravity);
 		}
 		else if (_input->getMapKey()[KEY_H]) {
+			_isBuy = 0;
 			_waitTime = 0.f;
 			this->fixPosAnimation(eIdState::ATTACK);
 			this->setState(eIdState::ATTACK);
@@ -858,11 +897,12 @@ void Aladdin::handlerInput(float dt)
 		}
 		else if (_input->getMapKey()[KEY_S]) {
 			_waitTime = 0.f;
+			_isBuy = 0;
 			this->fixPosAnimation(eIdState::SIT);
 			this->setState(eIdState::SIT);
 		}
 		else if (_input->getMapKey()[KEY_K]) {
-
+			_isBuy = 0;
 			_waitTime = 0.f;
 			_indexApple += 1;
 
@@ -870,7 +910,12 @@ void Aladdin::handlerInput(float dt)
 			this->setState(eIdState::THROW);
 			_RPT0(0, "[THROW]\n");
 		}
+		else if (_input->getMapKey()[KEY_F] && !_isBuy) {
+			_isBuy = 1;
 
+			_RPT1(0, "[BUY] %d \n", _isBuy);
+
+		}
 		// Khong co su kien phim nao 
 		// Update waitTime
 		else {
