@@ -13,6 +13,7 @@
 
 #include "FirstScene.h"
 #include "DyingScene.h"
+#include "BossScene.h"
 
 class Game {
 private:

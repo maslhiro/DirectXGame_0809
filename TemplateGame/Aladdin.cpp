@@ -821,6 +821,7 @@ void Aladdin::update(float dt)
 			for (size_t j = 0; j < listBone.size(); j++)
 			{
 				if (listBone[j]->getIsTerminated()) continue;
+				if (listBone[j]->getState() == eIdState::EXPLODE) continue;
 
 				bool check = this->checkCollision(listBone[j]->getCurrentBoudingBox());
 				if (check  && listBone[j]->getState() != eIdState::EXPLODE)

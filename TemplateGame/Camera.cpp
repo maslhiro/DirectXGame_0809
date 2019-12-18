@@ -8,6 +8,9 @@ Camera::Camera()
 	_mapWidth = 0;
 	_mapHeight = 0;
 
+	_distanceX = DISTANCE_X;
+	_distanceY = DISTANCE_Y;
+
 	_speedX = _speedY = 140.f;
 
 	_isMovingHorizontal = _isMovingVertical = false;
@@ -94,6 +97,12 @@ int Camera::getMapHeight()
 	return _mapHeight;
 }
 
+void Camera::setDistance(float x, float y)
+{
+	_distanceX = x;
+	_distanceY = y;
+}
+
 void Camera::setSizeMap(int _mW, int _mH)
 {
 	_mapWidth = _mW;
@@ -128,14 +137,14 @@ void Camera::update(float dt)
 			//_RPT1(0, "[ CAM ] CUR %f\n", _positionWorld.x);
 			//_RPT0(0, "==================================\n");
 
-			if (abs(_nextPosWorld.x - _positionWorld.x) <= DISTANCE_X)
+			if (abs(_nextPosWorld.x - _positionWorld.x) <= _distanceX)
 			{
 				_isMovingHorizontal = false;
 				//_RPT1(0, "== [ CAM ] == MOVING DONE %f\n", _nextPosWorld.x);
 				_nextPosWorld.x = _positionWorld.x;
 			}
 		}
-		else if (abs(_nextPosWorld.x - _positionWorld.x) > DISTANCE_X)
+		else if (abs(_nextPosWorld.x - _positionWorld.x) > _distanceX)
 		{
 			_isMovingHorizontal = true;
 		}
@@ -160,14 +169,14 @@ void Camera::update(float dt)
 			//_RPT1(0, "[ CAM ] CUR %f\n", _positionWorld.x);
 			//_RPT0(0, "==================================\n");
 
-			if (abs(_nextPosWorld.y - _positionWorld.y) <= DISTANCE_Y)
+			if (abs(_nextPosWorld.y - _positionWorld.y) <= _distanceY)
 			{
 				_isMovingVertical = false;
 				//_RPT1(0, "== [ CAM ] == MOVING DONE %f\n", _nextPosWorld.x);
 				_nextPosWorld.y = _positionWorld.y;
 			}
 		}
-		else if (abs(_nextPosWorld.y - _positionWorld.y) > DISTANCE_Y)
+		else if (abs(_nextPosWorld.y - _positionWorld.y) > _distanceY)
 		{
 			_isMovingVertical = true;
 		}

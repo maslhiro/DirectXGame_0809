@@ -25,8 +25,10 @@ void Game::loadResource()
 {
 #pragma region Load Texture
 	// Map
-	_texture->add(eIdTexture::SCENE_DUNGEON_TEX, L"Resource//Map//map.png", D3DCOLOR_XRGB(255, 255, 255));
-	_texture->add(eIdTexture::SCENE_ABOVE_TEX, L"Resource//Map//map_above.png", D3DCOLOR_XRGB(163, 73, 164));
+	_texture->add(eIdTexture::SCENE_DUNGEON_TEX, L"Resource//Map//Dungeon//map.png", D3DCOLOR_XRGB(255, 255, 255));
+	_texture->add(eIdTexture::SCENE_BOSS_TEX, L"Resource//Map//Boss//map.png", D3DCOLOR_XRGB(255, 255, 255));
+	_texture->add(eIdTexture::SCENE_ABOVE_DUNG_TEX, L"Resource//Map//Dungeon//map_above.png", D3DCOLOR_XRGB(163, 73, 164));
+	_texture->add(eIdTexture::SCENE_ABOVE_BOSS_TEX, L"Resource//Map//Boss//map_above.png", D3DCOLOR_XRGB(255, 255, 255));
 
 	// Bounding box
 	_texture->add(eIdTexture::BOX_RED_TEX, L"Resource//Object//Box_Red.png", D3DCOLOR_XRGB(255, 255, 255));
@@ -71,6 +73,10 @@ void Game::loadResource()
 	_dying->loadResource();
 	_sceneManager->add(1, _dying);
 
+	pScene _boss = new BossScene();
+	_boss->init();
+	_boss->loadResource();
+	_sceneManager->add(2, _boss);
 	//_test = _animationManager->get(eIdAnimation::PEDDLER_SELL);
 	//_test.setPosition(Vec3(300, 300, 0));
 	//_test.setIsLoop(true);

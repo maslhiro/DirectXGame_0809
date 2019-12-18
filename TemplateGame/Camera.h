@@ -27,6 +27,8 @@ public:
 	int getMapWidth();
 	int getMapHeight();
 
+	void setDistance(float, float);
+
 	void setSizeMap(int, int);
 
 	void update(float);
@@ -58,6 +60,9 @@ private:
 
 	int _mapWidth;
 	int _mapHeight;
+
+	float _distanceX;
+	float _distanceY;
 
 };
 
