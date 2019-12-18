@@ -19,8 +19,11 @@ private:
 	int _numApple;
 	int _numCoin;
 	int _numLife;
+	int _numScore;
 
 	int _indexApple;
+
+#pragma region Bool Check
 
 	// Xet huong di chuyen
 	// 1 -> right
@@ -69,6 +72,8 @@ private:
 
 	int _numBlood;
 
+#pragma endregion
+
 public:
 	Aladdin();
 
@@ -84,6 +89,8 @@ public:
 	int getNumCoin();
 
 	int getNumLife();
+
+	int getNumScore();
 
 	void setGrid(pFixedGrid);
 

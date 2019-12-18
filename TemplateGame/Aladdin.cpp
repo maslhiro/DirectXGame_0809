@@ -8,6 +8,7 @@ Aladdin::Aladdin() : GameObject()
 	_numCoin = NUM_COIN_DEFAULT;
 	_numApple = NUM_APPLE_DEFAULT;
 	_numLife = NUM_LIFE_DEFAULT;
+	_numScore = 100;
 
 	_grid = nullptr;
 	_camera = nullptr;
@@ -68,6 +69,11 @@ int Aladdin::getNumCoin()
 int Aladdin::getNumLife()
 {
 	return _numLife;
+}
+
+int Aladdin::getNumScore()
+{
+	return _numScore;
 }
 
 void Aladdin::setGrid(pFixedGrid grid)
@@ -390,7 +396,7 @@ void Aladdin::update(float dt)
 			{
 				//_RPT0(0, "==================================\n");
 
-				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && !_isFall && !_isClimbJump)
+				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && !_isFall && !_isClimbJump && !_isJump)
 				{
 					_RPT0(0, "[CHECK Collision] TRUE \n");
 					this->setIsAnimated(true);
@@ -626,6 +632,7 @@ void Aladdin::update(float dt)
 
 		if (obj->getIdType() == eIdObject::APPLE ||
 			obj->getIdType() == eIdObject::GENIE_HEAD ||
+			obj->getIdType() == eIdObject::EXTRA_HEALTH ||
 			obj->getIdType() == eIdObject::COIN)
 		{
 			//int objID = obj->getId();
@@ -636,8 +643,14 @@ void Aladdin::update(float dt)
 				{
 					obj->setState(eIdState::EXPLODE);
 					if (obj->getIdType() == eIdObject::APPLE) _numApple += 1;
-					if (obj->getIdType() == eIdObject::COIN) _numCoin += 1;
-					//obj->setIsTerminated(true);
+					else if (obj->getIdType() == eIdObject::EXTRA_HEALTH) _numBlood = BLOOD_ALADDIN;
+					else if (obj->getIdType() == eIdObject::COIN) {
+						_numCoin += 1;
+						_numScore += SCORE_COIN;
+					}
+					else if (obj->getIdType() == eIdObject::GENIE_HEAD) {
+						_numScore += SCORE_GENIE_HEAD;
+					}
 				}
 			}
 		}
@@ -680,7 +693,7 @@ void Aladdin::update(float dt)
 		{
 			pNahbi na = dynamic_cast<pNahbi>(obj);
 
-			na->setPosXPlayer(_posWorld.x);
+			na->setPosPlayer(_posWorld);
 
 			bool check = this->checkCollision(obj->getCurrentBoudingBox());
 
@@ -717,7 +730,7 @@ void Aladdin::update(float dt)
 		{
 			pFazal fa = dynamic_cast<pFazal>(obj);
 
-			fa->setPosXPlayer(_posWorld.x);
+			fa->setPosPlayer(_posWorld);
 
 			bool check = this->checkCollision(obj->getCurrentBoudingBox());
 
@@ -761,6 +774,7 @@ void Aladdin::update(float dt)
 			if (check && (_state & eIdState::ATTACK) == eIdState::ATTACK && _isAttack)
 			{
 				_isAttack = false;
+				bat->setIsAnimated(true);
 				bat->setState(eIdState::EXPLODE);
 			}
 			else if (check && ((_state & eIdState::ATTACK) != eIdState::ATTACK) && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE))
@@ -788,7 +802,6 @@ void Aladdin::update(float dt)
 			pSkeleton ke = dynamic_cast<pSkeleton>(obj);
 			ke->setPosPlayer(_posWorld);
 			ke->setListObj(listObj);
-
 			bool check = this->checkCollision(obj->getCurrentBoudingBox());
 			// Kiem tra khi alladin chem
 			if (check)
@@ -797,6 +810,7 @@ void Aladdin::update(float dt)
 				{
 
 					_isAttack = false;
+					ke->setIsAnimated(true);
 					ke->setState(eIdState::EXPLODE);
 				}
 			}

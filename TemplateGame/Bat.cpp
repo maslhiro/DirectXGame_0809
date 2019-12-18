@@ -49,7 +49,7 @@ void Bat::update(float dt)
 	if (_isTerminated) return;
 
 	if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE &&
-		abs(_posWorld.y - posPlayer.y) <= ATTACK_DISTANCE &&
+		abs(_posWorld.y - posPlayer.y) <= ATTACK_DISTANCE * 2 &&
 		!_isAnimated)
 	{
 		_isAnimated = true;

@@ -61,6 +61,7 @@ void Skeleton::update(float dt)
 
 	if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE && abs(_posWorld.y - posPlayer.y) <= ATTACK_DISTANCE)
 	{
+		_isFlip = _posWorld.x > posPlayer.x ? false : true;
 		_isAnimated = true;
 	}
 
@@ -73,10 +74,10 @@ void Skeleton::update(float dt)
 		if (_curAnimation.getLoopCount() > 0)
 		{
 			this->setState(99);
-			int i = -7;
+			int i = -10;
 
 			srand(time(NULL));
-			while (i < 8)
+			while (i < 11)
 			{
 				pBone bone = new Bone();
 				bone->setPositionWorld(_posWorld + Vec3(5 * i, 5 * i, 0));
@@ -87,10 +88,16 @@ void Skeleton::update(float dt)
 				int gravity = -30;
 
 				int a = rand() % 50 + 1;
+				int b = rand() % 2;
 
 				if (i == 0) bone->setGravity(gravity * 10);
-				else bone->setGravity(gravity * abs(i) * 2 + a - 20);
-
+				else {
+					if (b)
+					{
+						bone->setGravity(gravity / 2 * -(i) * 2 + a - 20);
+					}
+					else bone->setGravity(gravity / 2 * (i) * 2 + a - 20);
+				}
 				//int gravity = rand() % 200 + 1;
 				bone->loadResource();
 				_listBone.push_back(bone);
@@ -109,6 +116,7 @@ void Skeleton::update(float dt)
 		}
 	}
 
+	_curAnimation.setIsFlip(_isFlip);
 	_curAnimation.update(dt);
 }
 

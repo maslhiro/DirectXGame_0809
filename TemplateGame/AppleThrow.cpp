@@ -78,12 +78,16 @@ void AppleThrow::update(float dt)
 			id == eIdObject::WRECKING_BALL ||
 			id == eIdObject::SPIKE ||
 			id == eIdObject::ROCK ||
+			id == eIdObject::ROPE ||
+			id == eIdObject::COIN ||
+			id == eIdObject::SAVE_POINT ||
+			id == eIdObject::EXTRA_HEALTH ||
 			id == eIdObject::APPLE ||
 			id == eIdObject::STONE_COLUMN_2 ||
 			id == eIdObject::STONE_COLUMN_3 ||
 			id == eIdObject::STONE_COLUMN_4) continue;
 
-		bool check = this->checkCollision(_listGameObj[i]->getBoundingBox());
+		bool check = this->checkCollision(_listGameObj[i]->getCurrentBoudingBox());
 
 		if (check) {
 			if (id == eIdObject::NAHBI)
@@ -101,8 +105,14 @@ void AppleThrow::update(float dt)
 			else if (id == eIdObject::BAT)
 			{
 				pBat bat = dynamic_cast<pBat>(_listGameObj[i]);
-
+				bat->setIsAnimated(true);
 				bat->setState(eIdState::EXPLODE);
+			}
+			else if (id == eIdObject::SKELETON)
+			{
+				pSkeleton ke = dynamic_cast<pSkeleton>(_listGameObj[i]);
+				ke->setIsAnimated(true);
+				ke->setState(eIdState::EXPLODE);
 			}
 
 

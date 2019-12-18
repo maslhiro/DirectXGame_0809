@@ -154,6 +154,11 @@ void FixedGrid::load(const char* filePath)
 				_obj = new WreckingBall();
 				break;
 			}
+			case eIdObject::EXIT_DOOR:
+			{
+				_obj = new ExitDoor();
+				break;
+			}
 			case eIdObject::STONE_COLUMN_1:
 			{
 				_obj = new StoneColumn_1();

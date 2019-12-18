@@ -37,7 +37,7 @@ void Spike::update(float dt)
 		_isAnimated = false;
 	}
 
-	if (_waitTime >= WAIT_TIME_SPIKE && _isAnimated == false)
+	if (_waitTime >= WAIT_TIME_SPIKE)
 	{
 		_waitTime = 0.f;
 		_isAnimated = true;

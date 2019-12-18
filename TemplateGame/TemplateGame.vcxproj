@@ -137,6 +137,7 @@
     <ClCompile Include="Column.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
     <ClCompile Include="DyingScene.cpp" />
+    <ClCompile Include="ExitDoor.cpp" />
     <ClCompile Include="ExtraHealth.cpp" />
     <ClCompile Include="Fazal.cpp" />
     <ClCompile Include="FirstScene.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="SavePoint.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ScoreHud.cpp" />
     <ClCompile Include="Skeleton.cpp" />
     <ClCompile Include="Spike.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -189,6 +191,7 @@
     <ClInclude Include="Column.h" />
     <ClInclude Include="DrawDebug.h" />
     <ClInclude Include="DyingScene.h" />
+    <ClInclude Include="ExitDoor.h" />
     <ClInclude Include="ExtraHealth.h" />
     <ClInclude Include="Fazal.h" />
     <ClInclude Include="FirstScene.h" />
@@ -214,6 +217,7 @@
     <ClInclude Include="SavePoint.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ScoreHud.h" />
     <ClInclude Include="Skeleton.h" />
     <ClInclude Include="Spike.h" />
     <ClInclude Include="Sprite.h" />

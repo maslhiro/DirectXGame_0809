@@ -2,13 +2,13 @@
 
 ExtraHealth::ExtraHealth() : GameObject()
 {
-	_idType = eIdObject::APPLE;
+	_idType = eIdObject::EXTRA_HEALTH;
 	_isTerminated = false;
 }
 
 ExtraHealth::ExtraHealth(int id) : GameObject(id)
 {
-	_idType = eIdObject::APPLE;
+	_idType = eIdObject::EXTRA_HEALTH;
 }
 
 void ExtraHealth::loadResource()

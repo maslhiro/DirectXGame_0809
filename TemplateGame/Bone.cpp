@@ -2,11 +2,12 @@
 
 Bone::Bone() : GameObject()
 {
-	_idType = eIdObject::BAT;
+	_idType = eIdObject::BONE;
 	_isTerminated = false;
 	_isAnimated = true;
 	_scale = Vec2(2.f, 2.f);
 	_gravity = 100.f;
+	_distance = 0.f;
 }
 
 Bone::Bone(int id) : GameObject(id)
@@ -55,27 +56,18 @@ void Bone::update(float dt)
 
 		_posWorld.y += _gravity * dt;
 
+
 		for (size_t i = 0; i < _listObj.size(); i++)
 		{
-			if (_listObj[i]->getIsTerminated()) continue;
+			if (_listObj[i]->getIdType() != eIdObject::COLUMN) continue;
 
-			bool check = this->checkCollision(_listObj[i]->getBoundingBox());
+			bool check = checkCollision(_listObj[i]->getBoundingBox());
 
-			int id = _listObj[i]->getIdType();
-			if (id == eIdObject::STONE_COLUMN_1
-				|| id == eIdObject::STONE_COLUMN_2
-				|| id == eIdObject::STONE_COLUMN_3
-				|| id == eIdObject::STONE_COLUMN_4
-				|| id == eIdObject::ROCK
-				|| id == eIdObject::APPLE
-				|| id == eIdObject::ROPE
-				|| id == eIdObject::GENIE_HEAD) continue;
-			if (check) {
+			if (check)
+			{
 				this->setState(eIdState::EXPLODE);
-				goto updateAni;
 			}
 		}
-
 	}
 
 updateAni:

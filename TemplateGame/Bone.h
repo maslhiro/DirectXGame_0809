@@ -7,7 +7,7 @@ class Bone :
 private:
 
 	std::vector<pGameObject> _listObj;
-
+	float _distance;
 
 public:
 	Bone();

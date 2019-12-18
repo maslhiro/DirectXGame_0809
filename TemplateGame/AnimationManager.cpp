@@ -1350,6 +1350,89 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::TEXT_PEDDLER_27] = _text27;
 #pragma endregion
 
+#pragma region Exit door
+
+	Animation _exitDoor;
+	_exitDoor.setTimePerFrame(1.0f);
+	_exitDoor.setIsLoop(false);
+	_exitDoor.addSprite(eIdSprite::EXIT_DOOR_01);
+
+	_listAnimation[eIdAnimation::EXIT_DOOR_VISIBLE] = _exitDoor;
+
+#pragma endregion
+
+#pragma region TEXT SCORE
+	Animation _textScore00;
+	_textScore00.setTimePerFrame(1.0f);
+	_textScore00.setIsLoop(false);
+	_textScore00.addSprite(eIdSprite::TEXT_SCO_00);
+
+	_listAnimation[eIdAnimation::TEXT_SCORE_00] = _textScore00;
+
+	Animation _textScore01;
+	_textScore01.setTimePerFrame(1.0f);
+	_textScore01.setIsLoop(false);
+	_textScore01.addSprite(eIdSprite::TEXT_SCO_01);
+
+	_listAnimation[eIdAnimation::TEXT_SCORE_01] = _textScore01;
+
+	Animation _textScore02;
+	_textScore02.setTimePerFrame(1.0f);
+	_textScore02.setIsLoop(false);
+	_textScore02.addSprite(eIdSprite::TEXT_SCO_02);
+
+	_listAnimation[eIdAnimation::TEXT_SCORE_02] = _textScore02;
+
+	Animation _textScore03;
+	_textScore03.setTimePerFrame(1.0f);
+	_textScore03.setIsLoop(false);
+	_textScore03.addSprite(eIdSprite::TEXT_SCO_03);
+
+	_listAnimation[eIdAnimation::TEXT_SCORE_03] = _textScore03;
+
+	Animation _textScore04;
+	_textScore04.setTimePerFrame(1.0f);
+	_textScore04.setIsLoop(false);
+	_textScore04.addSprite(eIdSprite::TEXT_SCO_04);
+
+	_listAnimation[eIdAnimation::TEXT_SCORE_04] = _textScore04;
+
+	Animation _textScore05;
+	_textScore05.setTimePerFrame(1.0f);
+	_textScore05.setIsLoop(false);
+	_textScore05.addSprite(eIdSprite::TEXT_SCO_05);
+
+	_listAnimation[eIdAnimation::TEXT_SCORE_05] = _textScore05;
+
+	Animation _textScore06;
+	_textScore06.setTimePerFrame(1.0f);
+	_textScore06.setIsLoop(false);
+	_textScore06.addSprite(eIdSprite::TEXT_SCO_06);
+
+	_listAnimation[eIdAnimation::TEXT_SCORE_06] = _textScore06;
+
+	Animation _textScore07;
+	_textScore07.setTimePerFrame(1.0f);
+	_textScore07.setIsLoop(false);
+	_textScore07.addSprite(eIdSprite::TEXT_SCO_07);
+
+	_listAnimation[eIdAnimation::TEXT_SCORE_07] = _textScore07;
+
+	Animation _textScore08;
+	_textScore08.setTimePerFrame(1.0f);
+	_textScore08.setIsLoop(false);
+	_textScore08.addSprite(eIdSprite::TEXT_SCO_08);
+
+	_listAnimation[eIdAnimation::TEXT_SCORE_08] = _textScore08;
+
+	Animation _textScore09;
+	_textScore09.setTimePerFrame(1.0f);
+	_textScore09.setIsLoop(false);
+	_textScore09.addSprite(eIdSprite::TEXT_SCO_09);
+
+	_listAnimation[eIdAnimation::TEXT_SCORE_09] = _textScore09;
+#pragma endregion
+
 }
 
 pAnimationManager AnimationManager::getInstance() {

@@ -6,7 +6,7 @@ Fazal::Fazal() : GameObject()
 
 	_isAnimated = true;
 	_isTerminated = false;
-	_posX = 0.f;
+	posPlayer = Vec3();
 
 	_numBlood = BLOOD_FAZAL;
 
@@ -18,9 +18,9 @@ Fazal::Fazal(int id) : GameObject(id)
 	_idType = eIdObject::FAZAL;
 }
 
-void Fazal::setPosXPlayer(float val)
+void Fazal::setPosPlayer(Vec3 val)
 {
-	_posX = val;
+	posPlayer = val;
 }
 
 
@@ -73,7 +73,7 @@ void Fazal::update(float dt)
 		this->setState(eIdState::EXPLODE);
 	}
 
-	if (_posX < _posWorld.x)
+	if (posPlayer.x < _posWorld.x)
 	{
 		_isFlip = true;
 	}
@@ -82,12 +82,12 @@ void Fazal::update(float dt)
 	}
 	if (_state != eIdState::EXPLODE && _state != eIdState::DAMAGE)
 	{
-		if (abs(_posWorld.x - _posX) <= ATTACK_DISTANCE & _state != eIdState::ATTACK)
+		if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE & _state != eIdState::ATTACK && abs(_posWorld.y - posPlayer.y) <= 10)
 		{
 			this->fixPosAnimation(eIdState::ATTACK);
 			this->setState(eIdState::ATTACK);
 		}
-		else if (abs(_posWorld.x - _posX) > ATTACK_DISTANCE)
+		else if (abs(_posWorld.x - posPlayer.x) > ATTACK_DISTANCE)
 		{
 			this->fixPosAnimation(eIdState::STAND);
 			this->setState(eIdState::STAND);

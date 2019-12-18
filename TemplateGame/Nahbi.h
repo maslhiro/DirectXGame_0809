@@ -5,7 +5,7 @@ class Nahbi :
 	public GameObject
 {
 private:
-	float _posX;
+	Vec3 posPlayer;
 	float _waitTime;
 
 	// chi cho di qua trai va qua phai 1 lan 
@@ -21,7 +21,7 @@ public:
 	Nahbi();
 	Nahbi(int);
 
-	void setPosXPlayer(float);
+	void setPosPlayer(Vec3);
 
 	void loadResource();
 

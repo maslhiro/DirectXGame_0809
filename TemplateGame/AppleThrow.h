@@ -3,6 +3,7 @@
 #include "Nahbi.h"
 #include "Fazal.h"
 #include "Bat.h"
+#include "Skeleton.h"
 
 class AppleThrow :
 	public GameObject

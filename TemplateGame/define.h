@@ -67,14 +67,14 @@
 #define NUM_LIFE_DEFAULT 3
 
 // Thoi gian dung  
-#define WAIT_TIME_SPIKE 3.f
-#define WAIT_TIME_ROCK 7.f
+#define WAIT_TIME_SPIKE 0.5f
+#define WAIT_TIME_ROCK 5.f
 #define WAIT_TIME_NAHBI 5.f
 
 // Khoang cach de enermy di chuyen den khi aladdin den gan
 // Doi voi cac enermy di chuyen dc
 #define ATTACK_DISTANCE 150
-#define MOVE_DISTANCE 400
+#define MOVE_DISTANCE 250
 
 #define BLOOD_ALADDIN 80
 #define BLOOD_NAHBI 20
@@ -83,6 +83,9 @@
 #define ATTACK_DAMAGE_ALADDIN 10
 #define THROW_DAMAGE_ALADDIN 10
 #define DAMAGE_ENERMY 5
+
+#define SCORE_GENIE_HEAD 150
+#define SCORE_COIN 50
 
 typedef D3DXVECTOR3 Vec3;
 typedef D3DXVECTOR2 Vec2;

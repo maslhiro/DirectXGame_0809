@@ -280,7 +280,8 @@ void GameMap::render()
 			if (idType == eIdObject::STONE_COLUMN_1 ||
 				idType == eIdObject::STONE_COLUMN_2 ||
 				idType == eIdObject::STONE_COLUMN_3 ||
-				idType == eIdObject::STONE_COLUMN_4)
+				idType == eIdObject::STONE_COLUMN_4 ||
+				idType == eIdObject::EXIT_DOOR)
 			{
 				continue;
 			}
@@ -328,7 +329,8 @@ void GameMap::renderAbove()
 		if (idType == eIdObject::STONE_COLUMN_1 ||
 			idType == eIdObject::STONE_COLUMN_2 ||
 			idType == eIdObject::STONE_COLUMN_3 ||
-			idType == eIdObject::STONE_COLUMN_4)
+			idType == eIdObject::STONE_COLUMN_4 ||
+			idType == eIdObject::EXIT_DOOR)
 		{
 			listObj[i]->render();
 		}

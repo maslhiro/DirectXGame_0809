@@ -22,6 +22,7 @@
 #include "GenieHead.h"
 #include "Coin.h"
 #include "WreckingBall.h"
+#include "ExitDoor.h"
 #include "StoneColumn_1.h"
 #include "StoneColumn_2.h"
 #include "StoneColumn_3.h"

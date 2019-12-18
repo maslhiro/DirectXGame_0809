@@ -5,14 +5,14 @@ class Fazal :
 	public GameObject
 {
 private:
-	float _posX;
+	Vec3 posPlayer;
 
 	int _numBlood;
 public:
 	Fazal();
 	Fazal(int);
 
-	void setPosXPlayer(float);
+	void setPosPlayer(Vec3);
 
 	void loadResource();
 

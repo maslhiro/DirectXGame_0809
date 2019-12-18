@@ -226,7 +226,13 @@
       <Filter>Source Files\Object\Item</Filter>
     </ClCompile>
     <ClCompile Include="ExtraHealth.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ExitDoor.cpp">
+      <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreHud.cpp">
+      <Filter>Source Files\Hud</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -379,6 +385,12 @@
     </ClInclude>
     <ClInclude Include="ExtraHealth.h">
       <Filter>Header Files\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ExitDoor.h">
+      <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreHud.h">
+      <Filter>Header Files\Hud</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

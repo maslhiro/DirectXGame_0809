@@ -6,7 +6,7 @@ Nahbi::Nahbi() : GameObject()
 
 	_isAnimated = true;
 	_isTerminated = false;
-	_posX = 0.f;
+	posPlayer = Vec3();
 
 	_waitTime = 0.f;
 
@@ -24,9 +24,9 @@ Nahbi::Nahbi(int id) : GameObject(id)
 	_idType = eIdObject::NAHBI;
 }
 
-void Nahbi::setPosXPlayer(float val)
+void Nahbi::setPosPlayer(Vec3 val)
 {
-	_posX = val;
+	posPlayer = val;
 }
 
 
@@ -86,7 +86,7 @@ void Nahbi::update(float dt)
 		if (_state == eIdState::STAND || _state == eIdState::WAIT_01)
 		{
 			// Kiem tra phia aladdin so voi obj
-			if (_posX < _posWorld.x)
+			if (posPlayer.x < _posWorld.x)
 			{
 				_isFlip = true;
 			}
@@ -114,23 +114,25 @@ void Nahbi::update(float dt)
 			}
 			//_RPT1(0, "[NAHBI] %f \n", (abs(_posWorld.x - _posX)));
 			// Kiem tra khaong cach hien tai
-			if ((abs(_posWorld.x - _posX) <= MOVE_DISTANCE) && (abs(_posWorld.x - _posX) >= ATTACK_DISTANCE))
+			if ((abs(_posWorld.x - posPlayer.x) <= MOVE_DISTANCE) &&
+				(abs(_posWorld.y - posPlayer.y) <= 10) &&
+				(abs(_posWorld.x - posPlayer.x) >= ATTACK_DISTANCE))
 			{
 
-				if (_posX < _posWorld.x && !_isMovedLeft)
+				if (posPlayer.x < _posWorld.x && !_isMovedLeft)
 				{
 					this->setState(eIdState::RUN);
 					_isMovedLeft = true;
 					this->setDx(-_speed);
 				}
-				else if (_posX > _posWorld.x && !_isMovedRight)
+				else if (posPlayer.x > _posWorld.x && !_isMovedRight)
 				{
 					this->setState(eIdState::RUN);
 					_isMovedRight = true;
 					this->setDx(_speed);
 				}
 			}
-			else if (abs(_posWorld.x - _posX) < ATTACK_DISTANCE)
+			else if (abs(_posWorld.x - posPlayer.x) < ATTACK_DISTANCE && abs(_posWorld.y - posPlayer.y) < 10)
 			{
 				this->setState(eIdState::ATTACK);
 			}
@@ -151,7 +153,7 @@ void Nahbi::update(float dt)
 			_posWorld += Vec3(_dx*dt, 0, 0);
 			_distanceMove += abs(_dx*dt);
 
-			if (_posX < _posWorld.x)
+			if (posPlayer.x < _posWorld.x)
 			{
 				if (!_isFlip)
 				{

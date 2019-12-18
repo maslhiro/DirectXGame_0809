@@ -108,7 +108,7 @@ void Camera::update(float dt)
 	// Check cam có đang ở 4 cạnh của map ko ?
 
 	// do map  t cat bi du -_- 1 khoang nên mới có cái distance này bù vào
-	float distance_ = 60.;
+	float distance_ = 20.;
 
 	if ((_nextPosWorld.x > _width / 2. + distance_) && (_nextPosWorld.x < (_mapWidth - _width / 2 - distance_)))
 	{
