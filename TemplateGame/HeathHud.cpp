@@ -12,17 +12,18 @@ HeathHud::~HeathHud()
 
 void HeathHud::loadResource()
 {
-	_listAnimation[80] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_01);
-	_listAnimation[70] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_02);
-	_listAnimation[60] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_03);
-	_listAnimation[50] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_04);
-	_listAnimation[40] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_05);
-	_listAnimation[30] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_06);
-	_listAnimation[20] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_07);
-	_listAnimation[10] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_08);
+	_listAnimation[8] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_01);
+	_listAnimation[7] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_02);
+	_listAnimation[6] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_03);
+	_listAnimation[5] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_04);
+	_listAnimation[4] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_05);
+	_listAnimation[3] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_06);
+	_listAnimation[2] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_07);
+	_listAnimation[1] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_08);
 	_listAnimation[0] = AnimationManager::getInstance()->get(eIdAnimation::HEALTH_09);
 
-	this->setState(80);
+	_state = 80;
+	_curAnimation = _listAnimation[8];
 
 }
 
@@ -36,8 +37,10 @@ void HeathHud::setHealth(int val)
 		this->setState(0);
 	}
 	else {
-		this->fixPosAnimation(val);
-		this->setState(val);
+		this->fixPosAnimation(val / 10);
+		_state = val;
+		_curAnimation = _listAnimation[val / 10];
+
 	}
 }
 
