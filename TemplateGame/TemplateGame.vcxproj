@@ -137,6 +137,7 @@
     <ClCompile Include="Column.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
     <ClCompile Include="DyingScene.cpp" />
+    <ClCompile Include="ExtraHealth.cpp" />
     <ClCompile Include="Fazal.cpp" />
     <ClCompile Include="FirstScene.cpp" />
     <ClCompile Include="FixedGrid.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="RectSprite.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="Rope.cpp" />
+    <ClCompile Include="SavePoint.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Skeleton.cpp" />
@@ -187,6 +189,7 @@
     <ClInclude Include="Column.h" />
     <ClInclude Include="DrawDebug.h" />
     <ClInclude Include="DyingScene.h" />
+    <ClInclude Include="ExtraHealth.h" />
     <ClInclude Include="Fazal.h" />
     <ClInclude Include="FirstScene.h" />
     <ClInclude Include="FixedGrid.h" />
@@ -208,6 +211,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="Rope.h" />
+    <ClInclude Include="SavePoint.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Skeleton.h" />

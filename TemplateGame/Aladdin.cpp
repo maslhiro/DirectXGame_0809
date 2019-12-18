@@ -620,11 +620,13 @@ void Aladdin::update(float dt)
 	for (size_t i = 0; i < listObj.size(); i++)
 	{
 		auto obj = listObj[i];
+
 		if (obj->getIdType() == eIdObject::COLUMN || obj->getIdType() == eIdObject::GROUND) continue;
 		if (obj->getIsTerminated()) continue;
 
-		// Kiem tra va cham voi apple
-		if (obj->getIdType() == eIdObject::APPLE || obj->getIdType() == eIdObject::GENIE_HEAD || obj->getIdType() == eIdObject::COIN)
+		if (obj->getIdType() == eIdObject::APPLE ||
+			obj->getIdType() == eIdObject::GENIE_HEAD ||
+			obj->getIdType() == eIdObject::COIN)
 		{
 			//int objID = obj->getId();
 			//_RPT1(0, "[ID OBJ] %d \n", objID);
@@ -637,6 +639,13 @@ void Aladdin::update(float dt)
 					if (obj->getIdType() == eIdObject::COIN) _numCoin += 1;
 					//obj->setIsTerminated(true);
 				}
+			}
+		}
+		else if (obj->getIdType() == eIdObject::SAVE_POINT)
+		{
+			float check = this->checkCollision(obj->getBoundingBox());
+			if (check) {
+				obj->setIsAnimated(true);
 			}
 		}
 		else if (obj->getIdType() == eIdObject::WRECKING_BALL || obj->getIdType() == eIdObject::SPIKE)
@@ -745,7 +754,7 @@ void Aladdin::update(float dt)
 		{
 			pBat bat = dynamic_cast<pBat>(obj);
 
-			bat->setPosXPlayer(_posWorld);
+			bat->setPosPlayer(_posWorld);
 
 			bool check = this->checkCollision(obj->getCurrentBoudingBox());
 

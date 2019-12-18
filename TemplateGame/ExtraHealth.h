@@ -1,24 +1,16 @@
 #pragma once
 #include "GameObject.h"
 
-class Bat :
+class ExtraHealth :
 	public GameObject
 {
 private:
-	Vec3 posPlayer;
-	float _backwardTime;
-
-	int _isFly;
 
 public:
-	Bat();
-	Bat(int);
+	ExtraHealth();
+	ExtraHealth(int);
 
 	void loadResource();
-
-	void setPosPlayer(Vec3);
-
-	void getDamaged(int);
 
 	void render();
 
@@ -27,4 +19,3 @@ public:
 	void handlerInput(float);
 };
 
-typedef Bat* pBat;

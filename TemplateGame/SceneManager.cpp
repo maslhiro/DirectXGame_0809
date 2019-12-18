@@ -4,17 +4,23 @@ SceneManager* SceneManager::_instance = nullptr;
 
 SceneManager::SceneManager()
 {
+	_indexScene = 1;
 }
 
-void SceneManager::load()
-{
-	pScene _first = new FirstScene();
-	_first->init();
-	_first->loadResource();
-
-	_listScene[0] = _first;
-
-}
+//void SceneManager::load()
+//{
+//	pScene _first = new FirstScene();
+//	_first->init();
+//	_first->loadResource();
+//
+//	_listScene[0] = _first;
+//
+//	pScene _dying = new DyingScene();
+//	_dying->init();
+//	_dying->loadResource();
+//
+//	_listScene[1] = _dying;
+//}
 
 pSceneManager SceneManager::getInstance() {
 	if (_instance == nullptr) {
@@ -23,12 +29,20 @@ pSceneManager SceneManager::getInstance() {
 	return _instance;
 }
 
-void SceneManager::add(eIdAnimation id, pScene scene)
+void SceneManager::navigateScene(int val)
+{
+	if (val != _indexScene)
+	{
+		_indexScene = val;
+	}
+}
+
+void SceneManager::add(int id, pScene scene)
 {
 	this->_listScene[id] = scene;
 }
 
-pScene SceneManager::get(int id)
+pScene SceneManager::getCurrentScene()
 {
-	return this->_listScene[id];
+	return this->_listScene[_indexScene];
 }

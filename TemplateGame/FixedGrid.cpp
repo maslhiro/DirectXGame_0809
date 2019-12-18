@@ -99,6 +99,16 @@ void FixedGrid::load(const char* filePath)
 				_obj = new Coin();
 				break;
 			}
+			case eIdObject::SAVE_POINT:
+			{
+				_obj = new SavePoint();
+				break;
+			}
+			case eIdObject::EXTRA_HEALTH:
+			{
+				_obj = new ExtraHealth();
+				break;
+			}
 			case eIdObject::GENIE_HEAD:
 			{
 				_obj = new GenieHead();

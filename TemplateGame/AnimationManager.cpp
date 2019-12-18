@@ -64,6 +64,44 @@ void AnimationManager::load() {
 
 #pragma endregion
 
+#pragma region SavePoint
+	Animation _save;
+	_save.setTimePerFrame(0.08f);
+	_save.setIsLoop(false);
+	_save.setTypeFixPos(eTypeFixPos::C_BT);
+	_save.setScale(2.0f, 2.0f);
+	_save.addSprite(eIdSprite::SAVE_POINT_01);
+	_save.addSprite(eIdSprite::SAVE_POINT_02);
+	_save.addSprite(eIdSprite::SAVE_POINT_03);
+	_save.addSprite(eIdSprite::SAVE_POINT_04);
+	_save.addSprite(eIdSprite::SAVE_POINT_05);
+	_save.addSprite(eIdSprite::SAVE_POINT_06);
+	_save.addSprite(eIdSprite::SAVE_POINT_07);
+	_save.addSprite(eIdSprite::SAVE_POINT_08);
+	_save.addSprite(eIdSprite::SAVE_POINT_09);
+	_save.addSprite(eIdSprite::SAVE_POINT_10);
+
+	_listAnimation[eIdAnimation::SAVE_POINT_VISIBLE] = _save;
+#pragma endregion
+
+#pragma region Extra Health
+
+	Animation _extraHealth;
+	_extraHealth.setTimePerFrame(0.08f);
+	_extraHealth.setTypeFixPos(eTypeFixPos::C_C);
+	_extraHealth.setIsLoop(true);
+	_extraHealth.addSprite(eIdSprite::EXTRA_HEALTH_01);
+	_extraHealth.addSprite(eIdSprite::EXTRA_HEALTH_02);
+	_extraHealth.addSprite(eIdSprite::EXTRA_HEALTH_03);
+	_extraHealth.addSprite(eIdSprite::EXTRA_HEALTH_04);
+	_extraHealth.addSprite(eIdSprite::EXTRA_HEALTH_05);
+	_extraHealth.addSprite(eIdSprite::EXTRA_HEALTH_06);
+	_extraHealth.addSprite(eIdSprite::EXTRA_HEALTH_07);
+	_extraHealth.addSprite(eIdSprite::EXTRA_HEALTH_08);
+
+	_listAnimation[eIdAnimation::EXTRA_HEALTH_VISIBLE] = _extraHealth;
+#pragma endregion
+
 #pragma region Apple Throw
 
 	Animation _appleThrow;
@@ -638,6 +676,66 @@ void AnimationManager::load() {
 	_climbJump.addSprite(eIdSprite::ALADDIN_JUMP_13);
 
 	_listAnimation[eIdAnimation::ALADDIN_CLIMB_JUMP] = _climbJump;
+
+	Animation _die;
+	_die.setTimePerFrame(0.08f);
+	_die.setIsLoop(true);
+	_die.setIndexStart(2);
+	_die.setTypeFixPos(eTypeFixPos::R_BT);
+	_die.setScale(2.0f, 2.0f);
+	_die.addSprite(eIdSprite::ALADDIN_DIE_01);
+	_die.addSprite(eIdSprite::ALADDIN_DIE_02);
+	_die.addSprite(eIdSprite::ALADDIN_DIE_03);
+	_die.addSprite(eIdSprite::ALADDIN_DIE_04);
+	_die.addSprite(eIdSprite::ALADDIN_DIE_05);
+	_die.addSprite(eIdSprite::ALADDIN_DIE_06);
+	_die.addSprite(eIdSprite::ALADDIN_DIE_07);
+	_die.addSprite(eIdSprite::ALADDIN_DIE_08);
+	_die.addSprite(eIdSprite::ALADDIN_DIE_09);
+
+	_listAnimation[eIdAnimation::ALADDIN_DIE] = _die;
+
+	Animation _massage;
+	_massage.setTimePerFrame(0.08f);
+	_massage.setIsLoop(true);
+	_massage.setIndexStart(15);
+	_massage.setTypeFixPos(eTypeFixPos::C_BT);
+	_massage.setScale(2.0f, 2.0f);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_01);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_02);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_03);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_04);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_05);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_06);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_07);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_08);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_09);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_10);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_11);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_12);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_13);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_14);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_15);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_16);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_17);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_18);
+	_massage.addSprite(eIdSprite::ALADDIN_MASSAGE_19);
+
+	_listAnimation[eIdAnimation::ALADDIN_MASSAGE] = _massage;
+
+	Animation _abu;
+	_abu.setTimePerFrame(0.08f);
+	_abu.setIsLoop(true);
+	_abu.setTypeFixPos(eTypeFixPos::R_BT);
+	_abu.setScale(2.0f, 2.0f);
+	_abu.addSprite(eIdSprite::ABU_MASSAGE_01);
+	_abu.addSprite(eIdSprite::ABU_MASSAGE_02);
+	_abu.addSprite(eIdSprite::ABU_MASSAGE_03);
+	_abu.addSprite(eIdSprite::ABU_MASSAGE_04);
+	_abu.addSprite(eIdSprite::ABU_MASSAGE_05);
+	_abu.addSprite(eIdSprite::ABU_MASSAGE_06);
+
+	_listAnimation[eIdAnimation::ABU_MASSAGE] = _abu;
 #pragma endregion
 
 #pragma region NAHBI

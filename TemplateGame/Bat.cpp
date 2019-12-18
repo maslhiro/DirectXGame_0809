@@ -5,9 +5,10 @@ Bat::Bat() : GameObject()
 	_idType = eIdObject::BAT;
 	_isTerminated = false;
 	_isAnimated = false;
-	_dx = -100.f;
-
-	_posX = 0.f;
+	_speed = 230.f;
+	_isFly = 0;
+	_backwardTime = 0.f;
+	posPlayer = Vec3();
 }
 
 Bat::Bat(int id) : GameObject(id)
@@ -24,10 +25,9 @@ void Bat::loadResource()
 	this->setState(eIdState::NONE);
 }
 
-void Bat::setPosXPlayer(Vec3 val)
+void Bat::setPosPlayer(Vec3 val)
 {
-	_posX = val.x;
-	_posY = val.y;
+	if (_isFly != 1) posPlayer = val;
 }
 
 void Bat::getDamaged(int)
@@ -48,9 +48,12 @@ void Bat::update(float dt)
 {
 	if (_isTerminated) return;
 
-	if (abs(_posWorld.x - _posX) <= ATTACK_DISTANCE && !_isAnimated)
+	if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE &&
+		abs(_posWorld.y - posPlayer.y) <= ATTACK_DISTANCE &&
+		!_isAnimated)
 	{
 		_isAnimated = true;
+		_isFly = 1;
 	}
 
 	if (_state == eIdState::EXPLODE)
@@ -60,11 +63,52 @@ void Bat::update(float dt)
 		}
 		goto updateAni;
 	}
-	else if (_isAnimated)
+
+	if (_isAnimated)
 	{
-		_posWorld.x += _dx * dt;
-		//_posWorld.y += _gravity * dt;
-		_posWorld.y += abs(_dx) * dt;
+		if (_isFly == 1)
+		{
+			if (_posWorld.y > posPlayer.y - 10)
+			{
+				_isFly = -1;
+			}
+			else
+			{
+				_dx = _posWorld.x > posPlayer.x ? -_speed : _speed;
+				_posWorld.x += _dx * dt;
+				_posWorld.y += _speed * dt;
+			}
+		}
+		else if (_isFly == 2)
+		{
+			_backwardTime += dt;
+
+			if (_backwardTime > 0.5f)
+			{
+				_isFly = 1;
+				_backwardTime = 0.f;
+			}
+
+			_posWorld.x += _dx * dt;
+			_posWorld.y += _speed * dt;
+		}
+		else if (_isFly == -1)
+		{
+			_backwardTime += dt;
+
+			if (_backwardTime > 0.6f && _backwardTime < 0.7f)
+			{
+				_dx = _speed;
+			}
+			else if (_backwardTime >= 1.f)
+			{
+				_isFly = 2;
+				_backwardTime = 0.f;
+			}
+
+			_posWorld.x += _dx * dt;
+			_posWorld.y += -_speed * dt;
+		}
 	}
 
 updateAni:

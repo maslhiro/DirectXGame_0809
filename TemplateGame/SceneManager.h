@@ -1,24 +1,25 @@
 #pragma once
 #include "define.h"
 #include "Scene.h"
-#include "FirstScene.h"
-#include "DyingScene.h"
 
 class SceneManager
 {
 public:
 	SceneManager();
 
-	void load();
+	//void load();
 
 	static SceneManager* getInstance();
 
-	void add(eIdAnimation, pScene);
-	pScene get(int);
+	void navigateScene(int);
+
+	void add(int, pScene);
+
+	pScene getCurrentScene();
 
 private:
 	static SceneManager* _instance;
-
+	int _indexScene;
 	std::unordered_map<int, pScene> _listScene;
 };
 

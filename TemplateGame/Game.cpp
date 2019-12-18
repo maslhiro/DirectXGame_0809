@@ -59,7 +59,17 @@ void Game::loadResource()
 #pragma endregion
 
 	_animationManager->load();
-	_sceneManager->load();
+	//_sceneManager->load();
+	pScene _first = new FirstScene();
+	_first->init();
+	_first->loadResource();
+
+	_sceneManager->add(0, _first);
+
+	pScene _dying = new DyingScene();
+	_dying->init();
+	_dying->loadResource();
+	_sceneManager->add(1, _dying);
 
 	//_test = _animationManager->get(eIdAnimation::PEDDLER_SELL);
 	//_test.setPosition(Vec3(300, 300, 0));
@@ -90,8 +100,6 @@ Game::Game(HINSTANCE hInstance, int nCmdShow)
 	_sprite = Sprite::getInstance();
 	_animationManager = AnimationManager::getInstance();
 	_sceneManager = SceneManager::getInstance();
-	_indexScene = 0;
-
 }
 
 int Game::init()
@@ -177,7 +185,7 @@ int Game::render()
 
 		//_test.render(_deviceManager, _texture);
 
-		_sceneManager->get(_indexScene)->render();
+		_sceneManager->getCurrentScene()->render();
 
 		_deviceManager->getSpriteHandler()->End();
 		_deviceManager->getDevice()->EndScene();
@@ -192,9 +200,9 @@ int Game::render()
 int Game::update(float dt)
 {
 	//_test.update(dt);
-	_sceneManager->get(_indexScene)->handlerInput(dt);
+	_sceneManager->getCurrentScene()->handlerInput(dt);
 
-	_sceneManager->get(_indexScene)->update(dt);
+	_sceneManager->getCurrentScene()->update(dt);
 
 
 	return 1;

@@ -15,6 +15,8 @@
 #include "Rope.h"
 #include "Nahbi.h"
 #include "Fazal.h"
+#include "SavePoint.h"
+#include "ExtraHealth.h"
 #include "Skeleton.h"
 #include "Rock.h"
 #include "GenieHead.h"

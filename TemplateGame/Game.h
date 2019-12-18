@@ -11,6 +11,9 @@
 #include "AnimationManager.h"
 #include "SceneManager.h"
 
+#include "FirstScene.h"
+#include "DyingScene.h"
+
 class Game {
 private:
 	static int isExit;
@@ -23,8 +26,6 @@ private:
 	pSprite _sprite;
 	pAnimationManager _animationManager;
 	pSceneManager _sceneManager;
-
-	int _indexScene;
 
 public:
 	static pGraphic _hWindow;

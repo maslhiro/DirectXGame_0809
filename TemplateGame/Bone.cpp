@@ -66,6 +66,7 @@ void Bone::update(float dt)
 				|| id == eIdObject::STONE_COLUMN_2
 				|| id == eIdObject::STONE_COLUMN_3
 				|| id == eIdObject::STONE_COLUMN_4
+				|| id == eIdObject::ROCK
 				|| id == eIdObject::APPLE
 				|| id == eIdObject::ROPE
 				|| id == eIdObject::GENIE_HEAD) continue;
