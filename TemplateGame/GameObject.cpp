@@ -216,6 +216,40 @@ float GameObject::checkCollision_SweptAABB_(RECT _rectOther, float dy, float dt,
 
 	RECT _rectObj = getBoundingBox();
 
+	if ((_state&eIdState::JUMP) == eIdState::JUMP && (_state&eIdState::ATTACK) == eIdState::ATTACK)
+	{
+		float fixBottom = this->fixPosHeight(eIdState::JUMP);
+		float fixLeft = this->fixPosWidth(eIdState::JUMP);
+		Vec3 newPos;
+		if (_isFlip) {
+			// Tuong tu trong animation
+			newPos = Vec3(_posWorld.x - fixLeft * _scale.x, _posWorld.y + fixBottom * _scale.y, 0);
+		}
+		else newPos = Vec3(_posWorld.x + fixLeft * _scale.x, _posWorld.y + fixBottom * _scale.y, 0);
+
+		Animation _ani;
+		_ani = _listAnimation[eIdState::JUMP];
+		_ani.setPosition(newPos);
+		_rectObj = _ani.getBounding();
+	}
+	else if ((_state&eIdState::RUN) == eIdState::RUN && (_state&eIdState::ATTACK) == eIdState::ATTACK)
+	{
+		float fixBottom = this->fixPosHeight(eIdState::STAND);
+		float fixLeft = this->fixPosWidth(eIdState::STAND);
+		Vec3 newPos;
+		if (_isFlip) {
+			// Tuong tu trong animation
+			newPos = Vec3(_posWorld.x - fixLeft * _scale.x, _posWorld.y + fixBottom * _scale.y, 0);
+		}
+		else newPos = Vec3(_posWorld.x + fixLeft * _scale.x, _posWorld.y + fixBottom * _scale.y, 0);
+
+		Animation _ani;
+		_ani = _listAnimation[eIdState::STAND];
+		_ani.setPosition(newPos);
+		_rectObj = _ani.getBounding();
+	}
+
+
 	if (_dx > 0.0f)
 	{
 		dxEntry = _rectOther.left - _rectObj.right;

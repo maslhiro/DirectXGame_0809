@@ -139,6 +139,11 @@ void FixedGrid::load(const char* filePath)
 				_obj = new Fazal();
 				break;
 			}
+			case eIdObject::JAFAR:
+			{
+				_obj = new Jafar();
+				break;
+			}
 			case eIdObject::PEDDLER:
 			{
 				_obj = new Peddler();
@@ -182,6 +187,19 @@ void FixedGrid::load(const char* filePath)
 			case eIdObject::GROUND:
 			{
 				_obj = new Ground();
+
+				RECT rec;
+				rec.left = posObj_X;
+				rec.top = posObj_Y;
+				rec.right = objW;
+				rec.bottom = objH;
+				_obj->setRectWorld(rec);
+
+				break;
+			}
+			case eIdObject::GROUND_FIRE:
+			{
+				_obj = new GroundFire();
 
 				RECT rec;
 				rec.left = posObj_X;

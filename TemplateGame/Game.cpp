@@ -42,6 +42,7 @@ void Game::loadResource()
 	_texture->add(eIdTexture::SKELETON_TEX, L"Resource//Object//Skeleton.png", D3DCOLOR_XRGB(255, 255, 255));
 	_texture->add(eIdTexture::GUARDS_TEX, L"Resource//Object//Guards.png", D3DCOLOR_XRGB(120, 193, 152));
 	_texture->add(eIdTexture::PEDDLER_TEX, L"Resource//Object//Peddler.png", D3DCOLOR_XRGB(255, 0, 255));
+	_texture->add(eIdTexture::JAFAR_TEX, L"Resource//Object//Jafar.png", D3DCOLOR_XRGB(186, 254, 202));
 
 	// Aladdin
 	_texture->add(eIdTexture::ALADDIN_TEX, L"Resource//Object//Aladdin.png", D3DCOLOR_XRGB(106, 148, 189));
@@ -54,9 +55,9 @@ void Game::loadResource()
 	_sprite->add(eIdTexture::ALADDIN_TEX, "Resource//Object//Aladdin_Sprite.txt");
 	_sprite->add(eIdTexture::BAT_TEX, "Resource//Object//Bat_Sprite.txt");
 	_sprite->add(eIdTexture::SKELETON_TEX, "Resource//Object//Skeleton_Sprite.txt");
-	_sprite->add(eIdTexture::GUARDS_TEX, "Resource//Object//Guards.txt");
+	_sprite->add(eIdTexture::GUARDS_TEX, "Resource//Object//Guards_Sprite.txt");
 	_sprite->add(eIdTexture::PEDDLER_TEX, "Resource//Object//Peddler_Sprite.txt");
-
+	_sprite->add(eIdTexture::JAFAR_TEX, "Resource//Object//Jafar_Sprite.txt");
 
 #pragma endregion
 

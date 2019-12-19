@@ -150,9 +150,11 @@
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="EnumID.h" />
     <ClCompile Include="GenieHead.cpp" />
+    <ClCompile Include="GroundFire.cpp" />
     <ClCompile Include="HeathHud.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="Jafar.cpp" />
     <ClCompile Include="LifeHud.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
@@ -206,9 +208,11 @@
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="GenieHead.h" />
     <ClInclude Include="Graphic.h" />
+    <ClInclude Include="GroundFire.h" />
     <ClInclude Include="HeathHud.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Ground.h" />
+    <ClInclude Include="Jafar.h" />
     <ClInclude Include="LifeHud.h" />
     <ClInclude Include="Nahbi.h" />
     <ClInclude Include="Peddler.h" />

@@ -30,6 +30,10 @@ void FirstScene::init()
 
 	_map.setGrid(_grid);
 
+	_input = InputHandler::getInstance();
+	_sceneManager = SceneManager::getInstance();
+
+
 	_RPT0(0, "[INFO] Init FIRST SCENE done;\n");
 }
 
@@ -129,6 +133,11 @@ void FirstScene::render()
 void FirstScene::handlerInput(float dt)
 {
 	_player->handlerInput(dt);
+
+	if (_input->getMapKey()[KEY_ESC])
+	{
+		_sceneManager->navigateScene(2);
+	}
 }
 
 void FirstScene::release()

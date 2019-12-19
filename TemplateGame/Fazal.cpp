@@ -80,9 +80,11 @@ void Fazal::update(float dt)
 	else {
 		_isFlip = false;
 	}
-	if (_state != eIdState::EXPLODE && _state != eIdState::DAMAGE)
+	if (_state == eIdState::STAND)
 	{
-		if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE & _state != eIdState::ATTACK && abs(_posWorld.y - posPlayer.y) <= 10)
+		if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE &&
+			_state != eIdState::ATTACK && 
+			abs(_posWorld.y - posPlayer.y) <= ATTACK_DISTANCE)
 		{
 			this->fixPosAnimation(eIdState::ATTACK);
 			this->setState(eIdState::ATTACK);

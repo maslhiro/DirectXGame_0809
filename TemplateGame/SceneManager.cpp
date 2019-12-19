@@ -4,7 +4,7 @@ SceneManager* SceneManager::_instance = nullptr;
 
 SceneManager::SceneManager()
 {
-	_indexScene = 2;
+	_indexScene = 0;
 }
 
 //void SceneManager::load()

@@ -11,7 +11,7 @@ Nahbi::Nahbi() : GameObject()
 	_waitTime = 0.f;
 
 	_isFlip = false;
-	_speed = 30.f;
+	_speed = 35.f;
 
 	_isMovedLeft = _isMovedRight = false;
 	_distanceMove = 0.f;

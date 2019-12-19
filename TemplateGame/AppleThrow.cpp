@@ -25,6 +25,8 @@ void AppleThrow::loadResource()
 
 	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_THROW_EXPLODE);
 
+	_listAnimation[eIdState::EXPLODE_] = AnimationManager::getInstance()->get(eIdAnimation::APPLE_THROW_EXPLODE_);
+
 	this->setState(eIdState::NONE);
 }
 
@@ -46,7 +48,7 @@ void AppleThrow::update(float dt)
 		_timeUp = 0.f;
 		return;
 	}
-	if (_state == eIdState::EXPLODE)
+	if (_state == eIdState::EXPLODE || _state == eIdState::EXPLODE_)
 	{
 		if (_curAnimation.getLoopCount() > 0)
 			_isTerminated = true;
@@ -115,8 +117,8 @@ void AppleThrow::update(float dt)
 				ke->setState(eIdState::EXPLODE);
 			}
 
+			this->setState(id != eIdObject::JAFAR ? eIdState::EXPLODE : eIdState::EXPLODE_);
 
-			this->setState(eIdState::EXPLODE);
 			goto updateAni;
 		}
 	}

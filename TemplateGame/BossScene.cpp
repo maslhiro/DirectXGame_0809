@@ -51,9 +51,9 @@ void BossScene::loadResource()
 	_cam->setDistance(10, 40);
 	_cam->setSpeedY(400.f);
 
-	_camAbove->setSpeedX(400.f);
+	_camAbove->setSpeedX(300.f);
 	_camAbove->setDistance(10, 30);
-	_camAbove->setSpeedY(500.f);
+	_camAbove->setSpeedY(400.f);
 
 	_camAbove->setPositisonWorld((_deviceManager->getWidthWindow() / 2 + 100), _mapAbove.getHeight() - _deviceManager->getHeightWindow() / 2);
 	_camAbove->setSizeWindow(_deviceManager->getWidthWindow(), _deviceManager->getHeightWindow());

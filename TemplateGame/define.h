@@ -30,8 +30,8 @@
 
 #define TILE_SIZE 128
 
-#define UNIT_WIDTH 384
-#define UNIT_HEIGHT 384
+#define UNIT_WIDTH 256
+#define UNIT_HEIGHT 256
 
 // Khoang cach camera
 #define DISTANCE_X 15
@@ -46,6 +46,8 @@
 #define KEY_S 0x53
 #define KEY_W 0x57
 
+#define KEY_ESC 0x1B
+
 // attack
 #define KEY_H 0x48
 // jump
@@ -58,7 +60,7 @@
 // Chuyen tu stand => wait
 #define WAIT_TIME_ALADDIN 500.f
 
-#define FLASH_TIME_ALADDIN 0.5f
+#define FLASH_TIME_ALADDIN 0.8f
 
 #define NUM_APPLE_DEFAULT 10
 
@@ -79,6 +81,7 @@
 #define BLOOD_ALADDIN 80
 #define BLOOD_NAHBI 20
 #define BLOOD_FAZAL 20
+#define BLOOD_JAFAR 200
 
 #define ATTACK_DAMAGE_ALADDIN 10
 #define THROW_DAMAGE_ALADDIN 10

@@ -8,6 +8,7 @@
 #include "CoinHud.h"
 #include "LifeHud.h"
 #include "ScoreHud.h"
+#include "SceneManager.h"
 
 class FirstScene :
 	public Scene
@@ -24,6 +25,9 @@ private:
 
 	pFixedGrid _grid;
 	pAladdin _player;
+
+	pInputHandler _input;
+	pSceneManager _sceneManager;
 
 	pHeathHud _hud;
 	pAppleHud _hudApple;

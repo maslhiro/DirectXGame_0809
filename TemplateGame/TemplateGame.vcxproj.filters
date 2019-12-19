@@ -78,9 +78,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
@@ -236,6 +233,15 @@
     </ClCompile>
     <ClCompile Include="BossScene.cpp">
       <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Jafar.cpp">
+      <Filter>Source Files\Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="GroundFire.cpp">
+      <Filter>Source Files\Object\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +403,12 @@
     </ClInclude>
     <ClInclude Include="BossScene.h">
       <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Jafar.h">
+      <Filter>Header Files\Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GroundFire.h">
+      <Filter>Header Files\Object\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
