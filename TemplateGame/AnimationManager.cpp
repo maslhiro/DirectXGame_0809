@@ -1510,7 +1510,7 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::JAFAR_SLASH] = _jafarSlash;
 
 	Animation _jafarThrow;
-	_jafarThrow.setTimePerFrame(0.08f);
+	_jafarThrow.setTimePerFrame(0.11f);
 	_jafarThrow.setIsLoop(true);
 	_jafarThrow.setTypeFixPos(eTypeFixPos::L_BT);
 	_jafarThrow.setScale(2.0f, 2.0f);
@@ -1527,6 +1527,23 @@ void AnimationManager::load() {
 	_jafarThrow.addSprite(eIdSprite::JAFAR_THROW_11);
 
 	_listAnimation[eIdAnimation::JAFAR_THROW] = _jafarThrow;
+
+
+	Animation _jafarFlame;
+	_jafarFlame.setTimePerFrame(0.1f);
+	_jafarFlame.setIsLoop(true);
+	_jafarFlame.setTypeFixPos(eTypeFixPos::L_BT);
+	_jafarFlame.setScale(2.0f, 2.0f);
+	_jafarFlame.addSprite(eIdSprite::JAFAR_FLAME_01);
+	_jafarFlame.addSprite(eIdSprite::JAFAR_FLAME_02);
+	_jafarFlame.addSprite(eIdSprite::JAFAR_FLAME_03);
+	_jafarFlame.addSprite(eIdSprite::JAFAR_FLAME_04);
+	_jafarFlame.addSprite(eIdSprite::JAFAR_FLAME_05);
+	_jafarFlame.addSprite(eIdSprite::JAFAR_FLAME_06);
+	_jafarFlame.addSprite(eIdSprite::JAFAR_FLAME_07);
+	_jafarFlame.addSprite(eIdSprite::JAFAR_FLAME_08);
+
+	_listAnimation[eIdAnimation::JAFAR_FLAME_THROW] = _jafarFlame;
 #pragma endregion
 
 }

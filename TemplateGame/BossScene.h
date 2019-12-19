@@ -7,6 +7,7 @@
 #include "CoinHud.h"
 #include "LifeHud.h"
 #include "ScoreHud.h"
+#include "SceneManager.h"
 
 class BossScene :
 	public Scene
@@ -22,7 +23,10 @@ private:
 	pCamera _camAbove;
 
 	pFixedGrid _grid;
+
 	pAladdin _player;
+
+	pSceneManager _sceneManager;
 
 	float _rebornTime;
 

@@ -32,8 +32,6 @@
 
 #pragma endregion
 
-#define __STDC_WANT_LIB_EXT1__ 1
-
 #pragma region STRUCT UNIT TEMP
 // dung de luu id tu file grid.txt
 struct UnitTemp

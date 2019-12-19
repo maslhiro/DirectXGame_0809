@@ -141,7 +141,7 @@
     <ClCompile Include="ExitDoor.cpp" />
     <ClCompile Include="ExtraHealth.cpp" />
     <ClCompile Include="Fazal.cpp" />
-    <ClCompile Include="FirstScene.cpp" />
+    <ClCompile Include="DungeonScene.cpp" />
     <ClCompile Include="FixedGrid.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
@@ -155,9 +155,11 @@
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Jafar.cpp" />
+    <ClCompile Include="JafarFlame.cpp" />
     <ClCompile Include="LifeHud.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
+    <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Nahbi.cpp" />
     <ClCompile Include="Peddler.cpp" />
     <ClCompile Include="RectSprite.cpp" />
@@ -198,7 +200,7 @@
     <ClInclude Include="ExitDoor.h" />
     <ClInclude Include="ExtraHealth.h" />
     <ClInclude Include="Fazal.h" />
-    <ClInclude Include="FirstScene.h" />
+    <ClInclude Include="DungeonScene.h" />
     <ClInclude Include="FixedGrid.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="define.h" />
@@ -213,7 +215,9 @@
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Jafar.h" />
+    <ClInclude Include="JafarFlame.h" />
     <ClInclude Include="LifeHud.h" />
+    <ClInclude Include="MenuScene.h" />
     <ClInclude Include="Nahbi.h" />
     <ClInclude Include="Peddler.h" />
     <ClInclude Include="RectSprite.h" />

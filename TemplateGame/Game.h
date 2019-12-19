@@ -11,9 +11,10 @@
 #include "AnimationManager.h"
 #include "SceneManager.h"
 
-#include "FirstScene.h"
+#include "DungeonScene.h"
 #include "DyingScene.h"
 #include "BossScene.h"
+#include "MenuScene.h"
 
 class Game {
 private:

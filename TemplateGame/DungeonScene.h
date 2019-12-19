@@ -10,7 +10,7 @@
 #include "ScoreHud.h"
 #include "SceneManager.h"
 
-class FirstScene :
+class DungeonScene :
 	public Scene
 {
 private:
@@ -36,8 +36,8 @@ private:
 	pScoreHud _hudScore;
 
 public:
-	FirstScene();
-	~FirstScene();
+	DungeonScene();
+	~DungeonScene();
 
 	void init();
 	void loadResource();

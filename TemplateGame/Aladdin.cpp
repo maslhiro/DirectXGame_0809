@@ -945,6 +945,25 @@ void Aladdin::update(float dt)
 			pJafar ja = dynamic_cast<pJafar>(obj);
 			ja->setPosPlayer(_posWorld);
 
+			bool checkFlame = ja->checkCollisionFlame(getBoundingBox());
+
+			if (checkFlame && !_isFlash && (_state & eIdState::DAMAGE) != eIdState::DAMAGE)
+			{
+				_numBlood -= DAMAGE_ENERMY;
+
+				if (_state == eIdState::STAND)
+				{
+
+					this->fixPosAnimation(eIdState::DAMAGE);
+					_curAnimation = _listAnimation[eIdState::DAMAGE];
+					_state |= eIdState::DAMAGE;
+					_isFlash = false;
+				}
+				else
+				{
+					_isFlash = true;
+				}
+			}
 
 		}
 	}

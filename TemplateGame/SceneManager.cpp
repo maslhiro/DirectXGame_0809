@@ -4,23 +4,8 @@ SceneManager* SceneManager::_instance = nullptr;
 
 SceneManager::SceneManager()
 {
-	_indexScene = 2;
+	_indexScene = 1;
 }
-
-//void SceneManager::load()
-//{
-//	pScene _first = new FirstScene();
-//	_first->init();
-//	_first->loadResource();
-//
-//	_listScene[0] = _first;
-//
-//	pScene _dying = new DyingScene();
-//	_dying->init();
-//	_dying->loadResource();
-//
-//	_listScene[1] = _dying;
-//}
 
 pSceneManager SceneManager::getInstance() {
 	if (_instance == nullptr) {

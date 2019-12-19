@@ -1,7 +1,7 @@
-#include "FirstScene.h"
+#include "DungeonScene.h"
 
 
-FirstScene::FirstScene()
+DungeonScene::DungeonScene()
 {
 	_grid = new FixedGrid();
 	_player = new Aladdin();
@@ -15,11 +15,11 @@ FirstScene::FirstScene()
 }
 
 
-FirstScene::~FirstScene()
+DungeonScene::~DungeonScene()
 {
 }
 
-void FirstScene::init()
+void DungeonScene::init()
 {
 	_map.init();
 	_mapAbove.init();
@@ -33,11 +33,10 @@ void FirstScene::init()
 	_input = InputHandler::getInstance();
 	_sceneManager = SceneManager::getInstance();
 
-
 	_RPT0(0, "[INFO] Init FIRST SCENE done;\n");
 }
 
-void FirstScene::loadResource()
+void DungeonScene::loadResource()
 {
 	auto _deviceManager = DeviceManager::getInstance();
 
@@ -88,7 +87,7 @@ void FirstScene::loadResource()
 	_hudScore->loadResource();
 }
 
-void FirstScene::update(float dt)
+void DungeonScene::update(float dt)
 {
 	_player->update(dt);
 
@@ -113,7 +112,7 @@ void FirstScene::update(float dt)
 	_hudScore->update(dt);
 }
 
-void FirstScene::render()
+void DungeonScene::render()
 {
 	//auto _drawDebug = DrawDebug::getInstance();
 	//auto _device = DeviceManager::getInstance();
@@ -130,17 +129,17 @@ void FirstScene::render()
 	_hudScore->render();
 }
 
-void FirstScene::handlerInput(float dt)
+void DungeonScene::handlerInput(float dt)
 {
 	_player->handlerInput(dt);
 
 	if (_input->getMapKey()[KEY_ESC])
 	{
-		_sceneManager->navigateScene(2);
+		_sceneManager->navigateScene(1);
 	}
 }
 
-void FirstScene::release()
+void DungeonScene::release()
 {
 	_map.release();
 }

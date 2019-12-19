@@ -35,7 +35,7 @@
   <object id="9" name="50001" x="766.667" y="625.333"/>
  </objectgroup>
  <objectgroup id="3" name="4500">
-  <object id="1" name="45001" x="1" y="718.25" width="1534.29" height="73.75"/>
+  <object id="1" name="45001" x="1" y="705.159" width="1534.29" height="86.8409"/>
  </objectgroup>
  <objectgroup id="8" name="4504">
   <object id="12" name="45041" x="98" y="583" width="188.667" height="15"/>

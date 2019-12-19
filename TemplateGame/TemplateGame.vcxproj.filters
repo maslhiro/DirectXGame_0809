@@ -156,9 +156,6 @@
     <ClCompile Include="GameMap.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
-    <ClCompile Include="FirstScene.cpp">
-      <Filter>Source Files\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>Source Files\Map</Filter>
     </ClCompile>
@@ -243,6 +240,15 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DungeonScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="JafarFlame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -292,9 +298,6 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\BaseClass</Filter>
-    </ClInclude>
-    <ClInclude Include="FirstScene.h">
-      <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>Header Files\FixedGrid</Filter>
@@ -409,6 +412,15 @@
     </ClInclude>
     <ClInclude Include="GroundFire.h">
       <Filter>Header Files\Object\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="JafarFlame.h">
+      <Filter>Header Files\Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,8 +7,6 @@ class SceneManager
 public:
 	SceneManager();
 
-	//void load();
-
 	static SceneManager* getInstance();
 
 	void navigateScene(int);
@@ -16,6 +14,7 @@ public:
 	void add(int, pScene);
 
 	pScene getCurrentScene();
+
 
 private:
 	static SceneManager* _instance;
