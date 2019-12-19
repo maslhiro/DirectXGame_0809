@@ -30,6 +30,8 @@ void BossScene::init()
 
 	_map.setGrid(_grid);
 
+	_rebornTime = 0.f;
+
 	_RPT0(0, "[INFO] Init BOSS SCENE done;\n");
 }
 
@@ -80,6 +82,23 @@ void BossScene::loadResource()
 
 void BossScene::update(float dt)
 {
+	_rebornTime += dt;
+
+	if (_rebornTime > 10.f)
+	{
+		_rebornTime = 0.f;
+		//_RPT0(0, "[RE BORN]\n");
+		RECT _view = _cam->getBounding();
+
+		auto listObj = _grid->getListGameObjContain(_view);
+		for (size_t i = 0; i < listObj.size(); i++)
+		{
+			if (listObj[i]->getIdType() != eIdObject::APPLE) continue;
+			//_RPT1(0, "[RE BORN] Id %d \n", listObj[i]->getId());
+			listObj[i]->setIsTerminated(false);
+		}
+	}
+
 	_player->update(dt);
 
 	_cam->update(dt);

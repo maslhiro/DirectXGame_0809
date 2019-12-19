@@ -486,6 +486,7 @@ void GameObject::setIsAnimated(bool isAni)
 void GameObject::setIsTerminated(bool val)
 {
 	_isTerminated = val;
+	if (!val) loadResource();
 }
 
 bool GameObject::getIsTerminated()

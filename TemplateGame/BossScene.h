@@ -24,6 +24,8 @@ private:
 	pFixedGrid _grid;
 	pAladdin _player;
 
+	float _rebornTime;
+
 	pHeathHud _hud;
 	pAppleHud _hudApple;
 	pCoinHud _hudCoin;
