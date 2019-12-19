@@ -11,6 +11,7 @@ private:
 
 	pFixedGrid _grid;
 	pCamera _camera;
+	pCamera _cameraAbove;
 
 	pInputHandler _input;
 	std::unordered_map<int, bool> _keys;
@@ -95,6 +96,8 @@ public:
 	void setGrid(pFixedGrid);
 
 	void setCamera(pCamera);
+
+	void setCameraAbove(pCamera);
 
 	void loadResource();
 

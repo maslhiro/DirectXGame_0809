@@ -38,8 +38,8 @@ void ScoreHud::render()
 {
 	_listScore.clear();
 
-	if (_numScore != _state) _numScore += 1;
-
+	if (_numScore < _state) _numScore += 2;
+	if (_numScore > _state) _numScore = _state;
 	int num = _numScore;
 
 	while (num)

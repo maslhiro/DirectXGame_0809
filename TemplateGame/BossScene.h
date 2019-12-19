@@ -19,6 +19,8 @@ private:
 
 	pCamera _cam;
 
+	pCamera _camAbove;
+
 	pFixedGrid _grid;
 	pAladdin _player;
 

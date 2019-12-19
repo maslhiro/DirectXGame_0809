@@ -6,6 +6,7 @@ BossScene::BossScene()
 	_grid = new FixedGrid();
 	_player = new Aladdin();
 	_cam = new Camera();
+	_camAbove = new Camera();
 	_hud = new HeathHud();
 	_hudApple = new AppleHud();
 	_hudCoin = new CoinHud();
@@ -47,13 +48,22 @@ void BossScene::loadResource()
 	_cam->setPositisonWorld((_deviceManager->getWidthWindow() / 2 + 34), _map.getHeight() - 20 - _deviceManager->getHeightWindow() / 2);
 	_cam->setSizeWindow(_deviceManager->getWidthWindow(), _deviceManager->getHeightWindow());
 	_cam->setSpeedX(300.f);
-
+	_cam->setDistance(10, 40);
 	_cam->setSpeedY(400.f);
 
+	_camAbove->setSpeedX(400.f);
+	_camAbove->setDistance(10, 30);
+	_camAbove->setSpeedY(500.f);
+
+	_camAbove->setPositisonWorld((_deviceManager->getWidthWindow() / 2 + 100), _mapAbove.getHeight() - _deviceManager->getHeightWindow() / 2);
+	_camAbove->setSizeWindow(_deviceManager->getWidthWindow(), _deviceManager->getHeightWindow());
+
 	_map.setCamera(_cam);
-	_mapAbove.setCamera(_cam);
+	_mapAbove.setCamera(_camAbove);
 
 	_player->setCamera(_cam);
+	_player->setCameraAbove(_camAbove);
+
 	_player->loadResource();
 	_player->setScale(2.0f);
 	_player->setSpeed(300.f);
@@ -73,6 +83,8 @@ void BossScene::update(float dt)
 	_player->update(dt);
 
 	_cam->update(dt);
+
+	_camAbove->update(dt);
 
 	_map.update(dt);
 

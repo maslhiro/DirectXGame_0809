@@ -11,6 +11,7 @@ Aladdin::Aladdin() : GameObject()
 	_numScore = 100;
 
 	_grid = nullptr;
+	_cameraAbove = nullptr;
 	_camera = nullptr;
 	_isFlash = false;
 	_numBlood = BLOOD_ALADDIN;
@@ -84,6 +85,11 @@ void Aladdin::setGrid(pFixedGrid grid)
 void Aladdin::setCamera(pCamera cam)
 {
 	_camera = cam;
+}
+
+void Aladdin::setCameraAbove(pCamera cam)
+{
+	_cameraAbove = cam;
 }
 
 void Aladdin::loadResource()
@@ -898,6 +904,7 @@ updateAni:
 
 	_curAnimation.update(dt);
 
+	if (_cameraAbove != nullptr) _cameraAbove->setNextPositisonWorld(_posWorld + Vec3(0.2*_posWorld.x, 0, 0));
 	_camera->setNextPositisonWorld(_posWorld);
 }
 
