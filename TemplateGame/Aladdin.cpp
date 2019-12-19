@@ -391,7 +391,7 @@ void Aladdin::update(float dt)
 					(_isClimbJump && _curAnimation.getCurrentFrame() == 9))
 				{
 					this->setIsAnimated(false);
-					_RPT1(0, "[CHECK Collision] FALSE %d %d %d \n", _isClimbJump, _isJump, _isRunJump);
+					//_RPT1(0, "[CHECK Collision] FALSE %d %d %d \n", _isClimbJump, _isJump, _isRunJump);
 
 				}
 
@@ -407,7 +407,7 @@ void Aladdin::update(float dt)
 
 				if (_distanceJump < ALTITUDE_JUMP / 2 && !_isAnimated && !_isFall && !_isClimbJump && !_isJump)
 				{
-					_RPT0(0, "[CHECK Collision] TRUE \n");
+					//_RPT0(0, "[CHECK Collision] TRUE \n");
 					this->setIsAnimated(true);
 				}
 
@@ -634,7 +634,7 @@ void Aladdin::update(float dt)
 	{
 		auto obj = listObj[i];
 
-		if (obj->getIsStaticObj()) continue;
+		if (obj->getIsStaticObj() && obj->getIdType() != eIdObject::GROUND_FIRE) continue;
 		if (obj->getIsTerminated()) continue;
 
 		if (obj->getIdType() == eIdObject::APPLE ||
@@ -901,13 +901,54 @@ void Aladdin::update(float dt)
 				_isBuy += 1;
 			}
 		}
+		else if (obj->getIdType() == eIdObject::GROUND_FIRE)
+		{
+			pGroundFire gr = dynamic_cast<pGroundFire>(obj);
+
+			bool check = this->checkCollision(gr->getBoundingBox());
+
+			//_RPT1(0, "[ GROUND FIRE ] %d\n", check);
+
+			if (check && getCurrentBoudingBox().bottom >= gr->getBoundingBox().top - 5 && getCurrentBoudingBox().bottom <= (gr->getBoundingBox().top))
+			{
+				gr->setPosPlayer(_posWorld);
+				bool checkFire = gr->checkCollisionFire(getCurrentBoudingBox());
+
+				if (checkFire && !_isFlash && (_state & eIdState::DAMAGE) != eIdState::DAMAGE)
+				{
+					_numBlood -= DAMAGE_ENERMY;
+
+					if (_state == eIdState::STAND)
+					{
+
+						this->fixPosAnimation(eIdState::DAMAGE);
+						_curAnimation = _listAnimation[eIdState::DAMAGE];
+						_state |= eIdState::DAMAGE;
+						_isFlash = false;
+					}
+					else
+					{
+						_isFlash = true;
+					}
+				}
+
+			}
+			else
+			{
+				gr->stopFire();
+			}
+
+
+		}
 		else if (obj->getIdType() == eIdObject::JAFAR)
 		{
 			pJafar ja = dynamic_cast<pJafar>(obj);
 			ja->setPosPlayer(_posWorld);
 
+
 		}
 	}
+
 updateAni:
 	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setIsFlash(_isFlash);
