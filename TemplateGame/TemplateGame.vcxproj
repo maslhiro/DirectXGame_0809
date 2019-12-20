@@ -156,6 +156,7 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Jafar.cpp" />
     <ClCompile Include="JafarFlame.cpp" />
+    <ClCompile Include="JafarStar.cpp" />
     <ClCompile Include="LifeHud.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Graphic.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Jafar.h" />
     <ClInclude Include="JafarFlame.h" />
+    <ClInclude Include="JafarStar.h" />
     <ClInclude Include="LifeHud.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="Nahbi.h" />

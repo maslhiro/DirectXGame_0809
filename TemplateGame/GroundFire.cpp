@@ -19,7 +19,7 @@ void GroundFire::loadResource()
 
 void GroundFire::setPosPlayer(Vec3 val)
 {
-
+	if (_isTerminated) return;
 	if (_waitTime < .2f) return;
 
 	_waitTime = 0.f;
@@ -34,6 +34,8 @@ void GroundFire::setPosPlayer(Vec3 val)
 
 void GroundFire::render()
 {
+	if (_isTerminated) return;
+
 	if (_stop && _curAnimation.getLoopCount() > 2) return;
 
 	if (posPlayer == Vec3()) return;

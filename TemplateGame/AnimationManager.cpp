@@ -1544,6 +1544,31 @@ void AnimationManager::load() {
 	_jafarFlame.addSprite(eIdSprite::JAFAR_FLAME_08);
 
 	_listAnimation[eIdAnimation::JAFAR_FLAME_THROW] = _jafarFlame;
+
+	Animation _jafarStar;
+	_jafarStar.setTimePerFrame(0.03f);
+	_jafarStar.setIsLoop(true);
+	_jafarStar.setTypeFixPos(eTypeFixPos::C_C);
+	_jafarStar.setScale(2.0f, 2.0f);
+	_jafarStar.addSprite(eIdSprite::JAFAR_STAR_01);
+	_jafarStar.addSprite(eIdSprite::JAFAR_STAR_02);
+	_jafarStar.addSprite(eIdSprite::JAFAR_STAR_03);
+
+	_listAnimation[eIdAnimation::JAFAR_STAR_THROW] = _jafarStar;
+
+	Animation _jafarStarExplode;
+	_jafarStarExplode.setTimePerFrame(0.05f);
+	_jafarStarExplode.setIsLoop(true);
+	_jafarStarExplode.setTypeFixPos(eTypeFixPos::C_C);
+	_jafarStarExplode.setScale(2.0f, 2.0f);
+	_jafarStarExplode.addSprite(eIdSprite::JAFAR_STAR_EXPLODE_01);
+	_jafarStarExplode.addSprite(eIdSprite::JAFAR_STAR_EXPLODE_02);
+	_jafarStarExplode.addSprite(eIdSprite::JAFAR_STAR_EXPLODE_03);
+	_jafarStarExplode.addSprite(eIdSprite::JAFAR_STAR_EXPLODE_04);
+	_jafarStarExplode.addSprite(eIdSprite::JAFAR_STAR_EXPLODE_05);
+
+	_listAnimation[eIdAnimation::JAFAR_STAR_THROW_EXPLODE] = _jafarStarExplode;
+
 #pragma endregion
 
 }

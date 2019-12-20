@@ -7,9 +7,11 @@ Jafar::Jafar() : GameObject()
 	_isAnimated = true;
 	_isTerminated = false;
 	posPlayer = Vec3();
-
+	_numThrow = 0;
 	_numBlood = BLOOD_JAFAR;
 	_throwTime = 0.f;
+
+	_wait = false;
 	_isFlip = false;
 }
 
@@ -30,7 +32,7 @@ void Jafar::loadResource()
 
 	_listAnimation[eIdState::THROW] = AnimationManager::getInstance()->get(eIdAnimation::JAFAR_THROW);
 
-	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::ENERMY_EXPLODE);
+	_listAnimation[eIdState::EXPLODE] = AnimationManager::getInstance()->get(eIdAnimation::JAFAR_STAR_THROW_EXPLODE);
 
 	Animation _fire = AnimationManager::getInstance()->get(eIdAnimation::GROUND_FIRE_VISIBLE);
 
@@ -38,17 +40,21 @@ void Jafar::loadResource()
 	_fireBehind.push_back(_fire);
 	_fireBehind.push_back(_fire);
 
-	this->setState(eIdState::THROW);
-}
-
-void Jafar::getDamaged(int val)
-{
-	_numBlood -= val;
+	this->setState(eIdState::STAND);
 }
 
 int Jafar::getState()
 {
 	return _state;
+}
+
+void Jafar::getDamaged(int val)
+{
+	_numBlood -= val;
+	if (_numBlood == 150)
+	{
+		this->setState(eIdState::THROW);
+	}
 }
 
 void Jafar::render()
@@ -78,11 +84,19 @@ void Jafar::render()
 		_listFlame[i]->render();
 	}
 
+	for (size_t i = 0; i < _listStar.size(); i++)
+	{
+		if (_listStar[i]->getIsTerminated()) continue;
+		_listStar[i]->setScale(_scale);
+		_listStar[i]->render();
+	}
+
 }
 
 void Jafar::update(float dt)
 {
 	//_RPT1(0, "BLOOD %d \n", _numBlood);
+	std::srand(std::time(0));
 
 	if (_isTerminated) return;
 
@@ -94,6 +108,37 @@ void Jafar::update(float dt)
 		_isFlip = false;
 	}
 
+	if (_state == eIdState::STAND)
+	{
+		_waitTime += dt;
+
+		if (_waitTime < 1.f) _wait = true;
+		else if (_waitTime >= 1.f && _waitTime <= 2.f) _wait = false;
+		else _waitTime = 0.f;
+
+		if (!_wait)
+		{
+			_throwTime += dt;
+
+
+			// ket thuc 1 vong loop thi ban ra lua
+			if (_throwTime > 0.07)
+			{
+				_waitTime += _throwTime;
+				_throwTime = 0.f;
+
+				_numThrow += 1;
+				Vec3 _initPos = _posWorld + Vec3((_isFlip ? -70 : 70), (std::rand() % 11) * -5, 0);
+				pJafarStar _star = new JafarStar();
+				_star->loadResource();
+				_star->setInitPos(_initPos);
+				_star->setPosPlayer(posPlayer + Vec3(0, 20, 0));
+				_listStar.push_back(_star);
+			}
+		}
+	}
+
+
 	if (_state == eIdState::THROW)
 	{
 		_throwTime += dt;
@@ -101,7 +146,7 @@ void Jafar::update(float dt)
 		if (_throwTime > 3.f)
 		{
 			_throwTime = 0.f;
-			_RPT0(0, "[INFFFFIIF]\n");
+			//_RPT0(0, "[INFFFFIIF]\n");
 			pJafarFlame _flame = new JafarFlame();
 			_flame->loadResource();
 			_flame->setDirection(_isFlip);
@@ -116,6 +161,19 @@ void Jafar::update(float dt)
 
 		_listFlame[i]->update(dt);
 	}
+
+	int checkTer = 0;
+	for (size_t i = 0; i < _listStar.size(); i++)
+	{
+		if (_listStar[i]->getIsTerminated())
+		{
+			checkTer += 1;
+			continue;
+		}
+		_listStar[i]->update(dt);
+	}
+
+	if (_listStar.size() - checkTer) _numThrow = 0;
 
 	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setIsFlip(_isFlip);
@@ -133,6 +191,24 @@ void Jafar::update(float dt)
 
 void Jafar::handlerInput(float)
 {
+}
+
+int Jafar::checkCollisionStar(Vec3 pos)
+{
+	int num = 0;
+	for (size_t i = 0; i < _listStar.size(); i++)
+	{
+		if (_listStar[i]->getIsTerminated() || _listStar[i]->getState() == eIdState::EXPLODE) continue;
+
+		bool check = _listStar[i]->checkCollisionPlayer(pos);
+
+		if (check) {
+			num += 1;
+			_listStar[i]->setExplode();
+		}
+
+	}
+	return num;
 }
 
 bool Jafar::checkCollisionFlame(RECT other)

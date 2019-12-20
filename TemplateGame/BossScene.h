@@ -26,6 +26,8 @@ private:
 
 	pAladdin _player;
 
+	pJafar _boss;
+
 	pSceneManager _sceneManager;
 
 	float _rebornTime;

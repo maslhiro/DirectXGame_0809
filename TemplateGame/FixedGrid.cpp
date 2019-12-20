@@ -6,6 +6,7 @@ FixedGrid::FixedGrid()
 	_numX = _numY = _numObj = 0;
 	_isLoaded = false;
 	_posWorld_PLAYER = Vec3();
+	_boss = nullptr;
 }
 
 void FixedGrid::init()
@@ -141,6 +142,7 @@ void FixedGrid::load(const char* filePath)
 			case eIdObject::JAFAR:
 			{
 				_obj = new Jafar();
+				_boss = dynamic_cast<pJafar>(_obj);
 				break;
 			}
 			case eIdObject::PEDDLER:
@@ -313,6 +315,11 @@ closeFile:
 Vec3 FixedGrid::getPosWorld_PLAYER()
 {
 	return _posWorld_PLAYER;
+}
+
+pJafar FixedGrid::getBossPointer()
+{
+	return _boss;
 }
 
 int FixedGrid::getNumX()

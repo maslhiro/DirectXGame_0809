@@ -63,6 +63,7 @@ private:
 	// List static obj như => 
 	std::vector<pGameObject> _listStaticObj;
 
+	pJafar _boss;
 public:
 
 	Unit _cell[25][17];
@@ -81,6 +82,8 @@ public:
 	void load(const char*);
 
 	Vec3 getPosWorld_PLAYER();
+
+	pJafar getBossPointer();
 
 	int getNumX();
 	int getNumY();

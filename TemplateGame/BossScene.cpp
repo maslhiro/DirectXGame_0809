@@ -1,10 +1,12 @@
 #include "BossScene.h"
 
+int activeGround = 0;
 
 BossScene::BossScene()
 {
 	_grid = new FixedGrid();
 	_player = new Aladdin();
+	_boss = nullptr;
 	_cam = new Camera();
 	_camAbove = new Camera();
 	_hud = new HeathHud();
@@ -30,7 +32,7 @@ void BossScene::init()
 
 	_map.setGrid(_grid);
 
-	_rebornTime = 0.f;
+	_rebornTime = 11.f;
 
 	_RPT0(0, "[INFO] Init BOSS SCENE done;\n");
 }
@@ -78,27 +80,57 @@ void BossScene::loadResource()
 	_hudCoin->loadResource();
 	_hudLife->loadResource();
 	_hudScore->loadResource();
+
+	_boss = _grid->getBossPointer();
 }
 
 void BossScene::update(float dt)
 {
-	_rebornTime += dt;
-
-	if (_rebornTime > 10.f)
+	if (_boss != nullptr)
 	{
-		_rebornTime = 0.f;
-		//_RPT0(0, "[RE BORN]\n");
 		RECT _view = _cam->getBounding();
 
+		_view.left -= 200;
+		_view.top -= 200;
+		_view.right -= 200;
+		_view.bottom -= 200;
+
 		auto listObj = _grid->getListGameObjContain(_view);
-		for (size_t i = 0; i < listObj.size(); i++)
+
+		if (_boss->getState() == eIdState::THROW)
 		{
-			if (listObj[i]->getIdType() != eIdObject::APPLE) continue;
-			//_RPT1(0, "[RE BORN] Id %d \n", listObj[i]->getId());
-			listObj[i]->setIsTerminated(false);
+			_rebornTime += dt;
+
+			if (_rebornTime > 10.f)
+			{
+				_rebornTime = 0.f;
+				//_RPT0(0, "[RE BORN]\n");
+				for (size_t i = 0; i < listObj.size(); i++)
+				{
+					if (activeGround == 0)
+					{
+						if (listObj[i]->getIdType() != eIdObject::APPLE && listObj[i]->getIdType() != eIdObject::GROUND_FIRE) continue;
+					}
+					else
+					{
+						if (listObj[i]->getIdType() != eIdObject::APPLE) continue;
+					}
+
+					listObj[i]->setIsTerminated(false);
+				}
+			}
+			activeGround = 1;
+		}
+		else if (_boss->getState() == eIdState::STAND)
+		{
+			for (size_t i = 0; i < listObj.size(); i++)
+			{
+				if (listObj[i]->getIdType() != eIdObject::APPLE && listObj[i]->getIdType() != eIdObject::GROUND_FIRE) continue;
+				//_RPT1(0, "[RE BORN] Id %d \n", listObj[i]->getId());
+				listObj[i]->setIsTerminated(true);
+			}
 		}
 	}
-
 	_player->update(dt);
 
 	_cam->update(dt);
@@ -122,6 +154,7 @@ void BossScene::update(float dt)
 	_hudScore->setNumScore(_player->getNumScore());
 	_hudScore->update(dt);
 }
+
 
 void BossScene::render()
 {

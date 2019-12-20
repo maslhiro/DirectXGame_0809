@@ -945,6 +945,27 @@ void Aladdin::update(float dt)
 			pJafar ja = dynamic_cast<pJafar>(obj);
 			ja->setPosPlayer(_posWorld);
 
+			bool check = this->checkCollision(obj->getCurrentBoudingBox());
+
+			if (check && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE) && !_isFlash)
+			{
+				_numBlood -= DAMAGE_ENERMY;
+
+				if (_state == eIdState::STAND)
+				{
+
+					this->fixPosAnimation(eIdState::DAMAGE);
+					_curAnimation = _listAnimation[eIdState::DAMAGE];
+					_state |= eIdState::DAMAGE;
+					_isFlash = false;
+				}
+				else
+				{
+					_isFlash = true;
+				}
+
+			}
+
 			bool checkFlame = ja->checkCollisionFlame(getBoundingBox());
 
 			if (checkFlame && !_isFlash && (_state & eIdState::DAMAGE) != eIdState::DAMAGE)
@@ -963,6 +984,13 @@ void Aladdin::update(float dt)
 				{
 					_isFlash = true;
 				}
+			}
+
+			int checkStar = ja->checkCollisionStar(_posWorld);
+
+			if (checkStar > 0 && !_isFlash && (_state & eIdState::DAMAGE) != eIdState::DAMAGE)
+			{
+				_posWorld.x += 700.f * dt * (_posWorld.x > obj->getPosWorld().x ? -1 : 1);
 			}
 
 		}

@@ -4,6 +4,7 @@
 #include "Fazal.h"
 #include "Bat.h"
 #include "Skeleton.h"
+#include "Jafar.h"
 
 class AppleThrow :
 	public GameObject

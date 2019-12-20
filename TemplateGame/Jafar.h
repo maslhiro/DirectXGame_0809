@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "JafarFlame.h"
+#include "JafarStar.h"
 
 class Jafar :
 	public GameObject
@@ -11,9 +12,16 @@ private:
 
 	std::vector<Animation> _fireBehind;
 
+	std::vector<pJafarStar> _listStar;
+
 	std::vector<pJafarFlame> _listFlame;
 
 	float _throwTime;
+	float _waitTime;
+
+	bool _wait;
+
+	int _numThrow;
 
 	int _numBlood;
 
@@ -34,6 +42,8 @@ public:
 	void update(float);
 
 	void handlerInput(float);
+
+	int checkCollisionStar(Vec3);
 
 	bool checkCollisionFlame(RECT);
 };

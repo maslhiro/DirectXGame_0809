@@ -116,6 +116,13 @@ void AppleThrow::update(float dt)
 				ke->setIsAnimated(true);
 				ke->setState(eIdState::EXPLODE);
 			}
+			else if (id == eIdObject::JAFAR)
+			{
+				pJafar ja = dynamic_cast<pJafar>(_listGameObj[i]);
+
+				ja->getDamaged(THROW_DAMAGE_ALADDIN);
+
+			}
 
 			this->setState(id != eIdObject::JAFAR ? eIdState::EXPLODE : eIdState::EXPLODE_);
 
