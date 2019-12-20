@@ -84,6 +84,7 @@ void Game::loadResource()
 	_menu->init();
 	_menu->loadResource();
 	_sceneManager->add(3, _menu);
+
 	//_test = _animationManager->get(eIdAnimation::PEDDLER_SELL);
 	//_test.setPosition(Vec3(300, 300, 0));
 	//_test.setIsLoop(true);
@@ -106,6 +107,7 @@ void Game::loadResource()
 Game::Game(HINSTANCE hInstance, int nCmdShow)
 {
 	_hWindow = new Graphic(hInstance, nCmdShow, 0);
+	_sound = Sound::getInstance();
 	_gameTime = GameTime::getInstance();
 	_deviceManager = DeviceManager::getInstance();
 	_drawDebug = DrawDebug::getInstance();
@@ -119,6 +121,7 @@ int Game::init()
 {
 	_gameTime->init();
 	_hWindow->initWindow();
+	_sound->loadSound(_hWindow->getWnd());
 	_deviceManager->init(_hWindow);
 	_drawDebug->init();
 	_texture->init();

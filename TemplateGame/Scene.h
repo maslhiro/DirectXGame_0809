@@ -1,5 +1,6 @@
 #pragma once
 #include "define.h"
+#include "Sound.h"
 #include "Scene.h"
 #include "DeviceManager.h"
 #include "DrawDebug.h"
@@ -20,6 +21,8 @@ public:
 	bool isInit();
 protected:
 	bool _isInit;
+
+	pSound _sound;
 };
 
 typedef Scene* pScene;

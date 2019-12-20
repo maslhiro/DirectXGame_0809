@@ -6,6 +6,7 @@
 #include "GameTime.h"
 #include "GameObject.h"
 #include "Texture.h"
+#include "Sound.h"
 #include "Sprite.h"
 #include "DrawDebug.h"
 #include "AnimationManager.h"
@@ -23,6 +24,7 @@ private:
 	pDeviceManager _deviceManager;
 	pDrawDebug _drawDebug;
 	pGameTime _gameTime;
+	pSound _sound;
 
 	pTexture _texture;
 	pSprite _sprite;

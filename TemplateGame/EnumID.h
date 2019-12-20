@@ -16,6 +16,10 @@ enum eTypeFixPos
 
 };
 
+enum eIdSound {
+	S_JAFAR_PLACE,
+	S_SUTAN_DUNGEON,
+};
 
 // State bit
 enum eIdState

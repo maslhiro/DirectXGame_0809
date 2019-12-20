@@ -1,7 +1,7 @@
 #include "DungeonScene.h"
 
 
-DungeonScene::DungeonScene()
+DungeonScene::DungeonScene() : Scene()
 {
 	_grid = new FixedGrid();
 	_player = new Aladdin();
@@ -32,6 +32,8 @@ void DungeonScene::init()
 
 	_input = InputHandler::getInstance();
 	_sceneManager = SceneManager::getInstance();
+
+	_sound->PlayLoop(eIdSound::S_JAFAR_PLACE);
 
 	_RPT0(0, "[INFO] Init FIRST SCENE done;\n");
 }

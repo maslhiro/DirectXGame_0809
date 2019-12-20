@@ -4,6 +4,7 @@
 
 Scene::Scene()
 {
+	_sound = Sound::getInstance();
 }
 
 
