@@ -1,10 +1,8 @@
 #include "Scene.h"
 
-
-
 Scene::Scene()
 {
-	_sound = Sound::getInstance();
+	_input = InputHandler::getInstance();
 }
 
 

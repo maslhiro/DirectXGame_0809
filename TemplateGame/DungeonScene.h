@@ -8,6 +8,7 @@
 #include "CoinHud.h"
 #include "LifeHud.h"
 #include "ScoreHud.h"
+#include "Sound.h"
 #include "SceneManager.h"
 
 class DungeonScene :
@@ -26,7 +27,8 @@ private:
 	pFixedGrid _grid;
 	pAladdin _player;
 
-	pInputHandler _input;
+	pSound _sound;
+
 	pSceneManager _sceneManager;
 
 	pHeathHud _hud;

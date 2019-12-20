@@ -1,6 +1,6 @@
 #include "MenuScene.h"
 
-MenuScene::MenuScene()
+MenuScene::MenuScene() :Scene()
 {
 }
 
@@ -19,7 +19,7 @@ void MenuScene::init()
 
 	_sceneManager = SceneManager::getInstance();
 
-	_input = InputHandler::getInstance();
+	_sound = Sound::getInstance();
 
 	_index = 0;
 }
@@ -54,6 +54,7 @@ void MenuScene::loadResource()
 	_listChar["z" - "0"] = AnimationManager::getInstance()->get(eIdAnimation::TEXT_PEDDLER_26);
 	_listChar[" " - "0"] = AnimationManager::getInstance()->get(eIdAnimation::TEXT_PEDDLER_27);
 
+	_curChar01.clear();
 	_curChar01.push_back(_listChar["s" - "0"]);
 	_curChar01.push_back(_listChar["u" - "0"]);
 	_curChar01.push_back(_listChar["t" - "0"]);
@@ -69,6 +70,7 @@ void MenuScene::loadResource()
 	_curChar01.push_back(_listChar["o" - "0"]);
 	_curChar01.push_back(_listChar["n" - "0"]);
 
+	_curChar02.clear();
 	_curChar02.push_back(_listChar["j" - "0"]);
 	_curChar02.push_back(_listChar["a" - "0"]);
 	_curChar02.push_back(_listChar["f" - "0"]);
@@ -81,6 +83,9 @@ void MenuScene::loadResource()
 	_curChar02.push_back(_listChar["a" - "0"]);
 	_curChar02.push_back(_listChar["c" - "0"]);
 	_curChar02.push_back(_listChar["e" - "0"]);
+
+	_sound->stopAll();
+	_sound->playLoop(eIdSound::S_MENU);
 }
 
 void MenuScene::update(float dt)
@@ -139,14 +144,16 @@ void MenuScene::handlerInput(float dt)
 	if (_input->getMapKey()[KEY_W])
 	{
 		_index = 0;
+		_sound->play(eIdSound::S_MENU_SELECT);
 	}
 	else if (_input->getMapKey()[KEY_S])
 	{
 		_index = 1;
+		_sound->play(eIdSound::S_MENU_SELECT);
 	}
 	else if (_input->getMapKey()[KEY_H])
 	{
-		_sceneManager->navigateScene(_index);
+		_sceneManager->navigateScene(_index ? eIdScene::SE_JAFAR : eIdScene::SE_DUNGEON);
 	}
 }
 

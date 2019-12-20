@@ -30,10 +30,9 @@ void DungeonScene::init()
 
 	_map.setGrid(_grid);
 
-	_input = InputHandler::getInstance();
 	_sceneManager = SceneManager::getInstance();
 
-	_sound->PlayLoop(eIdSound::S_JAFAR_PLACE);
+	_sound = Sound::getInstance();
 
 	_RPT0(0, "[INFO] Init FIRST SCENE done;\n");
 }
@@ -87,6 +86,9 @@ void DungeonScene::loadResource()
 	_hudCoin->loadResource();
 	_hudLife->loadResource();
 	_hudScore->loadResource();
+
+	_sound->stopAll();
+	_sound->playLoop(eIdSound::S_SUTAN_DUNGEON);
 }
 
 void DungeonScene::update(float dt)
@@ -133,12 +135,15 @@ void DungeonScene::render()
 
 void DungeonScene::handlerInput(float dt)
 {
-	_player->handlerInput(dt);
 
 	if (_input->getMapKey()[KEY_ESC])
 	{
-		_sceneManager->navigateScene(1);
+		_sceneManager->navigateScene(eIdScene::SE_MENU);
+		return;
 	}
+
+	_player->handlerInput(dt);
+
 }
 
 void DungeonScene::release()

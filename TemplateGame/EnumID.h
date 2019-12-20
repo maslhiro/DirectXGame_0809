@@ -16,9 +16,14 @@ enum eTypeFixPos
 
 };
 
-enum eIdSound {
-	S_JAFAR_PLACE,
-	S_SUTAN_DUNGEON,
+enum eIdScene
+{
+	SE_DUNGEON = 1,
+	SE_MENU,
+	SE_JAFAR,
+	SE_DYING,
+	SE_COMPLETE,
+
 };
 
 // State bit

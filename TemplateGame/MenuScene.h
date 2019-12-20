@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "AnimationManager.h"
 #include "SceneManager.h"
+#include "Sound.h"
 
 class MenuScene :
 	public Scene
@@ -13,7 +14,8 @@ private:
 	pDeviceManager _device;
 	pAnimationManager _aniManager;
 	pSceneManager _sceneManager;
-	pInputHandler _input;
+
+	pSound _sound;
 
 	std::unordered_map<int, Animation> _listChar;
 

@@ -1,29 +1,50 @@
-﻿#include "define.h"
+﻿#pragma once
 #include "dxaudio.h"
-#include <map>
+#include <unordered_map>
 
-using namespace std;
+enum eIdSound {
+	S_JAFAR_PLACE = 0,
+	S_MENU,
+	S_SUTAN_DUNGEON,
+	S_MENU_SELECT
+};
 
 class Sound
 {
 public:
 	~Sound();
+
 	static Sound* getInstance();
+
 	void loadSound(HWND hWnd);
-	void Play(int soundid);
-	void PlayNew(int soundid);					// nếu sound đang phát thì chạy đè lên
-	void Stop(int soundid);
-	void StopAll();
-	void PlayLoop(int soundid);
-	bool IsPlaying(int soundid);
+
+	void play(int soundid);
+
+	void playNew(int soundid);					// nếu sound đang phát thì chạy đè lên
+
+	void stop(int soundid);
+
+	void stopAll();
+
+	void playLoop(int soundid);
+
+	bool isPlaying(int soundid);
+
 	void setVolume(int vol);
+
 	void setMute(bool mute);
+
 	bool getMute();
+
 private:
 	Sound();
+
 	static Sound* _instance;
-	map<int, CSound*> _listSound;
+
+	std::unordered_map<int, CSound*> _listSound;
+
 	float _volume;
+
 	bool _mute;
 };
 
