@@ -67,23 +67,26 @@ void Game::loadResource()
 	//_sceneManager->load();
 	pScene _first = new DungeonScene();
 	_first->init();
-	_first->loadResource();
-	_sceneManager->add(0, _first);
+	//_first->loadResource();
+	_sceneManager->add(eIdScene::SE_DUNGEON, _first);
 
 	pScene _boss = new BossScene();
 	_boss->init();
-	_boss->loadResource();
-	_sceneManager->add(1, _boss);
+	//_boss->loadResource();
+	_sceneManager->add(eIdScene::SE_JAFAR, _boss);
 
 	pScene _dying = new DyingScene();
 	_dying->init();
 	_dying->loadResource();
-	_sceneManager->add(2, _dying);
+	_sceneManager->add(eIdScene::SE_DYING, _dying);
 
 	pScene _menu = new MenuScene();
 	_menu->init();
-	_menu->loadResource();
-	_sceneManager->add(3, _menu);
+	//_menu->loadResource();
+	_sceneManager->add(eIdScene::SE_MENU, _menu);
+
+	_sceneManager->navigateScene(eIdScene::SE_MENU);
+
 	//_test = _animationManager->get(eIdAnimation::PEDDLER_SELL);
 	//_test.setPosition(Vec3(300, 300, 0));
 	//_test.setIsLoop(true);
@@ -106,6 +109,7 @@ void Game::loadResource()
 Game::Game(HINSTANCE hInstance, int nCmdShow)
 {
 	_hWindow = new Graphic(hInstance, nCmdShow, 0);
+	_sound = Sound::getInstance();
 	_gameTime = GameTime::getInstance();
 	_deviceManager = DeviceManager::getInstance();
 	_drawDebug = DrawDebug::getInstance();
@@ -119,9 +123,11 @@ int Game::init()
 {
 	_gameTime->init();
 	_hWindow->initWindow();
+	_sound->loadSound(_hWindow->getWnd());
 	_deviceManager->init(_hWindow);
 	_drawDebug->init();
 	_texture->init();
+
 	_RPT0(0, "[INFO] Init Game done;\n");
 	return 1;
 }

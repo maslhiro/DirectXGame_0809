@@ -16,6 +16,15 @@ enum eTypeFixPos
 
 };
 
+enum eIdScene
+{
+	SE_DUNGEON = 1,
+	SE_MENU,
+	SE_JAFAR,
+	SE_DYING,
+	SE_COMPLETE,
+
+};
 
 // State bit
 enum eIdState

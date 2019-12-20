@@ -83,7 +83,7 @@
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS; _NO_CRT_STDIO_INLINE;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3dx9.lib;d3d9.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;gdi32.lib;d3d9.lib;d3dx9.lib;dxguid.lib;dinput8.lib;dsound.lib;winmm.lib;dxerr.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -137,6 +137,7 @@
     <ClCompile Include="CoinHud.cpp" />
     <ClCompile Include="Column.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
+    <ClCompile Include="dxaudio.cpp" />
     <ClCompile Include="DyingScene.cpp" />
     <ClCompile Include="ExitDoor.cpp" />
     <ClCompile Include="ExtraHealth.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ScoreHud.cpp" />
     <ClCompile Include="Skeleton.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Spike.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StoneColumn_1.cpp" />
@@ -197,6 +199,7 @@
     <ClInclude Include="CoinHud.h" />
     <ClInclude Include="Column.h" />
     <ClInclude Include="DrawDebug.h" />
+    <ClInclude Include="dxaudio.h" />
     <ClInclude Include="DyingScene.h" />
     <ClInclude Include="ExitDoor.h" />
     <ClInclude Include="ExtraHealth.h" />
@@ -231,6 +234,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ScoreHud.h" />
     <ClInclude Include="Skeleton.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Spike.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="StoneColumn_1.h" />

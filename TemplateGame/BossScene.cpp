@@ -34,6 +34,10 @@ void BossScene::init()
 
 	_rebornTime = 11.f;
 
+	_sceneManager = SceneManager::getInstance();
+
+	_sound = Sound::getInstance();
+
 	_RPT0(0, "[INFO] Init BOSS SCENE done;\n");
 }
 
@@ -82,6 +86,10 @@ void BossScene::loadResource()
 	_hudScore->loadResource();
 
 	_boss = _grid->getBossPointer();
+
+	_sound->stopAll();
+	_sound->playLoop(eIdSound::S_JAFAR_PLACE);
+
 }
 
 void BossScene::update(float dt)
@@ -174,6 +182,12 @@ void BossScene::render()
 
 void BossScene::handlerInput(float dt)
 {
+	if (_input->getMapKey()[KEY_ESC])
+	{
+		_sceneManager->navigateScene(eIdScene::SE_MENU);
+		return;
+	}
+
 	_player->handlerInput(dt);
 }
 

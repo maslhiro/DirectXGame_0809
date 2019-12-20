@@ -4,7 +4,7 @@ SceneManager* SceneManager::_instance = nullptr;
 
 SceneManager::SceneManager()
 {
-	_indexScene = 1;
+	_indexScene = -1;
 }
 
 pSceneManager SceneManager::getInstance() {
@@ -19,6 +19,7 @@ void SceneManager::navigateScene(int val)
 	if (val != _indexScene)
 	{
 		_indexScene = val;
+		_listScene[val]->loadResource();
 	}
 }
 

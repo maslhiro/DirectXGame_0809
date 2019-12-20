@@ -8,6 +8,7 @@
 #include "LifeHud.h"
 #include "ScoreHud.h"
 #include "SceneManager.h"
+#include "Sound.h"
 
 class BossScene :
 	public Scene
@@ -27,6 +28,8 @@ private:
 	pAladdin _player;
 
 	pJafar _boss;
+
+	pSound _sound;
 
 	pSceneManager _sceneManager;
 

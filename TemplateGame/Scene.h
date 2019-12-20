@@ -1,6 +1,6 @@
 #pragma once
 #include "define.h"
-#include "Scene.h"
+#include "InputHandler.h"
 #include "DeviceManager.h"
 #include "DrawDebug.h"
 
@@ -20,6 +20,7 @@ public:
 	bool isInit();
 protected:
 	bool _isInit;
+	pInputHandler _input;
 };
 
 typedef Scene* pScene;
