@@ -3,6 +3,7 @@
 #include "Animation.h"
 #include "AnimationManager.h"
 #include "SceneManager.h"
+#include "Sound.h"
 
 class DyingScene :
 	public Scene
@@ -24,6 +25,8 @@ public:
 	void render();
 
 	void handlerInput(float);
+	void reset();
+	void replaySound();
 	void release();
 };
 

@@ -21,6 +21,14 @@ private:
 	int _numCoin;
 	int _numLife;
 	int _numScore;
+	int _numBlood;
+
+	Vec3 _savePos;
+	int  _saveCoin;
+	int _saveIndexApple;
+	int _saveApple;
+	int _saveScore;
+	std::vector<pAppleThrow> _savelistApple;
 
 	int _indexApple;
 
@@ -71,8 +79,6 @@ private:
 
 	bool _isFlash;
 
-	int _numBlood;
-
 #pragma endregion
 
 public:
@@ -98,6 +104,12 @@ public:
 	void setCamera(pCamera);
 
 	void setCameraAbove(pCamera);
+
+	void setPosSave(Vec3);
+
+	void setSave(Vec3);
+
+	void reborn();
 
 	void loadResource();
 

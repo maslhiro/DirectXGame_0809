@@ -34,6 +34,8 @@ public:
 	void render();
 
 	void handlerInput(float);
+	void reset();
+	void replaySound();
 	void release();
 };
 

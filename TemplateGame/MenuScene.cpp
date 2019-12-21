@@ -157,6 +157,18 @@ void MenuScene::handlerInput(float dt)
 	}
 }
 
+void MenuScene::reset()
+{
+}
+
+void MenuScene::replaySound()
+{
+	if (_sound == nullptr) return;
+
+	_sound->stopAll();
+	_sound->playLoop(eIdSound::S_MENU);
+}
+
 void MenuScene::release()
 {
 

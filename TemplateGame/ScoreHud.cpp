@@ -67,6 +67,12 @@ void ScoreHud::render()
 
 }
 
+void ScoreHud::reset()
+{
+	_numScore = 0;
+	_state = 0;
+}
+
 void ScoreHud::update(float dt)
 {
 	_curAnimation.update(dt);

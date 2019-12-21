@@ -84,7 +84,7 @@ void GameMap::loadGameObj(const char *filePath)
 
 	_grid->load(filePath);
 	_player->setPositionWorld(_grid->getPosWorld_PLAYER());
-
+	_player->setSave(_grid->getPosWorld_PLAYER());
 	//_RPT0(0, "[INFO] Load GAME OBJ TXT Done\n");
 }
 

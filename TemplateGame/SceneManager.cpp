@@ -5,6 +5,7 @@ SceneManager* SceneManager::_instance = nullptr;
 SceneManager::SceneManager()
 {
 	_indexScene = -1;
+	_preIndexScene = -1;
 }
 
 pSceneManager SceneManager::getInstance() {
@@ -18,9 +19,22 @@ void SceneManager::navigateScene(int val)
 {
 	if (val != _indexScene)
 	{
+		_preIndexScene = _indexScene;
+		_indexScene = val;
+
 		_indexScene = val;
 		_listScene[val]->init();
 		_listScene[val]->loadResource();
+	}
+}
+
+void SceneManager::backScreen()
+{
+	if (_preIndexScene != -1)
+	{
+		_indexScene = _preIndexScene;
+		_listScene[_indexScene]->replaySound();
+		_listScene[_indexScene]->reset();
 	}
 }
 

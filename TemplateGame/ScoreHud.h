@@ -17,6 +17,8 @@ public:
 
 	void render();
 
+	void reset();
+
 	void update(float);
 
 	void handlerInput(float) {};

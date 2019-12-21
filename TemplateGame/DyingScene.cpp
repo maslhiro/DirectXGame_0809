@@ -51,6 +51,7 @@ void DyingScene::update(float dt)
 	}
 	else
 	{
+
 		_listAni[0].update(dt);
 	}
 
@@ -58,7 +59,15 @@ void DyingScene::update(float dt)
 
 	if (_listAni[1].getLoopCount() > 4)
 	{
-		_sceneManager->navigateScene(0);
+		_sceneManager->backScreen();
+	}
+
+	if (_listAni[2].getCurrentFrame() == 0)
+	{
+		if (_listAni[2].getLoopCount() == 0 || _listAni[2].getLoopCount() == 2 || _listAni[2].getLoopCount() == 4)
+		{
+			Sound::getInstance()->playNew(eIdSound::S_BOXING_BELL);
+		}
 	}
 }
 
@@ -77,6 +86,16 @@ void DyingScene::render()
 void DyingScene::handlerInput(float dt)
 {
 
+}
+
+void DyingScene::reset()
+{
+}
+
+void DyingScene::replaySound()
+{
+	//_sound->stopAll();
+	//_sound->playLoop(eIdSound::S_MENU);
 }
 
 void DyingScene::release()

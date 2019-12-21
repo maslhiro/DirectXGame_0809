@@ -9,7 +9,11 @@ public:
 
 	static SceneManager* getInstance();
 
+	// Khoi tao man hinh moi khi chuyen qua
 	void navigateScene(int);
+
+	// Giu nguyen man hinh ban dau chi render lai
+	void backScreen();
 
 	void add(int, pScene);
 
@@ -18,7 +22,7 @@ public:
 
 private:
 	static SceneManager* _instance;
-	int _indexScene;
+	int _indexScene, _preIndexScene;
 	std::unordered_map<int, pScene> _listScene;
 };
 

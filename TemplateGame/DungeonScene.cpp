@@ -93,6 +93,22 @@ void DungeonScene::loadResource()
 
 void DungeonScene::update(float dt)
 {
+	if (_player->getNumBlood() <= 5)
+	{
+		if (_player->getNumLife() > 0)
+		{
+			_sceneManager->navigateScene(eIdScene::SE_DYING);
+			_sound->stopAll();
+			return;
+		}
+		else
+		{
+			_sceneManager->navigateScene(eIdScene::SE_MENU);
+			return;
+		}
+	}
+
+
 	_player->update(dt);
 
 	_cam->update(dt);
@@ -144,6 +160,25 @@ void DungeonScene::handlerInput(float dt)
 
 	_player->handlerInput(dt);
 
+}
+
+void DungeonScene::reset()
+{
+	auto _deviceManager = DeviceManager::getInstance();
+
+	_cam->setPositisonWorld((_deviceManager->getWidthWindow() / 2 + 34), _map.getHeight() - 20 - _deviceManager->getHeightWindow() / 2);
+	_camAbove->setPositisonWorld((_deviceManager->getWidthWindow() / 2 + 34), _map.getHeight() - 20 - _deviceManager->getHeightWindow() / 2);
+
+	_player->reborn();
+	_hudScore->reset();
+
+}
+
+void DungeonScene::replaySound()
+{
+	if (_sound == nullptr) return;
+	_sound->stopAll();
+	_sound->playLoop(eIdSound::S_SUTAN_DUNGEON);
 }
 
 void DungeonScene::release()

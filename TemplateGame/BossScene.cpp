@@ -94,6 +94,21 @@ void BossScene::loadResource()
 
 void BossScene::update(float dt)
 {
+	if (_player->getNumBlood() <= 5)
+	{
+		if (_player->getNumLife() > 0)
+		{
+			_sceneManager->navigateScene(eIdScene::SE_DYING);
+			_sound->stopAll();
+			return;
+		}
+		else
+		{
+			_sceneManager->navigateScene(eIdScene::SE_MENU);
+			return;
+		}
+	}
+
 	if (_boss != nullptr)
 	{
 		RECT _view = _cam->getBounding();
@@ -139,6 +154,7 @@ void BossScene::update(float dt)
 			}
 		}
 	}
+
 	_player->update(dt);
 
 	_cam->update(dt);
@@ -180,6 +196,17 @@ void BossScene::render()
 	_hudScore->render();
 }
 
+void BossScene::reset()
+{
+	auto _deviceManager = DeviceManager::getInstance();
+
+	_cam->setPositisonWorld((_deviceManager->getWidthWindow() / 2 + 34), _map.getHeight() - 20 - _deviceManager->getHeightWindow() / 2);
+	_camAbove->setPositisonWorld((_deviceManager->getWidthWindow() / 2 + 100), _mapAbove.getHeight() - _deviceManager->getHeightWindow() / 2);
+
+	_player->reborn();
+	_hudScore->reset();
+}
+
 void BossScene::handlerInput(float dt)
 {
 	if (_input->getMapKey()[KEY_ESC])
@@ -189,6 +216,15 @@ void BossScene::handlerInput(float dt)
 	}
 
 	_player->handlerInput(dt);
+}
+
+void BossScene::replaySound()
+{
+	if (_sound == nullptr) return;
+
+	_sound->stopAll();
+	_sound->playLoop(eIdSound::S_JAFAR_PLACE);
+
 }
 
 void BossScene::release()

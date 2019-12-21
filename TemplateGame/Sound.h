@@ -26,7 +26,7 @@ enum eIdSound {
 	S_BOXING_BELL,
 	S_CASH_REGISTER,
 	S_BONE_TINKLE,
-	S_JAFAR_SNAKE
+	S_JAFAR_SNAKE,
 };
 
 class Sound

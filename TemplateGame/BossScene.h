@@ -50,7 +50,10 @@ public:
 	void update(float);
 	void render();
 
+	void reset();
+
 	void handlerInput(float);
+	void replaySound();
 	void release();
 };
 

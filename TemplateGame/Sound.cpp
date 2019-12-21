@@ -59,9 +59,9 @@ void Sound::loadSound(HWND hWnd)
 	sound = LoadSound("Resource//Sound//Save_Point.wav");
 	_listSound[eIdSound::S_SAVE_POINT] = sound;
 
-	//sound = nullptr;
-	//sound = LoadSound("Resource//Sound//Rock.wav");
-	//_listSound[eIdSound::S_ROCK] = sound;
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Rock.wav");
+	_listSound[eIdSound::S_ROCK] = sound;
 
 	sound = nullptr;
 	sound = LoadSound("Resource//Sound//Enermy_Explode.wav");
@@ -79,9 +79,9 @@ void Sound::loadSound(HWND hWnd)
 	sound = LoadSound("Resource//Sound//Attack.wav");
 	_listSound[eIdSound::S_ALADDIN_ATTACK] = sound;
 
-	//sound = nullptr;
-	//sound = LoadSound("Resource//Sound//Aladdin_Push.wav");
-	//_listSound[eIdSound::S_ALADDIN_PUSH] = sound;
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Aladdin_Push.wav");
+	_listSound[eIdSound::S_ALADDIN_PUSH] = sound;
 
 	sound = nullptr;
 	sound = LoadSound("Resource//Sound//Apple_Throw.wav");
@@ -98,6 +98,10 @@ void Sound::loadSound(HWND hWnd)
 	//sound = nullptr;
 	//sound = LoadSound("Resource//Sound//Bones_Tinkle.wav");
 	//_listSound[eIdSound::S_BONE_TINKLE] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Boxing_Bell.wav");
+	_listSound[eIdSound::S_BOXING_BELL] = sound;
 
 	sound = nullptr;
 	sound = LoadSound("Resource//Sound//Jafar_Snake.wav");

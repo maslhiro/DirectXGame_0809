@@ -92,6 +92,68 @@ void Aladdin::setCameraAbove(pCamera cam)
 	_cameraAbove = cam;
 }
 
+void Aladdin::setPosSave(Vec3 val)
+{
+	_savePos = val;
+}
+
+void Aladdin::setSave(Vec3 val)
+{
+	_RPT1(0, "[POS SAVE] %d %d \n", val.x, val.y);
+
+	_savePos = val;
+	_saveCoin = _numCoin;
+	_saveApple = _numApple;
+	_saveScore = _numScore;
+	_savelistApple = _listApple;
+	_saveIndexApple = _indexApple;
+
+}
+
+void Aladdin::reborn()
+{
+	_RPT1(0, "[RE BORN SAVE] %d %d \n", _savePos.x, _savePos.y);
+
+	_posWorld = _savePos;
+	_numCoin = _numCoin;
+	_numApple = _saveApple;
+	_numScore = _saveScore;
+	_listApple = _savelistApple;
+	_indexApple = _saveIndexApple;
+	_numBlood = BLOOD_ALADDIN;
+
+	_idType = eIdObject::ALADDIN;
+
+	_isFlash = false;
+	_isClimb = 0;
+	_isThrow = false;
+	_isFall = false;
+	_isOnGround = false;
+	_isRunJump = false;
+	_isDamage = false;
+	_isClimbJump = false;
+	_checkClimb = false;
+	_canMoveRight = true;
+	_canMoveLeft = true;
+	_isAttack = false;
+	_isJump = false;
+	_idGroundObj = 0;
+	_isSit = false;
+	_isBuy = 0;
+	_distanceJump = 0.f;
+	_moveDirection = 0;
+	_indexApple = 0;
+	_waitTime = 0.f;
+	_flashTime = 0.f;
+
+	_numLife -= 1;
+
+	if (_cameraAbove != nullptr) _cameraAbove->setNextPositisonWorld(_posWorld + Vec3(0.2*_posWorld.x, 0, 0));
+	_camera->setNextPositisonWorld(_posWorld);
+
+	this->setState(eIdState::STAND);
+}
+
 void Aladdin::loadResource()
 {
 
@@ -491,7 +553,7 @@ void Aladdin::update(float dt)
 	}
 	else if ((_state & eIdState::THROW) == eIdState::THROW)
 	{
-		if (_indexApple > _listApple.size() && _indexApple < _numApple)
+		if (_indexApple > _listApple.size())
 		{
 			pAppleThrow _apple = new AppleThrow();
 			_apple->loadResource();
@@ -678,6 +740,9 @@ void Aladdin::update(float dt)
 			float check = this->checkCollision(obj->getBoundingBox());
 			if (check && !obj->getIsAnimated()) {
 				_sound->play(eIdSound::S_SAVE_POINT);
+
+				this->setSave(_posWorld);
+
 				obj->setIsAnimated(true);
 			}
 		}
@@ -725,7 +790,8 @@ void Aladdin::update(float dt)
 					_isAttack = false;
 					na->getDamaged(ATTACK_DAMAGE_ALADDIN);
 				}
-				else if (!_isFlash && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE) && obj->getState() == eIdState::ATTACK)
+				else if (!_isFlash && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE) && obj->getState() == eIdState::ATTACK
+					&& obj->getCurrentFrame() > 3 && obj->getCurrentFrame() < 7)
 				{
 					_RPT0(0, "GET DAM NAHBI\n");
 					_numBlood -= DAMAGE_ENERMY;
@@ -1103,7 +1169,8 @@ void Aladdin::handlerInput(float dt)
 		else if (_input->getMapKey()[KEY_K]) {
 			_isBuy = 0;
 			_waitTime = 0.f;
-			_indexApple += 1;
+
+			_indexApple += _indexApple < _numApple ? 1 : 0;
 
 			this->fixPosAnimation(eIdState::THROW);
 			this->setState(eIdState::THROW);
@@ -1147,7 +1214,7 @@ void Aladdin::handlerInput(float dt)
 					_curAnimation = _listAnimation[eIdState::SIT | eIdState::THROW];
 					_state |= eIdState::THROW;
 
-					_indexApple += 1;
+					_indexApple += _indexApple < _numApple ? 1 : 0;
 				}
 			}
 		}
@@ -1213,7 +1280,7 @@ void Aladdin::handlerInput(float dt)
 				_state |= eIdState::THROW;
 				_curAnimation = _listAnimation[eIdState::JUMP | eIdState::THROW];
 
-				_indexApple += 1;
+				_indexApple += _indexApple < _numApple ? 1 : 00;
 			}
 
 			if (_input->getMapKey()[KEY_A] && !_input->getMapKey()[KEY_D]) {
