@@ -124,6 +124,7 @@ void Jafar::update(float dt)
 			// ket thuc 1 vong loop thi ban ra lua
 			if (_throwTime > 0.07)
 			{
+
 				_waitTime += _throwTime;
 				_throwTime = 0.f;
 
@@ -142,11 +143,14 @@ void Jafar::update(float dt)
 	if (_state == eIdState::THROW)
 	{
 		_throwTime += dt;
+
 		// ket thuc 1 vong loop thi ban ra lua
 		if (_throwTime > 3.f)
 		{
 			_throwTime = 0.f;
 			//_RPT0(0, "[INFFFFIIF]\n");
+			Sound::getInstance()->play(eIdSound::S_JAFAR_SNAKE);
+
 			pJafarFlame _flame = new JafarFlame();
 			_flame->loadResource();
 			_flame->setDirection(_isFlip);
@@ -219,7 +223,7 @@ bool Jafar::checkCollisionFlame(RECT other)
 
 		bool check = _listFlame[i]->checkCollision(other);
 
-		if (check && _listFlame[i]->getCurrentFrame() == 4) return check;
+		if (check && abs(other.left - _listFlame[i]->getBoundingBox().right) >= 40) return check;
 
 	}
 	return false;

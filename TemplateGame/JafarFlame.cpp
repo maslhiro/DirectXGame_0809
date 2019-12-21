@@ -7,7 +7,7 @@ JafarFlame::JafarFlame() : GameObject()
 	_isAnimated = true;
 	_scale = Vec2(2.f, 2.f);
 	_speed = 250.f;
-	_gravity = 100.f;
+	_gravity = 50.f;
 	_distance = 0.f;
 	_waitTime = 0.f;
 }

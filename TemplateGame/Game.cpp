@@ -66,22 +66,22 @@ void Game::loadResource()
 	_animationManager->load();
 	//_sceneManager->load();
 	pScene _first = new DungeonScene();
-	_first->init();
+	//_first->init();
 	//_first->loadResource();
 	_sceneManager->add(eIdScene::SE_DUNGEON, _first);
 
 	pScene _boss = new BossScene();
-	_boss->init();
+	//_boss->init();
 	//_boss->loadResource();
 	_sceneManager->add(eIdScene::SE_JAFAR, _boss);
 
 	pScene _dying = new DyingScene();
-	_dying->init();
-	_dying->loadResource();
+	//_dying->init();
+	//_dying->loadResource();
 	_sceneManager->add(eIdScene::SE_DYING, _dying);
 
 	pScene _menu = new MenuScene();
-	_menu->init();
+	//_menu->init();
 	//_menu->loadResource();
 	_sceneManager->add(eIdScene::SE_MENU, _menu);
 

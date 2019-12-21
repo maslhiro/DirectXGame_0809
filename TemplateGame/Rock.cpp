@@ -56,6 +56,7 @@ void Rock::update(float dt)
 
 	if (_waitTime > WAIT_TIME_ROCK)
 	{
+		//if (!_isAnimated) Sound::getInstance()->playNew(eIdSound::S_ROCK);
 		_isAnimated = true;
 		if (_curAnimation.getCurrentFrame() != 4) _waitTime = 0.f;
 	}

@@ -496,6 +496,7 @@ void Aladdin::update(float dt)
 			pAppleThrow _apple = new AppleThrow();
 			_apple->loadResource();
 			_apple->setScale(2.0f);
+			_sound->play(eIdSound::S_APPLE_THROW);
 
 			if (_isFlip)
 			{
@@ -649,13 +650,24 @@ void Aladdin::update(float dt)
 				if (obj->getState() != eIdState::EXPLODE)
 				{
 					obj->setState(eIdState::EXPLODE);
-					if (obj->getIdType() == eIdObject::APPLE) _numApple += 1;
-					else if (obj->getIdType() == eIdObject::EXTRA_HEALTH) _numBlood = BLOOD_ALADDIN;
-					else if (obj->getIdType() == eIdObject::COIN) {
+					if (obj->getIdType() == eIdObject::APPLE) {
+						_sound->playNew(eIdSound::S_APPLE_COLLECTION);
+						_numApple += 1;
+					}
+					else if (obj->getIdType() == eIdObject::EXTRA_HEALTH)
+					{
+						_sound->playNew(eIdSound::S_EXTRA_HEALTH);
+						_numBlood = BLOOD_ALADDIN;
+					}
+					else if (obj->getIdType() == eIdObject::COIN)
+					{
+						_sound->playNew(eIdSound::S_COIN_COLLECTION);
 						_numCoin += 1;
 						_numScore += SCORE_COIN;
 					}
-					else if (obj->getIdType() == eIdObject::GENIE_HEAD) {
+					else if (obj->getIdType() == eIdObject::GENIE_HEAD)
+					{
+						_sound->playNew(eIdSound::S_GENIE_HEAD);
 						_numScore += SCORE_GENIE_HEAD;
 					}
 				}
@@ -664,7 +676,8 @@ void Aladdin::update(float dt)
 		else if (obj->getIdType() == eIdObject::SAVE_POINT)
 		{
 			float check = this->checkCollision(obj->getBoundingBox());
-			if (check) {
+			if (check && !obj->getIsAnimated()) {
+				_sound->play(eIdSound::S_SAVE_POINT);
 				obj->setIsAnimated(true);
 			}
 		}
@@ -680,8 +693,8 @@ void Aladdin::update(float dt)
 					(obj->getCurrentFrame() < 6 && obj->getCurrentFrame() > 4 && obj->getIdType() == eIdObject::SPIKE))
 				{
 					_numBlood -= DAMAGE_ENERMY;
-
-					if (_state == eIdState::STAND)
+					_sound->play(eIdSound::S_ALADDIN_HURT);
+					if ((_state & eIdState::STAND) == eIdState::STAND)
 					{
 
 						this->fixPosAnimation(eIdState::DAMAGE);
@@ -709,7 +722,6 @@ void Aladdin::update(float dt)
 				if ((_state & eIdState::ATTACK) == eIdState::ATTACK &&
 					_isAttack)
 				{
-
 					_isAttack = false;
 					na->getDamaged(ATTACK_DAMAGE_ALADDIN);
 				}
@@ -718,6 +730,7 @@ void Aladdin::update(float dt)
 					_RPT0(0, "GET DAM NAHBI\n");
 					_numBlood -= DAMAGE_ENERMY;
 
+					_sound->play(eIdSound::S_ALADDIN_HURT);
 					if (_state == eIdState::STAND)
 					{
 
@@ -755,6 +768,7 @@ void Aladdin::update(float dt)
 					_RPT0(0, "GET DAM NAHBI\n");
 					_numBlood -= DAMAGE_ENERMY;
 
+					_sound->play(eIdSound::S_ALADDIN_HURT);
 					if (_state == eIdState::STAND)
 					{
 
@@ -782,13 +796,15 @@ void Aladdin::update(float dt)
 			if (check && (_state & eIdState::ATTACK) == eIdState::ATTACK && _isAttack)
 			{
 				_isAttack = false;
+				_sound->playNew(eIdSound::S_ENERMY_EXPLODE);
 				bat->setIsAnimated(true);
 				bat->setState(eIdState::EXPLODE);
 			}
 			else if (check && ((_state & eIdState::ATTACK) != eIdState::ATTACK) && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE))
 			{
 				_numBlood -= DAMAGE_ENERMY;
-
+				_sound->playNew(eIdSound::S_ENERMY_EXPLODE);
+				_sound->play(eIdSound::S_ALADDIN_HURT);
 				bat->setState(eIdState::EXPLODE);
 				//_RPT0(0, "GET DAM\n");
 				if (_state == eIdState::STAND)
@@ -816,7 +832,7 @@ void Aladdin::update(float dt)
 			{
 				if ((_state & eIdState::ATTACK) == eIdState::ATTACK && _isAttack)
 				{
-
+					_sound->playNew(eIdSound::S_ENERMY_EXPLODE);
 					_isAttack = false;
 					ke->setIsAnimated(true);
 					ke->setState(eIdState::EXPLODE);
@@ -840,6 +856,7 @@ void Aladdin::update(float dt)
 					if ((_state & eIdState::ATTACK) != eIdState::ATTACK)
 					{
 						_numBlood -= DAMAGE_ENERMY;
+						_sound->play(eIdSound::S_ALADDIN_HURT);
 
 						if (_state == eIdState::STAND)
 						{
@@ -872,7 +889,8 @@ void Aladdin::update(float dt)
 			{
 				if (_posWorld.x < pe->getPosWorld().x - 50)
 				{
-					_RPT0(0, "BUY LEFT\n");
+					//_RPT0(0, "BUY LEFT\n");
+					_sound->play(eIdSound::S_CASH_REGISTER);
 					if (_numCoin >= 5)
 					{
 						pe->buySuccess();
@@ -886,6 +904,7 @@ void Aladdin::update(float dt)
 				}
 				else if (_posWorld.x >= pe->getPosWorld().x - 50 && _posWorld.x <= pe->getPosWorld().x)
 				{
+					_sound->play(eIdSound::S_CASH_REGISTER);
 					if (_numCoin >= 10)
 					{
 						pe->buySuccess();
@@ -917,6 +936,7 @@ void Aladdin::update(float dt)
 				if (checkFire && !_isFlash && (_state & eIdState::DAMAGE) != eIdState::DAMAGE)
 				{
 					_numBlood -= DAMAGE_ENERMY;
+					_sound->play(eIdSound::S_ALADDIN_HURT);
 
 					if (_state == eIdState::STAND)
 					{
@@ -950,6 +970,7 @@ void Aladdin::update(float dt)
 			if (check && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE) && !_isFlash)
 			{
 				_numBlood -= DAMAGE_ENERMY;
+				_sound->play(eIdSound::S_ALADDIN_HURT);
 
 				if (_state == eIdState::STAND)
 				{
@@ -971,8 +992,9 @@ void Aladdin::update(float dt)
 			if (checkFlame && !_isFlash && (_state & eIdState::DAMAGE) != eIdState::DAMAGE)
 			{
 				_numBlood -= DAMAGE_ENERMY;
+				_sound->play(eIdSound::S_ALADDIN_HURT);
 
-				if (_state == eIdState::STAND)
+				if ((_state & eIdState::STAND) == eIdState::STAND)
 				{
 
 					this->fixPosAnimation(eIdState::DAMAGE);
@@ -1065,6 +1087,8 @@ void Aladdin::handlerInput(float dt)
 		else if (_input->getMapKey()[KEY_H]) {
 			_isBuy = 0;
 			_waitTime = 0.f;
+
+			_sound->play(eIdSound::S_ALADDIN_ATTACK);
 			this->fixPosAnimation(eIdState::ATTACK);
 			this->setState(eIdState::ATTACK);
 			_isAttack = true;
@@ -1107,6 +1131,8 @@ void Aladdin::handlerInput(float dt)
 			_isSit = true;
 			if (_input->getMapKey()[KEY_H])
 			{
+
+				_sound->play(eIdSound::S_ALADDIN_ATTACK);
 				this->fixPosAnimation(eIdState::SIT | eIdState::ATTACK);
 				_curAnimation = _listAnimation[eIdState::SIT | eIdState::ATTACK];
 				_state |= eIdState::ATTACK;
@@ -1172,6 +1198,8 @@ void Aladdin::handlerInput(float dt)
 
 			if (_input->getMapKey()[KEY_H] && (_state & eIdState::ATTACK) != eIdState::ATTACK && !_isOnGround)
 			{
+
+				_sound->play(eIdSound::S_ALADDIN_ATTACK);
 				_state |= eIdState::ATTACK;
 				//this->setDy(10.f);
 				_isAnimated = true;
@@ -1247,6 +1275,7 @@ void Aladdin::handlerInput(float dt)
 		if (_input->getMapKey()[KEY_H] && !_isOnGround) {
 			this->fixPosAnimation(eIdState::RUN | eIdState::ATTACK);
 			_state |= eIdState::ATTACK;
+			_sound->play(eIdSound::S_ALADDIN_ATTACK);
 			_curAnimation = _listAnimation[eIdState::RUN | eIdState::ATTACK];
 			_isAttack = true;
 		}

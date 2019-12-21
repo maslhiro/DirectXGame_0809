@@ -32,7 +32,7 @@
   <object id="4" name="6001" x="331.364" y="648.727"/>
  </objectgroup>
  <objectgroup id="7" name="5000">
-  <object id="9" name="50001" x="766.667" y="625.333"/>
+  <object id="9" name="50001" x="766.667" y="651.333"/>
  </objectgroup>
  <objectgroup id="3" name="4500">
   <object id="1" name="45001" x="1" y="705.159" width="1534.29" height="86.8409"/>

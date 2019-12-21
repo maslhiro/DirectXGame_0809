@@ -99,7 +99,7 @@ HRESULT CSoundManager::SetPrimaryBufferFormat(DWORD dwPrimaryChannels,
 	ZeroMemory(&dsbd, sizeof(DSBUFFERDESC));
 	dsbd.dwSize = sizeof(DSBUFFERDESC);
 	dsbd.dwFlags = DSBCAPS_PRIMARYBUFFER;
-	
+
 	dsbd.dwBufferBytes = 0;
 	dsbd.lpwfxFormat = NULL;
 
@@ -211,7 +211,7 @@ HRESULT CSoundManager::Create(CSound** ppSound,
 	// DSBCAPS_CTRLFX is used, so use CreateSoundBuffer() instead in this case.
 	if ((dwCreationFlags & DSBCAPS_CTRLFX) == 0)
 	{
-		for (i = 1; i<dwNumBuffers; i++)
+		for (i = 1; i < dwNumBuffers; i++)
 		{
 			if (FAILED(hr = m_pDS->DuplicateSoundBuffer(apDSBuffer[0], &apDSBuffer[i])))
 			{
@@ -222,7 +222,7 @@ HRESULT CSoundManager::Create(CSound** ppSound,
 	}
 	else
 	{
-		for (i = 1; i<dwNumBuffers; i++)
+		for (i = 1; i < dwNumBuffers; i++)
 		{
 			hr = m_pDS->CreateSoundBuffer(&dsbd, &apDSBuffer[i], NULL);
 			if (FAILED(hr))
@@ -260,7 +260,7 @@ CSound::CSound(LPDIRECTSOUNDBUFFER* apDSBuffer, DWORD dwDSBufferSize,
 	m_apDSBuffer = new LPDIRECTSOUNDBUFFER[dwNumBuffers];
 	if (NULL != m_apDSBuffer)
 	{
-		for (i = 0; i<dwNumBuffers; i++)
+		for (i = 0; i < dwNumBuffers; i++)
 			m_apDSBuffer[i] = apDSBuffer[i];
 
 		m_dwDSBufferSize = dwDSBufferSize;
@@ -281,7 +281,7 @@ CSound::CSound(LPDIRECTSOUNDBUFFER* apDSBuffer, DWORD dwDSBufferSize,
 //-----------------------------------------------------------------------------
 CSound::~CSound()
 {
-	for (DWORD i = 0; i<m_dwNumBuffers; i++)
+	for (DWORD i = 0; i < m_dwNumBuffers; i++)
 	{
 		SAFE_RELEASE(m_apDSBuffer[i]);
 	}
@@ -430,7 +430,7 @@ LPDIRECTSOUNDBUFFER CSound::GetFreeBuffer()
 	if (m_apDSBuffer == NULL)
 		return FALSE;
 	DWORD i;
-	for (i = 0; i<m_dwNumBuffers; i++)
+	for (i = 0; i < m_dwNumBuffers; i++)
 	{
 		if (m_apDSBuffer[i])
 		{
@@ -551,7 +551,7 @@ HRESULT CSound::Stop()
 
 	HRESULT hr = 0;
 
-	for (DWORD i = 0; i<m_dwNumBuffers; i++)
+	for (DWORD i = 0; i < m_dwNumBuffers; i++)
 		hr |= m_apDSBuffer[i]->Stop();
 
 	return hr;
@@ -571,7 +571,7 @@ HRESULT CSound::Reset()
 
 	HRESULT hr = 0;
 
-	for (DWORD i = 0; i<m_dwNumBuffers; i++)
+	for (DWORD i = 0; i < m_dwNumBuffers; i++)
 		hr |= m_apDSBuffer[i]->SetCurrentPosition(0);
 
 	return hr;
@@ -591,7 +591,8 @@ BOOL CSound::IsSoundPlaying()
 	if (m_apDSBuffer == NULL)
 		return FALSE;
 
-	for (DWORD i = 0; i<m_dwNumBuffers; i++)
+	DWORD i;
+	for (i = 0; i < m_dwNumBuffers; i++)
 	{
 		if (m_apDSBuffer[i])
 		{
@@ -1161,9 +1162,9 @@ CSound *LoadSound(string filename)
 	//attempt to load the wave file
 	char s[255];
 	sprintf_s(s, "%s", filename.c_str());
-	
+
 #if UNICODE
-	wstring str = wstring(filename.begin(),filename.end());
+	wstring str = wstring(filename.begin(), filename.end());
 
 #else
 	string str = to_string(var);

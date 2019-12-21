@@ -19,6 +19,7 @@ void SceneManager::navigateScene(int val)
 	if (val != _indexScene)
 	{
 		_indexScene = val;
+		_listScene[val]->init();
 		_listScene[val]->loadResource();
 	}
 }

@@ -52,6 +52,7 @@ void Nahbi::getDamaged(int val)
 	_numBlood -= val;
 	if (_state != eIdState::DAMAGE && _numBlood > 0)
 	{
+		Sound::getInstance()->playNew(eIdSound::S_ENERMY_EXPLODE);
 		this->fixPosAnimation(eIdState::DAMAGE);
 		this->setState(eIdState::DAMAGE);
 	}
@@ -108,6 +109,7 @@ void Nahbi::update(float dt)
 				if (_waitTime >= WAIT_TIME_NAHBI)
 				{
 					_waitTime = 0.f;
+					Sound::getInstance()->play(eIdSound::S_NAHBI_WAIT);
 					this->fixPosAnimation(eIdState::WAIT_01);
 					this->setState(eIdState::WAIT_01);
 				}
@@ -134,6 +136,7 @@ void Nahbi::update(float dt)
 			}
 			else if (abs(_posWorld.x - posPlayer.x) < ATTACK_DISTANCE && abs(_posWorld.y - posPlayer.y) < 10)
 			{
+				this->fixPosAnimation(eIdState::ATTACK);
 				this->setState(eIdState::ATTACK);
 			}
 		}
@@ -142,6 +145,8 @@ void Nahbi::update(float dt)
 		{
 			if (_curAnimation.getLoopCount() > 2) {
 				_waitTime = 0.f;
+
+				this->fixPosAnimation(eIdState::STAND);
 
 				// set lai de _curAnimation dc reset
 				this->setState(eIdState::STAND);

@@ -436,6 +436,28 @@ void AnimationManager::load() {
 	_push.addSprite(eIdSprite::ALADDIN_PUSH_10);
 	_listAnimation[eIdAnimation::ALADDIN_PUSH] = _push;
 
+	Animation _reborn;
+	_reborn.setTimePerFrame(0.04f);
+	_reborn.setIsLoop(true);
+	_reborn.setIndexStart(1);
+	_reborn.setTypeFixPos(eTypeFixPos::C_BT);
+	_reborn.setScale(2.0f, 2.0f);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_01);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_02);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_03);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_04);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_05);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_06);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_07);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_08);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_09);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_10);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_11);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_12);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_13);
+	_reborn.addSprite(eIdSprite::ALADDIN_REBORN_14);
+	_listAnimation[eIdAnimation::ALADDIN_REBORN] = _reborn;
+
 	Animation _idle02;
 	_idle02.setTimePerFrame(0.08f);
 	_idle02.setIsLoop(true);
@@ -823,14 +845,19 @@ void AnimationManager::load() {
 	Animation _nahbiAttack;
 	_nahbiAttack.setTimePerFrame(0.08f);
 	_nahbiAttack.setIsLoop(true);
+	_nahbiAttack.setIndexStart(6);
 	_nahbiAttack.setTypeFixPos(eTypeFixPos::L_BT);
 	_nahbiAttack.setScale(2.0f, 2.0f);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_01_);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_02_);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_03_);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_04_);
+	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_05_);
 	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_01);
 	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_02);
 	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_03);
 	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_04);
 	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_05);
-	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_06);
 
 	_listAnimation[eIdAnimation::NAHBI_ATTACK] = _nahbiAttack;
 

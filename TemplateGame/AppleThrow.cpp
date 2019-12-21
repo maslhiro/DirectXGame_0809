@@ -108,11 +108,13 @@ void AppleThrow::update(float dt)
 			{
 				pBat bat = dynamic_cast<pBat>(_listGameObj[i]);
 				bat->setIsAnimated(true);
+				Sound::getInstance()->playNew(eIdSound::S_ENERMY_EXPLODE);
 				bat->setState(eIdState::EXPLODE);
 			}
 			else if (id == eIdObject::SKELETON)
 			{
 				pSkeleton ke = dynamic_cast<pSkeleton>(_listGameObj[i]);
+				Sound::getInstance()->playNew(eIdSound::S_ENERMY_EXPLODE);
 				ke->setIsAnimated(true);
 				ke->setState(eIdState::EXPLODE);
 			}

@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "DeviceManager.h"
 #include "AnimationManager.h"
+#include "Sound.h"
 
 class GameObject
 {
@@ -41,6 +42,7 @@ protected:
 
 	pDeviceManager _device;
 	pTexture _texture;
+	pSound _sound;
 
 public:
 
@@ -77,6 +79,8 @@ public:
 
 	void setIsFlip(bool);
 	void setIsAnimated(bool);
+	bool getIsAnimated();
+
 	void setIsTerminated(bool);
 
 	bool getIsTerminated();

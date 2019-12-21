@@ -73,12 +73,15 @@ void Skeleton::update(float dt)
 	{
 		if (_curAnimation.getLoopCount() > 0)
 		{
+			Sound::getInstance()->play(eIdSound::S_SKELETON_EXPLODE);
+
 			this->setState(99);
 			int i = -10;
 
 			srand(time(NULL));
 			while (i < 11)
 			{
+				//Sound::getInstance()->playNew(eIdSound::S_BONE_TINKLE);
 				pBone bone = new Bone();
 				bone->setPositionWorld(_posWorld + Vec3(5 * i, 5 * i, 0));
 				bone->setListObj(_listObj);

@@ -42,6 +42,7 @@ void Fazal::getDamaged(int val)
 	_numBlood -= val;
 	if (_state != eIdState::DAMAGE && _numBlood > 0)
 	{
+		Sound::getInstance()->playNew(eIdSound::S_ENERMY_EXPLODE);
 		this->fixPosAnimation(eIdState::DAMAGE);
 		this->setState(eIdState::DAMAGE);
 	}
@@ -83,7 +84,7 @@ void Fazal::update(float dt)
 	if (_state == eIdState::STAND)
 	{
 		if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE &&
-			_state != eIdState::ATTACK && 
+			_state != eIdState::ATTACK &&
 			abs(_posWorld.y - posPlayer.y) <= ATTACK_DISTANCE)
 		{
 			this->fixPosAnimation(eIdState::ATTACK);

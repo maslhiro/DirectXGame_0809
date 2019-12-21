@@ -38,6 +38,7 @@ GameObject::GameObject()
 {
 	this->_device = DeviceManager::getInstance();
 	this->_texture = Texture::getInstance();
+	this->_sound = Sound::getInstance();
 
 	_isStaticObj = false;
 	_boundingWorld = RECT();
@@ -59,6 +60,7 @@ GameObject::GameObject(int id)
 {
 	this->_device = DeviceManager::getInstance();
 	this->_texture = Texture::getInstance();
+	this->_sound = Sound::getInstance();
 
 	_isStaticObj = false;
 	_boundingWorld = RECT();
@@ -481,6 +483,11 @@ void GameObject::setIsFlip(bool isFlip)
 void GameObject::setIsAnimated(bool isAni)
 {
 	this->_isAnimated = isAni;
+}
+
+bool GameObject::getIsAnimated()
+{
+	return _isAnimated;
 }
 
 void GameObject::setIsTerminated(bool val)

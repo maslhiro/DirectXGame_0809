@@ -58,7 +58,7 @@
 #define KEY_F 0x46
 
 // Chuyen tu stand => wait
-#define WAIT_TIME_ALADDIN 500.f
+#define WAIT_TIME_ALADDIN 5.f
 
 #define FLASH_TIME_ALADDIN 0.8f
 

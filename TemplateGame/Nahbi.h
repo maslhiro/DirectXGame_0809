@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Sound.h"
 
 class Nahbi :
 	public GameObject

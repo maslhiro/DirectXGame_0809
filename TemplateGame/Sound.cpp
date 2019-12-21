@@ -23,17 +23,85 @@ void Sound::loadSound(HWND hWnd)
 	CSound* sound = nullptr;
 
 	////Boss
+	sound = nullptr;
 	sound = LoadSound("Resource//Sound//Boss_Tune.wav");
 	_listSound[eIdSound::S_JAFAR_PLACE] = sound;
 
+	sound = nullptr;
 	sound = LoadSound("Resource//Sound//A_Whole_New_World.wav");
 	_listSound[eIdSound::S_MENU] = sound;
 
+	sound = nullptr;
 	sound = LoadSound("Resource//Sound//Menu_Select.wav");
 	_listSound[eIdSound::S_MENU_SELECT] = sound;
 
+	sound = nullptr;
 	sound = LoadSound("Resource//Sound//Arabian_Nights.wav");
 	_listSound[eIdSound::S_SUTAN_DUNGEON] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Apple_Collect.wav");
+	_listSound[eIdSound::S_APPLE_COLLECTION] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Coin_Collect.wav");
+	_listSound[eIdSound::S_COIN_COLLECTION] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Extra_Health.wav");
+	_listSound[eIdSound::S_EXTRA_HEALTH] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Genie_Head.wav");
+	_listSound[eIdSound::S_GENIE_HEAD] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Save_Point.wav");
+	_listSound[eIdSound::S_SAVE_POINT] = sound;
+
+	//sound = nullptr;
+	//sound = LoadSound("Resource//Sound//Rock.wav");
+	//_listSound[eIdSound::S_ROCK] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Enermy_Explode.wav");
+	_listSound[eIdSound::S_ENERMY_EXPLODE] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Skeleton.wav");
+	_listSound[eIdSound::S_SKELETON_EXPLODE] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Aladdin_Hurt.wav");
+	_listSound[eIdSound::S_ALADDIN_HURT] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Attack.wav");
+	_listSound[eIdSound::S_ALADDIN_ATTACK] = sound;
+
+	//sound = nullptr;
+	//sound = LoadSound("Resource//Sound//Aladdin_Push.wav");
+	//_listSound[eIdSound::S_ALADDIN_PUSH] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Apple_Throw.wav");
+	_listSound[eIdSound::S_APPLE_THROW] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Nahbi_Wait.wav");
+	_listSound[eIdSound::S_NAHBI_WAIT] = sound;
+
+	//sound = nullptr;
+	//sound = LoadSound("Resource//Sound//Cast_Register.wav");
+	//_listSound[eIdSound::S_CASH_REGISTER] = sound;
+
+	//sound = nullptr;
+	//sound = LoadSound("Resource//Sound//Bones_Tinkle.wav");
+	//_listSound[eIdSound::S_BONE_TINKLE] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Jafar_Snake.wav");
+	_listSound[eIdSound::S_JAFAR_SNAKE] = sound;
 }
 
 bool Sound::isPlaying(int soundid)
@@ -109,5 +177,5 @@ void Sound::stopAll()
 Sound::Sound()
 {
 	_mute = false;
-	_volume = 5;
+	_volume = 2;
 }
