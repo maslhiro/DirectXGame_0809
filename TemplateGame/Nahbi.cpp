@@ -11,7 +11,7 @@ Nahbi::Nahbi() : GameObject()
 	_waitTime = 0.f;
 
 	_isFlip = false;
-	_speed = 35.f;
+	_speed = 50.f;
 
 	_isMovedLeft = _isMovedRight = false;
 	_distanceMove = 0.f;
@@ -117,9 +117,8 @@ void Nahbi::update(float dt)
 			//_RPT1(0, "[NAHBI] %f \n", (abs(_posWorld.x - _posX)));
 			// Kiem tra khaong cach hien tai
 			if ((abs(_posWorld.x - posPlayer.x) <= MOVE_DISTANCE) &&
-				(abs(_posWorld.y - posPlayer.y) <= 10) &&
-				(abs(_posWorld.x - posPlayer.x) >= ATTACK_DISTANCE))
-			{
+				(abs(_posWorld.x - posPlayer.x) >= ATTACK_DISTANCE) &&
+				(abs(_posWorld.y - posPlayer.y) <= 10)) {
 
 				if (posPlayer.x < _posWorld.x && !_isMovedLeft)
 				{
@@ -134,7 +133,7 @@ void Nahbi::update(float dt)
 					this->setDx(_speed);
 				}
 			}
-			else if (abs(_posWorld.x - posPlayer.x) < ATTACK_DISTANCE && abs(_posWorld.y - posPlayer.y) < 10)
+			else if (abs(_posWorld.x - posPlayer.x) < ATTACK_DISTANCE && abs(_posWorld.y - posPlayer.y) <= 10)
 			{
 				this->fixPosAnimation(eIdState::ATTACK);
 				this->setState(eIdState::ATTACK);
@@ -147,22 +146,25 @@ void Nahbi::update(float dt)
 				_waitTime = 0.f;
 
 				this->fixPosAnimation(eIdState::STAND);
-
 				// set lai de _curAnimation dc reset
 				this->setState(eIdState::STAND);
 			}
 			goto updateAni;
 		}
-		else if (_state == eIdState::RUN)
+
+		if (_state == eIdState::RUN)
 		{
 			_posWorld += Vec3(_dx*dt, 0, 0);
 			_distanceMove += abs(_dx*dt);
 
+			// TH nahbi dang di den thi aladdin chay qua
+			// => thi nahbi se dung lai va quay ve phia do
 			if (posPlayer.x < _posWorld.x)
 			{
 				if (!_isFlip)
 				{
 					_isFlip = true;
+					this->fixPosAnimation(eIdState::STAND);
 					this->setState(eIdState::STAND);
 				}
 			}
@@ -170,13 +172,15 @@ void Nahbi::update(float dt)
 				if (_isFlip)
 				{
 					_isFlip = false;
+					this->fixPosAnimation(eIdState::STAND);
 					this->setState(eIdState::STAND);
 				}
 			}
 
-			if (_distanceMove >= MOVE_DISTANCE * 2. / 3.)
+			if (_distanceMove > MOVE_DISTANCE - ATTACK_DISTANCE)
 			{
 				_distanceMove = 0.f;
+				this->fixPosAnimation(eIdState::STAND);
 				this->setState(eIdState::STAND);
 			}
 			goto updateAni;

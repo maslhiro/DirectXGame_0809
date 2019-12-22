@@ -804,6 +804,24 @@ void AnimationManager::load() {
 
 	_listAnimation[eIdAnimation::ALADDIN_MASSAGE] = _massage;
 
+	Animation _dance;
+	_dance.setTimePerFrame(0.08f);
+	_dance.setIsLoop(true);
+	_dance.setTypeFixPos(eTypeFixPos::L_BT);
+	_dance.setScale(2.0f, 2.0f);
+	_dance.addSprite(eIdSprite::ALADDIN_DANCE_01);
+	_dance.addSprite(eIdSprite::ALADDIN_DANCE_02);
+	_dance.addSprite(eIdSprite::ALADDIN_DANCE_03);
+	_dance.addSprite(eIdSprite::ALADDIN_DANCE_04);
+	_dance.addSprite(eIdSprite::ALADDIN_DANCE_05);
+	_dance.addSprite(eIdSprite::ALADDIN_DANCE_06);
+	_dance.addSprite(eIdSprite::ALADDIN_DANCE_07);
+	_dance.addSprite(eIdSprite::ALADDIN_DANCE_08);
+	_dance.addSprite(eIdSprite::ALADDIN_DANCE_09);
+	_dance.addSprite(eIdSprite::ALADDIN_DANCE_10);
+
+	_listAnimation[eIdAnimation::ALADDIN_DANCE] = _dance;
+
 	Animation _abu;
 	_abu.setTimePerFrame(0.08f);
 	_abu.setIsLoop(true);
@@ -817,6 +835,22 @@ void AnimationManager::load() {
 	_abu.addSprite(eIdSprite::ABU_MASSAGE_06);
 
 	_listAnimation[eIdAnimation::ABU_MASSAGE] = _abu;
+
+	Animation _abuRun;
+	_abuRun.setTimePerFrame(0.08f);
+	_abuRun.setIsLoop(true);
+	_abuRun.setTypeFixPos(eTypeFixPos::C_BT);
+	_abuRun.setScale(2.0f, 2.0f);
+	_abuRun.addSprite(eIdSprite::ABU_RUN_01);
+	_abuRun.addSprite(eIdSprite::ABU_RUN_02);
+	_abuRun.addSprite(eIdSprite::ABU_RUN_03);
+	_abuRun.addSprite(eIdSprite::ABU_RUN_04);
+	_abuRun.addSprite(eIdSprite::ABU_RUN_05);
+	_abuRun.addSprite(eIdSprite::ABU_RUN_06);
+	_abuRun.addSprite(eIdSprite::ABU_RUN_07);
+	_abuRun.addSprite(eIdSprite::ABU_RUN_08);
+
+	_listAnimation[eIdAnimation::ABU_RUN] = _abuRun;
 #pragma endregion
 
 #pragma region NAHBI
@@ -843,9 +877,9 @@ void AnimationManager::load() {
 	_listAnimation[eIdAnimation::NAHBI_WAIT] = _nahbiWait;
 
 	Animation _nahbiAttack;
-	_nahbiAttack.setTimePerFrame(0.08f);
+	_nahbiAttack.setTimePerFrame(0.12f);
 	_nahbiAttack.setIsLoop(true);
-	_nahbiAttack.setIndexStart(6);
+	//_nahbiAttack.setIndexStart(6);
 	_nahbiAttack.setTypeFixPos(eTypeFixPos::L_BT);
 	_nahbiAttack.setScale(2.0f, 2.0f);
 	_nahbiAttack.addSprite(eIdSprite::NAHBI_ATTACK_01_);

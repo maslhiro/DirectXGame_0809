@@ -35,6 +35,8 @@ public:
 
 	void getDamaged(int);
 
+	int getNumBlood();
+
 	int getState();
 
 	void render();

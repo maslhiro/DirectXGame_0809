@@ -27,6 +27,7 @@ enum eIdSound {
 	S_CASH_REGISTER,
 	S_BONE_TINKLE,
 	S_JAFAR_SNAKE,
+	S_LEVEL_COMPLETE,
 };
 
 class Sound

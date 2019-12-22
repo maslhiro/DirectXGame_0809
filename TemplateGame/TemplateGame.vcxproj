@@ -136,6 +136,7 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="CoinHud.cpp" />
     <ClCompile Include="Column.cpp" />
+    <ClCompile Include="CompleteScene.cpp" />
     <ClCompile Include="DrawDebug.cpp" />
     <ClCompile Include="dxaudio.cpp" />
     <ClCompile Include="DyingScene.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="CoinHud.h" />
     <ClInclude Include="Column.h" />
+    <ClInclude Include="CompleteScene.h" />
     <ClInclude Include="DrawDebug.h" />
     <ClInclude Include="dxaudio.h" />
     <ClInclude Include="DyingScene.h" />

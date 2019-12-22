@@ -4,9 +4,6 @@ int Game::isExit = 0;
 
 pGraphic Game::_hWindow = NULL;
 
-Animation _test;
-Animation _test01;
-
 pGraphic Game::getWindow()
 {
 	return _hWindow;
@@ -75,32 +72,23 @@ void Game::loadResource()
 	//_boss->loadResource();
 	_sceneManager->add(eIdScene::SE_JAFAR, _boss);
 
-	pScene _dying = new DyingScene();
-	//_dying->init();
-	//_dying->loadResource();
-	_sceneManager->add(eIdScene::SE_DYING, _dying);
-
 	pScene _menu = new MenuScene();
 	//_menu->init();
 	//_menu->loadResource();
 	_sceneManager->add(eIdScene::SE_MENU, _menu);
 
+	pScene _dying = new DyingScene();
+	//_dying->init();
+	//_dying->loadResource();
+	_sceneManager->add(eIdScene::SE_DYING, _dying);
+
+	pScene _complete = new CompleteScene();
+	//_complete->init();
+	//_complete->loadResource();
+	_sceneManager->add(eIdScene::SE_COMPLETE, _complete);
+
+	//_sceneManager->navigateScene(eIdScene::SE_MENU);
 	_sceneManager->navigateScene(eIdScene::SE_MENU);
-
-	//_test = _animationManager->get(eIdAnimation::PEDDLER_SELL);
-	//_test.setPosition(Vec3(300, 300, 0));
-	//_test.setIsLoop(true);
-	//_test.setScale(Vec2(2, 2));
-	//_test.setDrawingBound(true);
-
-	//RECT bb = _test.getBounding();
-	//_RPT1(0, "[INFO] %d %d %d %d \n", bb.left, bb.top, bb.right, bb.bottom);
-
-	//_test = _animationManager->get(eIdAnimation::SKELETON_VISIBLE);
-	//_test.setPosition(Vec3(300, 300, 1));
-	//_test.setScale(Vec2(2, 2));
-	//_test.setDrawingBound(true);
-
 
 	_RPT0(0, "[INFO] Load Resource DONE ;\n");
 
@@ -200,10 +188,6 @@ int Game::render()
 
 		_deviceManager->getSpriteHandler()->Begin(D3DXSPRITE_ALPHABLEND);
 
-		//_test01.render(_deviceManager, _texture);
-
-		//_test.render(_deviceManager, _texture);
-
 		_sceneManager->getCurrentScene()->render();
 
 		_deviceManager->getSpriteHandler()->End();
@@ -218,7 +202,7 @@ int Game::render()
 
 int Game::update(float dt)
 {
-	//_test.update(dt);
+
 	_sceneManager->getCurrentScene()->handlerInput(dt);
 
 	_sceneManager->getCurrentScene()->update(dt);

@@ -75,7 +75,7 @@
 
 // Khoang cach de enermy di chuyen den khi aladdin den gan
 // Doi voi cac enermy di chuyen dc
-#define ATTACK_DISTANCE 150
+#define ATTACK_DISTANCE 200
 #define MOVE_DISTANCE 250
 
 #define BLOOD_ALADDIN 80

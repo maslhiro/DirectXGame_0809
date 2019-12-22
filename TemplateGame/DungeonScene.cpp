@@ -88,7 +88,7 @@ void DungeonScene::loadResource()
 	_hudScore->loadResource();
 
 	_sound->stopAll();
-	_sound->playLoop(eIdSound::S_SUTAN_DUNGEON);
+	//_sound->playLoop(eIdSound::S_SUTAN_DUNGEON);
 }
 
 void DungeonScene::update(float dt)
@@ -108,7 +108,14 @@ void DungeonScene::update(float dt)
 		}
 	}
 
+	Vec3 _posPlayer = _player->getPosWorld();
 
+	if (_posPlayer.x >= 4496 &&
+		_posPlayer.y <= 450)
+	{
+		_sceneManager->navigateScene(eIdScene::SE_COMPLETE);
+		return;
+	}
 	_player->update(dt);
 
 	_cam->update(dt);

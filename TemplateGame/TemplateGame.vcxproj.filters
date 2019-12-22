@@ -258,6 +258,9 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\BaseClass</Filter>
     </ClCompile>
+    <ClCompile Include="CompleteScene.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -439,6 +442,9 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Header Files\BaseClass</Filter>
+    </ClInclude>
+    <ClInclude Include="CompleteScene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

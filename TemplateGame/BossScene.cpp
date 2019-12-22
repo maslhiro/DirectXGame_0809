@@ -153,6 +153,12 @@ void BossScene::update(float dt)
 				listObj[i]->setIsTerminated(true);
 			}
 		}
+
+		if (_boss->getNumBlood() <= 0)
+		{
+			_sceneManager->navigateScene(eIdScene::SE_COMPLETE);
+			return;
+		}
 	}
 
 	_player->update(dt);

@@ -57,6 +57,11 @@ void Jafar::getDamaged(int val)
 	}
 }
 
+int Jafar::getNumBlood()
+{
+	return _numBlood;
+}
+
 void Jafar::render()
 {
 	if (_isTerminated) return;

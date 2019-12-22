@@ -16,6 +16,7 @@
 #include "DyingScene.h"
 #include "BossScene.h"
 #include "MenuScene.h"
+#include "CompleteScene.h"
 
 class Game {
 private:

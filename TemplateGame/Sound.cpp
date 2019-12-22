@@ -91,13 +91,13 @@ void Sound::loadSound(HWND hWnd)
 	sound = LoadSound("Resource//Sound//Nahbi_Wait.wav");
 	_listSound[eIdSound::S_NAHBI_WAIT] = sound;
 
-	//sound = nullptr;
-	//sound = LoadSound("Resource//Sound//Cast_Register.wav");
-	//_listSound[eIdSound::S_CASH_REGISTER] = sound;
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Cash_Register.wav");
+	_listSound[eIdSound::S_CASH_REGISTER] = sound;
 
-	//sound = nullptr;
-	//sound = LoadSound("Resource//Sound//Bones_Tinkle.wav");
-	//_listSound[eIdSound::S_BONE_TINKLE] = sound;
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Bones_Tinkle.wav");
+	_listSound[eIdSound::S_BONE_TINKLE] = sound;
 
 	sound = nullptr;
 	sound = LoadSound("Resource//Sound//Boxing_Bell.wav");
@@ -106,6 +106,10 @@ void Sound::loadSound(HWND hWnd)
 	sound = nullptr;
 	sound = LoadSound("Resource//Sound//Jafar_Snake.wav");
 	_listSound[eIdSound::S_JAFAR_SNAKE] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Level_Complete.wav");
+	_listSound[eIdSound::S_LEVEL_COMPLETE] = sound;
 }
 
 bool Sound::isPlaying(int soundid)

@@ -59,7 +59,7 @@ void Skeleton::update(float dt)
 {
 	if (_isTerminated) return;
 
-	if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE && abs(_posWorld.y - posPlayer.y) <= ATTACK_DISTANCE)
+	if (abs(_posWorld.x - posPlayer.x) <= ATTACK_DISTANCE && abs(_posWorld.y - posPlayer.y) <= ATTACK_DISTANCE / 2)
 	{
 		_isFlip = _posWorld.x > posPlayer.x ? false : true;
 		_isAnimated = true;
