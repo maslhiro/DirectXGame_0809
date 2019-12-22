@@ -81,7 +81,7 @@ void Skeleton::update(float dt)
 			srand(time(NULL));
 			while (i < 11)
 			{
-				//Sound::getInstance()->playNew(eIdSound::S_BONE_TINKLE);
+				Sound::getInstance()->playNew(eIdSound::S_BONE_TINKLE);
 				pBone bone = new Bone();
 				bone->setPositionWorld(_posWorld + Vec3(5 * i, 5 * i, 0));
 				bone->setListObj(_listObj);
