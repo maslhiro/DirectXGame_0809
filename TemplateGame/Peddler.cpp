@@ -62,6 +62,7 @@ void Peddler::loadResource()
 
 void Peddler::buySuccess()
 {
+	Sound::getInstance()->playNew(eIdSound::S_CASH_REGISTER);
 	_curChar.clear();
 
 	_curChar.push_back(_listChar["i" - "0"]);
@@ -80,6 +81,7 @@ void Peddler::buySuccess()
 
 void Peddler::buyFail()
 {
+	Sound::getInstance()->playNew(eIdSound::S_CASH_REGISTER);
 	_curChar.clear();
 
 	_curChar.push_back(_listChar["f" - "0"]);
@@ -150,6 +152,11 @@ void Peddler::update(float dt)
 	}
 	else if (_state == eIdState::PREPARE)
 	{
+		if (_curAnimation.getCurrentFrame() == 12)
+		{
+			Sound::getInstance()->play(eIdSound::S_PEDDLER_SHOP);
+		}
+
 		if (_curAnimation.getLoopCount() > 0)
 		{
 			this->fixPosBottom(eIdState::SELL);

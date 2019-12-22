@@ -110,6 +110,10 @@ void Sound::loadSound(HWND hWnd)
 	sound = nullptr;
 	sound = LoadSound("Resource//Sound//Level_Complete.wav");
 	_listSound[eIdSound::S_LEVEL_COMPLETE] = sound;
+
+	sound = nullptr;
+	sound = LoadSound("Resource//Sound//Peddler_Shop.wav");
+	_listSound[eIdSound::S_PEDDLER_SHOP] = sound;
 }
 
 bool Sound::isPlaying(int soundid)

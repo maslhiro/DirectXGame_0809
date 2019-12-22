@@ -28,6 +28,7 @@ enum eIdSound {
 	S_BONE_TINKLE,
 	S_JAFAR_SNAKE,
 	S_LEVEL_COMPLETE,
+	S_PEDDLER_SHOP
 };
 
 class Sound
