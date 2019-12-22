@@ -379,15 +379,56 @@ void AnimationManager::load() {
 	_bat.addSprite(eIdSprite::BAT_02);
 	_bat.addSprite(eIdSprite::BAT_03);
 	_bat.addSprite(eIdSprite::BAT_04);
-	_bat.addSprite(eIdSprite::BAT_05);
-	_bat.addSprite(eIdSprite::BAT_06);
-	_bat.addSprite(eIdSprite::BAT_07);
-	_bat.addSprite(eIdSprite::BAT_08);
-	_bat.addSprite(eIdSprite::BAT_09);
-	_bat.addSprite(eIdSprite::BAT_10);
-	_bat.addSprite(eIdSprite::BAT_11);
+	_bat.addSprite(eIdSprite::BAT_FLY_01);
+	_bat.addSprite(eIdSprite::BAT_FLY_02);
+	_bat.addSprite(eIdSprite::BAT_FLY_03);
+	_bat.addSprite(eIdSprite::BAT_FLY_04);
+	_bat.addSprite(eIdSprite::BAT_FLY_05);
+	_bat.addSprite(eIdSprite::BAT_FLY_06);
+	_bat.addSprite(eIdSprite::BAT_FLY_07);
 
 	_listAnimation[eIdAnimation::BAT_VISIBLE] = _bat;
+
+	Animation _batFly;
+	_batFly.setTimePerFrame(0.12f);
+	_batFly.setIsLoop(true);
+	_batFly.setTypeFixPos(eTypeFixPos::C_C);
+	_batFly.setScale(2.0f, 2.0f);
+	_batFly.addSprite(eIdSprite::BAT_FLY_01);
+	_batFly.addSprite(eIdSprite::BAT_FLY_02);
+	_batFly.addSprite(eIdSprite::BAT_FLY_03);
+	_batFly.addSprite(eIdSprite::BAT_FLY_04);
+	_batFly.addSprite(eIdSprite::BAT_FLY_05);
+	_batFly.addSprite(eIdSprite::BAT_FLY_06);
+	_batFly.addSprite(eIdSprite::BAT_FLY_07);
+
+	_listAnimation[eIdAnimation::BAT_FLY] = _batFly;
+
+	Animation _batRotate;
+	_batRotate.setTimePerFrame(0.012f);
+	_batRotate.setIsLoop(true);
+	_batRotate.setTypeFixPos(eTypeFixPos::C_C);
+	_batRotate.setScale(2.0f, 2.0f);
+	_batRotate.setIndexStart(4);
+	_batRotate.addSprite(eIdSprite::BAT_ROTATE_01);
+	_batRotate.addSprite(eIdSprite::BAT_ROTATE_02);
+	_batRotate.addSprite(eIdSprite::BAT_ROTATE_03);
+	//_batRotate.addSprite(eIdSprite::BAT_ROTATE_04);
+	//_batRotate.addSprite(eIdSprite::BAT_ROTATE_05);
+	//_batRotate.addSprite(eIdSprite::BAT_ROTATE_06);
+	//_batRotate.addSprite(eIdSprite::BAT_ROTATE_07);
+	//_batRotate.addSprite(eIdSprite::BAT_ROTATE_08);
+	//_batRotate.addSprite(eIdSprite::BAT_ROTATE_09);
+	_batRotate.addSprite(eIdSprite::BAT_FLY_01);
+	_batRotate.addSprite(eIdSprite::BAT_FLY_02);
+	_batRotate.addSprite(eIdSprite::BAT_FLY_03);
+	_batRotate.addSprite(eIdSprite::BAT_FLY_04);
+	_batRotate.addSprite(eIdSprite::BAT_FLY_05);
+	_batRotate.addSprite(eIdSprite::BAT_FLY_06);
+	_batRotate.addSprite(eIdSprite::BAT_FLY_07);
+
+
+	_listAnimation[eIdAnimation::BAT_ROTATE] = _batRotate;
 #pragma endregion
 
 #pragma region Aladin

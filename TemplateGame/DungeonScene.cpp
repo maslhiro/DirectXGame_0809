@@ -88,7 +88,7 @@ void DungeonScene::loadResource()
 	_hudScore->loadResource();
 
 	_sound->stopAll();
-	//_sound->playLoop(eIdSound::S_SUTAN_DUNGEON);
+	_sound->playLoop(eIdSound::S_SUTAN_DUNGEON);
 }
 
 void DungeonScene::update(float dt)

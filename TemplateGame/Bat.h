@@ -6,9 +6,11 @@ class Bat :
 {
 private:
 	Vec3 posPlayer;
-	float _backwardTime;
+	float _flyTime;
 
-	int _isFly;
+	Vec3 _finalPos;
+	Vec3 _initPos;
+	bool _isFly;
 
 public:
 	Bat();

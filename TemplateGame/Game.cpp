@@ -87,7 +87,6 @@ void Game::loadResource()
 	//_complete->loadResource();
 	_sceneManager->add(eIdScene::SE_COMPLETE, _complete);
 
-	//_sceneManager->navigateScene(eIdScene::SE_MENU);
 	_sceneManager->navigateScene(eIdScene::SE_MENU);
 
 	_RPT0(0, "[INFO] Load Resource DONE ;\n");
