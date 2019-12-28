@@ -5,15 +5,11 @@ class JafarStar :
 	public GameObject
 {
 private:
-	float _distance;
-	float _moveTime;
-	float _explodeTime;
-	bool _isUp;
+	float _flyTime;
 
-	int t;
+	bool _isFlyed;
 
-	// Vector chi phuong
-	Vec3 _vector;
+	Vec3 _finalPos;
 	Vec3 _initPos;
 	Vec3 _posPlayer;
 

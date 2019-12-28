@@ -5,14 +5,15 @@ JafarStar::JafarStar() : GameObject()
 	_idType = eIdObject::JAFAR_STAR;
 	_isTerminated = false;
 	_isAnimated = true;
-	_isUp = false;
+	_isFlyed = false;
 
-	t = 0;
 	_scale = Vec2(2.f, 2.f);
 
-	_explodeTime = 0.f;
+	_flyTime = 0.f;
+
+	_finalPos = Vec3();
 	_initPos = Vec3();
-	_vector = Vec3();
+	_posPlayer = Vec3();
 }
 
 JafarStar::JafarStar(int id) : GameObject(id)
@@ -22,13 +23,22 @@ JafarStar::JafarStar(int id) : GameObject(id)
 
 void JafarStar::setPosPlayer(Vec3 val)
 {
-	_posPlayer = val;
-	_vector = _initPos - _posPlayer;
+	if (!_isFlyed) {
+		_isFlyed = true;
+		_posPlayer = val + Vec3(0, 50, 0);
 
-	_vector.x *= 2;
+		_initPos = _posWorld;
 
-	_speed = abs(_vector.x);
-	_gravity = abs(_vector.y);
+		if (_posWorld.x > val.x) _finalPos = val + Vec3(-200, -100, 0);
+		else _finalPos = val + Vec3(200, -100, 0);
+
+		/*	_RPT0(0, "===============\n");
+			_RPT1(0, "[JAFAR STAR] POS PLAYER %f %f \n", _posPlayer.x, _posPlayer.y);
+			_RPT1(0, "[JAFAR STAR] POS INIT %f %f \n", _initPos.x, _initPos.y);
+			_RPT1(0, "[JAFAR STAR] POS FINAL %f %f \n", _finalPos.x, _finalPos.y);*/
+
+	}
+
 }
 
 void JafarStar::setInitPos(Vec3 val)
@@ -48,9 +58,9 @@ void JafarStar::loadResource()
 void JafarStar::render()
 {
 	if (_isTerminated) return;
+	/*_RPT0(0, "========RE=======\n");
+	_RPT1(0, "[POS WORLD] %f %f \n", _posWorld.x, _posWorld.y);*/
 
-
-	_curAnimation.setPosition(_posWorld);
 	_curAnimation.setScale(_scale);
 
 	_curAnimation.render(_device, _texture);
@@ -59,7 +69,6 @@ void JafarStar::render()
 void JafarStar::setExplode()
 {
 	this->setState(eIdState::EXPLODE);
-	_initPos = _posWorld;
 }
 
 void JafarStar::update(float dt)
@@ -73,31 +82,27 @@ void JafarStar::update(float dt)
 			_isTerminated = true;
 		}
 	}
-	else
+	else if (_isFlyed)
 	{
-		if (!_isUp)
+		//_posWorld.x += -100.f*dt;
+		if (_flyTime > 1.)
 		{
-			_moveTime += dt;
-			_posWorld.x = _initPos.x - _vector.x * _moveTime;
-			_posWorld.y = _initPos.y - _vector.y * _moveTime;
+			_isFlyed = false;
+			_flyTime = 0.f;
+			goto updateAnimation;
+		}
 
-			if (_posWorld.x < 0 || _posWorld.x > 1500 || _posWorld.y > 800 || _posWorld.y < 400)
-			{
-				_isTerminated = true;
-				/*	_isUp = true;
-					_dx = _speed * (_posWorld.x < 200 ? 1.5 : -1.5);
-					_dy = -_gravity / 2;*/
-			}
-		}
-		else
-		{
-			_posWorld.x += _dx * dt;
-			_posWorld.y += _dy * dt;
-		}
+		_flyTime += dt;
+
+		float t = _flyTime;
+
+		_posWorld = pow((1 - t), 2)*_initPos + 2 * t*(1 - t)*_posPlayer + pow(t, 2)*_finalPos;
+
 	}
 
-
-	_curAnimation.setIsAnimated(_isAnimated);
+updateAnimation:
+	_curAnimation.setPosition(_posWorld);
+	_curAnimation.setIsAnimated(true);
 	_curAnimation.setIsFlip(_isFlip);
 	_curAnimation.update(dt);
 

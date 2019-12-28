@@ -32,7 +32,7 @@ void Bat::loadResource()
 void Bat::setPosPlayer(Vec3 val)
 {
 	if (!_isFly) {
-		posPlayer = val + Vec3(0, 100, 0);
+		posPlayer = val + Vec3(0, 140, 0);
 
 		_initPos = _posWorld;
 
@@ -90,7 +90,7 @@ void Bat::update(float dt)
 	else if (_isFly)
 	{
 		// Dung lai de xoay
-		if (_flyTime > 1)
+		if (_flyTime > 2.)
 		{
 			_flyTime = 0;
 			_isFly = false;
@@ -104,7 +104,10 @@ void Bat::update(float dt)
 		}
 
 		_flyTime += dt;
-		_posWorld = pow((1 - _flyTime), 2)*_initPos + 2 * _flyTime*(1 - _flyTime)*posPlayer + pow(_flyTime, 2)*_finalPos;
+
+		float t = _flyTime / 2.;
+
+		_posWorld = pow((1 - t), 2)*_initPos + 2 * t*(1 - t)*posPlayer + pow(t, 2)*_finalPos;
 
 	}
 

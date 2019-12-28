@@ -88,7 +88,7 @@ void BossScene::loadResource()
 	_boss = _grid->getBossPointer();
 
 	_sound->stopAll();
-	_sound->playLoop(eIdSound::S_JAFAR_PLACE);
+	//_sound->playLoop(eIdSound::S_JAFAR_PLACE);
 
 }
 

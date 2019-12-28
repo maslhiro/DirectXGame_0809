@@ -218,7 +218,7 @@ float GameObject::checkCollision_SweptAABB_(RECT _rectOther, float dy, float dt,
 
 	RECT _rectObj = getBoundingBox();
 
-	if ((_state&eIdState::JUMP) == eIdState::JUMP && (_state&eIdState::ATTACK) == eIdState::ATTACK)
+	if ((_state &eIdState::JUMP) == eIdState::JUMP && (_state&eIdState::ATTACK) == eIdState::ATTACK)
 	{
 		float fixBottom = this->fixPosHeight(eIdState::JUMP);
 		float fixLeft = this->fixPosWidth(eIdState::JUMP);

@@ -246,7 +246,6 @@ void Aladdin::update(float dt)
 	// Get list obj nam trong view port
 	auto listObj = _grid->getListGameObjContain(_viewPort);
 
-
 	if (_indexApple != 0)
 	{
 		for (int i = 0; i < _listApple.size(); i++)
@@ -741,7 +740,11 @@ void Aladdin::update(float dt)
 			if (check && !obj->getIsAnimated()) {
 				_sound->play(eIdSound::S_SAVE_POINT);
 
-				this->setSave(_posWorld);
+				Vec3 posSave = obj->getPosWorld();
+
+				posSave.y -= 17;
+
+				this->setSave(posSave);
 
 				obj->setIsAnimated(true);
 			}
@@ -790,8 +793,7 @@ void Aladdin::update(float dt)
 					_isAttack = false;
 					na->getDamaged(ATTACK_DAMAGE_ALADDIN);
 				}
-				else if (!_isFlash && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE) && obj->getState() == eIdState::ATTACK
-					&& obj->getCurrentFrame() > 3 && obj->getCurrentFrame() < 7)
+				else if (!_isFlash && ((_state & eIdState::DAMAGE) != eIdState::DAMAGE) && obj->getState() == eIdState::ATTACK)
 				{
 					_RPT0(0, "GET DAM NAHBI\n");
 					_numBlood -= DAMAGE_ENERMY;
@@ -1038,7 +1040,7 @@ void Aladdin::update(float dt)
 				_numBlood -= DAMAGE_ENERMY;
 				_sound->play(eIdSound::S_ALADDIN_HURT);
 
-				if (_state == eIdState::STAND)
+				if ((_state & eIdState::STAND) == eIdState::STAND)
 				{
 
 					this->fixPosAnimation(eIdState::DAMAGE);
@@ -1076,9 +1078,10 @@ void Aladdin::update(float dt)
 
 			int checkStar = ja->checkCollisionStar(_posWorld);
 
+			//_RPT1(0, "[CHECK COLL STAR] %d \n", checkStar);
 			if (checkStar > 0 && !_isFlash && (_state & eIdState::DAMAGE) != eIdState::DAMAGE)
 			{
-				_posWorld.x += 700.f * dt * (_posWorld.x > obj->getPosWorld().x ? -1 : 1);
+				_posWorld.x += 10. * (_posWorld.x > obj->getPosWorld().x ? -1 : 1);
 			}
 
 		}

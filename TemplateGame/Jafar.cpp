@@ -91,7 +91,6 @@ void Jafar::render()
 
 	for (size_t i = 0; i < _listStar.size(); i++)
 	{
-		if (_listStar[i]->getIsTerminated()) continue;
 		_listStar[i]->setScale(_scale);
 		_listStar[i]->render();
 	}
@@ -115,6 +114,28 @@ void Jafar::update(float dt)
 
 	if (_state == eIdState::STAND)
 	{
+		//if (_curAnimation.getCurrentFrame() == 7 && _numThrow < 10)
+		//{
+		//	_throwTime += dt;
+
+
+		//	// ket thuc 1 vong loop thi ban ra lua
+		//	if (_throwTime > 0.027)
+		//	{
+		//		_throwTime = 0.f;
+
+		//		_RPT1(0, "[JAFAR STAR THROW] %d \n", _numThrow);
+		//		_numThrow += 1;
+		//		Vec3 _initPos = _posWorld + Vec3((_isFlip ? -70 : 70), 0, 0);
+		//		pJafarStar _star = new JafarStar();
+		//		_star->loadResource();
+		//		_star->setPositionWorld(_initPos);
+		//		_star->setPosPlayer(posPlayer);
+		//		_listStar.push_back(_star);
+
+		//	}
+		//}
+
 		_waitTime += dt;
 
 		if (_waitTime < 1.f) _wait = true;
@@ -137,8 +158,8 @@ void Jafar::update(float dt)
 				Vec3 _initPos = _posWorld + Vec3((_isFlip ? -70 : 70), (std::rand() % 11) * -5, 0);
 				pJafarStar _star = new JafarStar();
 				_star->loadResource();
-				_star->setInitPos(_initPos);
-				_star->setPosPlayer(posPlayer + Vec3(0, 20, 0));
+				_star->setPositionWorld(_initPos);
+				_star->setPosPlayer(posPlayer);
 				_listStar.push_back(_star);
 			}
 		}
@@ -172,17 +193,19 @@ void Jafar::update(float dt)
 	}
 
 	int checkTer = 0;
+
 	for (size_t i = 0; i < _listStar.size(); i++)
 	{
-		if (_listStar[i]->getIsTerminated())
-		{
+		if (_listStar[i]->getState() == eIdState::EXPLODE) checkTer += 1;
+		else if (_listStar[i]->getIsTerminated()) {
 			checkTer += 1;
-			continue;
+			//continue;
 		}
+		_listStar[i]->setPosPlayer(posPlayer);
 		_listStar[i]->update(dt);
 	}
 
-	if (_listStar.size() - checkTer) _numThrow = 0;
+	_numThrow = _listStar.size() - checkTer;;
 
 	_curAnimation.setIsAnimated(_isAnimated);
 	_curAnimation.setIsFlip(_isFlip);
@@ -205,6 +228,8 @@ void Jafar::handlerInput(float)
 int Jafar::checkCollisionStar(Vec3 pos)
 {
 	int num = 0;
+	//_RPT1(0, "[CHECK SIZE =================] %d \n", _listStar.size());
+
 	for (size_t i = 0; i < _listStar.size(); i++)
 	{
 		if (_listStar[i]->getIsTerminated() || _listStar[i]->getState() == eIdState::EXPLODE) continue;
@@ -212,7 +237,8 @@ int Jafar::checkCollisionStar(Vec3 pos)
 		bool check = _listStar[i]->checkCollisionPlayer(pos);
 
 		if (check) {
-			num += 1;
+			num = num + 1;
+			//_RPT1(0, "[CHECK NUM] %d \n", num);
 			_listStar[i]->setExplode();
 		}
 
