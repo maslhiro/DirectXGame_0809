@@ -1,6 +1,8 @@
 # DirectX Game_0809
 :rainbow: Template DirectX Game 08_09
 
+Để tạo file map game cũng như trích xuất toạ độ của sprite trong 1 ảnh lớn mình có viết 1 tool để xuât ra file txt : https://github.com/maslhiro/Tmx_Converter_Tool/releases/tag/v4.0
+
 ```
 -- Main.cpp 
 
